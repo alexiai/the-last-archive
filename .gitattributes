@@ -1,0 +1,2 @@
+# Generated PDFs are binary assets; textual diffs invalidate their byte offsets.
+*.pdf binary

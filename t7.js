@@ -1,4 +1,5 @@
-const {JSDOM}=require("jsdom"),fs=require("fs"),d="/mnt/user-data/outputs/last-archive/";
+// Original interaction regressions use explicit legacy checkpoint fixtures; expanded new-game gates are tested in tools/test_production.cjs.
+const {JSDOM}=require("jsdom"),fs=require("fs"),d=__dirname+"/";
 const mk=(s)=>new JSDOM(fs.readFileSync(d+"index.html","utf8").replace(/<script src="([^"]+)"><\/script>/g,(m,f)=>"<script>"+fs.readFileSync(d+f,"utf8")+"</script>"),{runScripts:"dangerously",url:"http://localhost/",beforeParse(x){if(s)x.localStorage.setItem("lastarchive.v2",s)}}).window;
 const w=mk();w.errs=[];w.addEventListener("error",e=>w.errs.push(e.message));const ev=s=>w.eval(s),doc=w.document,txt=()=>doc.querySelector("#screen").textContent,t=(n,c)=>{console.log(c?"PASS":"FAIL",n);if(!c)process.exitCode=1};
 const btn=x=>[...doc.querySelectorAll("button")].find(e=>e.textContent.trim().startsWith(x));
@@ -25,7 +26,7 @@ const P=J("STORY.puzzles");let pb=[];for(const p of P){for(const n of p.needs)if
  if(!p.hint)pb.push(p.id+" no hint")}
 t("puzzle data valid, all have hints: "+(pb.join(", ")||"ok"),pb.length==0);
 const C=J("STORY.chapters");t("chapter done-lists reference real ids",C.every(c=>c.done.ev.every(x=>EVI.has(x))&&c.done.puz.every(x=>P.some(p=>p.id==x))));
-t("9 chapters, 17 puzzles",C.length==9&&P.length==17);
+t("9 chapters, original 17 puzzles retained plus 7 examinations",C.length==9&&P.length==24&&Array.from({length:17},(_,i)=>"p"+(i+1)).every(id=>P.some(p=>p.id===id)));
 // ---- features through the UI
 ev("S.unlocked=true;home()");
 ev("take('E9');open_('call');");t("calls are tappable",txt().includes("Oct 16"));
@@ -41,7 +42,7 @@ ev("home()");doc.querySelector("#screen .msg").click();t("objectives screen",txt
 // jump to end game through engine and test case file UI
 const solveAll=n=>{};
 w.eval(`(()=>{for(let c=1;c<=8;c++){STORY.chapters[c-1].done.ev.forEach(x=>E.take(x));STORY.chapters[c-1].done.puz.forEach(x=>{if(!S.solved.includes(x))S.solved.push(x)})}
- ['unlock:vault','unlock:memo','num:019'].forEach(E.flag);Object.keys(STORY.evidence).filter(k=>!['MO1','MF1','AC2','IT1'].includes(k)).forEach(E.take);E.take('AC2');E.take('IT1');home()})()`);
+ S.legacyThrough=8;E.choose('d1',0);['unlock:vault','unlock:memo','num:019'].forEach(E.flag);Object.keys(STORY.evidence).filter(k=>!['MO1','MF1','AC2','IT1'].includes(k)).forEach(E.take);E.take('AC2');E.take('IT1');home()})()`);
 t("chapter 9 reached",ev("E.chapter()")==9);
 // MOTH confrontation
 ev("open_('int')");t("MOTH interview listed",txt().includes("MOTH"));btn("MOTH").click();
@@ -81,7 +82,7 @@ t("malformed case answer does not throw",(()=>{try{return ev("E.solve('p17',null
 // board svg
 ev("open_('ev');A=null;B=null;pickN('E2');pickN('E8')");btn("contradicts").click();btn("Test connection").click();t("board draws the connection you made",doc.querySelectorAll("#screen svg line").length>=1&&doc.querySelectorAll("#screen svg g").length>=2);
 // finale
-ev("E.take('MO1');E.take('MF1');home()");t("ending offered",!!btn("Read the ending"));
-ev("E.choose('d3',1)");btn("Read the ending").click();const ep=txt();t("epilogue has base + decision-dependent lines",ep.includes("Mara was arrested")&&ep.includes("told Elena first")&&!ep.includes("gave the case to the police")&&ep.includes("Elena kept the unopened box"));
+ev("E.take('MO1');E.take('MF1');home()");t("ending waits for outstanding decisions",!btn("Read the ending"));
+ev("E.choose('d3',1);home()");btn("Read the ending").click();const ep=txt();t("epilogue has base + decision-dependent lines",ep.includes("Mara was arrested")&&ep.includes("told Elena first")&&!ep.includes("gave the case to the police")&&ep.includes("Elena kept the unopened box"));
 t("saved state survives reload and ending is still available",(()=>{const w2=mk(w.localStorage.getItem("lastarchive.v2"));return w2.eval("E.complete()&&E.epilogue().length>=7")})());
 console.log("errors:",w.errs.length?w.errs:"none");

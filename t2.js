@@ -1,4 +1,4 @@
-const {JSDOM}=require("jsdom"),fs=require("fs"),d="/mnt/user-data/outputs/last-archive/";
+const {JSDOM}=require("jsdom"),fs=require("fs"),d=__dirname+"/";
 function load(save){const dom=new JSDOM(fs.readFileSync(d+"index.html","utf8").replace(/<script src="([^"]+)"><\/script>/g,(m,f)=>"<script>"+fs.readFileSync(d+f,"utf8")+"</script>"),{runScripts:"dangerously",url:"http://localhost/",beforeParse(w){if(save!==undefined)w.localStorage.setItem("lastarchive.v2",save)}});const w=dom.window;w.errs=[];w.addEventListener("error",e=>w.errs.push(e.message));return w}
 const t=(n,c)=>console.log(c?"PASS":"FAIL",n);
 // save validation

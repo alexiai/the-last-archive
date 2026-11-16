@@ -1,8 +1,8 @@
 // Engine: state, save validation, unlocks, connection validation, puzzle and interview engines. No UI here.
-const KEY="lastarchive.v2";
+const KEY=STORY.saveKey||"lastarchive.v2";
 // Storage that never throws: falls back to memory when localStorage is blocked (private modes) or full.
 const Store=(()=>{const mem={};try{const s=window.localStorage;s.setItem("__t","1");s.removeItem("__t");return{ok:true,get:k=>s.getItem(k),set:(k,v)=>s.setItem(k,v),del:k=>s.removeItem(k)}}catch(e){return{ok:false,get:k=>(k in mem?mem[k]:null),set:(k,v)=>{mem[k]=v},del:k=>{delete mem[k]}}}})();
-const blank=()=>({v:2,ev:[],flags:[],nb:"",unlocked:false,made:[],trust:{},talk:{},solved:[],pres:{},choices:{},hints:0,hintLvl:{},board:{}});
+const blank=()=>({v:2,narrativeEdition:STORY.narrativeEdition,edition:3,legacyThrough:0,drafts:{},scenePage:{},sourceNotes:{},observations:[],obsSerial:0,theories:[],theorySerial:0,fieldwork:FieldLogic.blank(),trail:Trail.blank(),observationMeta:{},personNotes:{},audio:{},events:[],ev:[],flags:[],nb:"",unlocked:false,made:[],trust:{},talk:{},solved:[],pres:{},choices:{},hints:0,hintLvl:{},board:{}});
 const isStr=x=>typeof x==="string",isObj=x=>!!x&&typeof x==="object"&&!Array.isArray(x),uniq=a=>[...new Set(a)];
 const BOARD_W=600,BOARD_H=500;
 const E={
@@ -10,7 +10,8 @@ const E={
  nodeOk:n=>isStr(n)&&(!!STORY.evidence[n]||n.startsWith("person:")&&!!STORY.persons[n.slice(7)]||n.startsWith("place:")&&!!STORY.places[n.slice(6)]||n.startsWith("event:")&&!!STORY.events[n.slice(6)]),
  has:f=>E.S.flags.includes(f),
  // Validate every field and type; keep what is valid, drop the rest, and re-derive flags from authoritative state. Never throws.
- clean(r){const b=blank();try{if(!isObj(r)||r.v!==2)return b;const A=(x,f)=>Array.isArray(x)?x.filter(f):[];
+ clean(r){const b=blank();try{if(!isObj(r)||r.v!==2||r.narrativeEdition!==STORY.narrativeEdition)return b;const A=(x,f)=>Array.isArray(x)?x.filter(f):[];
+  b.edition=r.edition===3?3:2;b.legacyThrough=0;
   b.ev=uniq(A(r.ev,x=>isStr(x)&&STORY.evidence[x]));b.flags=uniq(A(r.flags,isStr).slice(0,500));b.nb=isStr(r.nb)?r.nb.slice(0,20000):"";b.unlocked=r.unlocked===true;
   b.solved=uniq(A(r.solved,x=>isStr(x)&&STORY.puzzles.some(p=>p.id==x)));
   if(isObj(r.choices))for(const k in r.choices){const d=(STORY.decisions||[]).find(x=>x.id==k),v=r.choices[k];if(d&&Number.isInteger(v)&&v>=0&&v<d.opts.length)b.choices[k]=v}
@@ -26,9 +27,18 @@ const E={
   // derive flags that must hold given the saved state
   const F=f=>{if(!b.flags.includes(f))b.flags.push(f)};
   b.ev.forEach(e=>(STORY.evidence[e][3]||[]).forEach(F));
-  b.solved.forEach(id=>{const p=STORY.puzzles.find(x=>x.id==id);if(p&&p.unlocks)F(p.unlocks)});
+  b.solved.forEach(id=>{const p=STORY.puzzles.find(x=>x.id==id);if(p&&p.unlocks)F(p.unlocks);if(p&&p.reward&&!b.ev.includes(p.reward))b.ev.push(p.reward)});
   for(const k in b.choices)F(STORY.decisions.find(x=>x.id==k).opts[b.choices[k]][1]);
   for(const k in b.pres)b.pres[k].filter(x=>x[0]=="@").forEach(x=>{const nd=STORY.interviews[k].nodes[x.slice(1)];(nd.set||[]).forEach(F);if(nd.take&&!b.ev.includes(nd.take)&&STORY.evidence[nd.take]){b.ev.push(nd.take);(STORY.evidence[nd.take][3]||[]).forEach(F)}});
+  if(isObj(r.drafts))for(const id in r.drafts){const p=STORY.puzzles.find(p=>p.id===id);if(p){const d=E.cleanDraft(p,r.drafts[id]);if(d!==undefined)b.drafts[id]=d}}
+  if(isObj(r.scenePage))for(const k in r.scenePage)if(/^[1-9]$/.test(k)&&Number.isInteger(r.scenePage[k]))b.scenePage[k]=Math.max(0,Math.min(99,r.scenePage[k]));
+  if(isObj(r.sourceNotes))for(const k in r.sourceNotes)if(STORY.files.some(f=>f.id===k)&&isStr(r.sourceNotes[k]))b.sourceNotes[k]=r.sourceNotes[k].slice(0,2500);
+  if(isObj(r.personNotes))for(const id in r.personNotes)if(STORY.persons[id]&&isStr(r.personNotes[id]))b.personNotes[id]=r.personNotes[id].slice(0,4000);
+  if(isObj(r.audio))for(const k of ['master','voice','effects','music'])if(Number.isFinite(r.audio[k]))b.audio[k]=Math.max(0,Math.min(1,r.audio[k]));
+  if(isObj(r.audio))for(const k of ['enabled','autoDialogue','reducedFright'])if(typeof r.audio[k]==='boolean')b.audio[k]=r.audio[k];
+  b.events=uniq(A(r.events,isStr).filter(id=>(STORY.liveEvents||[]).some(e=>e.id===id)));
+  if(b.edition===2){let n=0;for(const c of STORY.chapters){if(c.done.ev.every(id=>b.ev.includes(id))&&c.done.puz.every(id=>b.solved.includes(id)))n++;else break}b.legacyThrough=Math.max(b.legacyThrough,n);b.edition=3;}
+  FieldLogic.restore(r,b);
   return b}catch(e){return blank()}},
  load(){try{return E.clean(JSON.parse(Store.get(KEY)))}catch(e){return blank()}},
  save(){try{Store.set(KEY,JSON.stringify(E.S));E.saveOk=Store.ok}catch(e){E.saveOk=false}},
@@ -52,6 +62,14 @@ const E={
   B[id]=[Math.max(0,Math.min(BOARD_W,Number(x))),Math.max(0,Math.min(BOARD_H,Number(y)))];return true},
  unplace(id){delete E.S.board[id];E.save()},
  hint(id){const p=STORY.puzzles.find(x=>x.id==id);if(!p)return 0;const l=Math.min(2,(E.S.hintLvl[id]||0)+1);E.S.hintLvl[id]=l;E.S.hints++;E.save();return l}};
+E.cleanDraft=(p,a)=>{if(p.type==='order'){return Array.isArray(a)&&a.length===Object.keys(p.items).length&&new Set(a).size===a.length&&a.every(k=>p.items[k])?[...a]:undefined}
+ if(p.type==='set')return Array.isArray(a)?[...new Set(a.filter(k=>typeof k==='string'&&p.options[k]))]:undefined;
+ if(p.type==='code')return typeof a==='string'?a.slice(0,160):undefined;
+ if(!a||typeof a!=='object'||Array.isArray(a))return typeof a==='string'?a.slice(0,160):undefined;
+ const out={},keys=p.type==='case'?p.slots.map(s=>s.id):p.type==='match'?Object.keys(p.items):Object.keys(p.answer||{});
+ for(const k of keys){const v=a[k];if(typeof v==='string')out[k]=v.slice(0,160);else if(Array.isArray(v))out[k]=[...new Set(v.filter(x=>typeof x==='string').map(x=>x.slice(0,120)))].slice(0,100)}return out;};
+E.draft=(id,a)=>{const p=STORY.puzzles.find(p=>p.id===id);if(!p)return;const value=E.cleanDraft(p,a);if(value!==undefined)E.S.drafts[id]=value;E.save()};
+E.initialAnswer=p=>{if(E.S.drafts[p.id]!==undefined)return JSON.parse(JSON.stringify(E.S.drafts[p.id]));if(p.type==='order'){const a=Object.keys(p.items),want=[...a].sort((a,b)=>p.items[a][1].localeCompare(p.items[b][1]));let seed=[...p.id].reduce((n,c)=>n*31+c.charCodeAt(0),17)>>>0;for(let i=a.length-1;i>0;i--){seed=(seed*1664525+1013904223)>>>0;const j=seed%(i+1);[a[i],a[j]]=[a[j],a[i]];}if(JSON.stringify(a)===JSON.stringify(want)&&a.length>1)[a[0],a[1]]=[a[1],a[0]];return a;}return p.type==='match'||p.type==='case'?{}:p.type==='set'?[]:p.type==='code'?'':{};};
 E.S=E.load();
 // ---- General puzzle engine: reusable types, separate from STORY.links (narrative-specific) ----
 E.ready=p=>E.vis(p)&&p.needs.every(n=>E.S.ev.includes(n))&&(!p.need||E.has(p.need));
@@ -74,7 +92,7 @@ E.solve=(id,a)=>{const p=STORY.puzzles.find(x=>x.id==id);let ok=false;try{ok=!!p
 // ---- Interview engine: nodes + evidence presentation; trust is a soft modifier, never a lock ----
 E.node=(id,n)=>STORY.interviews[id].nodes[n];
 // Effects (rapport, flags, evidence) apply only the first time a node is reached in an interview. Revisits replay text only.
-E.go=(id,n,quiet)=>{const nd=E.node(id,n);if(!nd)return;E.S.talk[id]=n;const P=E.S.pres[id]=E.S.pres[id]||[],k="@"+n;
+E.go=(id,n,quiet)=>{const iv=STORY.interviews[id];if(n===iv.start){const state=[...(iv.states||[])].reverse().find(s=>E.vis(s)&&(!s.need||E.has(s.need))&&(!s.needs||s.needs.every(x=>E.S.ev.includes(x))));if(state)n=state.node;}const nd=E.node(id,n);if(!nd||!E.nodeReady(id,n))return false;E.S.talk[id]=n;const P=E.S.pres[id]=E.S.pres[id]||[],k="@"+n;
  if(quiet||P.includes(k)){E.save();return}P.push(k);
  if(nd.trust)E.S.trust[id]=Math.max(0,Math.min(3,(E.S.trust[id]||0)+nd.trust));(nd.set||[]).forEach(f=>E.S.flags.includes(f)||E.S.flags.push(f));if(nd.take)E.take(nd.take);E.save()};
 // Presenting evidence: a stonewall can fire at most once per item and does not consume it; effects are gated per node inside E.go,
@@ -84,12 +102,15 @@ E.present=(id,ev)=>{const I=STORY.interviews[id],P=E.S.pres[id]=E.S.pres[id]||[]
  const st=I.stonewall&&I.stonewall[ev];
  if(!consumed&&st&&!P.includes("!"+ev)&&(E.S.trust[id]||0)>=1){P.push("!"+ev);E.go(id,st);return}
  if(!consumed&&I.present[ev])P.push(ev);
- E.go(id,node)};
+ if(E.go(id,node)===false)E.go(id,"pd")};
 // ---- Chapters: chapter n+1 opens when chapter n's goals are met. Content with ch:n stays hidden until then.
-E.done=n=>{const c=STORY.chapters[n-1];return !!c&&c.done.ev.every(x=>E.S.ev.includes(x))&&c.done.puz.every(x=>E.S.solved.includes(x))};
+E.baseDone=n=>{const c=STORY.chapters[n-1];return !!c&&c.done.ev.every(x=>E.S.ev.includes(x))&&c.done.puz.every(x=>E.S.solved.includes(x))&&(c.done.flags||[]).every(E.has)};
+E.done=n=>E.baseDone(n)&&(n<=E.S.legacyThrough||(STORY.chapters[n-1].extraPuzzles||[]).every(id=>E.S.solved.includes(id)));
 E.chapter=()=>{let n=1;while(STORY.chapters[n]&&E.done(n))n++;return n};
 E.vis=o=>(o.ch||1)<=E.chapter();
+E.after=o=>(o.after||[]).every(id=>E.S.solved.includes(id));
+E.nodeReady=(id,n)=>E.after(E.node(id,n))||(E.S.pres[id]||[]).includes("@"+n);
 E.flag=f=>{if(!E.S.flags.includes(f)){E.S.flags.push(f);E.save()}};
 E.complete=()=>E.done(STORY.chapters.length);
-E.choose=(id,i)=>{const d=(STORY.decisions||[]).find(x=>x.id==id);if(!d||!d.opts[i]||E.S.choices[id]!==undefined)return false;E.S.choices[id]=i;E.flag(d.opts[i][1]);E.save();return true};
+E.choose=(id,i)=>{const d=(STORY.decisions||[]).find(x=>x.id==id);if(!d||!E.vis(d)||(d.need&&!E.has(d.need))||!d.opts[i]||E.S.choices[id]!==undefined)return false;E.S.choices[id]=i;E.flag(d.opts[i][1]);E.save();return true};
 E.epilogue=()=>(STORY.epilogue||[]).filter(p=>!p.if||E.has(p.if));

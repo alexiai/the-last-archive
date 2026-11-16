@@ -2,7 +2,7 @@
 const $=s=>document.querySelector(s),scr=$("#screen"),S=E.S;
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 $("#nb").value=S.nb;$("#nb").oninput=e=>{S.nb=e.target.value;E.save()};
-$("#reset").onclick=()=>{if(confirm("Erase all progress and start over?")){E.wipe();location.reload()}};
+$("#reset").onclick=()=>{if(confirm("Start this revised investigation again? Previous-edition progress is not affected.")){E.wipe();location.reload()}};
 $("#homebar").onclick=()=>S.unlocked?home():lock();
 const bar=(t,back)=>`<div class="bar"><button onclick="${back}">‹</button><h3 style="margin:0">${t}</h3></div>`;
 const take=id=>{E.take(id)};
@@ -27,14 +27,14 @@ function thread(k){const t=STORY.threads[k];scr.innerHTML=bar(esc(t.name),"msgs(
  t.m.filter(msgOk).map(([f,ts,x,e])=>`<div class="m ${f=="me"?"me":""} ${e?"has":""} ${e&&S.ev.includes(e)?"saved":""}" ${e?`role="button" tabindex="0" onclick="saveMsg(this,'${e}')" onkeydown="if(event.key=='Enter')saveMsg(this,'${e}')"`:""}>${f!="me"&&f!="them"?`<b class="who">${esc(f)}</b>`:""}${esc(x)}<time>${ts}</time></div>`).join("")}
 function saveMsg(el,e){take(e);el.classList.add("saved");el.classList.remove("has")}
 // --- Contacts: some entries appear only once the player has learned the name
-function cons(){scr.innerHTML=bar("Contacts","home()")+STORY.contacts.filter(c=>!c.need||E.has(c.need)).map(c=>`<button class="th" style="display:flex;gap:10px;align-items:center" onclick="con('${c.id}')">${avatar(c.id,c.n)}<span><b>${c.n}</b><small>${c.rel}</small></span></button>`).join("")+`<small style="color:var(--dim)">New contacts appear as you learn names elsewhere.</small>`}
+function cons(){scr.innerHTML=bar("Contacts","home()")+STORY.contacts.filter(c=>!c.need||E.has(c.need)).map(c=>`<button class="th" style="display:flex;gap:10px;align-items:center" onclick="con('${c.id}')">${avatar(c.id,c.n)}<span><b>${c.n}</b><small>${c.rel}</small></span></button>`).join("")+`<small style="color:var(--dim)">Contact details are retained in this authorised archive.</small>`}
 function con(id){const c=STORY.contacts.find(x=>x.id==id),has=STORY.threads[id]&&visible(STORY.threads[id]);
  scr.innerHTML=bar(c.n,"cons()")+`<div class="meta">Phone: ${c.ph}\nRelationship: ${c.rel}${c.note?"\nNote: "+c.note:""}</div>${c.ev?saveBtn(c.ev,`con('${id}')`):""}<div class="row">${has?`<button class="btn" onclick="thread('${id}')">Open messages</button>`:""}</div>`}
 // --- Phone
-function calls(){scr.innerHTML=bar("Phone","home()")+STORY.calls.map(([d,n,t,du,aud],i)=>`<button class="th" onclick="callD(${i})"><b style="${du=="missed"?"color:#e7bcbf":""}">${n.includes("019")&&E.has("num:019")?"Luca Marin (new number)":n}</b><small>${d=="in"?"Incoming":"Outgoing"} · ${t} · ${du=="missed"?"missed":du}${aud?" · voicemail":""}</small></button>`).join("")}
+function calls(){scr.innerHTML=bar("Phone","home()")+STORY.calls.map(([d,n,t,du,aud],i)=>`<button class="th" onclick="callD(${i})"><b style="${du=="missed"?"color:#e7bcbf":""}">${n.includes("019")&&E.has("num:019")?"Luca Marin (new number)":n}</b><small>${d=="in"?"Incoming":"Outgoing"} · ${t} · ${du=="missed"?"missed":du}${aud?" · linked recording":""}</small></button>`).join("")}
 function callD(i){const [d,n,t,du,aud]=STORY.calls[i],cn=(STORY.callNotes||{})[i],a=aud&&STORY.audio.find(x=>x.id==aud);
  scr.innerHTML=bar("Call details","calls()")+`<div class="meta">Contact: ${n.includes("019")&&E.has("num:019")?"Luca Marin (new number)":n}\nDirection: ${d=="in"?"Incoming":"Outgoing"}\nTime: ${t}\nDuration: ${du=="missed"?"missed":du}${cn?"\nDetail: "+cn[1]:""}</div>`+
- (a&&E.vis(a)?`<button class="btn" onclick="clip('${a.id}')">🎧 Voicemail and transcript</button>`:a?`<small style="color:var(--dim)">A voicemail exists. It is not available yet.</small>`:"")+(cn?saveBtn(cn[0],`callD(${i})`):"")}
+ (a&&E.vis(a)?`<button class="btn" onclick="clip('${a.id}')">🎧 Linked recording and transcript</button>`:a?`<small style="color:var(--dim)">A linked recording is not available yet.</small>`:"")+(cn?saveBtn(cn[0],`callD(${i})`):"")}
 // --- Email: attachments open as documents
 function mail(box="Inbox"){scr.innerHTML=bar("Email","home()")+`<div class="row">`+["Inbox","Archived","Trash"].filter(b=>b!="Trash"||E.has("unlock:vault")).map(b=>`<button class="btn ${b==box?"red":""}" onclick="mail('${b}')">${b}</button>`).join("")+`</div>`+
  STORY.mails.filter(m=>m.box==box&&E.vis(m)&&(!m.need||E.has(m.need))).map(m=>`<button class="th" onclick="mailOpen('${m.id}')"><b>${m.from}</b> ${m.att?"📎":""}<small>${m.sub} · ${m.ts}</small></button>`).join("")}
@@ -43,7 +43,7 @@ function doc(id){const m=STORY.mails.find(x=>x.id==id);scr.innerHTML=bar(m.att,`
 // --- Gallery: tap image to zoom, metadata below
 function gal(){scr.innerHTML=bar("Gallery","home()")+STORY.photos.filter(p=>E.vis(p)&&(!p.need||E.has(p.need))).map(p=>`<button class="th photo-btn" onclick="photo('${p.id}')" aria-label="Open ${esc(p.t)}">${pic(p)}<small>${esc(p.t)} · ${p.ts}</small></button>`).join("")}
 // Photographs: a real file at assets/photos/<id>.jpg is shown with object-fit: cover; if it is missing the fallback stays.
-const pic=(p,z=1)=>`<div class="pic"><div class="zoom" style="transform:scale(${z})">${p.art?`<svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder for: ${esc(p.alt||p.t)}"><rect width="300" height="160" fill="${p.c}"/>${p.art}</svg>`:`<div class="tile" style="background:${p.c}"><span>${esc(p.t)}</span><small>Photo not installed</small></div>`}<img src="assets/photos/${p.id}.jpg" alt="${esc(p.alt||p.t)}" loading="lazy" onerror="this.remove()"></div></div>`;
+const pic=(p,z=1)=>`<div class="pic"><div class="zoom" style="transform:scale(${z})">${p.art?`<svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder for: ${esc(p.alt||p.t)}"><rect width="300" height="160" fill="${p.c}"/>${p.art}</svg>`:`<div class="tile" style="background:${p.c}"><span>${esc(p.t)}</span><small>Loading photograph…</small></div>`}<img src="assets/photos/${p.id}.jpg" alt="${esc(p.alt||p.t)}" loading="lazy" onload="this.parentElement.querySelectorAll('svg,.tile').forEach(e=>e.style.visibility='hidden')" onerror="const t=this.parentElement.querySelector('.tile small');if(t)t.textContent='Photograph unavailable; source description retained.';this.remove()"></div></div>`;
 // Portraits: circular, with initials as fallback; assets/portraits/<id>.png is layered on top when present.
 const avatar=(id,n)=>{const f=id=="j"?"julia":id;return `<span class="av">${esc((n||id)[0])}<img src="assets/portraits/${f}.png" alt="Portrait of ${esc(n||id)}" onerror="this.remove()"></span>`};
 function photo(id,z=1){const p=STORY.photos.find(x=>x.id==id);scr.innerHTML=bar(esc(p.t),"gal()")+`<div style="overflow:hidden;border-radius:8px">${pic(p,z)}</div><div class="row"><button class="btn" onclick="photo('${id}',${z>=3?1:z+1})">Zoom ${z>=3?"out":"in"}</button></div><div class="meta">${esc(p.meta)}</div>`+saveBtn(id,`photo('${id}',${z})`)}
@@ -52,7 +52,7 @@ function notes(){scr.innerHTML=bar("Notes","home()")+STORY.notes.filter(n=>E.vis
 let A=null,B=null,R="contradicts";
 function board(){const nodes=[...S.ev,...S.flags.filter(f=>f.startsWith("place:")&&STORY.places[f.slice(6)]||f.startsWith("event:")&&STORY.events[f.slice(6)]),...Object.keys(STORY.persons).filter(p=>S.ev.some(e=>(STORY.evidence[e][2]||[]).includes(p))).map(p=>"person:"+p)];
  const lab=n=>n.startsWith("person:")?"👤 "+STORY.persons[n.slice(7)]:n.startsWith("place:")?"📍 "+STORY.places[n.slice(6)].n:n.startsWith("event:")?"⏱ "+STORY.events[n.slice(6)]:n+" · "+STORY.evidence[n][0];
- const nb=n=>`<div style="display:flex;gap:6px"><button class="ev ${n==A||n==B?"sel":""}" style="flex:1" onclick="pickN('${n}')">${esc(lab(n))}</button><button class="btn" style="flex:none;margin:7px 0" onclick="toggleBoard('${n}')" aria-label="${S.board[n]?"Remove from":"Add to"} board">${S.board[n]?"−":"＋"}</button></div>`;
+ const nb=n=>`<div style="display:flex;gap:6px"><button class="ev ${n==A||n==B?"sel":""}" style="flex:1" onclick="pickN('${n}')">${esc(lab(n))}</button>${STORY.evidence[n]?`<button class="btn" onclick="evidenceDetail('${n}')" aria-label="Inspect ${n}">↗</button>`:""}<button class="btn" style="flex:none;margin:7px 0" onclick="toggleBoard('${n}')" aria-label="${S.board[n]?"Remove from":"Add to"} board">${S.board[n]?"−":"＋"}</button></div>`;
  scr.innerHTML=bar("Evidence board","home()")+(S.ev.length<2?"<p>Save at least two items from Messages, Email, Gallery or Notes.</p>":
  boardCanvas()+`<small style="color:var(--dim)">Pick two items (on the board or in the list), choose how they connect, then test it.</small><div class="row"><span class="msg" style="margin:0">${A?esc(lab(A)):"First item"} → ${B?esc(lab(B)):"second item"}</span></div>`+
  `<div class="row">${STORY.relations.map(r=>`<button class="btn ${r==R?"red":""}" onclick="R='${r}';board()">${r}</button>`).join("")}</div><div class="row"><button class="btn red" onclick="test()" ${A&&B?"":"disabled"}>Test connection</button></div><div id="res"></div><h3>All items</h3>`+nodes.map(nb).join(""))+
@@ -61,10 +61,10 @@ function board(){const nodes=[...S.ev,...S.flags.filter(f=>f.startsWith("place:"
 let bvb=[110,60,380,380];
 function short_(id){return id.startsWith("person:")?STORY.persons[id.slice(7)].split(" ")[0]:id.startsWith("place:")?"📍":id.startsWith("event:")?"⏱":id}
 function boardCanvas(){return `<svg id="bd" viewBox="${bvb.join(" ")}" role="img" aria-label="Evidence board. The list below is an accessible alternative." style="width:100%;height:320px;background:#181a1c;border:1px solid var(--line);border-radius:8px;touch-action:none"></svg><div class="row"><button class="btn" onclick="bzoom(.8)" aria-label="Zoom in">＋</button><button class="btn" onclick="bzoom(1.25)" aria-label="Zoom out">−</button><button class="btn" onclick="bfit()">Fit all</button></div><small style="color:var(--dim)">Solid red line with ✓: proved. Dashed grey line with ?: plausible only. Drag nodes to arrange them; drag the background to pan.</small>`}
-function drawBoard(){const sv=$("#bd");if(!sv)return;const B=S.board;
- const edges=S.made.map(m=>{const [a,b]=m[0].split("~");if(!B[a]||!B[b])return "";const p=m[1]=="proved",mx=(B[a][0]+B[b][0])/2,my=(B[a][1]+B[b][1])/2;
-  return `<line x1="${B[a][0]}" y1="${B[a][1]}" x2="${B[b][0]}" y2="${B[b][1]}" stroke="${p?"#c4424c":"#8a8b8c"}" stroke-width="${p?4:2.5}" ${p?"":'stroke-dasharray="8 6"'}/><text x="${mx}" y="${my+5}" text-anchor="middle" fill="${p?"#f0c8cb":"#cfcac2"}" font-size="16" font-weight="bold" paint-order="stroke" stroke="#181a1c" stroke-width="5">${p?"✓":"?"}</text>`}).join("");
- sv.innerHTML=edges+Object.keys(B).map(id=>{const on=id==A||id==B;return `<g data-id="${id}" style="cursor:grab"><circle cx="${B[id][0]}" cy="${B[id][1]}" r="32" fill="transparent"/><circle cx="${B[id][0]}" cy="${B[id][1]}" r="${on?21:18}" fill="${on?"#a3323a":"#2c2f32"}" stroke="#8a8b8c" stroke-width="2"/><text x="${B[id][0]}" y="${B[id][1]+5}" text-anchor="middle" fill="#ddd" font-size="12" pointer-events="none">${short_(id)}</text></g>`}).join("")}
+function drawBoard(){const sv=$("#bd");if(!sv)return;const positions=S.board;
+ const edges=S.made.map(m=>{const [a,b]=m[0].split("~");if(!positions[a]||!positions[b])return "";const p=m[1]=="proved",mx=(positions[a][0]+positions[b][0])/2,my=(positions[a][1]+positions[b][1])/2;
+  return `<line x1="${positions[a][0]}" y1="${positions[a][1]}" x2="${positions[b][0]}" y2="${positions[b][1]}" stroke="${p?"#c4424c":"#8a8b8c"}" stroke-width="${p?4:2.5}" ${p?"":'stroke-dasharray="8 6"'}/><text x="${mx}" y="${my+5}" text-anchor="middle" fill="${p?"#f0c8cb":"#cfcac2"}" font-size="16" font-weight="bold" paint-order="stroke" stroke="#181a1c" stroke-width="5">${p?"✓":"?"}</text>`}).join("");
+ sv.innerHTML=edges+Object.keys(positions).map(id=>{const on=id==A||id==B;return `<g data-id="${id}" style="cursor:grab"><circle cx="${positions[id][0]}" cy="${positions[id][1]}" r="32" fill="transparent"/><circle cx="${positions[id][0]}" cy="${positions[id][1]}" r="${on?21:18}" fill="${on?"#a3323a":"#2c2f32"}" stroke="#8a8b8c" stroke-width="2"/><text x="${positions[id][0]}" y="${positions[id][1]+5}" text-anchor="middle" fill="#ddd" font-size="12" pointer-events="none">${short_(id)}</text></g>`}).join("")}
 function clampB(){bvb[2]=bvb[3]=Math.max(120,Math.min(760,bvb[2]));bvb[0]=Math.max(-150,Math.min(750-bvb[2],bvb[0]));bvb[1]=Math.max(-150,Math.min(650-bvb[2],bvb[1]))}
 function bzoom(f,quiet){const w=bvb[2],nw=Math.max(120,Math.min(760,w*f));bvb[0]+=(w-nw)/2;bvb[1]+=(w-nw)/2;bvb[2]=bvb[3]=nw;clampB();const sv=$("#bd");if(sv)sv.setAttribute("viewBox",bvb.join(" "))}
 function bfit(){const P=Object.values(S.board);if(!P.length)return;const xs=P.map(p=>p[0]),ys=P.map(p=>p[1]),w=Math.max(160,Math.max(...xs)-Math.min(...xs)+120,Math.max(...ys)-Math.min(...ys)+120);bvb=[(Math.min(...xs)+Math.max(...xs))/2-w/2,(Math.min(...ys)+Math.max(...ys))/2-w/2,w,w];clampB();const sv=$("#bd");if(sv)sv.setAttribute("viewBox",bvb.join(" "))}
@@ -84,7 +84,9 @@ function test(){const r=E.check(A,R,B);board();$("#res").innerHTML=`<div class="
 
 
 // --- Maps: select a place, compare people's records on one timeline, spot gaps, save records as evidence
-let vb=[0,0,360,260],who=["Iris"],selP=null;
+let vb=[0,0,360,260],who=Object.keys(STORY.movementActors||{Iris:"Iris"}),selP=null;
+const movementName=id=>STORY.movementActors?.[id]||id;
+const movementRows=()=>STORY.records.filter(r=>!STORY.recordSources?.[r[0]]||S.ev.includes(STORY.recordSources[r[0]]));
 const hm=iso=>iso.slice(5,10).replace("-","/")+" "+iso.slice(11);
 function maps(){const P=STORY.places;
  scr.innerHTML=bar("Maps","home()")+`<svg id="mp" viewBox="${vb.join(" ")}" style="width:100%;background:#181a1c;border:1px solid var(--line);border-radius:8px;touch-action:none">
@@ -92,10 +94,10 @@ function maps(){const P=STORY.places;
  Object.entries(P).map(([k,p])=>`<g onclick="selectP('${k}')" style="cursor:pointer"><circle cx="${p.x}" cy="${p.y}" r="18" fill="transparent" pointer-events="all"/><circle cx="${p.x}" cy="${p.y}" r="${selP==k?9:6}" fill="${selP==k?"#a3323a":"#777"}"/><text x="${p.x+10}" y="${p.y+4}" fill="#bbb" font-size="9">${p.n.split(" (")[0]}</text></g>`).join("")+`</svg>
  <div class="row"><button class="btn" onclick="zoom(.7)">+</button><button class="btn" onclick="zoom(1.4)">−</button><button class="btn" onclick="pan(-40,0)">←</button><button class="btn" onclick="pan(40,0)">→</button><button class="btn" onclick="pan(0,-30)">↑</button><button class="btn" onclick="pan(0,30)">↓</button></div>`+
  (selP?`<h3>${P[selP].n}</h3><div class="meta">${P[selP].a}\nAssociated: ${P[selP].who.join(", ")||"no one recorded"}</div>`:"")+
- `<h3>Movement records</h3><div class="row">`+["Iris","Adrian","Victor"].map(w=>`<button class="btn ${who.includes(w)?"red":""}" onclick="who=who.includes('${w}')?who.filter(x=>x!='${w}'):[...who,'${w}'];maps()">${w}</button>`).join("")+`</div>`+timeline();bindMap()}
-function timeline(){const R=STORY.records.filter(r=>who.includes(r[1])&&(!selP||r[2]==selP)).sort((a,b)=>a[3].localeCompare(b[3]));let out="",last={};
- R.forEach(r=>{const prev=last[r[1]];if(prev){const g=(new Date(r[3])-new Date(prev))/60000;if(g>=60)out+=`<div class="msg">No record for ${r[1]} between ${prev.slice(11)} and ${r[3].slice(11)} (${Math.round(g)} min).</div>`}last[r[1]]=r[3];
-  out+=`<div class="m ${r[6]?"has":""} ${r[6]&&S.ev.includes(r[6])?"saved":""}" ${r[6]?`onclick="take('${r[6]}');this.classList.add('saved');this.classList.remove('has')"`:""}><b>${r[1]}</b> · ${STORY.places[r[2]].n}<br>${r[5]}<time>${hm(r[3])} · ${r[4]}</time></div>`});return (selP?`<div class="row"><button class="btn" onclick="selP=null;maps()">Show all places</button></div>`:"")+(out||(selP?"<p>No records at this place for the selected people. Add people above.</p>":"<p>Select a person.</p>"))}
+ `<h3>Movement records</h3><div class="row">`+[...new Set(movementRows().map(r=>r[1]))].map(w=>`<button class="btn ${who.includes(w)?"red":""}" onclick="who=who.includes('${w}')?who.filter(x=>x!='${w}'):[...who,'${w}'];maps()">${esc(movementName(w))}</button>`).join("")+`</div>`+timeline();bindMap()}
+function timeline(){const R=movementRows().filter(r=>who.includes(r[1])&&(!selP||r[2]==selP)).sort((a,b)=>a[3].localeCompare(b[3]));let out="",last={};
+ R.forEach(r=>{const prev=last[r[1]];if(prev){const g=(new Date(r[3])-new Date(prev))/60000;if(g>=60)out+=`<div class="msg">No record for ${esc(movementName(r[1]))} between ${prev.slice(11)} and ${r[3].slice(11)} (${Math.round(g)} min). No record was found in this dataset; this does not establish what happened.</div>`}last[r[1]]=r[3];
+  out+=`<div class="m ${r[6]?"has":""} ${r[6]&&S.ev.includes(r[6])?"saved":""}" ${r[6]?`onclick="take('${r[6]}');this.classList.add('saved');this.classList.remove('has')"`:""}><b>${esc(movementName(r[1]))}</b> · ${STORY.places[r[2]].n}<br>${r[5]}<time>${hm(r[3])} · ${r[4]}</time></div>`});return (selP?`<div class="row"><button class="btn" onclick="selP=null;maps()">Show all places</button></div>`:"")+(out||(selP?"<p>No records at this place for the selected people. Add people above.</p>":"<p>No movement records for the current selection. Recover the supporting journey source or select an available record holder.</p>"))}
 function zoom(f){const [x,y,w,h]=vb,nw=Math.max(90,Math.min(360,w*f)),nh=nw*260/360;vb=[Math.max(0,Math.min(360-nw,x+(w-nw)/2)),Math.max(0,Math.min(260-nh,y+(h-nh)/2)),nw,nh];maps()}
 function pan(dx,dy){vb=[Math.max(0,Math.min(360-vb[2],vb[0]+dx)),Math.max(0,Math.min(260-vb[3],vb[1]+dy)),vb[2],vb[3]];maps()}
 // --- Interviews: evidence you present changes what the suspect says; trust is soft
@@ -105,14 +107,17 @@ function talk(k,pick=false){const I=STORY.interviews[k];if(!S.talk[k])E.go(k,I.s
  n.o.filter(o=>(!o[2]||tr>=o[2])&&(!o[3]||E.has(o[3]))).map(o=>`<button class="ev" onclick="E.go('${k}','${o[1]}');talk('${k}')">${esc(o[0])}</button>`).join("")+`<div class="row"><button class="btn red" onclick="talk('${k}',true)">Present evidence</button><button class="btn" onclick="E.go('${k}','${I.start}');talk('${k}')">Restart interview</button></div>`)}
 // --- Challenges: general puzzle types
 let ans={};
+function draftAnswer(id,v){ans[id]=v;E.draft(id,v)}
+function draftField(id,k,v){ans[id][k]=v;E.draft(id,ans[id])}
+
 function pzs(){scr.innerHTML=bar("Challenges","home()")+STORY.puzzles.filter(p=>E.vis(p)).map(p=>`<button class="th" ${E.ready(p)?`onclick="pz('${p.id}')"`:"disabled"}><b>${p.title}</b> ${S.solved.includes(p.id)?"✓":""}<small>${E.ready(p)?p.type:"Needs more evidence: "+p.needs.join(", ")}</small></button>`).join("")}
-function pz(id,msg=""){const p=STORY.puzzles.find(x=>x.id==id);if(!ans[id])ans[id]=p.type=="order"?Object.keys(p.items):(p.type=="match"||p.type=="case")?{}:p.type=="code"?"":[];const a=ans[id];
+function pz(id,msg=""){const p=STORY.puzzles.find(x=>x.id==id);if(ans[id]===undefined)ans[id]=E.initialAnswer(p);const a=ans[id];
  if(!E.supported(p)){scr.innerHTML=bar(p.title,"pzs()")+"<p>This kind of challenge is not available in this version.</p>";return}
- scr.innerHTML=bar(p.title,"pzs()")+`<p>${p.prompt}</p>`+(p.type=="case"?caseUI(p):p.type=="code"?`<input class="in" inputmode="numeric" maxlength="8" value="${esc(ans[id])}" oninput="ans['${id}']=this.value" placeholder="PIN">`:p.type=="match"?Object.entries(p.items).map(([k,t])=>`<div class="ev">${esc(t)}<select class="in" onchange="ans['${id}']['${k}']=this.value"><option value="">Choose</option>${Object.entries(p.options).map(([v,l])=>`<option value="${v}" ${ans[id][k]==v?"selected":""}>${l}</option>`).join("")}</select></div>`).join(""):p.type=="order"?a.map((k,i)=>`<div class="ev">${esc(p.items[k][0])}<div class="row"><button class="btn" onclick="mv('${id}',${i},-1)">▲</button><button class="btn" onclick="mv('${id}',${i},1)">▼</button></div></div>`).join(""):
+ scr.innerHTML=bar(p.title,"pzs()")+`<p>${p.prompt}</p>`+(p.type=="case"?caseUI(p):p.type=="code"?`<input class="in" inputmode="numeric" maxlength="8" value="${esc(ans[id])}" oninput="draftAnswer('${id}',this.value)" placeholder="PIN">`:p.type=="match"?Object.entries(p.items).map(([k,t])=>`<div class="ev">${esc(t)}<select class="in" onchange="draftField('${id}','${k}',this.value)"><option value="">Choose</option>${Object.entries(p.options).map(([v,l])=>`<option value="${v}" ${ans[id][k]==v?"selected":""}>${l}</option>`).join("")}</select></div>`).join(""):p.type=="order"?a.map((k,i)=>`<div class="ev">${esc(p.items[k][0])}<div class="row"><button class="btn" onclick="mv('${id}',${i},-1)">▲</button><button class="btn" onclick="mv('${id}',${i},1)">▼</button></div></div>`).join(""):
  Object.entries(p.options).map(([k,t])=>`<button class="ev ${a.includes(k)?"sel":""}" onclick="tg('${id}','${k}')">${esc(t)}</button>`).join(""))+
  `<div class="row"><button class="btn red" onclick="chk('${id}')">Check answer</button><button class="btn" onclick="hint('${id}')">Hint</button></div><div id="pm">${msg||(S.hintLvl[id]?hintHtml(p,S.hintLvl[id]):"")}</div>`}
-function mv(id,i,d){const a=ans[id],j=i+d;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];pz(id)}
-function tg(id,k){const a=ans[id];ans[id]=a.includes(k)?a.filter(x=>x!=k):[...a,k];pz(id)}
+function mv(id,i,d){const a=ans[id],j=i+d;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];E.draft(id,a);pz(id)}
+function tg(id,k){const a=ans[id];ans[id]=a.includes(k)?a.filter(x=>x!=k):[...a,k];E.draft(id,ans[id]);pz(id)}
 function chk(id){const p=STORY.puzzles.find(x=>x.id==id),ok=E.solve(id,ans[id]);let m;
  if(ok)m="Correct. This reasoning is supported by your evidence.";
  else if(p.type=="case"){const d=E.caseDiagnose(p,ans[id]),T={ok:"holds",excess:"something chosen does not belong here, or too much is chosen",incomplete:"needs more or different support",wrong:"reconsider this"};m="Not yet.<br>"+p.slots.map((s,i)=>`${d[i]=="ok"?"✓":"✗"} ${esc(s.label)}: ${T[d[i]]}`).join("<br>")}
@@ -152,20 +157,20 @@ function clip(id){const a=STORY.audio.find(x=>x.id==id),can=typeof speechSynthes
  `<div class="row">${can?`<button class="btn" onclick="speak('${id}')">▶ Play synthesized voice</button>`:"<small>This device has no speech playback. Read the transcript.</small>"}</div>`+saveBtn(a.ev,`clip('${id}')`);
  const au=$("#au");if(au)au.onerror=()=>{au.remove();const n=$("#aun");if(n)n.textContent="Recorded audio is not installed. The voice here is synthesized; the transcript is complete."}}
 function speak(id){const a=STORY.audio.find(x=>x.id==id);try{speechSynthesis.cancel();a.lines.forEach(l=>{if(l[0]=="Music")return;const u=new SpeechSynthesisUtterance(l[1]);u.pitch=/Iris|Mara|J\./.test(l[0])?1.25:.7;u.rate=.95;speechSynthesis.speak(u)})}catch(x){}}
-S.unlocked?home():lock();
+if(!STORY.narrativeEdition){S.unlocked?home():lock();}
 
 function decisions(){return (STORY.decisions||[]).filter(d=>E.vis(d)).map(d=>{const c=S.choices[d.id];return `<h3>Decision</h3><div class="m">${esc(d.prompt)}</div>`+(c===undefined?d.opts.map((o,i)=>`<button class="ev" onclick="E.choose('${d.id}',${i});board()">${esc(o[0])}</button>`).join(""):`<small style="color:var(--dim)">You chose: ${esc(d.opts[c][0])}</small>`)}).join("")}
 
 // --- Hints: first hint is a nudge, a second names what to revisit. Used hints are counted, never required.
 function hint(id){const p=STORY.puzzles.find(x=>x.id==id),l=E.hint(id);pz(id);$("#pm").innerHTML=hintHtml(p,l)}
-const hintHtml=(p,l)=>`<div class="msg">${esc(p.hint)}${l>1?"<br><small>Revisit: "+p.needs.filter(n=>STORY.evidence[n]).map(n=>esc(STORY.evidence[n][0])).join("; ")+"</small>":""}</div>`
+const hintHtml=(p,l)=>`<div class="msg">${esc(p.hints?.[Math.min(l-1,p.hints.length-1)]||p.hint)}${l>1?"<br><small>Revisit: "+p.needs.filter(n=>STORY.evidence[n]).map(n=>esc(STORY.evidence[n][0])).join("; ")+"</small>":""}</div>`
 // --- Case file: each part needs the right kinds of support; feedback says which parts hold, never which item to pick
-function caseUI(p){const a=ans[p.id];return p.slots.map(s=>{if(!s.pick)return `<div class="ev"><b>${s.label}</b><select class="in" onchange="ans['${p.id}']['${s.id}']=this.value"><option value="">Choose</option>${Object.entries(s.options).map(([v,l])=>`<option value="${v}" ${a[s.id]==v?"selected":""}>${l}</option>`).join("")}</select></div>`;
+function caseUI(p){const a=ans[p.id];return p.slots.map(s=>{if(!s.pick)return `<div class="ev"><b>${s.label}</b><select class="in" onchange="draftField('${p.id}','${s.id}',this.value)"><option value="">Choose</option>${Object.entries(s.options).map(([v,l])=>`<option value="${v}" ${a[s.id]==v?"selected":""}>${l}</option>`).join("")}</select></div>`;
  const sel=a[s.id]||[];return `<div class="ev"><b>${s.label}</b><br><small style="color:var(--dim)">${sel.map(e=>esc(STORY.evidence[e][0])).join("<br>")||"No evidence chosen"}</small><div class="row"><button class="btn" onclick="cslot('${p.id}','${s.id}')">Choose evidence (${sel.length})</button></div></div>`}).join("")}
 function cslot(pid,sid){const p=STORY.puzzles.find(x=>x.id==pid),s=p.slots.find(x=>x.id==sid),sel=ans[pid][sid]||[];
  scr.innerHTML=bar(esc(s.label),`pz('${pid}')`)+`<small style="color:var(--dim)">Tap items to add or remove them. Include only what truly supports this part.</small>`+S.ev.map(e=>`<button class="ev ${sel.includes(e)?"sel":""}" onclick="ctoggle('${pid}','${sid}','${e}')"><b>${e}</b> ${esc(STORY.evidence[e][0])}<br><small>${STORY.evidence[e][1]}</small></button>`).join("")}
-function ctoggle(pid,sid,e){const a=ans[pid],sel=a[sid]||[];a[sid]=sel.includes(e)?sel.filter(x=>x!=e):[...sel,e];const y=scr.scrollTop;cslot(pid,sid);scr.scrollTop=y}
-function cpick(pid,sid,e){const a=ans[pid],sel=a[sid]||[];a[sid]=sel.includes(e)?sel.filter(x=>x!=e):[...sel,e];pz(pid)}
+function ctoggle(pid,sid,e){const a=ans[pid],sel=a[sid]||[];a[sid]=sel.includes(e)?sel.filter(x=>x!=e):[...sel,e];E.draft(pid,a);const y=scr.scrollTop;cslot(pid,sid);scr.scrollTop=y}
+function cpick(pid,sid,e){const a=ans[pid],sel=a[sid]||[];a[sid]=sel.includes(e)?sel.filter(x=>x!=e):[...sel,e];E.draft(pid,a);pz(pid)}
 // --- Objectives screen
 function objectives(){const n=Math.min(E.chapter(),STORY.chapters.length),c=STORY.chapters[n-1],ev=c.done.ev.filter(x=>S.ev.includes(x)).length,pz_=c.done.puz.filter(x=>S.solved.includes(x)).length;
  scr.innerHTML=bar("Objectives","home()")+`<div class="m"><b>Chapter ${n}: ${esc(c.title)}</b><br>${esc(c.goal)}</div><div class="m">Evidence found: ${ev} of ${c.done.ev.length}<br>Challenges solved: ${pz_} of ${c.done.puz.length}</div><small style="color:var(--dim)">Use Challenges and Interviews to make progress. Hints are optional.</small>`}

@@ -1,5 +1,5 @@
 // Fresh-save progression + reachability. Plays the game through engine/data only, respecting visibility and unlock flags.
-const {JSDOM}=require("jsdom"),fs=require("fs"),d="/mnt/user-data/outputs/last-archive/";
+const {JSDOM}=require("jsdom"),fs=require("fs"),d=__dirname+"/";
 const mk=(s)=>new JSDOM(fs.readFileSync(d+"index.html","utf8").replace(/<script src="([^"]+)"><\/script>/g,(m,f)=>"<script>"+fs.readFileSync(d+f,"utf8")+"</script>"),{runScripts:"dangerously",url:"http://localhost/",beforeParse(x){if(s)x.localStorage.setItem("lastarchive.v2",s)}}).window;
 const w=mk();w.errs=[];w.addEventListener("error",e=>w.errs.push(e.message));const ev=s=>w.eval(s),t=(n,c)=>{console.log(c?"PASS":"FAIL",n);if(!c)process.exitCode=1};
 t("fresh save is chapter 1, banner renders",ev("E.chapter()")==1&&(ev("home()"),w.document.querySelector("#screen").textContent.includes("Chapter 1")));
@@ -21,6 +21,7 @@ function play(n){let changed=true,g=0;while(changed&&g++<50){changed=false;
  const ps=JSON.parse(ev("JSON.stringify(STORY.puzzles.filter(p=>E.vis(p)&&E.ready(p)&&!E.S.solved.includes(p.id)).map(p=>p.id))"));
  for(const id of ps){if(ev("E.chapter()")>n)return;const a=JSON.parse(ev(`JSON.stringify((()=>{const p=STORY.puzzles.find(x=>x.id=='${id}');return p.type=='order'?Object.keys(p.items).sort((x,y)=>p.items[x][1].localeCompare(p.items[y][1])):p.type=='match'?p.pairs:p.type=='case'?Object.fromEntries(p.slots.map(s=>[s.id,s.pick?s.need.map(g=>g[0]):s.answer])):p.answer})())`));
   if(ev(`E.solve('${id}',${JSON.stringify(a)})`))changed=true}}}
+ev(`for(const d of STORY.decisions)E.choose(d.id,0)`);
 const marks=[];
 const N=ev('STORY.chapters.length');for(let n=1;n<=N;n++){play(n);const done=ev(`E.done(${n})`);t(`chapter ${n} objectives completable from available content`,done);
  // every done.ev must be reachable (checked by play), and no objective references a missing id

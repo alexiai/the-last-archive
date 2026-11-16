@@ -1,6 +1,6 @@
 # THE LAST ARCHIVE
 
-A nine-chapter psychological investigation in English, built as a static game with HTML, CSS and JavaScript. The revised narrative and a focused investigative fieldwork improvement are integrated on this review branch. It is not approved for release, merged or deployed.
+A nine-chapter psychological investigation in English, built as a static game with HTML, CSS and JavaScript. The revised narrative and connected investigative fieldwork improvements are integrated on this review branch. It is not approved for release, merged or deployed.
 
 Run `python3 -m http.server 8765`, then open `http://localhost:8765/`. No runtime packages, account, generation model or paid API are required. The journal, source register, interviews, examinations, evidence board and notes share the existing production interface.
 
@@ -23,3 +23,7 @@ The allowlisted build includes the active edition and both preserved previous ed
 Read [the spoiler-free Phase 1 report](docs/narrative-review/PHASE1_REPORT.md) for verified results, remaining gaps and the blind-playtesting plan. Do not infer playtime, acting quality or physical iPhone compatibility from automated checks.
 
 Read [the spoiler-free fieldwork delivery report](docs/narrative-review/FIELDWORK_DELIVERY.md) for the playable scope, verification and local launch instructions. Private development documentation may contain spoilers; play from the allowlisted package.
+
+The current review adds a connected source follow-up, a two-original comparison desk, a player-built chronology, retained message observations and useful phone search/navigation. Personal theories support groups, pinned accounts, competing copies and editable supporting/challenging/context roles. Existing fieldwork saves remain compatible. See [the spoiler-free continuation delivery](docs/narrative-review/CONTINUATION_DELIVERY.md).
+
+When updating an earlier local download, close its launcher first, start the new folder at the same address, then use Sound / offline → Download this playable edition and reload if the older cached interface remains. The new settings identify FIELDWORK REVIEW 5. Do not clear browser storage to update.

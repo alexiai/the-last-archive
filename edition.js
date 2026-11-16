@@ -2,7 +2,7 @@
 const STORY = {
   "narrativeEdition": "fieldwork-2025",
   "saveKey": "lastarchive.fieldwork.v1",
-  "productionEdition": 4,
+  "productionEdition": 5,
   "persons": {
     "iris": "Iris Vasilescu",
     "elena": "Elena Vasilescu",

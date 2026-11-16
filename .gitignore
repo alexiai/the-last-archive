@@ -6,3 +6,4 @@ dist/
 .legacy-check-*/
 .playable/
 THE_LAST_ARCHIVE_PLAYABLE.zip
+__pycache__/

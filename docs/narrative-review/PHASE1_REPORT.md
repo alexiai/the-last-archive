@@ -43,7 +43,7 @@ These are automated or programmatic tests, including solution-aware fixtures. Th
 
 ## Regressions and newly discovered issues
 
-No unresolved progression, save, source-navigation or media regression was found in the covered paths. The added checks caught a further keyboard issue during implementation: repeated event-ordering actions could transfer focus to a different item after rebuilding. Focus now follows the moved item, with a repeated-key regression test.
+No unresolved progression, save, source-navigation or media regression was found in the covered paths. The added checks caught a further keyboard issue during implementation: repeated event-ordering actions could transfer focus to a different item after rebuilding. Focus now follows the moved item, with a repeated-key regression test. The first hosted verification also flagged a source-return click that passed locally; the return target is now exempt from entry motion, and its browser test waits for stable interaction and the resulting evidence view.
 
 The earlier tests missed several data-to-interface failures because they checked screen width, valid inputs and reachability rather than the actual displayed records. The new regressions check those outcomes explicitly. This does not prove that all possible interface or narrative defects have been eliminated.
 

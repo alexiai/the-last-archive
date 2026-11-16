@@ -15,6 +15,7 @@ view = function (name) {
       interview: "interview",
       puzzle: "analysis",
       analysis: "analysis",
+      analysis: "analysis",
       timeline: "timeline",
       board: "board",
       profiles: "dossier",
@@ -42,10 +43,10 @@ home = function () {
   view("home");
   const apps = STORY.apps.filter((a) => E.vis({ ch: a[3] }));
   const phoneApps = apps.filter(
-    (a) => !["ev", "int", "pz", "map", "lab"].includes(a[0]),
+    (a) => !["ev", "int", "pz", "map", "lab", "journal"].includes(a[0]),
   );
   const caseApps = apps.filter((a) =>
-    ["ev", "int", "pz", "map", "lab"].includes(a[0]),
+    ["ev", "int", "pz", "map", "lab", "journal"].includes(a[0]),
   );
   const entry = ([id, name, on], i) =>
     `<button ${on === 0 ? "disabled" : `onclick="open_('${id}')"`} class="index-entry"><span class="index-number">${String(i + 1).padStart(2, "0")}</span><span>${esc(name)}</span><span class="index-arrow" aria-hidden="true">↗</span></button>`;
@@ -221,7 +222,7 @@ new MutationObserver(() => {
     ? `THE LAST ARCHIVE / ${title.toUpperCase()} / ${String(E.chapter()).padStart(2, "0")}`
     : "THE LAST ARCHIVE / VESPERA";
 }).observe(scr, { childList: true });
-S.unlocked ? home() : lock();
+if(!STORY.narrativeEdition){S.unlocked ? home() : lock();}
 // Small physical cues on the work surface reuse existing chapter-one photography.
 const deskPrint = document.createElement("figure");
 deskPrint.id = "desk-print";

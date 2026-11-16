@@ -5,7 +5,7 @@ All character speech is synthesized English performance generated locally during
 MODEL AND VOICES
 Kokoro 82M v1.0 and its official English voice tensors: Apache License 2.0.
 Source: https://huggingface.co/hexgrad/Kokoro-82M
-English stock voices used: af_heart, af_bella, af_nicole, bf_emma, am_michael, am_fenrir, bm_george.
+English stock voices used: af_heart, af_bella, af_nicole, bf_emma, bf_isabella, am_michael, am_fenrir, bm_george.
 No custom real-person voice clone was used.
 The upstream model acknowledges Koniwa (CC BY 3.0) and SIWIS (CC BY 4.0) training material. See the upstream model card for those acknowledgements.
 
@@ -27,3 +27,6 @@ The surveillance extract is original authored fictional game media using a proje
 
 PLAYBACK
 Playback uses local static audio/video files and browser capabilities. There are no paid runtime services or recurring service requirements. Full offline availability is claimed only after the complete archive has been downloaded and verified in browser storage.
+
+REVISED NARRATIVE EDITION
+The active edition uses newly rendered recordings and transcripts. The earlier game, its original recordings and the lastarchive.v2 save remain separately preserved under editions/original/. The new edition does not interpret legacy deductions as its own. Each edition has its own offline-download scope.

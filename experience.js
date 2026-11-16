@@ -85,7 +85,7 @@ function chapterTransition(n) {
 }
 function lock() {
   view("lock");
-  scr.innerHTML = `<div class="lock"><div class="eyebrow">RECOVERED DEVICE / IRIS VASILESCU</div><div class="big">02:14</div><div class="eyebrow">MONDAY, 19 OCTOBER</div><h1 class="lock-title">The last<br><em>archive.</em></h1><button class="notif" onclick="S.unlocked=true;E.save();thread('moth')"><b>MOTH <span style="float:right">NOW</span></b><p>You do this for a living.<br>Iris's backup is attached.</p><small>Open the message to begin ↗</small></button><div class="lock-foot">A LIFE LEFT BEHIND. A STORY STILL OPEN.<br>Headphones recommended · Progress saves locally</div></div>`;
+  scr.innerHTML = `<div class="lock"><div class="eyebrow">RECOVERED DEVICE / IRIS VASILESCU</div><div class="big">02:14</div><div class="eyebrow">SUNDAY, 19 OCTOBER</div><h1 class="lock-title">The last<br><em>archive.</em></h1><button class="notif" onclick="S.unlocked=true;E.save();thread('moth')"><b>MOTH <span style="float:right">NOW</span></b><p>You do this for a living.<br>Iris's backup is attached.</p><small>Open the message to begin ↗</small></button><div class="lock-foot">A LIFE LEFT BEHIND. A STORY STILL OPEN.<br>Headphones recommended · Progress saves locally</div></div>`;
 }
 function appTile([id, n, on]) {
   return `<button ${on === 0 ? "disabled" : `onclick="open_('${id}')"`} class="${on === 0 ? "dis" : ""}" aria-label="${n}"><div class="ic ${id === "ev" && S.ev.length ? "on" : ""}">${icon(id)}</div>${n}</button>`;
@@ -350,11 +350,11 @@ function caseTimeline() {
     if (p.ev && S.ev.includes(p.ev))
       add(p.ts, p.who + " · " + p.text, "Social", p.ev, "soc()");
   const date = (t) => {
-    if (/^2026-/.test(t)) return t;
+    if (/^2025-/.test(t)) return t;
     const m = t.match(/(Aug|Sep|Oct)\s+(\d+).*?(\d\d:\d\d)/);
     return m
-      ? `2026-${{ Aug: "08", Sep: "09", Oct: "10" }[m[1]]}-${m[2].padStart(2, "0")}T${m[3]}`
-      : "2026-10-00T00:00";
+      ? `2025-${{ Aug: "08", Sep: "09", Oct: "10" }[m[1]]}-${m[2].padStart(2, "0")}T${m[3]}`
+      : "2025-10-00T00:00";
   };
   events.sort((a, b) => date(a.ts).localeCompare(date(b.ts)));
   const sources = ["all", ...new Set(events.map((e) => e.src))];
@@ -483,7 +483,7 @@ $("#nb").addEventListener("input", () => {
   if (mobile) mobile.value = S.nb;
   syncCase();
 });
-S.unlocked ? home() : lock();
+if(!STORY.narrativeEdition){S.unlocked ? home() : lock();}
 // Cards retain the original board coordinates and gesture handlers; only their drawing changes.
 function drawBoard() {
   const sv = $("#bd");
@@ -608,7 +608,7 @@ function thread(k) {
         day = d;
         return (
           separator +
-          `<div class="m ${f === "me" ? "me" : ""} ${e ? "has" : ""} ${e && S.ev.includes(e) ? "saved" : ""}" ${e ? `role="button" tabindex="0" aria-label="${S.ev.includes(e) ? "Archived" : "Save evidence"}: ${esc(x)}" onclick="saveMsg(this,'${e}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();saveMsg(this,'${e}')}"` : ""}>${f !== "me" && f !== "them" ? `<b class="who">${esc(f)}</b>` : ""}${esc(x)}<time>${ts}${e && S.ev.includes(e) ? " · Archived" : ""}</time></div>`
+          `<div class="m ${f === "me" ? "me" : ""} ${e ? "has" : ""} ${e && S.ev.includes(e) ? "saved" : ""}" ${e ? `role="button" tabindex="0" aria-label="${S.ev.includes(e) ? "Archived" : "Save evidence"}: ${esc(x)}" onclick="saveMsg(this,'${e}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();saveMsg(this,'${e}')}"` : ""}>${f !== "me" && f !== "them" ? `<b class="who">${esc(f)}</b>` : ""}${esc(x)}<time>${ts}${e && S.ev.includes(e) ? " · Archived" : ""}</time>${e ? `<span class="archive-action">${S.ev.includes(e)?"✓ Archived record":"＋ Archive this record"}</span>`:""}</div>`
         );
       })
       .join("");
@@ -627,7 +627,7 @@ function cal() {
   view("calendar");
   scr.innerHTML =
     bar("Calendar", "home()") +
-    `<div class="calendar-heading"><div class="eyebrow">ARCHIVED SCHEDULE / 2026</div><h1>October</h1></div><div class="month-grid" aria-hidden="true">${["M", "T", "W", "T", "F", "S", "S"].map((x) => `<span class="weekday">${x}</span>`).join("")}${Array.from({ length: 3 }, () => "<span></span>").join("")}${Array.from({ length: 31 }, (_, i) => `<span class="${[14, 16, 17].includes(i + 1) ? "event-day" : ""}">${i + 1}</span>`).join("")}</div><div class="section-label"><span>SCHEDULED EVENTS</span><span>OCTOBER</span></div>` +
+    `<div class="calendar-heading"><div class="eyebrow">ARCHIVED SCHEDULE / 2025</div><h1>October</h1></div><div class="month-grid" aria-hidden="true">${["M", "T", "W", "T", "F", "S", "S"].map((x) => `<span class="weekday">${x}</span>`).join("")}${Array.from({ length: 3 }, () => "<span></span>").join("")}${Array.from({ length: 31 }, (_, i) => `<span class="${[14, 16, 17].includes(i + 1) ? "event-day" : ""}">${i + 1}</span>`).join("")}</div><div class="section-label"><span>SCHEDULED EVENTS</span><span>OCTOBER</span></div>` +
     STORY.calendar
       .map(
         ([d, t, n, l, e]) =>

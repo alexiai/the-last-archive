@@ -2,109 +2,115 @@
   {
     "letterGroup": 0,
     "start": 0.4,
-    "end": 0.53,
-    "kind": "short"
-  },
-  {
-    "letterGroup": 0,
-    "start": 0.66,
     "end": 0.79,
-    "kind": "short"
+    "kind": "long"
   },
   {
     "letterGroup": 0,
     "start": 0.92,
-    "end": 1.05,
-    "kind": "short"
+    "end": 1.31,
+    "kind": "long"
   },
   {
     "letterGroup": 0,
-    "start": 1.18,
-    "end": 1.57,
+    "start": 1.44,
+    "end": 1.83,
     "kind": "long"
   },
   {
     "letterGroup": 1,
-    "start": 1.96,
-    "end": 2.09,
+    "start": 2.22,
+    "end": 2.35,
     "kind": "short"
   },
   {
-    "letterGroup": 2,
+    "letterGroup": 1,
     "start": 2.48,
-    "end": 2.61,
+    "end": 2.87,
+    "kind": "long"
+  },
+  {
+    "letterGroup": 1,
+    "start": 3.0,
+    "end": 3.13,
     "kind": "short"
   },
   {
     "letterGroup": 2,
-    "start": 2.74,
-    "end": 3.13,
+    "start": 3.52,
+    "end": 3.91,
     "kind": "long"
   },
   {
     "letterGroup": 2,
-    "start": 3.26,
-    "end": 3.39,
-    "kind": "short"
-  },
-  {
-    "letterGroup": 3,
-    "start": 3.78,
-    "end": 3.91,
-    "kind": "short"
-  },
-  {
-    "letterGroup": 3,
     "start": 4.04,
     "end": 4.17,
     "kind": "short"
   },
   {
-    "letterGroup": 4,
-    "start": 4.56,
+    "letterGroup": 2,
+    "start": 4.3,
     "end": 4.69,
-    "kind": "short"
+    "kind": "long"
   },
   {
-    "letterGroup": 4,
+    "letterGroup": 2,
     "start": 4.82,
     "end": 4.95,
     "kind": "short"
   },
   {
-    "letterGroup": 4,
-    "start": 5.08,
+    "letterGroup": 3,
+    "start": 5.34,
     "end": 5.47,
-    "kind": "long"
+    "kind": "short"
   },
   {
-    "letterGroup": 4,
+    "letterGroup": 3,
     "start": 5.6,
     "end": 5.73,
     "kind": "short"
   },
   {
-    "letterGroup": 5,
-    "start": 6.12,
-    "end": 6.51,
-    "kind": "long"
+    "letterGroup": 3,
+    "start": 5.86,
+    "end": 5.99,
+    "kind": "short"
   },
   {
-    "letterGroup": 5,
+    "letterGroup": 3,
+    "start": 6.12,
+    "end": 6.25,
+    "kind": "short"
+  },
+  {
+    "letterGroup": 4,
     "start": 6.64,
     "end": 6.77,
     "kind": "short"
   },
   {
-    "letterGroup": 5,
+    "letterGroup": 4,
     "start": 6.9,
-    "end": 7.29,
-    "kind": "long"
+    "end": 7.03,
+    "kind": "short"
   },
   {
     "letterGroup": 5,
     "start": 7.42,
     "end": 7.81,
     "kind": "long"
+  },
+  {
+    "letterGroup": 5,
+    "start": 7.94,
+    "end": 8.07,
+    "kind": "short"
+  },
+  {
+    "letterGroup": 5,
+    "start": 8.2,
+    "end": 8.33,
+    "kind": "short"
   }
 ]

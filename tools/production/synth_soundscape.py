@@ -33,8 +33,8 @@ for name,dur,bpm,notes in [('investigation',72,44,[146.83,220,174.61,155.56,138.
   for at in np.arange(0,dur-.7,60/bpm):
    i=int(at*rate);v=tone(58,.55,.012);a[i:i+len(v)]+=v
  fade=np.minimum(1,np.minimum(t,dur-t)/3);write('music-'+name,a*fade,'64k')
-morse={'V':'...-','E':'.','R':'.-.','I':'..','F':'..-.','Y':'-.--'};unit=.13;parts=[];pulses=[];cursor=.4;parts.append(np.zeros(round(rate*cursor)))
-for index,letter in enumerate('VERIFY'):
+morse={'O':'---','R':'.-.','C':'-.-.','H':'....','I':'..','D':'-..'};unit=.13;parts=[];pulses=[];cursor=.4;parts.append(np.zeros(round(rate*cursor)))
+for index,letter in enumerate('ORCHID'):
  for j,c in enumerate(morse[letter]):
   d=unit*(1 if c=='.' else 3);tt=np.arange(round(rate*d))/rate;env=np.minimum(1,np.minimum(tt,d-tt)/.008);parts.append(.17*np.sin(2*np.pi*640*tt)*env);pulses.append({'letterGroup':index,'start':round(cursor,3),'end':round(cursor+d,3),'kind':'short' if c=='.' else 'long'});cursor+=d
   gap=unit if j<len(morse[letter])-1 else unit*3;parts.append(np.zeros(round(rate*gap)));cursor+=gap

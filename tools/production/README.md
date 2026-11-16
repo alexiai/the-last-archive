@@ -2,6 +2,8 @@
 
 These tools are development-only and are excluded from dist. Use Python 3.11+, kokoro-onnx 0.6.1, ONNX Runtime CPU, NumPy, SciPy, SoundFile and FFmpeg for voices. Supply official Kokoro v1.0 ONNX weights and voices-v1.0.bin in a directory outside the repository. Never commit the model files or WAV masters. Upstream licences and input hashes are retained in docs/production-proposal.
 
+`export_jobs.cjs` reads the active revised `edition.js`. The frozen previous edition is not a regeneration target. Finish and review text before generating replacement recordings or documents.
+
 From the project root:
 
 ```

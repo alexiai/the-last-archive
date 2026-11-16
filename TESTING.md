@@ -1,34 +1,13 @@
-# Production verification
+# Verification of the revised narrative edition
 
-Run npm test (275 original regression assertions), npm run test:browser (72 browser + 53 presentation checks), npm run test:production (52 checks: expanded progression, answer controls, media and real offline-cache behavior), npm run audit:assets, and npm run build. Chromium and FFmpeg must be installed for production media tests. No physical iOS test or human playtime/listening sign-off is implied.
+`npm test` runs the original 275 regression assertions against a temporary copy of the byte-identical preserved edition, then the revised engine/journal suite. The new suite explicitly covers all 36 combinations of interview approach, listening/privacy, public correction and confrontation/referral. This is a solution-aware automated traversal, not a blind playthrough.
 
-The original late-chapter fixtures explicitly retain original chapter checkpoints when testing legacy interactions. The production suite separately begins with a new expanded save and verifies its additional challenge and decision requirements.
+`npm run test:browser` checks the revised build at 320, 390 and 1280 pixels in Chromium: journal/source views, every displayed investigation answer control, transcript-only closure, gesture-started playback, mute, notes and reloads.
 
-The following image-stage verification record is historical; production results above supersede statements about missing audio.
+`npm run test:production` builds the packaged site and checks 63 finished recording hashes/decoding/timed captions, script-to-recording mapping, interrupted downloads, full checksum verification, failed-update preservation, media byte ranges, offline reload, cache eviction, service-worker registration denial and independent legacy/new saves.
 
-# Test report — 16 November 2026
+`npm run audit:assets` checks active declared source assets. `npm run build` produces only allowlisted runtime files and both playable editions. The original snapshot is independently checked against SHA-256 hashes recorded before rewriting.
 
-## Verified
+`npm run test:webkit` is an optional local Linux WebKit check when Playwright and its system libraries are available. It is not physical iPhone Safari. Neither mobile viewport emulation nor a WebKit pass establishes iOS audio-session, storage-eviction, safe-area or touch behaviour on an actual device.
 
-- `npm test`: all 275 original gameplay assertions pass across nine suites. Includes fresh-save progression through all nine chapters, all 17 puzzles, interview rewards and recovery, evidence reference integrity, malformed/blocked/full storage behavior, hint persistence, all 12 decision combinations and epilogue behavior.
-- `npm run test:browser`: 72 existing Chromium checks and 53 new experience checks pass (125 browser checks total). They run against portable temporary HTTP servers. Browser coverage includes 320px and 390px touch emulation plus 1280px desktop, application rendering and overflow, touch target sizes, board drag/pinch/tap/selection, keyboard focus, browser Back, real image loading, missing-image recovery in an isolated copy, notebook reload persistence, reduced motion, evidence source navigation and undiscovered-content gating.
-- The original finale browser suite plays the final interview and case-file interactions through UI controls, checks completion, and reloads the save. Earlier progression is automated; this is not a human playthrough.
-- `node audit_assets.js`: 31/36 slots present: all 23 photographs and all eight portrait/mark slots; none undersized. Five recorded-audio slots remain missing and clearly labelled in the interface.
-- `python3 tools/build_site.py`: only the runtime allowlist and real assets appear in dist/. No tests, private story documentation, development tools or Node dependencies are published.
-- Original narrative data and core engine are byte-for-byte unchanged. Asset references and script/style paths work under a repository subdirectory.
-
-## Reproduce
-
-1. Install Node 22+ and Chromium. Set `CHROMIUM_PATH` if it is not `/usr/bin/chromium`.
-2. Run `npm ci`, `npm test`, `npm run test:browser`, and `npm run audit:assets`.
-3. Run `npm run build` to produce the static deployment folder. Serving the game itself needs no npm dependencies.
-
-The browser runner creates an isolated missing-asset copy, starts a temporary local server and removes the copy afterward. It never deletes shipped assets. Existing browser-suite screenshots are temporary local artifacts and may contain late-game material; do not publish them as promotional screenshots.
-
-## Still outstanding
-
-Physical iOS Safari and Android testing; human investigation/playtime and puzzle-fairness review; actual recorded performances; live GitHub Pages verification after deployment. Chromium touch emulation does not establish real-device compatibility. Browser full-screen support varies; image zoom/drag remains available when full screen is unavailable.
-
-## Art-direction revision
-
-The full gameplay and browser suites were rerun after the composition changes. Added coverage includes board focus and Escape recovery, dialogue choices alongside transcripts, suppression of drawn fallbacks after real image loading, and document transitions out of the device layout. Screen rendering and overflow continue to be checked at 320px, 390px and 1280px. Reference captures at 1440px and 390px are in docs/previews/.
+Current numerical results and explicit limitations are recorded in docs/narrative-review/INTEGRATION_REPORT.md. Human acting/listening quality, literary impact and first-player playtime require human review. The blind protocol is docs/narrative-review/BLIND_PLAYTEST.md.

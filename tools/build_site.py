@@ -2,11 +2,11 @@
 from pathlib import Path
 import shutil,json,hashlib
 ROOT=Path(__file__).resolve().parent.parent;OUT=ROOT/'dist'
-RUNTIME=['index.html','style.css','art-direction.css','production.css','story.js','content_extra.js','story_expansion.js','engine.js','game.js','experience.js','art-direction.js','production.js','audio_director.js','audio_manifest.json','sound_manifest.json','signal_trace.json','sw.js','AUDIO_CREDITS.txt']
+RUNTIME=['index.html','style.css','art-direction.css','production.css','edition.js','engine.js','game.js','experience.js','art-direction.js','production.js','audio_director.js','edition_ui.js','audio_manifest.json','sound_manifest.json','signal_trace.json','sw.js','AUDIO_CREDITS.txt']
 if OUT.exists():shutil.rmtree(OUT)
 OUT.mkdir()
 for name in RUNTIME:shutil.copy2(ROOT/name,OUT/name)
-shutil.copytree(ROOT/'assets',OUT/'assets');(OUT/'.nojekyll').touch()
+shutil.copytree(ROOT/'assets',OUT/'assets');shutil.copytree(ROOT/'editions',OUT/'editions');(OUT/'.nojekyll').touch()
 files=[]
 for p in sorted(OUT.rglob('*')):
  if p.is_file():files.append({'url':p.relative_to(OUT).as_posix(),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})

@@ -21,7 +21,7 @@ for frame in range(216):
   d.line([(x+h*.1,y-h*.76),(x+stride*.7+h*.12,y-h*.42)],fill=(61,59,56,255),width=max(3,int(h*.07)))
  im=Image.alpha_composite(im.convert('RGBA'),layer.filter(ImageFilter.GaussianBlur(.75))).convert('RGB')
  a=np.asarray(im).astype(np.float32);a+=rng.normal(0,2.8,a.shape);a[::3]*=.96;im=Image.fromarray(np.clip(a,0,255).astype('uint8'));d=ImageDraw.Draw(im)
- d.text((16,16),f'CAM 02 / LOBBY   00:51:{int(t):02d}',font=font,fill=(215,220,205));d.text((16,326),'EXPORT / VIDEO ONLY',font=font,fill=(200,208,190))
+ d.text((16,16),f'CAM 02 / LOBBY   00:25:{int(t):02d}',font=font,fill=(215,220,205));d.text((16,326),'EXPORT / VIDEO ONLY',font=font,fill=(200,208,190))
  process.stdin.write(im.tobytes())
 process.stdin.close();assert process.wait()==0
 print('Rendered original surveillance extract:',out.stat().st_size,'bytes')

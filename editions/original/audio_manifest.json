@@ -1,0 +1,1305 @@
+{
+  "clips": {
+    "a1": {
+      "file": "assets/audio/a1.mp3",
+      "duration": 7.405,
+      "bytes": 59948,
+      "sha256": "762290d8ae03bd5b712d64f08b492e0b186c3dcbebc460b9b8be89895e76c090",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 1.58,
+          "speaker": "Music",
+          "text": "(loud music, voices)"
+        },
+        {
+          "start": 1.9,
+          "end": 4.245,
+          "speaker": "Man",
+          "text": "Iris, one minute, please."
+        },
+        {
+          "start": 4.565,
+          "end": 6.065,
+          "speaker": "Iris",
+          "text": "Victor, not here."
+        },
+        {
+          "start": 6.385,
+          "end": 7.085,
+          "speaker": "Music",
+          "text": "(a phone rings and is cut off)"
+        }
+      ]
+    },
+    "a2": {
+      "file": "assets/audio/a2.mp3",
+      "duration": 9.87,
+      "bytes": 79724,
+      "sha256": "7735c081a696b5cb14b488a75194411857c25c9ffd17bc61f74ea18b7ee25077",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 5.797,
+          "speaker": "J.",
+          "text": "Iris, it's J. Don't use the office wifi for this."
+        },
+        {
+          "start": 6.117,
+          "end": 9.55,
+          "speaker": "J.",
+          "text": "Call me from a phone that isn't yours."
+        }
+      ]
+    },
+    "a3": {
+      "file": "assets/audio/a3.mp3",
+      "duration": 4.476,
+      "bytes": 36524,
+      "sha256": "40afdc735d3a3f8ac94cac498e2c68fd49df75ea2be4acd8b06f74576c8e1e60",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 4.156,
+          "speaker": "Mara",
+          "text": "Hey. Did you talk to him? I'll see you there. Wear the green one."
+        }
+      ]
+    },
+    "a4": {
+      "file": "assets/audio/a4.mp3",
+      "duration": 3.295,
+      "bytes": 27116,
+      "sha256": "018b2a038705c6706d3cbbdadf609796a845ed1437d7b94f26f7d7ffdea03647",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 2.975,
+          "speaker": "Luca",
+          "text": "Iris, it's me. Don't sign anything tonight."
+        }
+      ]
+    },
+    "a5": {
+      "file": "assets/audio/a5.mp3",
+      "duration": 9.849,
+      "bytes": 79532,
+      "sha256": "ad1d3046a32a4432d72a699b0e3c723e1b35833dcf83ab7454f5b457f52cad13",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 1.58,
+          "speaker": "Music",
+          "text": "(kettle, a spoon on a cup)"
+        },
+        {
+          "start": 1.9,
+          "end": 4.737,
+          "speaker": "Woman",
+          "text": "Hey. Drink it, love. It'll help you sleep."
+        },
+        {
+          "start": 5.057,
+          "end": 7.81,
+          "speaker": "Iris",
+          "text": "I can't believe he was there. I trusted him."
+        },
+        {
+          "start": 8.13,
+          "end": 9.529,
+          "speaker": "Woman",
+          "text": "I know. Drink."
+        }
+      ]
+    },
+    "u1": {
+      "file": "assets/audio/u1.mp3",
+      "duration": 11.431,
+      "bytes": 92204,
+      "sha256": "69b3fce19a3805f12a362f8c68b7375cb595b1ff2157381f9751c4ccf21b9b52",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 11.111,
+          "speaker": "Operator",
+          "text": "The recorder clock was two minutes fast. That is in the export note. Please use the corrected time when you compare it with a phone record. We cannot identify the person in that picture for you."
+        }
+      ]
+    },
+    "u2": {
+      "file": "assets/audio/u2.mp3",
+      "duration": 16.301,
+      "bytes": 131180,
+      "sha256": "d2bea64d37c0b2d88b44f70df15d8b27681194570cced367c9748e132f04b2a9",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 9.051,
+          "speaker": "MOTH",
+          "text": "I gave you the archive. I did not tell you to stop asking questions. Read the statements before you decide which person sounds convincing."
+        },
+        {
+          "start": 9.371,
+          "end": 11.505,
+          "speaker": "Investigator",
+          "text": "Why do you care what I decide?"
+        },
+        {
+          "start": 11.825,
+          "end": 15.981,
+          "speaker": "MOTH",
+          "text": "Because nobody else is reading it properly. Call me back when you have."
+        }
+      ]
+    },
+    "u3": {
+      "file": "assets/audio/u3.mp3",
+      "duration": 9.724,
+      "bytes": 78572,
+      "sha256": "80e8b2e29b116e02bec263a87fb43863911b58735d79e8bcdcbf98a310d7b5c0",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 9.404,
+          "speaker": "Mara",
+          "text": "I know how this looks. Freelance work is not the same thing as being part of his company. Please do not mix the two up. Ask me what I actually did."
+        }
+      ]
+    },
+    "u4": {
+      "file": "assets/audio/u4.mp3",
+      "duration": 8.099,
+      "bytes": 65516,
+      "sha256": "941c230c016f34155f6fc2d48be04e2250b473a91903406f77692b521f577716",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 7.779,
+          "speaker": "Elena",
+          "text": "I left tea... and a strip of my own sleeping tablets in the box, for emergencies. I never told anyone. It would look terrible."
+        }
+      ]
+    },
+    "u5": {
+      "file": "assets/audio/u5.mp3",
+      "duration": 6.769,
+      "bytes": 54956,
+      "sha256": "7c9bd4c6b0962472f85663d8faa6d9775d8ac4939497d3f10d5fc11a7f482a6b",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 6.449,
+          "speaker": "MOTH",
+          "text": "Every copy has a source. You keep asking what it says. Have you asked who had permission to change it?"
+        }
+      ]
+    },
+    "u6": {
+      "file": "assets/audio/u6.mp3",
+      "duration": 5.229,
+      "bytes": 42476,
+      "sha256": "5af1f0bfc9182b02193843cf2442116e51b61ad96f1b1fc9b1727266c2991a8c",
+      "segments": [
+        {
+          "start": 0.18,
+          "end": 3.211,
+          "speaker": "Operator",
+          "text": "Apartment eight. Your guest is at the entrance."
+        },
+        {
+          "start": 3.531,
+          "end": 4.909,
+          "speaker": "Iris",
+          "text": "Let them in, please."
+        }
+      ]
+    }
+  },
+  "dialogue": {
+    "adrian": {
+      "a0": {
+        "file": "assets/audio/voices/v001.mp3",
+        "duration": 12.049,
+        "bytes": 97196,
+        "sha256": "a1ff3c5cff08b3d1756153d6a6b560cfd56aa746417bc42ca3a6892ecf265464",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 11.729,
+            "speaker": "Adrian",
+            "text": "I already told the police. I was home. Why ask me again? I know how rehearsed that sounds. Every question feels like a different version of the same accusation."
+          }
+        ]
+      },
+      "a1": {
+        "file": "assets/audio/voices/v002.mp3",
+        "duration": 3.764,
+        "bytes": 30764,
+        "sha256": "dc1096cf7bae0a2da2c0592fa50dcca8d4dc89600a3b1fea87b0d673b477f393",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.444,
+            "speaker": "Adrian",
+            "text": "Dinner. A film. I fell asleep on the sofa."
+          }
+        ]
+      },
+      "a6": {
+        "file": "assets/audio/voices/v003.mp3",
+        "duration": 6.079,
+        "bytes": 49388,
+        "sha256": "03ad7bcae75bf2baec2f2f2b86a9fe9d2568aa230e5f9381588a5798ddb1c1d4",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 5.759,
+            "speaker": "Adrian",
+            "text": "I was invited. I didn't go. Iris and I had argued that afternoon."
+          }
+        ]
+      },
+      "a10": {
+        "file": "assets/audio/voices/v004.mp3",
+        "duration": 4.837,
+        "bytes": 39404,
+        "sha256": "f6ecfe828b6cc15a2e02e6cf1e7fc76fdbacf669a3b42f62cc68e8f4f1d336d8",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.517,
+            "speaker": "Adrian",
+            "text": "I live alone. Nobody. That's the whole point of staying in."
+          }
+        ]
+      },
+      "a3": {
+        "file": "assets/audio/voices/v005.mp3",
+        "duration": 5.748,
+        "bytes": 46700,
+        "sha256": "aa82f1afe27bdeb1adf353360bb6c145f680fc8fdae4875253348037e10c8faa",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 5.428,
+            "speaker": "Adrian",
+            "text": "I said I was leaving. Then I changed my mind and drove around for a while."
+          }
+        ]
+      },
+      "a7": {
+        "file": "assets/audio/voices/v006.mp3",
+        "duration": 3.195,
+        "bytes": 26348,
+        "sha256": "272a254c95728db18e0100da27e38121ba021b137f748eafdbd8851fe416b433",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.875,
+            "speaker": "Adrian",
+            "text": "I'd rather not say. It's personal."
+          }
+        ]
+      },
+      "a8": {
+        "file": "assets/audio/voices/v007.mp3",
+        "duration": 5.572,
+        "bytes": 45356,
+        "sha256": "55153fbf9a579cec932306a10d339ad6cb6d5ba3b740e861f10b1776c7a76c54",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 5.252,
+            "speaker": "Adrian",
+            "text": "...Yes. It has nothing to do with Iris. I won't give you a name yet."
+          }
+        ]
+      },
+      "a4": {
+        "file": "assets/audio/voices/v008.mp3",
+        "duration": 5.153,
+        "bytes": 41900,
+        "sha256": "4ccab3d851919bffca57ff13d00cb28f2a7219f098da8525ebae0bd3e2da76d3",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.833,
+            "speaker": "Adrian",
+            "text": "A grey jacket? Half the city owns one. You can't pin that on me."
+          }
+        ]
+      },
+      "a9": {
+        "file": "assets/audio/voices/v009.mp3",
+        "duration": 2.906,
+        "bytes": 24044,
+        "sha256": "c4cdb1e3963d59d9f20f59016e60d79cedb352d58cf0a8b6711ea5e2a518e6bb",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.586,
+            "speaker": "Adrian",
+            "text": "Fine. Ask what you need to ask."
+          }
+        ]
+      },
+      "a5": {
+        "file": "assets/audio/voices/v010.mp3",
+        "duration": 4.206,
+        "bytes": 34412,
+        "sha256": "9848000af11a7dc3f8ef4637d07e66cec85cbe084c7d71910f234591ffa6fd37",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.886,
+            "speaker": "Adrian",
+            "text": "My phone paused it. Battery saver. It does that."
+          }
+        ]
+      },
+      "pd": {
+        "file": "assets/audio/voices/v011.mp3",
+        "duration": 2.441,
+        "bytes": 20204,
+        "sha256": "071554f1111e63732e215c6c18a2c10b623c5b5797164451dbab8340cd465346",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.121,
+            "speaker": "Adrian",
+            "text": "I don't see what that proves."
+          }
+        ]
+      }
+    },
+    "victor": {
+      "v0": {
+        "file": "assets/audio/voices/v012.mp3",
+        "duration": 15.579,
+        "bytes": 125420,
+        "sha256": "a3f6c7d13e956c6bac5faefee344f56d8fc94bf7d47893f5b6fda47345c28d35",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 15.259,
+            "speaker": "Victor",
+            "text": "I have ten minutes. Iris was my partner in the company, not my keeper. I wasn't involved in her private life. If this is about the accounts, ask me about the accounts. Don\u2019t turn every private disagreement into a balance sheet."
+          }
+        ]
+      },
+      "v1": {
+        "file": "assets/audio/voices/v013.mp3",
+        "duration": 5.521,
+        "bytes": 44972,
+        "sha256": "98e494eb17bbb6561b36290f354c1130382f86bf0ea5eff20ec7ed99a71395f0",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 5.201,
+            "speaker": "Victor",
+            "text": "The company is fine. Seasonal cash flow. Every agency has it."
+          }
+        ]
+      },
+      "v2": {
+        "file": "assets/audio/voices/v014.mp3",
+        "duration": 3.89,
+        "bytes": 31916,
+        "sha256": "c061112b65ac3d692e07dc5a368d73121d54e1a2ed3e715fd71c04dd1306683a",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.57,
+            "speaker": "Victor",
+            "text": "I went for an hour. I toasted her and left."
+          }
+        ]
+      },
+      "v3": {
+        "file": "assets/audio/voices/v015.mp3",
+        "duration": 6.883,
+        "bytes": 55724,
+        "sha256": "957bdfa54c8ae2f94d1d4050a832046118b3533631ad50304f6d54db9e0ce7f9",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 6.563,
+            "speaker": "Victor",
+            "text": "Yes, I told her to drop it. Numbers don't belong in email. That's discipline, not a threat."
+          }
+        ]
+      },
+      "v4": {
+        "file": "assets/audio/voices/v016.mp3",
+        "duration": 6.439,
+        "bytes": 52268,
+        "sha256": "7c6581b674069ace748600a0cd10eea4338e01d637c62bca19220c7307fac83d",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 6.119,
+            "speaker": "Victor",
+            "text": "We met at the office. We always did. I won't discuss what was said in a business meeting."
+          }
+        ]
+      },
+      "v5": {
+        "file": "assets/audio/voices/v017.mp3",
+        "duration": 3.738,
+        "bytes": 30572,
+        "sha256": "0154471e06f4d0dd5209fda80477769b236a3989cc05d9673c58adf4936a0916",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.418,
+            "speaker": "Victor",
+            "text": "A post is a post. I was proud of her."
+          }
+        ]
+      },
+      "v6": {
+        "file": "assets/audio/voices/v018.mp3",
+        "duration": 5.331,
+        "bytes": 43436,
+        "sha256": "0d3f4178b888d13144b21fcdd512d890fc81adb01de7fc9dda3b7a213d0043f1",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 5.011,
+            "speaker": "Victor",
+            "text": "J. is a disgruntled contractor. You shouldn't trust anything from J."
+          }
+        ]
+      },
+      "v7": {
+        "file": "assets/audio/voices/v019.mp3",
+        "duration": 4.327,
+        "bytes": 35372,
+        "sha256": "d519b2143decce1ee40611f1be2585a0dbb0744f1eb723fbaecc81b5c0782645",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.007,
+            "speaker": "Victor",
+            "text": "I don't know whose account that is. Why are you asking me?"
+          }
+        ]
+      },
+      "v8": {
+        "file": "assets/audio/voices/v020.mp3",
+        "duration": 5.298,
+        "bytes": 43052,
+        "sha256": "a437461f5cd87e94d69eab957fc63c39207e82edc73bc7dcd3a024ef62bf06e4",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.978,
+            "speaker": "Victor",
+            "text": "We're done until you can name someone. Show me something with a name on it."
+          }
+        ]
+      },
+      "v9": {
+        "file": "assets/audio/voices/v021.mp3",
+        "duration": 5.224,
+        "bytes": 42476,
+        "sha256": "f3a585568ceab149d31c9d1c3d09bfad69b798406435124e8ad136e68cdd1652",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.904,
+            "speaker": "Victor",
+            "text": "That's a voice in a loud room. Half the city says 'not here' to me."
+          }
+        ]
+      },
+      "pd": {
+        "file": "assets/audio/voices/v022.mp3",
+        "duration": 2.375,
+        "bytes": 19628,
+        "sha256": "d6485a259bdf4dd853588ecdf57ceb42a5af5a344082a3166b7bd22702fe922e",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.055,
+            "speaker": "Victor",
+            "text": "I don't see the relevance."
+          }
+        ]
+      }
+    },
+    "luca": {
+      "l0": {
+        "file": "assets/audio/voices/v023.mp3",
+        "duration": 11.603,
+        "bytes": 93548,
+        "sha256": "14c0370069c97a6ddbd099ab74a61f5dfccd3bb616940f72b9a13d85a27d0984",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 11.283,
+            "speaker": "Luca",
+            "text": "Did you come to accuse me too? Everyone else already has. Everyone remembers the worst thing I wrote. I remember it too. That doesn\u2019t make the rest of the conversation disappear."
+          }
+        ]
+      },
+      "l1": {
+        "file": "assets/audio/voices/v024.mp3",
+        "duration": 4.78,
+        "bytes": 39020,
+        "sha256": "e283d5322838dcaad419ff093bd087ea1f1878aa20647d3090ddafdfd3aeaa3f",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.46,
+            "speaker": "Luca",
+            "text": "I was angry. I wanted her to listen. I never laid a hand on her."
+          }
+        ]
+      },
+      "l2": {
+        "file": "assets/audio/voices/v025.mp3",
+        "duration": 3.832,
+        "bytes": 31340,
+        "sha256": "cf6c7a6edf9d37df523eaebe616053c872b90397bb2abe7e4d1b78da33699298",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.512,
+            "speaker": "Luca",
+            "text": "At the depot. Ten at night to six. Ask anyone."
+          }
+        ]
+      },
+      "l3": {
+        "file": "assets/audio/voices/v026.mp3",
+        "duration": 3.013,
+        "bytes": 24812,
+        "sha256": "6ca2de450b933a951a90c296c49027455de706c8928cde3ef2b110857abf8271",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.693,
+            "speaker": "Luca",
+            "text": "That's what I told the police. It's true."
+          }
+        ]
+      },
+      "l4": {
+        "file": "assets/audio/voices/v027.mp3",
+        "duration": 2.982,
+        "bytes": 24620,
+        "sha256": "ebc2309ce1359fbd20f01c943ae7235de5979be1ad050dc47db2a60ea1a56869",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.662,
+            "speaker": "Luca",
+            "text": "You read it. Good. Someone finally did."
+          }
+        ]
+      },
+      "l5": {
+        "file": "assets/audio/voices/v028.mp3",
+        "duration": 2.678,
+        "bytes": 22124,
+        "sha256": "c72ff2b12cbf48d830ce02767945f812dd77e3e62eba78aad2613262e852a652",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.358,
+            "speaker": "Luca",
+            "text": "A break is a break. It's allowed."
+          }
+        ]
+      },
+      "l6": {
+        "file": "assets/audio/voices/v029.mp3",
+        "duration": 1.296,
+        "bytes": 10988,
+        "sha256": "665776e9f9183118a35201c99a06f660fe0a05760cc1143c3950417ae769c756",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 0.976,
+            "speaker": "Luca",
+            "text": "No."
+          }
+        ]
+      },
+      "l7": {
+        "file": "assets/audio/voices/v030.mp3",
+        "duration": 8.539,
+        "bytes": 68972,
+        "sha256": "665f564d1f8f21a4db6cf938b71dbae0567ee725f1475e68da06b6a3e3c05245",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 8.219,
+            "speaker": "Luca",
+            "text": "...Fine. I found out Victor was moving money. I wanted her to know before she signed the new loan papers. She wouldn't listen."
+          }
+        ]
+      },
+      "l8": {
+        "file": "assets/audio/voices/v031.mp3",
+        "duration": 4.988,
+        "bytes": 40556,
+        "sha256": "55945656aa46edbc30b870f97d1ee37740e9110e147dfb02c084a746d390dc54",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.668,
+            "speaker": "Luca",
+            "text": "I was meeting someone who knew about the money. I won't give you a name yet."
+          }
+        ]
+      },
+      "pd": {
+        "file": "assets/audio/voices/v032.mp3",
+        "duration": 2.579,
+        "bytes": 21356,
+        "sha256": "e8d0615ac293319f8c66789a9f4848c6590b4ad54e712f946a877d6a7fa89242",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.259,
+            "speaker": "Luca",
+            "text": "I don't see what that has to do with me."
+          }
+        ]
+      }
+    },
+    "mara": {
+      "m0": {
+        "file": "assets/audio/voices/v033.mp3",
+        "duration": 11.481,
+        "bytes": 92588,
+        "sha256": "eb4e14a68e01e3e359f2a63f780ec5d912402ac9082973e999cd6f89086698d4",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 11.161,
+            "speaker": "Mara",
+            "text": "Anything. I want whoever did this found. Ask me whatever you need. I keep opening our conversation and forgetting what I was going to type. It still feels as if she should answer."
+          }
+        ]
+      },
+      "m1": {
+        "file": "assets/audio/voices/v034.mp3",
+        "duration": 5.116,
+        "bytes": 41708,
+        "sha256": "0adc6e28c6a3b77d117d8abc15da2dc8f19b2b0411b87487a21f454cc44f15e3",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.796,
+            "speaker": "Mara",
+            "text": "I left around one. Taxi, home, bed. I texted her when I got in."
+          }
+        ]
+      },
+      "m2": {
+        "file": "assets/audio/voices/v035.mp3",
+        "duration": 6.815,
+        "bytes": 55148,
+        "sha256": "32a79620eb6442e28a4f9aec274f0708e12c7a264b096912e8035040852424e3",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 6.495,
+            "speaker": "Mara",
+            "text": "Luca, honestly. The way he wrote to her. And Adrian was lying about something. I hate saying it."
+          }
+        ]
+      },
+      "m3": {
+        "file": "assets/audio/voices/v036.mp3",
+        "duration": 3.052,
+        "bytes": 25196,
+        "sha256": "b6ea95387a37a1e57bb9055cf6112ffa46ad5444b6cfc2dd4c0d59dfdd40e35b",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.732,
+            "speaker": "Mara",
+            "text": "She said the lights were off. I wasn't worried."
+          }
+        ]
+      },
+      "m4": {
+        "file": "assets/audio/voices/v037.mp3",
+        "duration": 3.524,
+        "bytes": 28844,
+        "sha256": "2889f5e4e88ad74756808ec407d00f9139a44bbe72c290b2a3d08f39681421b5",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.204,
+            "speaker": "Mara",
+            "text": "Atelier never gave us that log. Where did you get it?"
+          }
+        ]
+      },
+      "m10": {
+        "file": "assets/audio/voices/v038.mp3",
+        "duration": 5.191,
+        "bytes": 42284,
+        "sha256": "3c1f873c4a6c73bd9b0e8924b61b8cd81d1fe2b2545d860c9b747a9900ccb90f",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.871,
+            "speaker": "Mara",
+            "text": "I misremembered the time, that's all. Everyone is confused about that night."
+          }
+        ]
+      },
+      "m5": {
+        "file": "assets/audio/voices/v039.mp3",
+        "duration": 4.432,
+        "bytes": 36140,
+        "sha256": "79114f741fe1e48579ec2e2ebc5eb597da6df3195168ec5678e36918b413a903",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.112,
+            "speaker": "Mara",
+            "text": "I was there until just after one. Last dance. That fits."
+          }
+        ]
+      },
+      "m6": {
+        "file": "assets/audio/voices/v040.mp3",
+        "duration": 6.129,
+        "bytes": 49772,
+        "sha256": "7f07e195d123699837bc7ea06d36cf7c037cfe443afc7ea4f8e95555b115e5ed",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 5.809,
+            "speaker": "Mara",
+            "text": "Freelance work for the studio, social strategy. Victor paid me. It's not a secret."
+          }
+        ]
+      },
+      "m7": {
+        "file": "assets/audio/voices/v041.mp3",
+        "duration": 2.127,
+        "bytes": 17708,
+        "sha256": "f7fc1014082d3c772dac8018984860d406f0a744fad919e8ba2d7dbfe7b25bb9",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 1.807,
+            "speaker": "Mara",
+            "text": "I don't know what that number is."
+          }
+        ]
+      },
+      "m8": {
+        "file": "assets/audio/voices/v042.mp3",
+        "duration": 8.359,
+        "bytes": 67628,
+        "sha256": "c89c8eaecf7a5beebdb25874894450daa1ff4fd1aac743ef145e91a5208018aa",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 8.039,
+            "speaker": "Mara",
+            "text": "'Him' was Victor. He asked me to tell him how Iris was coping. He said he was worried about her stress. I didn't think it was wrong."
+          }
+        ]
+      },
+      "m9": {
+        "file": "assets/audio/voices/v043.mp3",
+        "duration": 5.527,
+        "bytes": 44972,
+        "sha256": "a89828e6273152258f23f876433e8f20b462096699f8121afb559fd97a04a765",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 5.207,
+            "speaker": "Mara",
+            "text": "He asked what we talked about. I told her to ignore him. I didn't want her scared."
+          }
+        ]
+      },
+      "pd": {
+        "file": "assets/audio/voices/v044.mp3",
+        "duration": 2.082,
+        "bytes": 17324,
+        "sha256": "bcf4113db13c538f6710df79e94dceb33d33f434ecf7f8f75115b8128680743e",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 1.762,
+            "speaker": "Mara",
+            "text": "I'm not sure how that helps."
+          }
+        ]
+      },
+      "m11": {
+        "file": "assets/audio/voices/v045.mp3",
+        "duration": 4.254,
+        "bytes": 34796,
+        "sha256": "e36b8a991bf3e2eba356587e0555b981c3473f0dd4ec2df804f2a82261ee27ca",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.934,
+            "speaker": "Mara",
+            "text": "I went to check on her. She was fine when I left. Before two."
+          }
+        ]
+      },
+      "m12": {
+        "file": "assets/audio/voices/v046.mp3",
+        "duration": 3.227,
+        "bytes": 26540,
+        "sha256": "1c47442d1f5808142f72f941dfd96f7076966b9fe3ac849f66e84571d4ec5fec",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.907,
+            "speaker": "Mara",
+            "text": "Two mugs? She had visitors. Not me."
+          }
+        ]
+      },
+      "m13": {
+        "file": "assets/audio/voices/v047.mp3",
+        "duration": 3.291,
+        "bytes": 27116,
+        "sha256": "98027ceef6493cea8402fa4c4ab86667a6fc2632832fc0bd4e2179663f7e1742",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.971,
+            "speaker": "Mara",
+            "text": "That could be anyone's kitchen. Anyone's voice."
+          }
+        ]
+      },
+      "m14": {
+        "file": "assets/audio/voices/v048.mp3",
+        "duration": 4.486,
+        "bytes": 36524,
+        "sha256": "63e61e78cd8871ab9ecb7c8e79fb067b164ff50c44abf7ef5377a5063e672497",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.166,
+            "speaker": "Mara",
+            "text": "She called me and I didn't answer. I don't remember. It was a mess."
+          }
+        ]
+      },
+      "m15": {
+        "file": "assets/audio/voices/v049.mp3",
+        "duration": 3.085,
+        "bytes": 25388,
+        "sha256": "af3d4c0bc05e2d62e2e49ba886fe450db258b26f9a549a3b3e87a29dbc752e37",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.765,
+            "speaker": "Mara",
+            "text": "She texted me. That's what the phone says."
+          }
+        ]
+      },
+      "m16": {
+        "file": "assets/audio/voices/v050.mp3",
+        "duration": 17.829,
+        "bytes": 143276,
+        "sha256": "0a299bed4d9e7a0246d7a6677fde82cda8f54aaefdf88772eed9d076331b78dc",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 17.509,
+            "speaker": "Mara",
+            "text": "I only wanted her to sleep, to miss the auditors on Monday. I put what was left of the strip in her tea. She drank it and then she wouldn't wake. I was so frightened. So I made it look as if she was alive, and I made sure it wasn't me. I wrote to you from her account because I needed you to look anywhere else."
+          }
+        ]
+      },
+      "m17": {
+        "file": "assets/audio/voices/v051.mp3",
+        "duration": 2.643,
+        "bytes": 21932,
+        "sha256": "a238287ea16ab29433c8e602627440097c3a936a666fdd73f3958b25544c48a6",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.323,
+            "speaker": "Mara",
+            "text": "That's private. Where did you get that?"
+          }
+        ]
+      },
+      "m18": {
+        "file": "assets/audio/voices/v052.mp3",
+        "duration": 4.223,
+        "bytes": 34412,
+        "sha256": "80c46db59bd9730a4d9c3dc829cb5a1968f36f560b9ff2ae1d8b07e8a875c9b0",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.903,
+            "speaker": "Mara",
+            "text": "She wasn't angry. She still asked me to come with her. I couldn't."
+          }
+        ]
+      }
+    },
+    "julia": {
+      "j0": {
+        "file": "assets/audio/voices/v053.mp3",
+        "duration": 16.212,
+        "bytes": 130412,
+        "sha256": "68e637f196e4a71e34b1c7234da9683419a0fb58c0e293aa82d2cc75d2dceb49",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 15.892,
+            "speaker": "J.",
+            "text": "I shouldn't be talking to you. If he finds out, I lose my job. Maybe worse. I jump every time the screen lights up. I need to know that you understand why."
+          }
+        ]
+      },
+      "j1": {
+        "file": "assets/audio/voices/v054.mp3",
+        "duration": 10.246,
+        "bytes": 82604,
+        "sha256": "e5292f8608dc287eff2e39789031ea8c1aac26184fda96a743da6aa0735c83fc",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 9.926,
+            "speaker": "J.",
+            "text": "I found three payments with no invoices. I told Iris because she was the only one who'd read it."
+          }
+        ]
+      },
+      "j2": {
+        "file": "assets/audio/voices/v055.mp3",
+        "duration": 5.608,
+        "bytes": 45548,
+        "sha256": "94fb7c44d0d6da80b69559c93f6ce3bd66dd03c10c45bfdecd54ba5bdc7ce852",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 5.288,
+            "speaker": "J.",
+            "text": "I was home most of the night. I'd rather not say more."
+          }
+        ]
+      },
+      "j3": {
+        "file": "assets/audio/voices/v056.mp3",
+        "duration": 4.065,
+        "bytes": 33260,
+        "sha256": "48f8ae655cd7547b6f4a44802035db9bb5b77c342cbe6b40abce604250ab1f79",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.745,
+            "speaker": "J.",
+            "text": "Yes. That's me. I work in accounts."
+          }
+        ]
+      },
+      "j4": {
+        "file": "assets/audio/voices/v057.mp3",
+        "duration": 5.544,
+        "bytes": 44972,
+        "sha256": "dbe474898d7ad7c17d67be7a5d73964edb4587709f2e877906e5f0521e1a6b74",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 5.224,
+            "speaker": "J.",
+            "text": "I wrote that email. I didn't sign it because I was scared."
+          }
+        ]
+      },
+      "j5": {
+        "file": "assets/audio/voices/v058.mp3",
+        "duration": 6.716,
+        "bytes": 54380,
+        "sha256": "c03b12fe54df6ec6b8dad35877963d4c11fdf898452c8784223bebf54600ac58",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 6.396,
+            "speaker": "J.",
+            "text": "I told her to call from another phone. The office wifi is watched."
+          }
+        ]
+      },
+      "j6": {
+        "file": "assets/audio/voices/v059.mp3",
+        "duration": 16.533,
+        "bytes": 132908,
+        "sha256": "1098d1c90f2b71b0e8055ac17c489b8093e8c61ca71a813a50162c1b76a44565",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 16.213,
+            "speaker": "J.",
+            "text": "...Luca is my brother. He used his break to meet me behind the depot at about ten past one. I gave him a copy of the transfers. We were there until nearly two."
+          }
+        ]
+      },
+      "pd": {
+        "file": "assets/audio/voices/v060.mp3",
+        "duration": 2.812,
+        "bytes": 23276,
+        "sha256": "671b8101c65f2f1cbb67eb837e11ea08d1a63cab5c3f93cb9d520b945d19d438",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.492,
+            "speaker": "J.",
+            "text": "I don't know anything about that."
+          }
+        ]
+      }
+    },
+    "elena": {
+      "e0": {
+        "file": "assets/audio/voices/v061.mp3",
+        "duration": 10.184,
+        "bytes": 82220,
+        "sha256": "c529e9606951e329e25a0f23fea028f87e71dc0d8fd13178ecdc12a4d66b80a1",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 9.864,
+            "speaker": "Elena",
+            "text": "I told the police. I was home. I wasn't at the party. I keep thinking about the last ordinary thing we argued about. I don\u2019t know what I\u2019m supposed to do with that now."
+          }
+        ]
+      },
+      "e1": {
+        "file": "assets/audio/voices/v062.mp3",
+        "duration": 7.276,
+        "bytes": 58988,
+        "sha256": "bf8ae65e07aa76bcaa86d3858b2ca7a85a1931f66fb37dd9c513db4cc3ac0416",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 6.956,
+            "speaker": "Elena",
+            "text": "Iris wanted to sell our mother's flat to keep the studio afloat. I said no. We shouted. That's all it was."
+          }
+        ]
+      },
+      "e2": {
+        "file": "assets/audio/voices/v063.mp3",
+        "duration": 3.491,
+        "bytes": 28652,
+        "sha256": "66f02a58b3c4f39b36417b2e23b81b30d4dd31e2c2c9df516a89793438fa8f7b",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.171,
+            "speaker": "Elena",
+            "text": "I just wanted her to sleep. She never sleeps."
+          }
+        ]
+      },
+      "e3": {
+        "file": "assets/audio/voices/v064.mp3",
+        "duration": 4.302,
+        "bytes": 35180,
+        "sha256": "43d3c85ae82951b850cfd5a226880c46a02497e4b4e91ef0cdda5b1be3878f86",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.982,
+            "speaker": "Elena",
+            "text": "The flat. She wanted the money. I told her she was being used."
+          }
+        ]
+      },
+      "e4": {
+        "file": "assets/audio/voices/v065.mp3",
+        "duration": 8.099,
+        "bytes": 65516,
+        "sha256": "c9d797a0ad8ee06d9448e86ddec13b563a02c8df0f39a736e2ca363baaf29cbc",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 7.779,
+            "speaker": "Elena",
+            "text": "I left tea... and a strip of my own sleeping tablets in the box, for emergencies. I never told anyone. It would look terrible."
+          }
+        ]
+      },
+      "e5": {
+        "file": "assets/audio/voices/v066.mp3",
+        "duration": 4.591,
+        "bytes": 37484,
+        "sha256": "984cce768884e40218d7cc2c5863afaf0b7a0f862bcd8199e08413743279da5c",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.271,
+            "speaker": "Elena",
+            "text": "That's the box. Still sealed at twenty to nine. She hadn't touched it."
+          }
+        ]
+      },
+      "e6": {
+        "file": "assets/audio/voices/v067.mp3",
+        "duration": 4.465,
+        "bytes": 36524,
+        "sha256": "54b11d84a58b30408e09f2f1ce4ee6feada4961e9b200ed743331e525217ba15",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 4.145,
+            "speaker": "Elena",
+            "text": "I wasn't there. I was home. Nobody saw me, I know how that sounds."
+          }
+        ]
+      },
+      "e7": {
+        "file": "assets/audio/voices/v068.mp3",
+        "duration": 7.384,
+        "bytes": 59756,
+        "sha256": "69e8227475ac78eb7a64468a76811c8f6ad8fff65cfbea79312ffca58776c3fd",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 7.064,
+            "speaker": "Elena",
+            "text": "Mara asked me where Iris kept the tea. The night before. I thought she was being kind. I showed her the message... here."
+          }
+        ]
+      },
+      "pd": {
+        "file": "assets/audio/voices/v069.mp3",
+        "duration": 2.388,
+        "bytes": 19820,
+        "sha256": "d6a5812c863275c46228315a204cdcae1eb3bdcf8dd1ba5d48b159a8f4b14ead",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.068,
+            "speaker": "Elena",
+            "text": "I'm not sure that matters."
+          }
+        ]
+      }
+    },
+    "moth": {
+      "o0": {
+        "file": "assets/audio/voices/v070.mp3",
+        "duration": 4.135,
+        "bytes": 33836,
+        "sha256": "3758e219b8837b7316d2c785dca3b0c896bc81f1660e3664f3018b4cfec97d19",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 3.815,
+            "speaker": "MOTH",
+            "text": "You found me faster than I expected. What do you want to know?"
+          }
+        ]
+      },
+      "o1": {
+        "file": "assets/audio/voices/v071.mp3",
+        "duration": 2.139,
+        "bytes": 17900,
+        "sha256": "3ccb93f8d96692688a12c2f2e1b2252f21d7666005e32e2de92889838d791a95",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 1.819,
+            "speaker": "MOTH",
+            "text": "Someone who wants justice."
+          }
+        ]
+      },
+      "o2": {
+        "file": "assets/audio/voices/v072.mp3",
+        "duration": 2.737,
+        "bytes": 22700,
+        "sha256": "7ca021389eae8d4adff0a150c5dedf6ed2c5b46966efc314ded05cefef7e58d7",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.417,
+            "speaker": "MOTH",
+            "text": "Because someone had to read it properly."
+          }
+        ]
+      },
+      "o3": {
+        "file": "assets/audio/voices/v073.mp3",
+        "duration": 3.271,
+        "bytes": 26924,
+        "sha256": "b96d84848075b19827238000d2330b6d08bfd9498b5b44380e547dc3acf9b7b7",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 2.951,
+            "speaker": "MOTH",
+            "text": "A shared backup. Anyone could have done that."
+          }
+        ]
+      },
+      "o4": {
+        "file": "assets/audio/voices/v074.mp3",
+        "duration": 2.231,
+        "bytes": 18476,
+        "sha256": "233072db15c3c1ca3624b9f16d77757bf02c34c3669c7fbb88f6591f828bcb67",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 1.911,
+            "speaker": "MOTH",
+            "text": "A laptop is a laptop."
+          }
+        ]
+      },
+      "o5": {
+        "file": "assets/audio/voices/v075.mp3",
+        "duration": 7.338,
+        "bytes": 59372,
+        "sha256": "91e53365fde06012b132ac56c178ce9e89fb80def6a941b525fd514f474ef0d1",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 7.018,
+            "speaker": "MOTH",
+            "text": "...I wanted you to find it. Just not this fast. Hello. You were meant to follow the wrong person."
+          }
+        ]
+      },
+      "pd": {
+        "file": "assets/audio/voices/v076.mp3",
+        "duration": 1.841,
+        "bytes": 15404,
+        "sha256": "54bfedfa94860abb1c92025451355e3cec13acc3111a042425e2d8b937c550e1",
+        "segments": [
+          {
+            "start": 0.18,
+            "end": 1.521,
+            "speaker": "MOTH",
+            "text": "That tells me nothing."
+          }
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "model": "Kokoro 82M v1.0",
+    "licence": "Apache-2.0",
+    "generation": "Local CPU, development time",
+    "language": "English",
+    "runtimeInference": false
+  }
+}

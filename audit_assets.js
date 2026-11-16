@@ -2,7 +2,7 @@
 // Reads the game data, checks which files actually exist, reads real image dimensions, and lists where each asset is used.
 const fs=require("fs"),path=require("path"),vm=require("vm"),root=__dirname;
 const sb={window:{},console};vm.createContext(sb);
-for(const f of ["story.js","content_extra.js","story_expansion.js"])vm.runInContext(fs.readFileSync(path.join(root,f),"utf8").replace(/^const /gm,"var ").replace(/\nconst /g,"\nvar "),sb);
+for(const f of ["edition.js"])vm.runInContext(fs.readFileSync(path.join(root,f),"utf8").replace(/^const /gm,"var ").replace(/\nconst /g,"\nvar "),sb);
 const S=sb.STORY;
 function dims(p){const b=fs.readFileSync(p);if(b.slice(1,4).toString()=="PNG")return[b.readUInt32BE(16),b.readUInt32BE(20)];
  if(b[0]==0xff&&b[1]==0xd8){let i=2;while(i<b.length){if(b[i]!=0xff){i++;continue}const m=b[i+1];if(m>=0xc0&&m<=0xcf&&![0xc4,0xc8,0xcc].includes(m))return[b.readUInt16BE(i+7),b.readUInt16BE(i+5)];i+=2+b.readUInt16BE(i+2)}}return null}

@@ -1,14 +1,16 @@
 {
   "name": "the-last-archive",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "description": "Static narrative investigation game. Dependencies are for development tests only.",
   "scripts": {
-    "test": "node tools/test_all.cjs",
+    "test": "node tools/test_legacy.cjs && node tools/test_revised.cjs",
     "audit:assets": "node audit_assets.js",
     "build": "python3 tools/build_site.py",
-    "test:browser": "node tools/test_browser.cjs && node tools/test_experience.cjs",
-    "test:production": "node tools/test_production.cjs"
+    "test:browser": "node tools/test_revised_browser.cjs",
+    "test:production": "node tools/test_revised_delivery.cjs",
+    "test:legacy": "node tools/test_legacy.cjs",
+    "test:webkit": "node tools/test_webkit_optional.cjs"
   },
   "devDependencies": {
     "jsdom": "^31.0.1",

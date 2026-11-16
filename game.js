@@ -2,7 +2,7 @@
 const $=s=>document.querySelector(s),scr=$("#screen"),S=E.S;
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 $("#nb").value=S.nb;$("#nb").oninput=e=>{S.nb=e.target.value;E.save()};
-$("#reset").onclick=()=>{if(confirm("Erase all progress and start over?")){E.wipe();location.reload()}};
+$("#reset").onclick=()=>{if(confirm("Start this revised investigation again? Previous-edition progress is not affected.")){E.wipe();location.reload()}};
 $("#homebar").onclick=()=>S.unlocked?home():lock();
 const bar=(t,back)=>`<div class="bar"><button onclick="${back}">‹</button><h3 style="margin:0">${t}</h3></div>`;
 const take=id=>{E.take(id)};
@@ -43,7 +43,7 @@ function doc(id){const m=STORY.mails.find(x=>x.id==id);scr.innerHTML=bar(m.att,`
 // --- Gallery: tap image to zoom, metadata below
 function gal(){scr.innerHTML=bar("Gallery","home()")+STORY.photos.filter(p=>E.vis(p)&&(!p.need||E.has(p.need))).map(p=>`<button class="th photo-btn" onclick="photo('${p.id}')" aria-label="Open ${esc(p.t)}">${pic(p)}<small>${esc(p.t)} · ${p.ts}</small></button>`).join("")}
 // Photographs: a real file at assets/photos/<id>.jpg is shown with object-fit: cover; if it is missing the fallback stays.
-const pic=(p,z=1)=>`<div class="pic"><div class="zoom" style="transform:scale(${z})">${p.art?`<svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder for: ${esc(p.alt||p.t)}"><rect width="300" height="160" fill="${p.c}"/>${p.art}</svg>`:`<div class="tile" style="background:${p.c}"><span>${esc(p.t)}</span><small>Photo not installed</small></div>`}<img src="assets/photos/${p.id}.jpg" alt="${esc(p.alt||p.t)}" loading="lazy" onload="this.parentElement.querySelectorAll('svg,.tile').forEach(e=>e.style.visibility='hidden')" onerror="this.remove()"></div></div>`;
+const pic=(p,z=1)=>`<div class="pic"><div class="zoom" style="transform:scale(${z})">${p.art?`<svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder for: ${esc(p.alt||p.t)}"><rect width="300" height="160" fill="${p.c}"/>${p.art}</svg>`:`<div class="tile" style="background:${p.c}"><span>${esc(p.t)}</span><small>Loading photograph…</small></div>`}<img src="assets/photos/${p.id}.jpg" alt="${esc(p.alt||p.t)}" loading="lazy" onload="this.parentElement.querySelectorAll('svg,.tile').forEach(e=>e.style.visibility='hidden')" onerror="const t=this.parentElement.querySelector('.tile small');if(t)t.textContent='Photograph unavailable; source description retained.';this.remove()"></div></div>`;
 // Portraits: circular, with initials as fallback; assets/portraits/<id>.png is layered on top when present.
 const avatar=(id,n)=>{const f=id=="j"?"julia":id;return `<span class="av">${esc((n||id)[0])}<img src="assets/portraits/${f}.png" alt="Portrait of ${esc(n||id)}" onerror="this.remove()"></span>`};
 function photo(id,z=1){const p=STORY.photos.find(x=>x.id==id);scr.innerHTML=bar(esc(p.t),"gal()")+`<div style="overflow:hidden;border-radius:8px">${pic(p,z)}</div><div class="row"><button class="btn" onclick="photo('${id}',${z>=3?1:z+1})">Zoom ${z>=3?"out":"in"}</button></div><div class="meta">${esc(p.meta)}</div>`+saveBtn(id,`photo('${id}',${z})`)}
@@ -155,7 +155,7 @@ function clip(id){const a=STORY.audio.find(x=>x.id==id),can=typeof speechSynthes
  `<div class="row">${can?`<button class="btn" onclick="speak('${id}')">▶ Play synthesized voice</button>`:"<small>This device has no speech playback. Read the transcript.</small>"}</div>`+saveBtn(a.ev,`clip('${id}')`);
  const au=$("#au");if(au)au.onerror=()=>{au.remove();const n=$("#aun");if(n)n.textContent="Recorded audio is not installed. The voice here is synthesized; the transcript is complete."}}
 function speak(id){const a=STORY.audio.find(x=>x.id==id);try{speechSynthesis.cancel();a.lines.forEach(l=>{if(l[0]=="Music")return;const u=new SpeechSynthesisUtterance(l[1]);u.pitch=/Iris|Mara|J\./.test(l[0])?1.25:.7;u.rate=.95;speechSynthesis.speak(u)})}catch(x){}}
-S.unlocked?home():lock();
+if(!STORY.narrativeEdition){S.unlocked?home():lock();}
 
 function decisions(){return (STORY.decisions||[]).filter(d=>E.vis(d)).map(d=>{const c=S.choices[d.id];return `<h3>Decision</h3><div class="m">${esc(d.prompt)}</div>`+(c===undefined?d.opts.map((o,i)=>`<button class="ev" onclick="E.choose('${d.id}',${i});board()">${esc(o[0])}</button>`).join(""):`<small style="color:var(--dim)">You chose: ${esc(d.opts[c][0])}</small>`)}).join("")}
 

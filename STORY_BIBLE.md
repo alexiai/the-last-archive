@@ -1,3 +1,5 @@
+> Historical canon for the preserved previous edition only. The revised edition has a different narrative. Do not use this file to validate revised facts. Current private architecture and continuity records are maintained outside the published build.
+
 # PRIVATE DEVELOPMENT CANON — SPOILERS
 
 This file is excluded from the static deployment. The implemented final account below supersedes earlier draft notes.

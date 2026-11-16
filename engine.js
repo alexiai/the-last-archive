@@ -1,8 +1,8 @@
 // Engine: state, save validation, unlocks, connection validation, puzzle and interview engines. No UI here.
-const KEY="lastarchive.v2";
+const KEY=STORY.saveKey||"lastarchive.v2";
 // Storage that never throws: falls back to memory when localStorage is blocked (private modes) or full.
 const Store=(()=>{const mem={};try{const s=window.localStorage;s.setItem("__t","1");s.removeItem("__t");return{ok:true,get:k=>s.getItem(k),set:(k,v)=>s.setItem(k,v),del:k=>s.removeItem(k)}}catch(e){return{ok:false,get:k=>(k in mem?mem[k]:null),set:(k,v)=>{mem[k]=v},del:k=>{delete mem[k]}}}})();
-const blank=()=>({v:2,edition:3,legacyThrough:0,drafts:{},personNotes:{},audio:{},events:[],ev:[],flags:[],nb:"",unlocked:false,made:[],trust:{},talk:{},solved:[],pres:{},choices:{},hints:0,hintLvl:{},board:{}});
+const blank=()=>({v:2,narrativeEdition:STORY.narrativeEdition,edition:3,legacyThrough:0,drafts:{},scenePage:{},sourceNotes:{},personNotes:{},audio:{},events:[],ev:[],flags:[],nb:"",unlocked:false,made:[],trust:{},talk:{},solved:[],pres:{},choices:{},hints:0,hintLvl:{},board:{}});
 const isStr=x=>typeof x==="string",isObj=x=>!!x&&typeof x==="object"&&!Array.isArray(x),uniq=a=>[...new Set(a)];
 const BOARD_W=600,BOARD_H=500;
 const E={
@@ -10,8 +10,8 @@ const E={
  nodeOk:n=>isStr(n)&&(!!STORY.evidence[n]||n.startsWith("person:")&&!!STORY.persons[n.slice(7)]||n.startsWith("place:")&&!!STORY.places[n.slice(6)]||n.startsWith("event:")&&!!STORY.events[n.slice(6)]),
  has:f=>E.S.flags.includes(f),
  // Validate every field and type; keep what is valid, drop the rest, and re-derive flags from authoritative state. Never throws.
- clean(r){const b=blank();try{if(!isObj(r)||r.v!==2)return b;const A=(x,f)=>Array.isArray(x)?x.filter(f):[];
-  b.edition=r.edition===3?3:2;b.legacyThrough=Number.isInteger(r.legacyThrough)?Math.max(0,Math.min(9,r.legacyThrough)):0;
+ clean(r){const b=blank();try{if(!isObj(r)||r.v!==2||r.narrativeEdition!==STORY.narrativeEdition)return b;const A=(x,f)=>Array.isArray(x)?x.filter(f):[];
+  b.edition=r.edition===3?3:2;b.legacyThrough=0;
   b.ev=uniq(A(r.ev,x=>isStr(x)&&STORY.evidence[x]));b.flags=uniq(A(r.flags,isStr).slice(0,500));b.nb=isStr(r.nb)?r.nb.slice(0,20000):"";b.unlocked=r.unlocked===true;
   b.solved=uniq(A(r.solved,x=>isStr(x)&&STORY.puzzles.some(p=>p.id==x)));
   if(isObj(r.choices))for(const k in r.choices){const d=(STORY.decisions||[]).find(x=>x.id==k),v=r.choices[k];if(d&&Number.isInteger(v)&&v>=0&&v<d.opts.length)b.choices[k]=v}
@@ -31,6 +31,8 @@ const E={
   for(const k in b.choices)F(STORY.decisions.find(x=>x.id==k).opts[b.choices[k]][1]);
   for(const k in b.pres)b.pres[k].filter(x=>x[0]=="@").forEach(x=>{const nd=STORY.interviews[k].nodes[x.slice(1)];(nd.set||[]).forEach(F);if(nd.take&&!b.ev.includes(nd.take)&&STORY.evidence[nd.take]){b.ev.push(nd.take);(STORY.evidence[nd.take][3]||[]).forEach(F)}});
   if(isObj(r.drafts))for(const id in r.drafts){const p=STORY.puzzles.find(p=>p.id===id);if(p){const d=E.cleanDraft(p,r.drafts[id]);if(d!==undefined)b.drafts[id]=d}}
+  if(isObj(r.scenePage))for(const k in r.scenePage)if(/^[1-9]$/.test(k)&&Number.isInteger(r.scenePage[k]))b.scenePage[k]=Math.max(0,Math.min(99,r.scenePage[k]));
+  if(isObj(r.sourceNotes))for(const k in r.sourceNotes)if(STORY.files.some(f=>f.id===k)&&isStr(r.sourceNotes[k]))b.sourceNotes[k]=r.sourceNotes[k].slice(0,2500);
   if(isObj(r.personNotes))for(const id in r.personNotes)if(STORY.persons[id]&&isStr(r.personNotes[id]))b.personNotes[id]=r.personNotes[id].slice(0,4000);
   if(isObj(r.audio))for(const k of ['master','voice','effects','music'])if(Number.isFinite(r.audio[k]))b.audio[k]=Math.max(0,Math.min(1,r.audio[k]));
   if(isObj(r.audio))for(const k of ['enabled','autoDialogue','reducedFright'])if(typeof r.audio[k]==='boolean')b.audio[k]=r.audio[k];
@@ -89,7 +91,7 @@ E.solve=(id,a)=>{const p=STORY.puzzles.find(x=>x.id==id);let ok=false;try{ok=!!p
 // ---- Interview engine: nodes + evidence presentation; trust is a soft modifier, never a lock ----
 E.node=(id,n)=>STORY.interviews[id].nodes[n];
 // Effects (rapport, flags, evidence) apply only the first time a node is reached in an interview. Revisits replay text only.
-E.go=(id,n,quiet)=>{const nd=E.node(id,n);if(!nd)return;E.S.talk[id]=n;const P=E.S.pres[id]=E.S.pres[id]||[],k="@"+n;
+E.go=(id,n,quiet)=>{const iv=STORY.interviews[id];if(n===iv.start){const state=[...(iv.states||[])].reverse().find(s=>E.vis(s)&&(!s.need||E.has(s.need))&&(!s.needs||s.needs.every(x=>E.S.ev.includes(x))));if(state)n=state.node;}const nd=E.node(id,n);if(!nd)return;E.S.talk[id]=n;const P=E.S.pres[id]=E.S.pres[id]||[],k="@"+n;
  if(quiet||P.includes(k)){E.save();return}P.push(k);
  if(nd.trust)E.S.trust[id]=Math.max(0,Math.min(3,(E.S.trust[id]||0)+nd.trust));(nd.set||[]).forEach(f=>E.S.flags.includes(f)||E.S.flags.push(f));if(nd.take)E.take(nd.take);E.save()};
 // Presenting evidence: a stonewall can fire at most once per item and does not consume it; effects are gated per node inside E.go,
@@ -101,11 +103,11 @@ E.present=(id,ev)=>{const I=STORY.interviews[id],P=E.S.pres[id]=E.S.pres[id]||[]
  if(!consumed&&I.present[ev])P.push(ev);
  E.go(id,node)};
 // ---- Chapters: chapter n+1 opens when chapter n's goals are met. Content with ch:n stays hidden until then.
-E.baseDone=n=>{const c=STORY.chapters[n-1];return !!c&&c.done.ev.every(x=>E.S.ev.includes(x))&&c.done.puz.every(x=>E.S.solved.includes(x))};
+E.baseDone=n=>{const c=STORY.chapters[n-1];return !!c&&c.done.ev.every(x=>E.S.ev.includes(x))&&c.done.puz.every(x=>E.S.solved.includes(x))&&(c.done.flags||[]).every(E.has)};
 E.done=n=>E.baseDone(n)&&(n<=E.S.legacyThrough||(STORY.chapters[n-1].extraPuzzles||[]).every(id=>E.S.solved.includes(id)));
 E.chapter=()=>{let n=1;while(STORY.chapters[n]&&E.done(n))n++;return n};
 E.vis=o=>(o.ch||1)<=E.chapter();
 E.flag=f=>{if(!E.S.flags.includes(f)){E.S.flags.push(f);E.save()}};
 E.complete=()=>E.done(STORY.chapters.length);
-E.choose=(id,i)=>{const d=(STORY.decisions||[]).find(x=>x.id==id);if(!d||!d.opts[i]||E.S.choices[id]!==undefined)return false;E.S.choices[id]=i;E.flag(d.opts[i][1]);E.save();return true};
+E.choose=(id,i)=>{const d=(STORY.decisions||[]).find(x=>x.id==id);if(!d||!E.vis(d)||(d.need&&!E.has(d.need))||!d.opts[i]||E.S.choices[id]!==undefined)return false;E.S.choices[id]=i;E.flag(d.opts[i][1]);E.save();return true};
 E.epilogue=()=>(STORY.epilogue||[]).filter(p=>!p.if||E.has(p.if));

@@ -1,25 +1,21 @@
 # THE LAST ARCHIVE
 
-A mobile-first, nine-chapter psychological investigation built with HTML, CSS and vanilla JavaScript. Explore a recovered phone, collect evidence, question subjects and reconstruct the available records.
+A nine-chapter psychological investigation in English, built as a static game with HTML, CSS and JavaScript. The revised narrative is integrated on this review branch. It is not approved for release, merged or deployed.
 
-## Play locally
+Run `python3 -m http.server 8765`, then open `http://localhost:8765/`. No runtime packages, account, generation model or paid API are required. The journal, source register, interviews, examinations, evidence board and notes share the existing production interface.
 
-Run `python3 -m http.server 8765` from this directory, then open `http://localhost:8765/`. No runtime packages, server API, account or paid service is required. Progress and notes save in this browser using the existing `lastarchive.v2` key.
+The previous playable version is preserved at `editions/original/index.html`, including its original assets and `lastarchive.v2` save. The revised edition uses `lastarchive.revised.v1`, begins a separate investigation and rejects foreign-edition backup imports. Restarting the revision does not erase the earlier save. Each edition has an explicit offline download within its own scope.
 
-## Development
+For development, use Node 22+, `npm ci`, an installed Chromium/Chrome and FFmpeg. `CHROMIUM_PATH` overrides `/usr/bin/chromium`.
 
-Requires Node 22 or newer for the test dependencies. Run `npm ci`, then `npm test` (275 checks) and `npm run audit:assets`. The browser suites use an installed Chromium (`CHROMIUM_PATH` overrides `/usr/bin/chromium`) and create their own local servers; see TESTING.md.
+```
+npm test
+npm run test:browser
+npm run test:production
+npm run audit:assets
+npm run build
+```
 
-- `story.js`, `content_extra.js`: original narrative data; `story_expansion.js`: additive English production material.
-- `engine.js`: validated, backward-compatible saves and progression.
-- `game.js`: original application renderers and interaction handlers.
-- `experience.js`: visual presentation, image inspection, dossiers and collected-record timeline; delegates validation to the existing engine.
-- `style.css`: original shared component foundations.
-- `art-direction.js`, `art-direction.css`: archive-desk composition, distinct media surfaces, cinematic chapter presentation and board focus. See ART_DIRECTION.md and docs/previews/README.md.
-- `assets/`: 23 real local photographs, seven character portraits and one anonymous graphic mark.
+The allowlisted build includes the active edition and the preserved previous edition. It excludes tests, private narrative plans, model weights and WAV masters. `edition.js` contains revised runtime narrative data; `edition_ui.js` integrates its journal, source navigation and decisions. The working engine, archive presentation, audio mixer, static assets and local production tools are reused.
 
-## Deployment
-
-Run `npm run build` (or `python3 tools/build_site.py`) and publish **only `dist/`**. Its allowlist excludes private development documentation and solution-bearing tests. The included GitHub Actions workflow publishes this folder only after checks pass on main, provided Pages is configured to use GitHub Actions. See DEPLOYMENT.md.
-
-The expanded production branch includes finished local Kokoro recordings, original music/effects, downloadable documents, examinations and opt-in verified offline storage. No AI model ships. See PRODUCTION_STATUS.md for costs, measured size and review limitations. Nothing on this branch has been merged or deployed.
+Read [the spoiler-free integration report](docs/narrative-review/INTEGRATION_REPORT.md) for verified results, remaining gaps and the blind-playtesting plan. Do not infer playtime, acting quality or physical iPhone compatibility from automated checks.

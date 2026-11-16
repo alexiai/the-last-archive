@@ -18,3 +18,7 @@ The repository had an established data/engine/render split, a complete nine-chap
 - Made tests portable, added 38 experience checks and a safe deployment allowlist and Pages workflow.
 
 No new story conversations, evidence, puzzle solutions, recorded voices or inferred narrative events were invented. The remaining production limitations are documented in TESTING.md and ASSETS.md.
+
+## Second visual pass
+
+The first pass retained a predictable dashboard composition and repeated too many component treatments. The second pass replaces that shell with an archive desk, editorial contents, contact sheets, full-workspace photography, paper correspondence, portrait-led interviews and materially varied board objects. See ART_DIRECTION.md for the diagnosis, media grammar, implementation boundaries and review captures.

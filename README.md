@@ -14,7 +14,8 @@ Requires Node 22 or newer for the test dependencies. Run `npm ci`, then `npm tes
 - `engine.js`: preserved save validation, progression and gameplay rules.
 - `game.js`: original application renderers and interaction handlers.
 - `experience.js`: visual presentation, image inspection, dossiers and collected-record timeline; delegates validation to the existing engine.
-- `style.css`: shared design system and responsive layouts.
+- `style.css`: original shared component foundations.
+- `art-direction.js`, `art-direction.css`: archive-desk composition, distinct media surfaces, cinematic chapter presentation and board focus. See ART_DIRECTION.md and docs/previews/README.md.
 - `assets/`: 23 real local photographs, seven character portraits and one anonymous graphic mark.
 
 ## Deployment

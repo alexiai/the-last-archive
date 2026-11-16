@@ -7,3 +7,5 @@ Completed: cohesive phone and desktop investigation shell; all existing applicat
 Images: 23/23 photographs and 8/8 portrait/mark slots installed. Audio: 0/5 recorded files; complete existing transcripts and optional labelled speech synthesis retained. No story content was added to meet numerical targets. No backend or runtime dependencies introduced.
 
 Remaining production work: performed/recorded audio, real iOS Safari and physical-device checks, live GitHub Pages verification after deployment, and human playtesting. Playtime has not been measured. The original 50–80 minute estimate is not a validated playtime result.
+
+Art-direction revision: asymmetric photographic cover/index, distinct device and archive layouts, full-workspace image inspection, paper documents and letters, portrait/transcript interview composition, physical evidence fragments with real excerpts, focus mode, typographic chapter slates, procedural grain and reduced-motion-safe cuts. All previous functionality is preserved.

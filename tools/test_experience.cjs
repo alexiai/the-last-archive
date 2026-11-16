@@ -198,8 +198,67 @@ const server = http.createServer((req, res) => {
         width + " reduced motion respected",
         await pg.evaluate(
           () =>
-            getComputedStyle(document.querySelector(".home-identity"))
+            getComputedStyle(document.querySelector(".archive-index"))
               .animationName === "none",
+        ),
+      );
+      await pg.evaluate(() => {
+        board();
+        toggleBoardFocus();
+      });
+      check(
+        width + " focused board uses the viewport",
+        await pg.evaluate(
+          () =>
+            document.body.classList.contains("board-focus") &&
+            Math.abs(
+              document.querySelector("#phone").getBoundingClientRect().height -
+                innerHeight,
+            ) < 2,
+        ),
+      );
+      await pg.keyboard.press("Escape");
+      check(
+        width + " Escape returns to the work surface",
+        await pg.evaluate(
+          () =>
+            !document.body.classList.contains("board-focus") &&
+            !document.querySelector("#exit-board-focus"),
+        ),
+      );
+      await pg.evaluate(() => talk("adrian"));
+      check(
+        width + " interview choices stay alongside the transcript",
+        await pg.evaluate(
+          () =>
+            !!document.querySelector(".interview-response .m") &&
+            document.querySelectorAll(".interview-response button").length >= 4,
+        ),
+      );
+      await pg.evaluate(() => photo("E3"));
+      await pg.waitForFunction(
+        () => document.querySelector("#photo-frame img")?.naturalWidth > 0,
+      );
+      await pg.waitForFunction(() =>
+        [
+          ...document.querySelectorAll("#photo-frame svg,#photo-frame .tile"),
+        ].every((e) => getComputedStyle(e).visibility === "hidden"),
+      );
+      check(
+        width + " image inspection hides the old drawn fallback",
+        await pg.evaluate(() =>
+          [
+            ...document.querySelectorAll("#photo-frame svg,#photo-frame .tile"),
+          ].every((e) => getComputedStyle(e).visibility === "hidden"),
+        ),
+      );
+      await pg.evaluate(() => doc("m1"));
+      check(
+        width + " document reading leaves the device layout",
+        await pg.evaluate(
+          () =>
+            document.body.dataset.medium === "paper" &&
+            document.body.dataset.world === "archive",
         ),
       );
       check(width + " no uncaught browser errors", errs.length === 0);

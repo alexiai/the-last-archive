@@ -6,7 +6,7 @@ OUT = ROOT / 'dist'
 if OUT.exists():
     shutil.rmtree(OUT)
 OUT.mkdir()
-for name in ['index.html', 'style.css', 'story.js', 'content_extra.js', 'engine.js', 'game.js', 'experience.js']:
+for name in ['index.html', 'style.css', 'story.js', 'content_extra.js', 'engine.js', 'game.js', 'experience.js', 'art-direction.js', 'art-direction.css']:
     shutil.copy2(ROOT / name, OUT / name)
 shutil.copytree(ROOT / 'assets', OUT / 'assets')
 (OUT / '.nojekyll').touch()

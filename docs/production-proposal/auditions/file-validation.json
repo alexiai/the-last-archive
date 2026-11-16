@@ -1,0 +1,56 @@
+[
+  {
+    "file": "A-dry.mp3",
+    "duration": 6.24,
+    "codec": "mp3",
+    "sampleRate": "24000",
+    "channels": 1,
+    "bytes": 75212,
+    "sha256": "3a5c78558f71cda6710a4eac6e598f20b620c44b88e6218ca2a94234c69a4679"
+  },
+  {
+    "file": "B-dry.mp3",
+    "duration": 6.53,
+    "codec": "mp3",
+    "sampleRate": "24000",
+    "channels": 1,
+    "bytes": 78668,
+    "sha256": "18be14db59d8c937ec030827311d86105a7306b535851ab6f68f0482f8b27d37"
+  },
+  {
+    "file": "B-room.mp3",
+    "duration": 6.53,
+    "codec": "mp3",
+    "sampleRate": "24000",
+    "channels": 1,
+    "bytes": 78668,
+    "sha256": "ce266f43e85dfef689cfc53f4859151130b2072797a15adca1627b1ba1ba82bf"
+  },
+  {
+    "file": "C-dry.mp3",
+    "duration": 7.25,
+    "codec": "mp3",
+    "sampleRate": "24000",
+    "channels": 1,
+    "bytes": 87308,
+    "sha256": "87f64495525cd6cb6ac75f022fedaf27bcef720ec6ac914496e972054921eea9"
+  },
+  {
+    "file": "C-phone.mp3",
+    "duration": 7.25,
+    "codec": "mp3",
+    "sampleRate": "24000",
+    "channels": 1,
+    "bytes": 87308,
+    "sha256": "d46ba5452b760c187fb3716757fc8b2bae86800ca96dd72f461a8c957607a605"
+  },
+  {
+    "file": "D-dry.mp3",
+    "duration": 6.79,
+    "codec": "mp3",
+    "sampleRate": "24000",
+    "channels": 1,
+    "bytes": 81836,
+    "sha256": "09a50abbc864fe40659a104ced42af2787d293f838370b008466ad8e0663691a"
+  }
+]

@@ -1,3 +1,11 @@
+# Production verification
+
+Run npm test (275 original regression assertions), npm run test:browser (72 browser + 53 presentation checks), npm run test:production (52 checks: expanded progression, answer controls, media and real offline-cache behavior), npm run audit:assets, and npm run build. Chromium and FFmpeg must be installed for production media tests. No physical iOS test or human playtime/listening sign-off is implied.
+
+The original late-chapter fixtures explicitly retain original chapter checkpoints when testing legacy interactions. The production suite separately begins with a new expanded save and verifies its additional challenge and decision requirements.
+
+The following image-stage verification record is historical; production results above supersede statements about missing audio.
+
 # Test report — 16 November 2026
 
 ## Verified

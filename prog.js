@@ -21,6 +21,7 @@ function play(n){let changed=true,g=0;while(changed&&g++<50){changed=false;
  const ps=JSON.parse(ev("JSON.stringify(STORY.puzzles.filter(p=>E.vis(p)&&E.ready(p)&&!E.S.solved.includes(p.id)).map(p=>p.id))"));
  for(const id of ps){if(ev("E.chapter()")>n)return;const a=JSON.parse(ev(`JSON.stringify((()=>{const p=STORY.puzzles.find(x=>x.id=='${id}');return p.type=='order'?Object.keys(p.items).sort((x,y)=>p.items[x][1].localeCompare(p.items[y][1])):p.type=='match'?p.pairs:p.type=='case'?Object.fromEntries(p.slots.map(s=>[s.id,s.pick?s.need.map(g=>g[0]):s.answer])):p.answer})())`));
   if(ev(`E.solve('${id}',${JSON.stringify(a)})`))changed=true}}}
+ev(`for(const d of STORY.decisions)E.choose(d.id,0)`);
 const marks=[];
 const N=ev('STORY.chapters.length');for(let n=1;n<=N;n++){play(n);const done=ev(`E.done(${n})`);t(`chapter ${n} objectives completable from available content`,done);
  // every done.ev must be reachable (checked by play), and no objective references a missing id

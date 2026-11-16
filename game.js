@@ -105,14 +105,17 @@ function talk(k,pick=false){const I=STORY.interviews[k];if(!S.talk[k])E.go(k,I.s
  n.o.filter(o=>(!o[2]||tr>=o[2])&&(!o[3]||E.has(o[3]))).map(o=>`<button class="ev" onclick="E.go('${k}','${o[1]}');talk('${k}')">${esc(o[0])}</button>`).join("")+`<div class="row"><button class="btn red" onclick="talk('${k}',true)">Present evidence</button><button class="btn" onclick="E.go('${k}','${I.start}');talk('${k}')">Restart interview</button></div>`)}
 // --- Challenges: general puzzle types
 let ans={};
+function draftAnswer(id,v){ans[id]=v;E.draft(id,v)}
+function draftField(id,k,v){ans[id][k]=v;E.draft(id,ans[id])}
+
 function pzs(){scr.innerHTML=bar("Challenges","home()")+STORY.puzzles.filter(p=>E.vis(p)).map(p=>`<button class="th" ${E.ready(p)?`onclick="pz('${p.id}')"`:"disabled"}><b>${p.title}</b> ${S.solved.includes(p.id)?"✓":""}<small>${E.ready(p)?p.type:"Needs more evidence: "+p.needs.join(", ")}</small></button>`).join("")}
-function pz(id,msg=""){const p=STORY.puzzles.find(x=>x.id==id);if(!ans[id])ans[id]=p.type=="order"?Object.keys(p.items):(p.type=="match"||p.type=="case")?{}:p.type=="code"?"":[];const a=ans[id];
+function pz(id,msg=""){const p=STORY.puzzles.find(x=>x.id==id);if(ans[id]===undefined)ans[id]=E.initialAnswer(p);const a=ans[id];
  if(!E.supported(p)){scr.innerHTML=bar(p.title,"pzs()")+"<p>This kind of challenge is not available in this version.</p>";return}
- scr.innerHTML=bar(p.title,"pzs()")+`<p>${p.prompt}</p>`+(p.type=="case"?caseUI(p):p.type=="code"?`<input class="in" inputmode="numeric" maxlength="8" value="${esc(ans[id])}" oninput="ans['${id}']=this.value" placeholder="PIN">`:p.type=="match"?Object.entries(p.items).map(([k,t])=>`<div class="ev">${esc(t)}<select class="in" onchange="ans['${id}']['${k}']=this.value"><option value="">Choose</option>${Object.entries(p.options).map(([v,l])=>`<option value="${v}" ${ans[id][k]==v?"selected":""}>${l}</option>`).join("")}</select></div>`).join(""):p.type=="order"?a.map((k,i)=>`<div class="ev">${esc(p.items[k][0])}<div class="row"><button class="btn" onclick="mv('${id}',${i},-1)">▲</button><button class="btn" onclick="mv('${id}',${i},1)">▼</button></div></div>`).join(""):
+ scr.innerHTML=bar(p.title,"pzs()")+`<p>${p.prompt}</p>`+(p.type=="case"?caseUI(p):p.type=="code"?`<input class="in" inputmode="numeric" maxlength="8" value="${esc(ans[id])}" oninput="draftAnswer('${id}',this.value)" placeholder="PIN">`:p.type=="match"?Object.entries(p.items).map(([k,t])=>`<div class="ev">${esc(t)}<select class="in" onchange="draftField('${id}','${k}',this.value)"><option value="">Choose</option>${Object.entries(p.options).map(([v,l])=>`<option value="${v}" ${ans[id][k]==v?"selected":""}>${l}</option>`).join("")}</select></div>`).join(""):p.type=="order"?a.map((k,i)=>`<div class="ev">${esc(p.items[k][0])}<div class="row"><button class="btn" onclick="mv('${id}',${i},-1)">▲</button><button class="btn" onclick="mv('${id}',${i},1)">▼</button></div></div>`).join(""):
  Object.entries(p.options).map(([k,t])=>`<button class="ev ${a.includes(k)?"sel":""}" onclick="tg('${id}','${k}')">${esc(t)}</button>`).join(""))+
  `<div class="row"><button class="btn red" onclick="chk('${id}')">Check answer</button><button class="btn" onclick="hint('${id}')">Hint</button></div><div id="pm">${msg||(S.hintLvl[id]?hintHtml(p,S.hintLvl[id]):"")}</div>`}
-function mv(id,i,d){const a=ans[id],j=i+d;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];pz(id)}
-function tg(id,k){const a=ans[id];ans[id]=a.includes(k)?a.filter(x=>x!=k):[...a,k];pz(id)}
+function mv(id,i,d){const a=ans[id],j=i+d;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];E.draft(id,a);pz(id)}
+function tg(id,k){const a=ans[id];ans[id]=a.includes(k)?a.filter(x=>x!=k):[...a,k];E.draft(id,ans[id]);pz(id)}
 function chk(id){const p=STORY.puzzles.find(x=>x.id==id),ok=E.solve(id,ans[id]);let m;
  if(ok)m="Correct. This reasoning is supported by your evidence.";
  else if(p.type=="case"){const d=E.caseDiagnose(p,ans[id]),T={ok:"holds",excess:"something chosen does not belong here, or too much is chosen",incomplete:"needs more or different support",wrong:"reconsider this"};m="Not yet.<br>"+p.slots.map((s,i)=>`${d[i]=="ok"?"✓":"✗"} ${esc(s.label)}: ${T[d[i]]}`).join("<br>")}
@@ -160,12 +163,12 @@ function decisions(){return (STORY.decisions||[]).filter(d=>E.vis(d)).map(d=>{co
 function hint(id){const p=STORY.puzzles.find(x=>x.id==id),l=E.hint(id);pz(id);$("#pm").innerHTML=hintHtml(p,l)}
 const hintHtml=(p,l)=>`<div class="msg">${esc(p.hint)}${l>1?"<br><small>Revisit: "+p.needs.filter(n=>STORY.evidence[n]).map(n=>esc(STORY.evidence[n][0])).join("; ")+"</small>":""}</div>`
 // --- Case file: each part needs the right kinds of support; feedback says which parts hold, never which item to pick
-function caseUI(p){const a=ans[p.id];return p.slots.map(s=>{if(!s.pick)return `<div class="ev"><b>${s.label}</b><select class="in" onchange="ans['${p.id}']['${s.id}']=this.value"><option value="">Choose</option>${Object.entries(s.options).map(([v,l])=>`<option value="${v}" ${a[s.id]==v?"selected":""}>${l}</option>`).join("")}</select></div>`;
+function caseUI(p){const a=ans[p.id];return p.slots.map(s=>{if(!s.pick)return `<div class="ev"><b>${s.label}</b><select class="in" onchange="draftField('${p.id}','${s.id}',this.value)"><option value="">Choose</option>${Object.entries(s.options).map(([v,l])=>`<option value="${v}" ${a[s.id]==v?"selected":""}>${l}</option>`).join("")}</select></div>`;
  const sel=a[s.id]||[];return `<div class="ev"><b>${s.label}</b><br><small style="color:var(--dim)">${sel.map(e=>esc(STORY.evidence[e][0])).join("<br>")||"No evidence chosen"}</small><div class="row"><button class="btn" onclick="cslot('${p.id}','${s.id}')">Choose evidence (${sel.length})</button></div></div>`}).join("")}
 function cslot(pid,sid){const p=STORY.puzzles.find(x=>x.id==pid),s=p.slots.find(x=>x.id==sid),sel=ans[pid][sid]||[];
  scr.innerHTML=bar(esc(s.label),`pz('${pid}')`)+`<small style="color:var(--dim)">Tap items to add or remove them. Include only what truly supports this part.</small>`+S.ev.map(e=>`<button class="ev ${sel.includes(e)?"sel":""}" onclick="ctoggle('${pid}','${sid}','${e}')"><b>${e}</b> ${esc(STORY.evidence[e][0])}<br><small>${STORY.evidence[e][1]}</small></button>`).join("")}
-function ctoggle(pid,sid,e){const a=ans[pid],sel=a[sid]||[];a[sid]=sel.includes(e)?sel.filter(x=>x!=e):[...sel,e];const y=scr.scrollTop;cslot(pid,sid);scr.scrollTop=y}
-function cpick(pid,sid,e){const a=ans[pid],sel=a[sid]||[];a[sid]=sel.includes(e)?sel.filter(x=>x!=e):[...sel,e];pz(pid)}
+function ctoggle(pid,sid,e){const a=ans[pid],sel=a[sid]||[];a[sid]=sel.includes(e)?sel.filter(x=>x!=e):[...sel,e];E.draft(pid,a);const y=scr.scrollTop;cslot(pid,sid);scr.scrollTop=y}
+function cpick(pid,sid,e){const a=ans[pid],sel=a[sid]||[];a[sid]=sel.includes(e)?sel.filter(x=>x!=e):[...sel,e];E.draft(pid,a);pz(pid)}
 // --- Objectives screen
 function objectives(){const n=Math.min(E.chapter(),STORY.chapters.length),c=STORY.chapters[n-1],ev=c.done.ev.filter(x=>S.ev.includes(x)).length,pz_=c.done.puz.filter(x=>S.solved.includes(x)).length;
  scr.innerHTML=bar("Objectives","home()")+`<div class="m"><b>Chapter ${n}: ${esc(c.title)}</b><br>${esc(c.goal)}</div><div class="m">Evidence found: ${ev} of ${c.done.ev.length}<br>Challenges solved: ${pz_} of ${c.done.puz.length}</div><small style="color:var(--dim)">Use Challenges and Interviews to make progress. Hints are optional.</small>`}

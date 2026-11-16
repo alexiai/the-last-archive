@@ -7,7 +7,7 @@ const AUTOPLAY=`window.autoplay=(n)=>{const V=x=>E.vis(x)&&(!x.need||E.has(x.nee
  STORY.records.forEach(r=>r[6]&&o.push(r[6]));STORY.calendar.forEach(c=>c[4]&&o.push(c[4]));STORY.files.forEach(f=>E.vis(f)&&f.ev&&o.push(f.ev));
  STORY.web.pages.forEach(x=>(!x.need||S.ev.includes(x.need))&&x.ev&&o.push(x.ev));STORY.contacts.forEach(c=>c.ev&&(!c.need||E.has(c.need))&&o.push(c.ev));
  STORY.social.forEach(x=>V(x)&&x.ev&&o.push(x.ev));STORY.audio.forEach(a=>E.vis(a)&&(!a.need||E.has(a.need))&&a.ev&&o.push(a.ev));Object.values(STORY.callNotes||{}).forEach(c=>o.push(c[0]));return o};
- let g=0,ch=true;while(ch&&g++<60){ch=false;
+ let g=0,ch=true;while(ch&&g++<60){ch=false;for(const d of STORY.decisions)if(E.vis(d)&&S.choices[d.id]===undefined)E.choose(d.id,0);
   for(const [k,i] of Object.entries(STORY.interviews))if(E.vis(i)&&i.need.every(x=>S.ev.includes(x)))for(const [e,nd] of Object.entries(i.present)){const t=i.nodes[nd].take;if(t&&S.ev.includes(e)&&!S.ev.includes(t)){if(E.chapter()>n)return;E.present(k,e);ch=true}}
   for(const id of src()){if(E.chapter()>n)return;if(!S.ev.includes(id)){E.take(id);ch=true}}
   for(const p of STORY.puzzles.filter(p=>E.vis(p)&&E.ready(p)&&!S.solved.includes(p.id))){if(E.chapter()>n)return;const a=p.type=='order'?Object.keys(p.items).sort((x,y)=>p.items[x][1].localeCompare(p.items[y][1])):p.type=='match'?p.pairs:p.type=='case'?Object.fromEntries(p.slots.map(s=>[s.id,s.pick?s.need.map(g=>g[0]):s.answer])):p.answer;if(E.solve(p.id,a))ch=true}}};`;
@@ -35,7 +35,7 @@ for(const [name,vp] of [["mobile390",{width:390,height:844,isMobile:true,hasTouc
   await pg.screenshot({path:"/tmp/br/moth.png"});
   await pg.evaluate(()=>{E.take('A5');ints()});await clickText(pg,"Mara");await pres("A5");
   T("finale: Mara's account via UI clicks",await pg.evaluate(()=>S.ev.includes("MF1")));
-  await pg.evaluate(()=>{ans={};pz('p17')});
+  await pg.evaluate(()=>{for(const d of STORY.decisions)if(S.choices[d.id]===undefined)E.choose(d.id,0);ans={};pz('p17')});
   // fill case file using real DOM interactions
   await pg.select("select","mara");
   const need={opp:["B2","SC1"],means:["SC1","D3"],cover:["E12","IS1","CD1"],manip:["AC1","H2"],ctrl:["AC2","IT1"]};
@@ -55,7 +55,7 @@ for(const [name,vp] of [["mobile390",{width:390,height:844,isMobile:true,hasTouc
   // iOS-like: no speechSynthesis
   await pg.evaluate(()=>{S.unlocked=true;delete window.speechSynthesis;try{Object.defineProperty(window,"speechSynthesis",{value:undefined,configurable:true})}catch(e){}});
   await pg.evaluate(AUTOPLAY);await pg.evaluate(()=>{for(let n=1;n<=9;n++)autoplay(n);clip('a1')});
-  T("audio: no speech support shows transcript fallback",await pg.evaluate(()=>document.querySelector("#screen").textContent.includes("no speech playback")&&document.querySelector("#screen").textContent.includes("Victor, not here")));
+  T("audio: local player and transcript do not depend on speech synthesis",await pg.evaluate(()=>!!document.querySelector("#au[src=\"assets/audio/a1.mp3\"]")&&document.querySelector("#screen").textContent.includes("Victor, not here")));
   await pg.evaluate(()=>{window.speak&&speak('a1')});T("audio: speak() with no synthesis does not throw",true);
  }
  T(name+": no page errors or console errors"+(errs.length?" :: "+errs.join("; "):""),errs.length==0);await pg.close()}

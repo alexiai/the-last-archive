@@ -10,8 +10,8 @@ Run `python3 -m http.server 8765` from this directory, then open `http://localho
 
 Requires Node 22 or newer for the test dependencies. Run `npm ci`, then `npm test` (275 checks) and `npm run audit:assets`. The browser suites use an installed Chromium (`CHROMIUM_PATH` overrides `/usr/bin/chromium`) and create their own local servers; see TESTING.md.
 
-- `story.js`, `content_extra.js`: preserved narrative data.
-- `engine.js`: preserved save validation, progression and gameplay rules.
+- `story.js`, `content_extra.js`: original narrative data; `story_expansion.js`: additive English production material.
+- `engine.js`: validated, backward-compatible saves and progression.
 - `game.js`: original application renderers and interaction handlers.
 - `experience.js`: visual presentation, image inspection, dossiers and collected-record timeline; delegates validation to the existing engine.
 - `style.css`: original shared component foundations.
@@ -20,6 +20,6 @@ Requires Node 22 or newer for the test dependencies. Run `npm ci`, then `npm tes
 
 ## Deployment
 
-Run `npm run build` (or `python3 tools/build_site.py`) and publish **only `dist/`**. Its allowlist excludes private development documentation and solution-bearing tests. The included GitHub Actions workflow publishes this folder when merged to main, provided Pages is configured to use GitHub Actions. See DEPLOYMENT.md.
+Run `npm run build` (or `python3 tools/build_site.py`) and publish **only `dist/`**. Its allowlist excludes private development documentation and solution-bearing tests. The included GitHub Actions workflow publishes this folder only after checks pass on main, provided Pages is configured to use GitHub Actions. See DEPLOYMENT.md.
 
-Recorded audio is not installed. The five original transcripts remain complete, with clearly labelled optional synthesized speech. See ASSETS.md and TESTING.md for production limitations.
+The expanded production branch includes finished local Kokoro recordings, original music/effects, downloadable documents, examinations and opt-in verified offline storage. No AI model ships. See PRODUCTION_STATUS.md for costs, measured size and review limitations. Nothing on this branch has been merged or deployed.

@@ -1,3 +1,4 @@
+// Original interaction regressions use explicit legacy checkpoint fixtures; expanded new-game gates are tested in tools/test_production.cjs.
 const {JSDOM}=require("jsdom"),fs=require("fs"),d=__dirname+"/";
 const html=fs.readFileSync(d+"index.html","utf8").replace(/<script src="([^"]+)"><\/script>/g,(m,f)=>"<script>"+fs.readFileSync(d+f,"utf8")+"</script>");
 const mk=(s,pre)=>new JSDOM(html,{runScripts:"dangerously",url:"http://localhost/",beforeParse(x){if(s)x.localStorage.setItem("lastarchive.v2",typeof s=="string"?s:JSON.stringify(s));if(pre)pre(x)}}).window;
@@ -7,7 +8,7 @@ const w=mk();w.errs=[];w.addEventListener("error",e=>w.errs.push(e.message));con
 const p16=J(w,"STORY.puzzles.find(p=>p.id=='p16')");
 t("p16 answer excludes anyone whose cover depends on a relative's word",JSON.stringify(p16.answer.sort())==JSON.stringify(["adrian","victor"])&&/not their own word or a relative's/.test(p16.prompt));
 ev("['G1','R2','JV1','L2','K3'].forEach(E.take);S.solved.length");
-const ch8=()=>ev("STORY.chapters.slice(0,7).forEach(c=>{c.done.ev.forEach(E.take);c.done.puz.forEach(x=>S.solved.includes(x)||S.solved.push(x))});E.chapter()");t("reach chapter 8",ch8()==8);
+const ch8=()=>ev("STORY.chapters.slice(0,7).forEach(c=>{c.done.ev.forEach(E.take);c.done.puz.forEach(x=>S.solved.includes(x)||S.solved.push(x))});S.legacyThrough=7;E.chapter()");t("reach chapter 8",ch8()==8);
 t("p16: correct answer accepted",ev("E.solve('p16',['victor','adrian'])"));
 ev("S.solved=S.solved.filter(x=>x!='p16')");
 t("p16: old answer (adding Luca) now rejected",ev("E.solve('p16',['victor','adrian','luca'])")===false);
@@ -68,12 +69,12 @@ for(const [k,iv] of Object.entries(I))for(const e of Object.keys(iv.stonewall||{
 t("stonewall: repeated and mixed presentations never lock an interview or break rapport limits: "+(sm.join(";")||"ok"),stoneOK);
 // ---- content counts and integrity
 const th=J(w,"STORY.threads");const names=Object.keys(th);
-t("25 distinct conversation threads",names.length==25);
+t("at least 25 distinct conversation threads",names.length>=25&&names.length<=35);
 t("every thread has >=2 messages, a name and a valid evidence reference",names.every(k=>th[k].m.length>=2&&th[k].name&&th[k].m.every(m=>!m[3]||ev(`!!STORY.evidence['${m[3]}']`))));
 t("group chats label speakers",th.studio.m.some(m=>m[0]=="Victor")&&th.sisters.m.some(m=>m[0]=="Mara"));
 t("deleted/recovered threads are gated behind the vault",["luca_old","victor_old","mara_del"].every(k=>th[k].need=="unlock:vault"));
 const ph=J(w,"STORY.photos");t("23 photograph records with alt text and unique ids",ph.length==23&&new Set(ph.map(p=>p.id)).size==23&&ph.every(p=>p.alt&&p.alt.length>10));
-const wp=mk();const vis=()=>wp.eval("STORY.photos.filter(p=>E.vis(p)&&(!p.need||E.has(p.need))).length");const v1=vis();wp.eval("STORY.chapters.slice(0,3).forEach(c=>{c.done.ev.forEach(E.take);c.done.puz.forEach(x=>S.solved.includes(x)||S.solved.push(x))})");t("photos appear progressively by chapter ("+v1+" at start, "+vis()+" by chapter 4)",v1<vis()&&v1>=5);
+const wp=mk();const vis=()=>wp.eval("STORY.photos.filter(p=>E.vis(p)&&(!p.need||E.has(p.need))).length");const v1=vis();wp.eval("STORY.chapters.slice(0,3).forEach(c=>{c.done.ev.forEach(E.take);c.done.puz.forEach(x=>S.solved.includes(x)||S.solved.push(x))});S.legacyThrough=3");t("photos appear progressively by chapter ("+v1+" at start, "+vis()+" by chapter 4)",v1<vis()&&v1>=5);
 ev("gal()");const g=w.document.querySelector("#screen");t("gallery uses <img> with object-fit cover source, alt and onerror fallback",!!g.querySelector("img[src^='assets/photos/'][alt][onerror]")&&g.querySelectorAll(".pic").length>=6);
 t("asset paths are relative (GitHub Pages safe)",!/(src|href)="\//.test(html)&&ev("pic(STORY.photos[0])").indexOf('src="assets/')>0&&ev("avatar('mara','Mara')").indexOf('src="assets/portraits/mara.png"')>0&&ev("avatar('j','J.')").indexOf("julia.png")>0);
 // board persistence

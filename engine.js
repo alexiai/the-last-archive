@@ -2,7 +2,7 @@
 const KEY=STORY.saveKey||"lastarchive.v2";
 // Storage that never throws: falls back to memory when localStorage is blocked (private modes) or full.
 const Store=(()=>{const mem={};try{const s=window.localStorage;s.setItem("__t","1");s.removeItem("__t");return{ok:true,get:k=>s.getItem(k),set:(k,v)=>s.setItem(k,v),del:k=>s.removeItem(k)}}catch(e){return{ok:false,get:k=>(k in mem?mem[k]:null),set:(k,v)=>{mem[k]=v},del:k=>{delete mem[k]}}}})();
-const blank=()=>({v:2,narrativeEdition:STORY.narrativeEdition,edition:3,legacyThrough:0,drafts:{},scenePage:{},sourceNotes:{},personNotes:{},audio:{},events:[],ev:[],flags:[],nb:"",unlocked:false,made:[],trust:{},talk:{},solved:[],pres:{},choices:{},hints:0,hintLvl:{},board:{}});
+const blank=()=>({v:2,narrativeEdition:STORY.narrativeEdition,edition:3,legacyThrough:0,drafts:{},scenePage:{},sourceNotes:{},observations:[],obsSerial:0,theories:[],theorySerial:0,fieldwork:FieldLogic.blank(),personNotes:{},audio:{},events:[],ev:[],flags:[],nb:"",unlocked:false,made:[],trust:{},talk:{},solved:[],pres:{},choices:{},hints:0,hintLvl:{},board:{}});
 const isStr=x=>typeof x==="string",isObj=x=>!!x&&typeof x==="object"&&!Array.isArray(x),uniq=a=>[...new Set(a)];
 const BOARD_W=600,BOARD_H=500;
 const E={
@@ -38,6 +38,7 @@ const E={
   if(isObj(r.audio))for(const k of ['enabled','autoDialogue','reducedFright'])if(typeof r.audio[k]==='boolean')b.audio[k]=r.audio[k];
   b.events=uniq(A(r.events,isStr).filter(id=>(STORY.liveEvents||[]).some(e=>e.id===id)));
   if(b.edition===2){let n=0;for(const c of STORY.chapters){if(c.done.ev.every(id=>b.ev.includes(id))&&c.done.puz.every(id=>b.solved.includes(id)))n++;else break}b.legacyThrough=Math.max(b.legacyThrough,n);b.edition=3;}
+  FieldLogic.restore(r,b);
   return b}catch(e){return blank()}},
  load(){try{return E.clean(JSON.parse(Store.get(KEY)))}catch(e){return blank()}},
  save(){try{Store.set(KEY,JSON.stringify(E.S));E.saveOk=Store.ok}catch(e){E.saveOk=false}},

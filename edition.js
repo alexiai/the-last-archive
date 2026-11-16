@@ -1,7 +1,7 @@
 // Revised narrative edition. Runtime sources; previous edition is isolated under editions/original/.
 const STORY = {
-  "narrativeEdition": "revised-2025",
-  "saveKey": "lastarchive.revised.v1",
+  "narrativeEdition": "fieldwork-2025",
+  "saveKey": "lastarchive.fieldwork.v1",
   "productionEdition": 4,
   "persons": {
     "iris": "Iris Vasilescu",
@@ -112,6 +112,12 @@ const STORY = {
     [
       "journal",
       "Case journal",
+      1,
+      1
+    ],
+    [
+      "obs",
+      "Observations",
       1,
       1
     ]
@@ -1208,20 +1214,20 @@ const STORY = {
       "t": "Table photograph",
       "ch": 4,
       "ts": "Oct 17 · 23:20",
-      "alt": "Original frame; compare fixed objects with the derivative.",
+      "alt": "Retained camera image of a table and the surrounding room.",
       "c": "#34382f",
       "optional": true,
-      "meta": "Source: retained camera copy\nTime field: Oct 17 · 23:20\nPlace: Atelier Nord\nObservation: Original frame; compare fixed objects with the derivative."
+      "meta": "Source: retained camera copy\nTime field: Oct 17 · 23:20\nPlace: Atelier Nord\nRecord: retained camera copy.\nFile reference: V-A"
     },
     {
       "id": "H2",
       "t": "Publicity derivative",
       "ch": 4,
       "ts": "Oct 17 · 23:20 capture / Oct 18 export",
-      "alt": "Derived frame; compare the content, not only the border.",
+      "alt": "Working publicity copy of the table image.",
       "c": "#34382f",
       "optional": true,
-      "meta": "Source: retained camera copy\nTime field: Oct 17 · 23:20 capture / Oct 18 export\nPlace: Atelier Nord\nObservation: Derived frame; compare the content, not only the border."
+      "meta": "Source: retained camera copy\nTime field: Oct 17 · 23:20 capture / Oct 18 export\nPlace: Atelier Nord\nRecord: working publicity copy.\nFile reference: V-B"
     },
     {
       "id": "P13",
@@ -1819,6 +1825,18 @@ const STORY = {
       "Surveillance",
       [],
       []
+    ],
+    "C41": [
+      "Image export register",
+      "Source custodian",
+      [],
+      []
+    ],
+    "C42": [
+      "Image comparison finding",
+      "Examination",
+      [],
+      []
     ]
   },
   "links": [
@@ -2185,15 +2203,13 @@ const STORY = {
     {
       "id": "D06",
       "ch": 4,
-      "type": "set",
+      "type": "fieldwork",
       "title": "Compare available versions",
       "needs": [
         "C20",
-        "C21",
-        "E4",
-        "H2"
+        "C21"
       ],
-      "prompt": "Inspect the two frames. Which conclusions are supported?",
+      "prompt": "Examine the source copies. Record the details you rely on, propose an account and test it against the requested source record.",
       "options": {
         "scene": "The versions differ within the photographed scene.",
         "crop": "Changes to the border and changes within the scene are separate observations.",
@@ -2205,7 +2221,8 @@ const STORY = {
         "crop"
       ],
       "hint": "Use the bottle, candle and chair joints as fixed points. Keep a visual alteration separate from personal identity.",
-      "media": "photo-pair"
+      "reward": "C42",
+      "unlocks": "versions:compared"
     },
     {
       "id": "D07",
@@ -3874,7 +3891,7 @@ const STORY = {
       "lines": [
         "IMAGE VERSION RECORD",
         "PUBLICITY SELECTION / original and derivative supplied together",
-        "The original party-table photograph, publicity derivative and approved crop are supplied for comparison. Their source positions and version labels are retained."
+        "Reference V-A: retained camera frame. Reference V-B: working publicity derivative. Reference V-C: separately approved edge crop. Technical export fields are available from the source custodian on request."
       ],
       "review": {
         "after": [
@@ -4284,6 +4301,22 @@ const STORY = {
         "In place of a joint conversation, the independent custodian has retained separately signed copies of the relevant statements.",
         "The partner exchange is provided with Adrian consent. The receiving receipt is retained by the hotel. The payment approval chain is supplied by the provider under the project rider.",
         "No required conclusion depends on a participant liking the examiner or on private family listening permission."
+      ]
+    },
+    {
+      "id": "C41",
+      "n": "c41.pdf",
+      "title": "Image export register",
+      "ch": 4,
+      "need": "versions:requested",
+      "ev": "C41",
+      "lines": [
+        "IMAGE EXPORT REGISTER",
+        "SOURCE CUSTODIAN / retained export fields / response to examiner query",
+        "V-A / camera master / canvas 1200 x 640 / orientation unchanged",
+        "V-B / parent V-A / retained rectangle: left 0, top 0, right 1200, bottom 640 / output 1200 x 640",
+        "V-C / parent V-A / retained rectangle: left 72, top 0, right 1200, bottom 640 / output 1128 x 640",
+        "These fields describe the referenced files. The original images remain available for examination. The register does not identify a person in the room."
       ]
     }
   ],
@@ -6086,6 +6119,17 @@ const STORY = {
       "label": "Examination · Build a defensible account",
       "action": "pz('D13')",
       "ch": 8
+    },
+    "C41": {
+      "label": "Files · Image export register",
+      "action": "fileOpen('C41')",
+      "ch": 4,
+      "need": "versions:requested"
+    },
+    "C42": {
+      "label": "Examination · Image comparison",
+      "action": "pz('D06')",
+      "ch": 4
     }
   },
   "movementActors": {

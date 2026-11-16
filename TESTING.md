@@ -1,8 +1,8 @@
 # Verification of the revised narrative edition
 
-`npm test` runs the original 275 regression assertions against a temporary copy of the byte-identical preserved edition, then the revised engine/journal suite. The new suite explicitly covers all 36 combinations of interview approach, listening/privacy, public correction and confrontation/referral. This is a solution-aware automated traversal, not a blind playthrough.
+`npm test` runs the original 275 regression assertions against a temporary copy of the byte-identical preserved edition, then the revised engine/journal suite and Phase 1 data/state regressions. The new suite explicitly covers all 36 combinations of interview approach, listening/privacy, public correction and confrontation/referral. Every combination also replays all nine chapters without altering progress. The Phase 1 suite checks partial saves at every chapter boundary. This is a solution-aware automated traversal, not a blind playthrough.
 
-`npm run test:browser` checks the revised build at 320, 390 and 1280 pixels in Chromium: journal/source views, every displayed investigation answer control, transcript-only closure, gesture-started playback, mute, notes and reloads.
+`npm run test:browser` checks the revised build at 320, 390 and 1280 pixels in Chromium: journal/source views, every displayed investigation answer control, transcript-only closure, gesture-started playback, mute, notes and reloads. The additional Phase 1 suite uses real pointer/keyboard sequences at 375, 390, 430 and 1280 pixels to check record filters, media mappings, stable examination controls, replay, source return and persistence.
 
 `npm run test:production` builds the packaged site and checks 63 finished recording hashes/decoding/timed captions, script-to-recording mapping, interrupted downloads, full checksum verification, failed-update preservation, media byte ranges, offline reload, cache eviction, service-worker registration denial and independent legacy/new saves.
 
@@ -10,4 +10,4 @@
 
 `npm run test:webkit` is an optional local Linux WebKit check when Playwright and its system libraries are available. It is not physical iPhone Safari. Neither mobile viewport emulation nor a WebKit pass establishes iOS audio-session, storage-eviction, safe-area or touch behaviour on an actual device.
 
-Current numerical results and explicit limitations are recorded in docs/narrative-review/INTEGRATION_REPORT.md. Human acting/listening quality, literary impact and first-player playtime require human review. The blind protocol is docs/narrative-review/BLIND_PLAYTEST.md.
+Current Phase 1 results and limitations are in docs/narrative-review/PHASE1_REPORT.md. The earlier integration report remains historical. PDF text regression checks require the free Poppler `pdftotext` tool; CI installs it alongside FFmpeg. Human acting/listening quality, literary impact and first-player playtime require human review. The blind protocol is docs/narrative-review/BLIND_PLAYTEST.md.

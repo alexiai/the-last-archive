@@ -1232,6 +1232,16 @@ const STORY = {
       "c": "#34382f",
       "optional": true,
       "meta": "Source: retained camera copy\nTime field: Oct 18 · source context\nPlace: 8 Teilor Street\nObservation: Door and exterior intercom. This still does not show the later visit."
+    },
+    {
+      "id": "P08",
+      "t": "Venue interior",
+      "ts": "Oct 17 · 23:12",
+      "alt": "Bottles and warm lights inside the venue; guests are blurred.",
+      "ch": 3,
+      "c": "#332f2e",
+      "optional": true,
+      "meta": "Source: retained camera copy\nTime field: Oct 17 · 23:12\nPlace: Atelier Nord\nObservation: The bar and surrounding room; this image is not a continuous attendance record."
     }
   ],
   "notes": [
@@ -2020,7 +2030,7 @@ const STORY = {
   "records": [
     [
       "m1",
-      "Iris device",
+      "iris-device",
       "atelier",
       "2025-10-18T00:09",
       "Ride pickup",
@@ -2028,7 +2038,7 @@ const STORY = {
     ],
     [
       "m2",
-      "Iris device",
+      "iris-device",
       "hotel",
       "2025-10-18T00:21",
       "Ride arrival",
@@ -2036,7 +2046,7 @@ const STORY = {
     ],
     [
       "m3",
-      "Iris device",
+      "iris-device",
       "hotel",
       "2025-10-18T00:43",
       "Ride pickup",
@@ -2044,7 +2054,7 @@ const STORY = {
     ],
     [
       "m4",
-      "Iris device",
+      "iris-device",
       "apt",
       "2025-10-18T00:52",
       "Ride arrival",
@@ -2185,8 +2195,8 @@ const STORY = {
       ],
       "prompt": "Inspect the two frames. Which conclusions are supported?",
       "options": {
-        "scene": "A coat disappears while the fixed table objects remain.",
-        "crop": "A separate border crop does not by itself remove an object within the frame.",
+        "scene": "The versions differ within the photographed scene.",
+        "crop": "Changes to the border and changes within the scene are separate observations.",
         "identity": "The coat uniquely identifies its wearer.",
         "death": "The scene edit proves the editor caused the death."
       },
@@ -2218,7 +2228,11 @@ const STORY = {
         "..",
         "-.."
       ],
-      "unlocks": "source:identified"
+      "unlocks": "source:identified",
+      "hints": [
+        "Use the pulse groups with the reference alphabet. The longer gaps separate letters; the trace and recording carry the same information.",
+        "Read one group at a time, left to right. A long pulse lasts three short units. Enter the letters together without spaces; replay or use the visual trace freely."
+      ]
     },
     {
       "id": "D08",
@@ -2247,7 +2261,8 @@ const STORY = {
         "delivery": "upload",
         "assembly": "edit"
       },
-      "hint": "A capture, an edit and a delivery are different events. One cannot silently become a live witness."
+      "hint": "A capture, an edit and a delivery are different events. One cannot silently become a live witness.",
+      "unlocks": "timing:compared"
     },
     {
       "id": "D09",
@@ -2261,9 +2276,9 @@ const STORY = {
       ],
       "prompt": "Match the account with its independent contextual support.",
       "items": {
-        "partner": "Adrian omitted a private change in the relationship.",
-        "delivery": "Luca left work on an authorised break.",
-        "hotel": "Iris ordered a neutral listening appointment."
+        "partner": "The partner account.",
+        "delivery": "The delivery account.",
+        "hotel": "The listening appointment account."
       },
       "options": {
         "exchange": "The consented original separation exchange.",
@@ -2408,7 +2423,7 @@ const STORY = {
       "slots": [
         {
           "id": "who",
-          "label": "Who is supported as responsible for the supplied drink, interference and concealment?",
+          "label": "Which attribution is supported by the combined record?",
           "answer": "elena",
           "options": {
             "elena": "Elena",
@@ -2421,7 +2436,7 @@ const STORY = {
         },
         {
           "id": "intent",
-          "label": "Iris intended withdrawal and private return",
+          "label": "Which records establish the intended scope of the packet?",
           "pick": 1,
           "need": [
             [
@@ -2439,7 +2454,7 @@ const STORY = {
         },
         {
           "id": "visit",
-          "label": "Attribution through the visit and live context",
+          "label": "Which records establish the visit and its contemporaneous context?",
           "pick": 1,
           "need": [
             [
@@ -2457,7 +2472,7 @@ const STORY = {
         },
         {
           "id": "drink",
-          "label": "Covert supply is supported by physical findings and the live refusal/plain-drink assurance",
+          "label": "Which sources support an account of how the drink was supplied?",
           "pick": 1,
           "need": [
             [
@@ -2475,7 +2490,7 @@ const STORY = {
         },
         {
           "id": "help",
-          "label": "Claimed help is contradicted by the independent outcome record",
+          "label": "Which records test the account of seeking assistance?",
           "pick": 1,
           "need": [
             [
@@ -2494,7 +2509,7 @@ const STORY = {
         },
         {
           "id": "later",
-          "label": "Late audio is not a new live response",
+          "label": "Which sources establish what the later audio activity represents?",
           "pick": 1,
           "need": [
             [
@@ -2583,6 +2598,9 @@ const STORY = {
               "Let us return to the account.",
               "start"
             ]
+          ],
+          "after": [
+            "D02"
           ]
         },
         "conflict": {
@@ -2739,6 +2757,9 @@ const STORY = {
               "Let us return to the account.",
               "start"
             ]
+          ],
+          "after": [
+            "D06"
           ]
         },
         "labels": {
@@ -2751,6 +2772,9 @@ const STORY = {
           ],
           "set": [
             "mara:source"
+          ],
+          "after": [
+            "D08"
           ]
         },
         "night": {
@@ -2892,6 +2916,9 @@ const STORY = {
           ],
           "set": [
             "adrian:disclosed"
+          ],
+          "after": [
+            "D09"
           ]
         },
         "late": {
@@ -3009,6 +3036,9 @@ const STORY = {
               "Let us return to the account.",
               "start"
             ]
+          ],
+          "after": [
+            "D10"
           ]
         },
         "message": {
@@ -3018,6 +3048,9 @@ const STORY = {
               "Let us return to the account.",
               "start"
             ]
+          ],
+          "after": [
+            "D10"
           ]
         },
         "late": {
@@ -3254,6 +3287,9 @@ const STORY = {
               "Let us return to the account.",
               "start"
             ]
+          ],
+          "after": [
+            "Qcapture"
           ]
         },
         "late": {
@@ -3661,9 +3697,16 @@ const STORY = {
         "Voluntary statement / Adrian Popescu / 19 October",
         "Iris was overwhelmed. We had been arguing. I was meant to collect her after the hotel appointment but she ordered a car herself. I did not see her at the apartment that night.",
         "I do not want the private part of the conversation circulated. She was exhausted. I thought people should know that much.",
-        "Question: What was the private part? Answer: Not something I want to make her answer for now.",
-        "This is Adrian account. Neither exhaustion nor an argument establishes what happened later."
-      ]
+        "Question: What was the private part? Answer: Not something I want to make her answer for now."
+      ],
+      "review": {
+        "after": [
+          "D09"
+        ],
+        "lines": [
+          "This is Adrian account. Neither exhaustion nor an argument establishes what happened later."
+        ]
+      }
     },
     {
       "id": "C10",
@@ -3674,7 +3717,7 @@ const STORY = {
       "lines": [
         "RECORDER CALIBRATION",
         "HOTEL AURELIA / authorised timing export / camera 02",
-        "Recorder runs two minutes FAST relative to reference time. Doorway crossing begins at recorder 00:25. Correct this before comparing with journey records.",
+        "Recorder runs two minutes FAST relative to reference time. Calibration retained with the source export. Read the on-screen recorder label at the crossing before comparing records.",
         "The supplied extract is a labelled analyst timing reconstruction from the source sheet, not recovered real-person footage. The anonymous figure is not identifiable.",
         "A grey coat in a still image is an object description, not a name. The camera sector does not cover the listening-room interior."
       ]
@@ -3735,9 +3778,16 @@ const STORY = {
         "DEPOT MOVEMENT RECORD",
         "NORD DEPOT / Luca Marin / permitted off-site break",
         "17 October 21:58 badge in. 18 October 00:10 break begins; return due by 00:55. 00:52 badge in. 06:02 final badge out.",
-        "Assignment: 22:00-06:00. Off-site break permitted. A roster describes assigned work, not continuous observation of the worker.",
-        "The delivery destination is not recorded here. Compare the independent recipient receipt before deciding what the gap means."
-      ]
+        "Assignment: 22:00-06:00. Off-site break permitted. A roster describes assigned work, not continuous observation of the worker."
+      ],
+      "review": {
+        "after": [
+          "D09"
+        ],
+        "lines": [
+          "The delivery destination is not recorded here. Compare the independent recipient receipt before deciding what the gap means."
+        ]
+      }
     },
     {
       "id": "C15",
@@ -3764,8 +3814,8 @@ const STORY = {
         "THE PACKET: CAPTURE PAIR",
         "PHYSICAL DOCUMENT / examiner capture log / seal 0416",
         "Front: project-use schedule. Reverse: faded routing field. A substituted summary leaf uses different punch spacing from the original binding.",
-        "Visible and alternate-light captures were made from the same original sheet. No information was recovered by shining a light at a digital photograph.",
-        "Use the alternate capture in the examination desk to recover the routing field. Then compare its scope with the agreement and the custodian receipt."
+        "The visible and alternate-light captures were made from the same original physical sheet. Both are retained in the examination desk.",
+        "The agreement, custodian receipt and the two captures accompany the original packet."
       ]
     },
     {
@@ -3824,10 +3874,17 @@ const STORY = {
       "lines": [
         "IMAGE VERSION RECORD",
         "PUBLICITY SELECTION / original and derivative supplied together",
-        "The original party-table photograph, publicity derivative and approved crop are supplied for comparison. Their source positions and version labels are retained.",
-        "Use the comparison viewer: the bottle, candle and chair joints remain fixed. A missing object is a scene alteration; a changed border is a crop.",
-        "Neither version identifies the coat wearer. This establishes a change to the presented scene, not the identity of a person at the apartment."
-      ]
+        "The original party-table photograph, publicity derivative and approved crop are supplied for comparison. Their source positions and version labels are retained."
+      ],
+      "review": {
+        "after": [
+          "D06"
+        ],
+        "lines": [
+          "Use the comparison viewer: the bottle, candle and chair joints remain fixed. A missing object is a scene alteration; a changed border is a crop.",
+          "Neither version identifies the coat wearer. This establishes a change to the presented scene, not the identity of a person at the apartment."
+        ]
+      }
     },
     {
       "id": "C21",
@@ -3855,7 +3912,7 @@ const STORY = {
         "REEL-SLATE REFERENCE",
         "RADIO WORKSHOP / audible indexing convention",
         "Each transfer begins with a Morse reel word so it can still be identified if the paper label separates from the spool. The alphabet is supplied in the examination desk.",
-        "ORCHID is the domestic radio-game reel. Other slate words belong to other sessions. These words are catalogue indices, not encryption.",
+        "The audible slate identifies the reel in this extract. Use the alphabet alongside the pulse groups to transcribe its catalogue word. Other workshop sessions use different words.",
         "Identify the slate, open its matching source sequence, then compare the phrase boundaries. Decoding alone does not establish what an assembled phrase means."
       ]
     },
@@ -3873,7 +3930,7 @@ const STORY = {
         "00:23 Ana: I am not angry with you. I am trying to get the potatoes out before they turn to glue.",
         "03:08 Ana: Do not tell me I never listened. That is not fair. Stop the recorder for a minute.",
         "03:31 Ana: I am sorry I said that. You do not have to take care of my feelings every time I get tired.",
-        "Installation assembly R-17: Leave the light on / I am not angry with you / Stop the recorder for a minute. Source spans are discontinuous. The original includes a difficult exchange and an apology absent from that assembly."
+        "Assembly cue list: source positions 00:12 / 00:23 / 03:08, in that playback order. The continuous source transcript retains the intervening material."
       ],
       "need": "source:identified"
     },
@@ -3889,9 +3946,16 @@ const STORY = {
         "Original source: domestic radio-game reel, 13 March 2022.",
         "Installation rehearsal capture: 15 October 2025 18:05.",
         "Assembly export: R17_ASSEMBLY_EXPORT / discontinuous source spans.",
-        "Transfer requested at studio gathering. Capture and export dates remain fixed even if delivery is retried.",
-        "The source does not contain a new live statement made in the apartment on 18 October."
-      ]
+        "Transfer requested at studio gathering. Capture and export dates remain fixed even if delivery is retried."
+      ],
+      "review": {
+        "after": [
+          "D08"
+        ],
+        "lines": [
+          "The source does not contain a new live statement made in the apartment on 18 October."
+        ]
+      }
     },
     {
       "id": "C25",
@@ -3902,10 +3966,17 @@ const STORY = {
       "lines": [
         "TRANSFER RECEIPT",
         "PROVIDER RETAINED RECEIPT / supplied under the project agreement",
-        "R17_ASSEMBLY_EXPORT queued from studio rehearsal output. First delivery deferred. Automatic retry completed 18 October 01:48.",
-        "The receipt records delivery activity, not a new microphone capture. No person pressed record at 01:48 according to this receipt.",
-        "The field in the first delivery index was labelled delivery activity. A claim that it proves someone was speaking live at that time exceeds the record."
-      ]
+        "R17_ASSEMBLY_EXPORT queued from studio rehearsal output. First delivery deferred. Automatic retry completed 18 October 01:48."
+      ],
+      "review": {
+        "after": [
+          "D08"
+        ],
+        "lines": [
+          "The receipt records delivery activity, not a new microphone capture. No person pressed record at 01:48 according to this receipt.",
+          "The field in the first delivery index was labelled delivery activity. A claim that it proves someone was speaking live at that time exceeds the record."
+        ]
+      }
     },
     {
       "id": "C26",
@@ -3920,7 +3991,8 @@ const STORY = {
         "Elena wanted a version she could leave playing without bracing for the next sentence. I knew what she meant. I wanted to give her that. Later I wanted people to think I had found it, not assembled it.",
         "Iris signed off some early cuts. When she changed her mind I told myself she was making the work impossible. It was easier than admitting the label was mine.",
         "You can take the source copy. Julia has another. Please do not make me sound braver for handing it over now."
-      ]
+      ],
+      "need": "timing:compared"
     },
     {
       "id": "C27",
@@ -3949,9 +4021,16 @@ const STORY = {
         "THE RECIPIENT COPY",
         "HOTEL RECEIVING DESK / independent duplicate / 18 October 00:27",
         "Case seal0416 received from Luca Marin; recipient Julia Radu. A service entrance camera covers the desk, not the entire building. Signature and timed desk transaction support this handover.",
-        "Depot break 00:10-00:52 is compatible with the delivery. It does not follow that every minute of Luca night has been independently observed.",
         "Julia: He asked me not to put the destination in a message to the studio. I put it on the receipt instead. Confidential is not the same as unrecorded."
-      ]
+      ],
+      "review": {
+        "after": [
+          "D09"
+        ],
+        "lines": [
+          "Depot break 00:10-00:52 is compatible with the delivery. It does not follow that every minute of Luca night has been independently observed."
+        ]
+      }
     },
     {
       "id": "C29",
@@ -3964,9 +4043,16 @@ const STORY = {
         "PAYMENT AND USE / provider and studio copies compared",
         "August production payment: private listening edit, authorised against family commission.",
         "September production payment: installation assembly, approved by Victor for studio.",
-        "October proposed licence: public derivative rights subject to the signed audit rider and use schedule. Not yet cleared.",
-        "Mara was paid for editing. The payment record does not establish a murder commission. It does establish that the later public use was a separate decision, with an identifiable approval chain."
-      ]
+        "October proposed licence: public derivative rights subject to the signed audit rider and use schedule. Not yet cleared."
+      ],
+      "review": {
+        "after": [
+          "D10"
+        ],
+        "lines": [
+          "Mara was paid for editing. The payment record does not establish a murder commission. It does establish that the later public use was a separate decision, with an identifiable approval chain."
+        ]
+      }
     },
     {
       "id": "C30",
@@ -3996,9 +4082,16 @@ const STORY = {
         "16 October, Iris: I am not asking you to destroy it. I am asking you to stop saying those people agreed to this version.",
         "Victor: The notices have been printed. We cannot afford to discover a different principle every Thursday.",
         "18 October 01:12, Elena to Victor: She will not make the morning discussion. Keep the arrangement as it is.",
-        "Victor reply 08:03: What do you mean? Call me.",
         "The late message is ambiguous on its own. No evidence here establishes a shared plan to administer anything. Commercial pressure and misrepresentation remain separate findings."
-      ]
+      ],
+      "review": {
+        "after": [
+          "D10"
+        ],
+        "lines": [
+          "Victor reply 08:03: What do you mean? Call me."
+        ]
+      }
     },
     {
       "id": "C32",
@@ -4013,7 +4106,7 @@ const STORY = {
         "This extract omits formulation and amount; the relevant qualified findings are preserved. No reliable quantity or exact administration minute can be reconstructed from these extracts.",
         "The broad estimated death interval is02:00-05:00. It must not be converted into a precise clock solution.",
         "The described deterioration required urgent assessment. The report does not establish that a particular intervention would certainly have saved Iris, nor the legal mental state of another person.",
-        "Compare the scene findings and communications. Medical compatibility is not, by itself, attribution."
+        "Companion scene and communication extracts are filed separately under the same authorised review."
       ]
     },
     {
@@ -4026,10 +4119,17 @@ const STORY = {
         "PAIRED SCENE FINDINGS",
         "CHAIN-OF-CUSTODY EXTRACT / paired items collected at the scene",
         "Blue mug from Iris kitchen: sedating compound detected in residual drink. Control sample from kitchen water source: not detected.",
-        "Prepared-drink container collected from Iris counter: compatible compound profile in remaining contents. Elena independently identifies it as the one she prepared and brought. Both items were collected under separate scene seals before the archive review.",
-        "The live exchange records Iris declining medication and the drink being represented as plain. These circumstances must be considered together; a chemical finding does not narrate a person intention.",
-        "Elena statement admits preparing and bringing the container. The independent sample comparison is not dependent on a later confession about its use."
-      ]
+        "Prepared-drink container collected from Iris counter: compatible compound profile in remaining contents. Elena independently identifies it as the one she prepared and brought. Both items were collected under separate scene seals before the archive review."
+      ],
+      "review": {
+        "after": [
+          "D11"
+        ],
+        "lines": [
+          "The live exchange records Iris declining medication and the drink being represented as plain. These circumstances must be considered together; a chemical finding does not narrate a person intention.",
+          "Elena statement admits preparing and bringing the container. The independent sample comparison is not dependent on a later confession about its use."
+        ]
+      }
     },
     {
       "id": "C34",
@@ -4041,10 +4141,17 @@ const STORY = {
         "HELP-ATTEMPT AND DISPATCH EXTRACT",
         "PROVIDER/INCIDENT LIAISON / records compared, original timestamps preserved",
         "18 October01:24:00 emergency call attempt initiated on Iris phone. 01:24:14 local cancellation before connection. No dispatcher heard this attempted call.",
-        "First connected request associated with this address and incident:07:12 welfare concern. Formal entry/discovery recorded07:40. Concern time and formal discovery are different events.",
-        "The examiner is not assuming one phone call list describes the whole network. The incident extract independently records the first connected request.",
-        "The local event does not identify a finger on a control. Attribute it only through the visit sequence, contemporaneous communications and the account being tested."
-      ]
+        "First connected request associated with this address and incident:07:12 welfare concern. Formal entry/discovery recorded07:40. Concern time and formal discovery are different events."
+      ],
+      "review": {
+        "after": [
+          "D12"
+        ],
+        "lines": [
+          "The examiner is not assuming one phone call list describes the whole network. The incident extract independently records the first connected request.",
+          "The local event does not identify a finger on a control. Attribute it only through the visit sequence, contemporaneous communications and the account being tested."
+        ]
+      }
     },
     {
       "id": "C35",
@@ -4057,10 +4164,18 @@ const STORY = {
         "BUILDING RECORDS / narrow release for the incident / reference clock checked",
         "18 October00:54 invitation from Iris to Elena: Come over. We can do this without the studio in the room.",
         "00:58 intercom: Elena registers her own full guest number and receives an interactive response from Iris. It is not a three-digit coincidence.",
-        "01:47 Elena seen leaving by the caretaker; she acknowledges the visit in her signed response. The caretaker does not claim to have watched the apartment continuously.",
-        "Exterior admission alone would not establish apartment presence. The live01:07 exchange, the supplied container and the acknowledged visit provide additional context.",
-        "A later camera gap does not prove that no one else could have entered. The account must rely on positive evidence of the acts under examination."
-      ]
+        "01:47 Elena seen leaving by the caretaker; she acknowledges the visit in her signed response. The caretaker does not claim to have watched the apartment continuously."
+      ],
+      "review": {
+        "after": [
+          "D12",
+          "Qcoverage"
+        ],
+        "lines": [
+          "Exterior admission alone would not establish apartment presence. The live01:07 exchange, the supplied container and the acknowledged visit provide additional context.",
+          "A later camera gap does not prove that no one else could have entered. The account must rely on positive evidence of the acts under examination."
+        ]
+      }
     },
     {
       "id": "C36",
@@ -4076,7 +4191,7 @@ const STORY = {
         "01:23 Elena, from her own account: She is exhausted. I am with her. Do not come over and make it a whole thing.",
         "01:26 Mara: If you cannot wake her properly, call for help now. I mean it. Please tell me you have.",
         "01:27 Elena: I am calling them now. I will stay.",
-        "Mara was remote and relied on that assurance. At this stage, compare accounts carefully; the independent incident record has been requested but not yet returned."
+        "Independent incident records requested through the authorised liaison; response outstanding at the time of this export."
       ]
     },
     {
@@ -4088,11 +4203,18 @@ const STORY = {
       "lines": [
         "LATER REASSURANCE",
         "OWNER/ESTATE DEVICE EXPORT / original timing retained",
-        "18 October01:36 from Iris account to Mara: lights out. e has sorted me. dont fuss.",
-        "The account sent a message. That does not certify Iris authored it. Letter casing is not a reliable identification method.",
-        "Elena account at01:27 says she is calling help and will stay. The provider and incident extracts record a cancelled attempt and no connected request until morning. The acknowledged departure is01:47.",
-        "The later01:48 audio delivery is separately documented as an automatic upload of an older assembly. It does not supply a new live response from Iris."
-      ]
+        "18 October01:36 from Iris account to Mara: lights out. e has sorted me. dont fuss."
+      ],
+      "review": {
+        "after": [
+          "D12"
+        ],
+        "lines": [
+          "The account sent a message. That does not certify Iris authored it. Letter casing is not a reliable identification method.",
+          "Elena account at01:27 says she is calling help and will stay. The provider and incident extracts record a cancelled attempt and no connected request until morning. The acknowledged departure is01:47.",
+          "The later01:48 audio delivery is separately documented as an automatic upload of an older assembly. It does not supply a new live response from Iris."
+        ]
+      }
     },
     {
       "id": "C40",
@@ -4215,7 +4337,8 @@ const STORY = {
       "ch": 2,
       "ts": "Oct 12 · 20:15",
       "kind": "post",
-      "text": "A photograph before anyone remembered to tell us where to stand. I like that part."
+      "text": "A photograph before anyone remembered to tell us where to stand. I like that part.",
+      "photo": "P06"
     },
     {
       "id": "s1",
@@ -4225,7 +4348,8 @@ const STORY = {
       "ts": "Oct 17 · 23:35",
       "kind": "story",
       "text": "One photograph. No personal brands. I believe we negotiated quite well.",
-      "loc": "Atelier Nord"
+      "loc": "Atelier Nord",
+      "photo": "P08"
     },
     {
       "id": "s3",
@@ -4235,7 +4359,9 @@ const STORY = {
       "ts": "Oct 17 · 23:52",
       "kind": "post",
       "text": "Thank you to everyone who made a room worth listening to.",
-      "loc": "Atelier Nord"
+      "loc": "Atelier Nord",
+      "photo": "E4",
+      "mediaCh": 4
     }
   ],
   "audio": [
@@ -4590,7 +4716,11 @@ const STORY = {
         "..",
         "-.."
       ],
-      "unlocks": "source:identified"
+      "unlocks": "source:identified",
+      "hints": [
+        "Use the pulse groups with the reference alphabet. The longer gaps separate letters; the trace and recording carry the same information.",
+        "Read one group at a time, left to right. A long pulse lasts three short units. Enter the letters together without spaces; replay or use the visual trace freely."
+      ]
     },
     {
       "id": "Qcoverage",
@@ -4717,6 +4847,9 @@ const STORY = {
             "C02",
             "C03",
             "C04"
+          ],
+          "after": [
+            "D01"
           ]
         }
       ]
@@ -4820,6 +4953,9 @@ const STORY = {
             "C07",
             "C08",
             "C09"
+          ],
+          "after": [
+            "D02"
           ]
         }
       ]
@@ -4879,6 +5015,9 @@ const STORY = {
               "",
               "The recipient copy exists independently of his account. A compatible sole mark supplies context, not a uniquely identified pair of feet. He does not ask you to treat it as an alibi."
             ]
+          ],
+          "after": [
+            "D04"
           ]
         },
         {
@@ -4908,6 +5047,10 @@ const STORY = {
             "C13",
             "C14",
             "C15"
+          ],
+          "after": [
+            "D03",
+            "D04"
           ]
         }
       ]
@@ -4972,6 +5115,10 @@ const STORY = {
             "C18",
             "C19",
             "C21"
+          ],
+          "after": [
+            "Qcapture",
+            "D05"
           ]
         },
         {
@@ -5005,6 +5152,9 @@ const STORY = {
             "C19",
             "C20",
             "C21"
+          ],
+          "after": [
+            "D06"
           ]
         }
       ]
@@ -5119,7 +5269,16 @@ const STORY = {
             "C25",
             "C26",
             "C36"
-          ]
+          ],
+          "after": [
+            "D07",
+            "D08"
+          ],
+          "recall": {
+            "actor": "mara",
+            "node": "labels",
+            "text": "You return to an account already discussed. The retained sources now allow it to be checked independently."
+          }
         }
       ]
     },
@@ -5149,7 +5308,15 @@ const STORY = {
               "",
               "He puts the conversation on the table. Its permission is specific. It does not offer the rest of their relationship to the report."
             ]
-          ]
+          ],
+          "after": [
+            "D09"
+          ],
+          "recall": {
+            "actor": "adrian",
+            "node": "omission",
+            "text": "You return to an account already discussed. The retained sources now allow it to be checked independently."
+          }
         },
         {
           "label": "Work that was paid for",
@@ -5190,6 +5357,9 @@ const STORY = {
               "",
               "The payment is given its actual purpose. A serious wrong survives the rejection of a more convenient theory."
             ]
+          ],
+          "after": [
+            "D10"
           ]
         },
         {
@@ -5222,6 +5392,10 @@ const STORY = {
             "C29",
             "C30",
             "C31"
+          ],
+          "after": [
+            "D09",
+            "D10"
           ]
         }
       ]
@@ -5281,6 +5455,10 @@ const STORY = {
             "C35",
             "C36",
             "C37"
+          ],
+          "after": [
+            "D11",
+            "D12"
           ]
         },
         {
@@ -5318,6 +5496,11 @@ const STORY = {
             "C35",
             "C36",
             "C37"
+          ],
+          "after": [
+            "D11",
+            "D12",
+            "Qcoverage"
           ]
         }
       ]
@@ -5904,5 +6087,16 @@ const STORY = {
       "action": "pz('D13')",
       "ch": 8
     }
-  }
+  },
+  "movementActors": {
+    "iris-device": "Iris device"
+  },
+  "recordSources": {
+    "m1": "C04",
+    "m2": "C04",
+    "m3": "C04",
+    "m4": "C04"
+  },
+  "calendarYear": 2025,
+  "calendarMonth": 10
 };

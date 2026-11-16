@@ -2,6 +2,8 @@
 
 **Status: integrated for review; release approval remains pending. No merge or deployment.** Architectural approval has not been treated as approval of the finished experience. This report deliberately omits identities, secrets, revelations, evidence answers and the ending.
 
+The subsequent [Phase 1 report](PHASE1_REPORT.md) records the critical fixes and current verification. The results below describe the initial integration stage.
+
 ## What is integrated
 
 All nine chapters now use the revised narrative, including journal scenes, interviews, source documents, recordings, examinations, deductions, choices and aftermath. The active build loads one revised narrative dataset. The old story expansions are not mixed into the revised runtime.

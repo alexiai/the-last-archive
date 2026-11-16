@@ -326,11 +326,11 @@ function caseTimeline() {
       add(m.ts, m.sub, "Email", m.ev, `mailOpen('${m.id}')`);
   for (const a of STORY.audio.filter(E.vis))
     if (S.ev.includes(a.ev)) add(a.ts, a.n, "Audio", a.ev, `clip('${a.id}')`);
-  for (const r of STORY.records)
+  for (const r of movementRows())
     if (!r[6] || S.ev.includes(r[6]))
       add(
         r[3],
-        r[1] + " · " + STORY.places[r[2]].n + " · " + r[5],
+        movementName(r[1]) + " · " + STORY.places[r[2]].n + " · " + r[5],
         "Maps",
         r[6],
         "maps()",
@@ -395,7 +395,7 @@ function talk(k, pick = false) {
     tr = S.trust[k] || 0;
   scr.innerHTML =
     bar(I.name, "ints()") +
-    `<div class="interview-scene"><div class="interview-title">${avatar(k, I.name)}<div><div class="eyebrow">INTERVIEW RECORD</div><h2>${esc(I.name)}</h2><div class="rapport">${I.meter || "Rapport"}: ${(I.labels || ["low", "low", "medium", "high"])[tr]}</div></div></div><div class="m">${esc(n.t)}</div></div>` +
+    `<div class="interview-scene"><div class="interview-title">${avatar(k, I.name)}<div><div class="eyebrow">INTERVIEW RECORD</div><h2>${esc(I.name)}</h2></div></div><div class="m">${esc(n.t)}</div></div>` +
     (pick
       ? "<p>Present which evidence?</p>" +
         S.ev
@@ -406,7 +406,7 @@ function talk(k, pick = false) {
           .join("") +
         `<button class="btn" onclick="talk('${k}')">Cancel</button>`
       : n.o
-          .filter((o) => (!o[2] || tr >= o[2]) && (!o[3] || E.has(o[3])))
+          .filter((o) => (!o[2] || tr >= o[2]) && (!o[3] || E.has(o[3])) && E.nodeReady(k,o[1]))
           .map(
             (o, i) =>
               `<button class="ev" onclick="E.go('${k}','${o[1]}');talk('${k}')"><span class="choice-num" aria-hidden="true" data-number="${String(i + 1).padStart(2, "0")}"></span>${esc(o[0])}</button>`,
@@ -625,9 +625,13 @@ function doc(id) {
 }
 function cal() {
   view("calendar");
+  const year=STORY.calendarYear||2025, month=STORY.calendarMonth||10;
+  const offset=(new Date(Date.UTC(year,month-1,1)).getUTCDay()+6)%7;
+  const count=new Date(Date.UTC(year,month,0)).getUTCDate();
+  const dates=new Set(STORY.calendar.map(c=>Number(c[0].match(/\d+/)?.[0])));
   scr.innerHTML =
     bar("Calendar", "home()") +
-    `<div class="calendar-heading"><div class="eyebrow">ARCHIVED SCHEDULE / 2025</div><h1>October</h1></div><div class="month-grid" aria-hidden="true">${["M", "T", "W", "T", "F", "S", "S"].map((x) => `<span class="weekday">${x}</span>`).join("")}${Array.from({ length: 3 }, () => "<span></span>").join("")}${Array.from({ length: 31 }, (_, i) => `<span class="${[14, 16, 17].includes(i + 1) ? "event-day" : ""}">${i + 1}</span>`).join("")}</div><div class="section-label"><span>SCHEDULED EVENTS</span><span>OCTOBER</span></div>` +
+    `<div class="calendar-heading"><div class="eyebrow">ARCHIVED SCHEDULE / ${year}</div><h1>October</h1></div><div class="month-grid" aria-hidden="true">${["M", "T", "W", "T", "F", "S", "S"].map((x) => `<span class="weekday">${x}</span>`).join("")}${Array.from({ length: offset }, () => '<span class="calendar-empty"></span>').join("")}${Array.from({ length: count }, (_, i) => `<span data-day="${i+1}" class="${dates.has(i + 1) ? "event-day" : ""}">${i + 1}</span>`).join("")}</div><div class="section-label"><span>SCHEDULED EVENTS</span><span>OCTOBER</span></div>` +
     STORY.calendar
       .map(
         ([d, t, n, l, e]) =>

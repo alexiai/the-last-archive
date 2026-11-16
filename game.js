@@ -27,14 +27,14 @@ function thread(k){const t=STORY.threads[k];scr.innerHTML=bar(esc(t.name),"msgs(
  t.m.filter(msgOk).map(([f,ts,x,e])=>`<div class="m ${f=="me"?"me":""} ${e?"has":""} ${e&&S.ev.includes(e)?"saved":""}" ${e?`role="button" tabindex="0" onclick="saveMsg(this,'${e}')" onkeydown="if(event.key=='Enter')saveMsg(this,'${e}')"`:""}>${f!="me"&&f!="them"?`<b class="who">${esc(f)}</b>`:""}${esc(x)}<time>${ts}</time></div>`).join("")}
 function saveMsg(el,e){take(e);el.classList.add("saved");el.classList.remove("has")}
 // --- Contacts: some entries appear only once the player has learned the name
-function cons(){scr.innerHTML=bar("Contacts","home()")+STORY.contacts.filter(c=>!c.need||E.has(c.need)).map(c=>`<button class="th" style="display:flex;gap:10px;align-items:center" onclick="con('${c.id}')">${avatar(c.id,c.n)}<span><b>${c.n}</b><small>${c.rel}</small></span></button>`).join("")+`<small style="color:var(--dim)">New contacts appear as you learn names elsewhere.</small>`}
+function cons(){scr.innerHTML=bar("Contacts","home()")+STORY.contacts.filter(c=>!c.need||E.has(c.need)).map(c=>`<button class="th" style="display:flex;gap:10px;align-items:center" onclick="con('${c.id}')">${avatar(c.id,c.n)}<span><b>${c.n}</b><small>${c.rel}</small></span></button>`).join("")+`<small style="color:var(--dim)">Contact details are retained in this authorised archive.</small>`}
 function con(id){const c=STORY.contacts.find(x=>x.id==id),has=STORY.threads[id]&&visible(STORY.threads[id]);
  scr.innerHTML=bar(c.n,"cons()")+`<div class="meta">Phone: ${c.ph}\nRelationship: ${c.rel}${c.note?"\nNote: "+c.note:""}</div>${c.ev?saveBtn(c.ev,`con('${id}')`):""}<div class="row">${has?`<button class="btn" onclick="thread('${id}')">Open messages</button>`:""}</div>`}
 // --- Phone
-function calls(){scr.innerHTML=bar("Phone","home()")+STORY.calls.map(([d,n,t,du,aud],i)=>`<button class="th" onclick="callD(${i})"><b style="${du=="missed"?"color:#e7bcbf":""}">${n.includes("019")&&E.has("num:019")?"Luca Marin (new number)":n}</b><small>${d=="in"?"Incoming":"Outgoing"} · ${t} · ${du=="missed"?"missed":du}${aud?" · voicemail":""}</small></button>`).join("")}
+function calls(){scr.innerHTML=bar("Phone","home()")+STORY.calls.map(([d,n,t,du,aud],i)=>`<button class="th" onclick="callD(${i})"><b style="${du=="missed"?"color:#e7bcbf":""}">${n.includes("019")&&E.has("num:019")?"Luca Marin (new number)":n}</b><small>${d=="in"?"Incoming":"Outgoing"} · ${t} · ${du=="missed"?"missed":du}${aud?" · linked recording":""}</small></button>`).join("")}
 function callD(i){const [d,n,t,du,aud]=STORY.calls[i],cn=(STORY.callNotes||{})[i],a=aud&&STORY.audio.find(x=>x.id==aud);
  scr.innerHTML=bar("Call details","calls()")+`<div class="meta">Contact: ${n.includes("019")&&E.has("num:019")?"Luca Marin (new number)":n}\nDirection: ${d=="in"?"Incoming":"Outgoing"}\nTime: ${t}\nDuration: ${du=="missed"?"missed":du}${cn?"\nDetail: "+cn[1]:""}</div>`+
- (a&&E.vis(a)?`<button class="btn" onclick="clip('${a.id}')">🎧 Voicemail and transcript</button>`:a?`<small style="color:var(--dim)">A voicemail exists. It is not available yet.</small>`:"")+(cn?saveBtn(cn[0],`callD(${i})`):"")}
+ (a&&E.vis(a)?`<button class="btn" onclick="clip('${a.id}')">🎧 Linked recording and transcript</button>`:a?`<small style="color:var(--dim)">A linked recording is not available yet.</small>`:"")+(cn?saveBtn(cn[0],`callD(${i})`):"")}
 // --- Email: attachments open as documents
 function mail(box="Inbox"){scr.innerHTML=bar("Email","home()")+`<div class="row">`+["Inbox","Archived","Trash"].filter(b=>b!="Trash"||E.has("unlock:vault")).map(b=>`<button class="btn ${b==box?"red":""}" onclick="mail('${b}')">${b}</button>`).join("")+`</div>`+
  STORY.mails.filter(m=>m.box==box&&E.vis(m)&&(!m.need||E.has(m.need))).map(m=>`<button class="th" onclick="mailOpen('${m.id}')"><b>${m.from}</b> ${m.att?"📎":""}<small>${m.sub} · ${m.ts}</small></button>`).join("")}
@@ -84,7 +84,9 @@ function test(){const r=E.check(A,R,B);board();$("#res").innerHTML=`<div class="
 
 
 // --- Maps: select a place, compare people's records on one timeline, spot gaps, save records as evidence
-let vb=[0,0,360,260],who=["Iris"],selP=null;
+let vb=[0,0,360,260],who=Object.keys(STORY.movementActors||{Iris:"Iris"}),selP=null;
+const movementName=id=>STORY.movementActors?.[id]||id;
+const movementRows=()=>STORY.records.filter(r=>!STORY.recordSources?.[r[0]]||S.ev.includes(STORY.recordSources[r[0]]));
 const hm=iso=>iso.slice(5,10).replace("-","/")+" "+iso.slice(11);
 function maps(){const P=STORY.places;
  scr.innerHTML=bar("Maps","home()")+`<svg id="mp" viewBox="${vb.join(" ")}" style="width:100%;background:#181a1c;border:1px solid var(--line);border-radius:8px;touch-action:none">
@@ -92,10 +94,10 @@ function maps(){const P=STORY.places;
  Object.entries(P).map(([k,p])=>`<g onclick="selectP('${k}')" style="cursor:pointer"><circle cx="${p.x}" cy="${p.y}" r="18" fill="transparent" pointer-events="all"/><circle cx="${p.x}" cy="${p.y}" r="${selP==k?9:6}" fill="${selP==k?"#a3323a":"#777"}"/><text x="${p.x+10}" y="${p.y+4}" fill="#bbb" font-size="9">${p.n.split(" (")[0]}</text></g>`).join("")+`</svg>
  <div class="row"><button class="btn" onclick="zoom(.7)">+</button><button class="btn" onclick="zoom(1.4)">−</button><button class="btn" onclick="pan(-40,0)">←</button><button class="btn" onclick="pan(40,0)">→</button><button class="btn" onclick="pan(0,-30)">↑</button><button class="btn" onclick="pan(0,30)">↓</button></div>`+
  (selP?`<h3>${P[selP].n}</h3><div class="meta">${P[selP].a}\nAssociated: ${P[selP].who.join(", ")||"no one recorded"}</div>`:"")+
- `<h3>Movement records</h3><div class="row">`+["Iris","Adrian","Victor"].map(w=>`<button class="btn ${who.includes(w)?"red":""}" onclick="who=who.includes('${w}')?who.filter(x=>x!='${w}'):[...who,'${w}'];maps()">${w}</button>`).join("")+`</div>`+timeline();bindMap()}
-function timeline(){const R=STORY.records.filter(r=>who.includes(r[1])&&(!selP||r[2]==selP)).sort((a,b)=>a[3].localeCompare(b[3]));let out="",last={};
- R.forEach(r=>{const prev=last[r[1]];if(prev){const g=(new Date(r[3])-new Date(prev))/60000;if(g>=60)out+=`<div class="msg">No record for ${r[1]} between ${prev.slice(11)} and ${r[3].slice(11)} (${Math.round(g)} min). No record was found in this dataset; this does not establish what happened.</div>`}last[r[1]]=r[3];
-  out+=`<div class="m ${r[6]?"has":""} ${r[6]&&S.ev.includes(r[6])?"saved":""}" ${r[6]?`onclick="take('${r[6]}');this.classList.add('saved');this.classList.remove('has')"`:""}><b>${r[1]}</b> · ${STORY.places[r[2]].n}<br>${r[5]}<time>${hm(r[3])} · ${r[4]}</time></div>`});return (selP?`<div class="row"><button class="btn" onclick="selP=null;maps()">Show all places</button></div>`:"")+(out||(selP?"<p>No records at this place for the selected people. Add people above.</p>":"<p>Select a person.</p>"))}
+ `<h3>Movement records</h3><div class="row">`+[...new Set(movementRows().map(r=>r[1]))].map(w=>`<button class="btn ${who.includes(w)?"red":""}" onclick="who=who.includes('${w}')?who.filter(x=>x!='${w}'):[...who,'${w}'];maps()">${esc(movementName(w))}</button>`).join("")+`</div>`+timeline();bindMap()}
+function timeline(){const R=movementRows().filter(r=>who.includes(r[1])&&(!selP||r[2]==selP)).sort((a,b)=>a[3].localeCompare(b[3]));let out="",last={};
+ R.forEach(r=>{const prev=last[r[1]];if(prev){const g=(new Date(r[3])-new Date(prev))/60000;if(g>=60)out+=`<div class="msg">No record for ${esc(movementName(r[1]))} between ${prev.slice(11)} and ${r[3].slice(11)} (${Math.round(g)} min). No record was found in this dataset; this does not establish what happened.</div>`}last[r[1]]=r[3];
+  out+=`<div class="m ${r[6]?"has":""} ${r[6]&&S.ev.includes(r[6])?"saved":""}" ${r[6]?`onclick="take('${r[6]}');this.classList.add('saved');this.classList.remove('has')"`:""}><b>${esc(movementName(r[1]))}</b> · ${STORY.places[r[2]].n}<br>${r[5]}<time>${hm(r[3])} · ${r[4]}</time></div>`});return (selP?`<div class="row"><button class="btn" onclick="selP=null;maps()">Show all places</button></div>`:"")+(out||(selP?"<p>No records at this place for the selected people. Add people above.</p>":"<p>No movement records for the current selection. Recover the supporting journey source or select an available record holder.</p>"))}
 function zoom(f){const [x,y,w,h]=vb,nw=Math.max(90,Math.min(360,w*f)),nh=nw*260/360;vb=[Math.max(0,Math.min(360-nw,x+(w-nw)/2)),Math.max(0,Math.min(260-nh,y+(h-nh)/2)),nw,nh];maps()}
 function pan(dx,dy){vb=[Math.max(0,Math.min(360-vb[2],vb[0]+dx)),Math.max(0,Math.min(260-vb[3],vb[1]+dy)),vb[2],vb[3]];maps()}
 // --- Interviews: evidence you present changes what the suspect says; trust is soft
@@ -161,7 +163,7 @@ function decisions(){return (STORY.decisions||[]).filter(d=>E.vis(d)).map(d=>{co
 
 // --- Hints: first hint is a nudge, a second names what to revisit. Used hints are counted, never required.
 function hint(id){const p=STORY.puzzles.find(x=>x.id==id),l=E.hint(id);pz(id);$("#pm").innerHTML=hintHtml(p,l)}
-const hintHtml=(p,l)=>`<div class="msg">${esc(p.hint)}${l>1?"<br><small>Revisit: "+p.needs.filter(n=>STORY.evidence[n]).map(n=>esc(STORY.evidence[n][0])).join("; ")+"</small>":""}</div>`
+const hintHtml=(p,l)=>`<div class="msg">${esc(p.hints?.[Math.min(l-1,p.hints.length-1)]||p.hint)}${l>1?"<br><small>Revisit: "+p.needs.filter(n=>STORY.evidence[n]).map(n=>esc(STORY.evidence[n][0])).join("; ")+"</small>":""}</div>`
 // --- Case file: each part needs the right kinds of support; feedback says which parts hold, never which item to pick
 function caseUI(p){const a=ans[p.id];return p.slots.map(s=>{if(!s.pick)return `<div class="ev"><b>${s.label}</b><select class="in" onchange="draftField('${p.id}','${s.id}',this.value)"><option value="">Choose</option>${Object.entries(s.options).map(([v,l])=>`<option value="${v}" ${a[s.id]==v?"selected":""}>${l}</option>`).join("")}</select></div>`;
  const sel=a[s.id]||[];return `<div class="ev"><b>${s.label}</b><br><small style="color:var(--dim)">${sel.map(e=>esc(STORY.evidence[e][0])).join("<br>")||"No evidence chosen"}</small><div class="row"><button class="btn" onclick="cslot('${p.id}','${s.id}')">Choose evidence (${sel.length})</button></div></div>`}).join("")}

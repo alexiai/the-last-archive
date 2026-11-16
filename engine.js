@@ -91,7 +91,7 @@ E.solve=(id,a)=>{const p=STORY.puzzles.find(x=>x.id==id);let ok=false;try{ok=!!p
 // ---- Interview engine: nodes + evidence presentation; trust is a soft modifier, never a lock ----
 E.node=(id,n)=>STORY.interviews[id].nodes[n];
 // Effects (rapport, flags, evidence) apply only the first time a node is reached in an interview. Revisits replay text only.
-E.go=(id,n,quiet)=>{const iv=STORY.interviews[id];if(n===iv.start){const state=[...(iv.states||[])].reverse().find(s=>E.vis(s)&&(!s.need||E.has(s.need))&&(!s.needs||s.needs.every(x=>E.S.ev.includes(x))));if(state)n=state.node;}const nd=E.node(id,n);if(!nd)return;E.S.talk[id]=n;const P=E.S.pres[id]=E.S.pres[id]||[],k="@"+n;
+E.go=(id,n,quiet)=>{const iv=STORY.interviews[id];if(n===iv.start){const state=[...(iv.states||[])].reverse().find(s=>E.vis(s)&&(!s.need||E.has(s.need))&&(!s.needs||s.needs.every(x=>E.S.ev.includes(x))));if(state)n=state.node;}const nd=E.node(id,n);if(!nd||!E.nodeReady(id,n))return false;E.S.talk[id]=n;const P=E.S.pres[id]=E.S.pres[id]||[],k="@"+n;
  if(quiet||P.includes(k)){E.save();return}P.push(k);
  if(nd.trust)E.S.trust[id]=Math.max(0,Math.min(3,(E.S.trust[id]||0)+nd.trust));(nd.set||[]).forEach(f=>E.S.flags.includes(f)||E.S.flags.push(f));if(nd.take)E.take(nd.take);E.save()};
 // Presenting evidence: a stonewall can fire at most once per item and does not consume it; effects are gated per node inside E.go,
@@ -101,12 +101,14 @@ E.present=(id,ev)=>{const I=STORY.interviews[id],P=E.S.pres[id]=E.S.pres[id]||[]
  const st=I.stonewall&&I.stonewall[ev];
  if(!consumed&&st&&!P.includes("!"+ev)&&(E.S.trust[id]||0)>=1){P.push("!"+ev);E.go(id,st);return}
  if(!consumed&&I.present[ev])P.push(ev);
- E.go(id,node)};
+ if(E.go(id,node)===false)E.go(id,"pd")};
 // ---- Chapters: chapter n+1 opens when chapter n's goals are met. Content with ch:n stays hidden until then.
 E.baseDone=n=>{const c=STORY.chapters[n-1];return !!c&&c.done.ev.every(x=>E.S.ev.includes(x))&&c.done.puz.every(x=>E.S.solved.includes(x))&&(c.done.flags||[]).every(E.has)};
 E.done=n=>E.baseDone(n)&&(n<=E.S.legacyThrough||(STORY.chapters[n-1].extraPuzzles||[]).every(id=>E.S.solved.includes(id)));
 E.chapter=()=>{let n=1;while(STORY.chapters[n]&&E.done(n))n++;return n};
 E.vis=o=>(o.ch||1)<=E.chapter();
+E.after=o=>(o.after||[]).every(id=>E.S.solved.includes(id));
+E.nodeReady=(id,n)=>E.after(E.node(id,n))||(E.S.pres[id]||[]).includes("@"+n);
 E.flag=f=>{if(!E.S.flags.includes(f)){E.S.flags.push(f);E.save()}};
 E.complete=()=>E.done(STORY.chapters.length);
 E.choose=(id,i)=>{const d=(STORY.decisions||[]).find(x=>x.id==id);if(!d||!E.vis(d)||(d.need&&!E.has(d.need))||!d.opts[i]||E.S.choices[id]!==undefined)return false;E.S.choices[id]=i;E.flag(d.opts[i][1]);E.save();return true};

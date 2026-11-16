@@ -2,7 +2,7 @@
 from pathlib import Path
 import shutil,json,hashlib
 ROOT=Path(__file__).resolve().parent.parent;OUT=ROOT/'dist'
-RUNTIME=['index.html','style.css','art-direction.css','production.css','edition.js','fieldwork.js','fieldwork_ui.js','fieldwork.css','trail.js','trail_ui.js','trail.css','phone_sources.js','engine.js','game.js','experience.js','art-direction.js','production.js','audio_director.js','edition_ui.js','audio_manifest.json','sound_manifest.json','signal_trace.json','sw.js','AUDIO_CREDITS.txt']
+RUNTIME=['index.html','style.css','art-direction.css','production.css','edition.js','fieldwork.js','fieldwork_ui.js','fieldwork.css','trail.js','trail_ui.js','trail.css','phone_sources.js','spatial.js','spatial.css','engine.js','game.js','experience.js','art-direction.js','production.js','audio_director.js','edition_ui.js','audio_manifest.json','sound_manifest.json','signal_trace.json','sw.js','AUDIO_CREDITS.txt']
 if OUT.exists():shutil.rmtree(OUT)
 OUT.mkdir()
 for name in RUNTIME:shutil.copy2(ROOT/name,OUT/name)

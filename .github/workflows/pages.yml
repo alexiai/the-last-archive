@@ -22,9 +22,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - run: python3 tools/build_site.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
       - uses: actions/deploy-pages@v4
         id: deployment
+      - name: Verify the actual published artifact
+        run: python3 tools/check_live_static.py "${{ steps.deployment.outputs.page_url }}"

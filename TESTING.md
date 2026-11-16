@@ -15,3 +15,11 @@
 The playable ZIP is additionally launched with its bundled standard-library Python server and tested as an extracted package. Native Windows/macOS launcher execution and physical iPhone touch/audio/storage behaviour remain human checks. Poppler (`pdftotext`), FFmpeg and Chromium are development tools only; CI installs the first two and uses Chrome. The game needs no runtime packages or AI model.
 
 Independent first-player fairness, emotional impact, listening quality and 60–90+ minute duration remain unmeasured. Counts denote assertion/check groups, not minutes of play or proof of premium quality. The existing blind protocol is docs/narrative-review/BLIND_PLAYTEST.md.
+
+## Architectural and timing publication checks
+
+`npm test` additionally checks geometry, alternative valid frame positions, rejection of empty frames/false timing claims, source-version comparison, measured openings, ordered routes, draft/save compatibility, derived-source navigation and complete PDF wording for all five restyled records.
+
+The new production browser suite exercises both expanded investigations through actual controls at 320, 390 and 1280 pixels, using the built allowlisted site under `/the-last-archive/`. It checks false hypotheses, ruler computation, both originals/overlay, frame retention, persistence, progression and responsive layouts. GAME_URL selects the deployed site for the same UI checks.
+
+`npm run test:live` requires GAME_URL and verifies the actual Pages runtime, every active published asset checksum, repository-scoped storage/service worker, offline preparation/reload and preserved editions in an isolated browser. The Pages workflow also runs the standalone live checksum verifier after deployment. Physical iPhone and blind-player duration remain separate human checks.

@@ -1,19 +1,15 @@
-# GitHub Pages deployment
+# GitHub Pages publication
 
-**Current instruction: do not merge or deploy.** The following steps are for a later approved release.
+Publication is explicitly authorised in the current task. PR #3 targets main. The game uses relative assets, local browser saves and a service worker scoped to its repository path; no backend or Python process is needed for hosted play.
 
-1. Run `npm test`, `npm run test:browser`, `npm run test:production`, `npm run audit:assets` and `python3 tools/build_site.py`.
-2. Inspect `dist/`: only runtime HTML/CSS/JavaScript, real assets and `.nojekyll` belong here. Private story documentation and test suites must not be included.
-3. In repository Settings → Pages, choose **GitHub Actions**. Only after explicit release approval and merging the approved release branch, the supplied workflow builds and publishes `dist/` on a push to main. It may also be run manually.
-4. For manual hosting, upload the contents of `dist/` to the static hosting root. No compilation or backend is required.
-5. Verify the live `/the-last-archive/` URL on desktop and mobile. Open Gallery and Contacts, collect evidence, write a note, reload and verify persistence.
+The main push workflow `.github/workflows/pages.yml` runs the full verification suite, builds the allowlisted static output, requests Pages configuration, uploads and deploys it, then runs `tools/check_live_static.py` against the actual deployment URL. This compares all active live asset checksums with the exact built manifest and checks preserved editions. A successful local build is not treated as a deployment.
 
-All runtime references are relative. Local Chromium tests exercised `/repo/` and `/fixture/repo/` paths. The live GitHub Pages site and physical iOS Safari have not been tested.
+If repository settings reject automatic Pages enablement, the owner must open Settings → Pages → Build and deployment → Source → GitHub Actions, then rerun the Publish static game workflow on main. Never claim the game is published before the live URL and browser checks pass.
 
-Use an HTTP server for local saves and audio/image tests. Saves belong to the browser origin; progress on localhost will not automatically transfer to the deployed domain. The preserved edition at `editions/original/` uses the original `lastarchive.v2` saves. The frozen Phase 1 edition at `editions/phase1/` retains `lastarchive.revised.v1`. The active fieldwork edition uses `lastarchive.fieldwork.v1`; compatible Phase 1 progress can be explicitly copied/imported without changing the original save. Unrelated edition imports are rejected. Export each edition’s save before changing origin. Prepare offline access separately in each edition.
+Deployment target: https://alexiai.github.io/the-last-archive/
 
-The source repository already contained private narrative documentation and tests. The deployment allowlist keeps these out of the published site; it does not remove their earlier repository history.
+For browser verification after publication: `GAME_URL=https://alexiai.github.io/the-last-archive/ npm run test:live`. The new production puzzle suite also accepts GAME_URL for actual-live controls testing. Local test dependencies are development-only.
 
-For review without deployment, `python3 tools/package_playable.py` creates an allowlisted playable ZIP with a local Python 3 launcher. The PR verification workflow uploads the same runtime folder as a three-day GitHub Actions artifact. This neither publishes a site nor invokes the Pages workflow. Public standard-runner verification and this small, short-lived artifact use the repository's existing free public Actions allocation; no paid runner, storage subscription or external runtime is added. Artifact availability expires, so download it for durable local use.
+Local saves and hosted saves have different browser origins. Export a backup from the local edition and import it through Sound / offline on the hosted edition. Earlier original and Phase 1 editions retain their own namespaces and paths. Do not clear browser storage to update. If an earlier hosted offline build is cached, download the updated archive in Sound / offline and reload after Offline ready.
 
-For a same-address review update, close the earlier local launcher, start the extracted updated folder, and refresh the verified archive from Sound / offline if the browser still shows cached older files. Wait for Offline ready and reload; FIELDWORK REVIEW 5 appears in the updated settings. Do not clear local storage. The optional actual-earlier-build upgrade test verifies this path.
+Private plans, tests, model weights and WAV masters are excluded from the Pages artifact. Both frozen earlier editions remain in the output and are cached separately. No custom domain, paid hosting or runtime external services are configured.

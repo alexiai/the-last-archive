@@ -2,7 +2,7 @@
 const STORY = {
   "narrativeEdition": "fieldwork-2025",
   "saveKey": "lastarchive.fieldwork.v1",
-  "productionEdition": 5,
+  "productionEdition": 6,
   "persons": {
     "iris": "Iris Vasilescu",
     "elena": "Elena Vasilescu",
@@ -1926,6 +1926,26 @@ const STORY = {
       [
         "trail:compared"
       ]
+    ],
+    "C46": [
+      "Retained circulation drawing",
+      "Building records / retained source",
+      [],
+      []
+    ],
+    "C47": [
+      "Completed service revision",
+      "Building records / retained source",
+      [],
+      []
+    ],
+    "C48": [
+      "Coverage reconstruction",
+      "Examination / cited building records",
+      [],
+      [
+        "coverage:compared"
+      ]
     ]
   },
   "links": [
@@ -2219,14 +2239,23 @@ const STORY = {
         "C10",
         "C11"
       ],
-      "prompt": "Mark the crossing in the timing reconstruction. Apply the supplied recorder correction and enter the reference time (HH:MM).",
+      "prompt": "Inspect the crossing, retain a relevant frame, calibrate the recorder and compare the corrected time with the independent journey record. Keep timing compatibility separate from identity.",
       "answer": {
         "time": "00:23",
-        "event": "entry"
+        "event": "entry",
+        "frame": "4",
+        "offset": "-2",
+        "arrival": "00:21",
+        "interval": "2",
+        "inference": "possible"
       },
       "hint": "Recorder00:25 is two minutes fast. Use the reference time, not a time inferred from the figure clothing.",
       "recorder": "00:25",
-      "reward": "S10"
+      "reward": "S10",
+      "hints": [
+        "Retain a frame containing the crossing. Check whether the recorder is fast or slow before comparing its label with the transport arrival field.",
+        "The calibration specifies a fast recorder: subtract its offset. Use the arrival field rather than pickup, then count the minutes to the corrected crossing. Timing alone cannot identify the figure."
+      ]
     },
     {
       "id": "D04",
@@ -2436,16 +2465,31 @@ const STORY = {
       "needs": [
         "C35"
       ],
-      "prompt": "Trace an entrance-to-stair route outside the camera sector. What does the coverage gap establish?",
+      "prompt": "Compare the retained circulation drawing and the completed revision. Locate the changed opening, measure it against the door schedule, then trace a physically available route and test the camera-coverage claim.",
       "answer": {
         "route": [
           "entrance",
           "service",
           "stairs"
         ],
-        "conclusion": "unobserved"
+        "conclusion": "unobserved",
+        "versions": [
+          "A",
+          "B"
+        ],
+        "discrepancy": "partition",
+        "jambs": [
+          "upper",
+          "lower"
+        ],
+        "width": "1100"
       },
-      "hint": "Compare the service passage with the shaded hall sector. A valid unobserved route is not proof somebody used it."
+      "hint": "Compare the service passage with the shaded hall sector. A valid unobserved route is not proof somebody used it.",
+      "reward": "C48",
+      "hints": [
+        "Compare both drawings at the same scale. Check the service passage boundary against the completed revision and the retained door schedule.",
+        "The ruler uses two selected points. The scale bar is forty drawing units per metre. A route must use an opening shown on the completed revision; a gap in observation does not prove who used it."
+      ]
     },
     {
       "id": "D11",
@@ -4440,6 +4484,34 @@ const STORY = {
         "Change list for this assembly: level adjustment; exhibition fade; programme caption. No new source spans added.",
         "10 OCTOBER / Julia query attached to proof: Does the caption describe the input or the source? Please retain the cue sheet with this version."
       ]
+    },
+    {
+      "id": "C46",
+      "n": "c46.pdf",
+      "title": "Retained circulation drawing",
+      "ch": 7,
+      "ev": "C46",
+      "lines": [
+        "CIRCULATION DRAWING / A",
+        "8 TEILOR STREET / entrance level / 2006 issue / retained desk copy",
+        "Scale: 40 drawing units = 1 metre. North is toward the top of the sheet.",
+        "This drawing predates the completed service works. It remains in the desk file beside the later revision.",
+        "The hall camera and its sector are shown at their recorded positions. A drawing documents circulation, not a person movement."
+      ]
+    },
+    {
+      "id": "C47",
+      "n": "c47.pdf",
+      "title": "Completed service revision",
+      "ch": 7,
+      "ev": "C47",
+      "lines": [
+        "SERVICE REVISION / B",
+        "8 TEILOR STREET / entrance level / 2019 works / completion copy",
+        "Door schedule S2: service passage to stair enclosure; supplied clear opening 1100 mm.",
+        "The installed camera position was not moved under this work order. Compare the completed drawing with the retained desk copy.",
+        "Clerk margin note: A correction is only useful if the copy at the desk was changed as well."
+      ]
     }
   ],
   "web": {
@@ -4478,8 +4550,8 @@ const STORY = {
         "u": "estate.vespera.local/plans",
         "ch": 7,
         "lines": [
-          "The entrance camera covers the hall approach. A service passage joins the stair enclosure outside the sector.",
-          "The intercom registers external admission, not a path through every room. A coverage gap is not proof that nobody used a route."
+          "Two drawing issues are retained with the building records. The camera position did not change during the service work. The release includes its recorded sector, not a claim about every circulation route.",
+          "The intercom registers external admission. Compare the completed drawing with its door schedule before treating the camera record as a map of all available routes."
         ]
       }
     ]
@@ -4780,14 +4852,23 @@ const STORY = {
         "C10",
         "C11"
       ],
-      "prompt": "Mark the crossing in the timing reconstruction. Apply the supplied recorder correction and enter the reference time (HH:MM).",
+      "prompt": "Inspect the crossing, retain a relevant frame, calibrate the recorder and compare the corrected time with the independent journey record. Keep timing compatibility separate from identity.",
       "answer": {
         "time": "00:23",
-        "event": "entry"
+        "event": "entry",
+        "frame": "4",
+        "offset": "-2",
+        "arrival": "00:21",
+        "interval": "2",
+        "inference": "possible"
       },
       "hint": "Recorder00:25 is two minutes fast. Use the reference time, not a time inferred from the figure clothing.",
       "recorder": "00:25",
-      "reward": "S10"
+      "reward": "S10",
+      "hints": [
+        "Retain a frame containing the crossing. Check whether the recorder is fast or slow before comparing its label with the transport arrival field.",
+        "The calibration specifies a fast recorder: subtract its offset. Use the arrival field rather than pickup, then count the minutes to the corrected crossing. Timing alone cannot identify the figure."
+      ]
     },
     {
       "id": "D04",
@@ -4885,16 +4966,31 @@ const STORY = {
       "needs": [
         "C35"
       ],
-      "prompt": "Trace an entrance-to-stair route outside the camera sector. What does the coverage gap establish?",
+      "prompt": "Compare the retained circulation drawing and the completed revision. Locate the changed opening, measure it against the door schedule, then trace a physically available route and test the camera-coverage claim.",
       "answer": {
         "route": [
           "entrance",
           "service",
           "stairs"
         ],
-        "conclusion": "unobserved"
+        "conclusion": "unobserved",
+        "versions": [
+          "A",
+          "B"
+        ],
+        "discrepancy": "partition",
+        "jambs": [
+          "upper",
+          "lower"
+        ],
+        "width": "1100"
       },
-      "hint": "Compare the service passage with the shaded hall sector. A valid unobserved route is not proof somebody used it."
+      "hint": "Compare the service passage with the shaded hall sector. A valid unobserved route is not proof somebody used it.",
+      "reward": "C48",
+      "hints": [
+        "Compare both drawings at the same scale. Check the service passage boundary against the completed revision and the retained door schedule.",
+        "The ruler uses two selected points. The scale bar is forty drawing units per metre. A route must use an opening shown on the completed revision; a gap in observation does not prove who used it."
+      ]
     },
     {
       "id": "D02",
@@ -6270,6 +6366,21 @@ const STORY = {
       "action": "trailOpen()",
       "ch": 4,
       "need": "versions:compared"
+    },
+    "C46": {
+      "label": "Files · Retained circulation drawing",
+      "action": "fileOpen('C46')",
+      "ch": 7
+    },
+    "C47": {
+      "label": "Files · Completed service revision",
+      "action": "fileOpen('C47')",
+      "ch": 7
+    },
+    "C48": {
+      "label": "Examination · Test the coverage claim",
+      "action": "pz('Qcoverage')",
+      "ch": 7
     }
   },
   "movementActors": {

@@ -15,6 +15,7 @@ for(const a of S.audio)check(`assets/audio/${a.id}.mp3`,"audio",a.id,`Audio app:
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'audio_manifest.json')));for(const [actor,nodes] of Object.entries(manifest.dialogue))for(const [node,a]of Object.entries(nodes))check(a.file,'recorded response',actor+':'+node,'Interview playback');
 const sounds=JSON.parse(fs.readFileSync(path.join(root,'sound_manifest.json')));for(const [id,a]of Object.entries(sounds))if(a.file)check(a.file,'sound',id,'Original music, ambience or effect');
 check('assets/video/security-export.mp4','video','security-export','Labelled timing reconstruction');for(const f of fs.readdirSync(path.join(root,'assets/documents')))check('assets/documents/'+f,'document',f,'Downloadable archive record');
+for(const dir of ['assets/plans','assets/video/frames'])for(const name of fs.readdirSync(path.join(root,dir)))check(dir+'/'+name,'examination',name,'Original game diagram or extracted video frame');
 // Validate references, not just existing files: a broken ID can silently suppress a real image.
 const mappingErrors=[];
 for(const post of S.social){if(post.photo&&!S.photos.some(p=>p.id===post.photo))mappingErrors.push('Social image reference');}

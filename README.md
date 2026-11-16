@@ -1,6 +1,10 @@
 # THE LAST ARCHIVE
 
-A nine-chapter psychological investigation in English, built as a static game with HTML, CSS and JavaScript. The revised narrative and connected investigative fieldwork improvements are integrated on this review branch. It is not approved for release, merged or deployed.
+GitHub Pages deployment target: https://alexiai.github.io/the-last-archive/
+The deployment workflow verifies the actual published artifact before reporting success. The game is entirely static: browser play requires no Python, backend, account or runtime API. Python remains an optional local-preview server.
+
+
+A nine-chapter psychological investigation in English, built as a static game with HTML, CSS and JavaScript. The revised narrative and connected investigative fieldwork improvements are integrated on this review branch. Publication to main and GitHub Pages is now authorised; final narrative quality and independent playtime remain subject to player review.
 
 Run `python3 -m http.server 8765`, then open `http://localhost:8765/`. No runtime packages, account, generation model or paid API are required. The journal, source register, interviews, examinations, evidence board and notes share the existing production interface.
 
@@ -27,3 +31,5 @@ Read [the spoiler-free fieldwork delivery report](docs/narrative-review/FIELDWOR
 The current review adds a connected source follow-up, a two-original comparison desk, a player-built chronology, retained message observations and useful phone search/navigation. Personal theories support groups, pinned accounts, competing copies and editable supporting/challenging/context roles. Existing fieldwork saves remain compatible. See [the spoiler-free continuation delivery](docs/narrative-review/CONTINUATION_DELIVERY.md).
 
 When updating an earlier local download, close its launcher first, start the new folder at the same address, then use Sound / offline → Download this playable edition and reload if the older cached interface remains. The new settings identify FIELDWORK REVIEW 5. Do not clear browser storage to update.
+
+The latest build expands the architectural-plan and CCTV timing examinations, preserves all nine chapters and decisions, and adds differentiated original record designs. Pages serves only the allowlisted runtime build; private development notes and tests are excluded.

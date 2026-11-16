@@ -4,15 +4,16 @@
   "private": true,
   "description": "Static narrative investigation game. Dependencies are for development tests only.",
   "scripts": {
-    "test": "node tools/test_legacy.cjs && node tools/test_revised.cjs && node tools/test_phase1.cjs && node tools/test_fieldwork.cjs && node tools/test_trail.cjs && node tools/test_phone_sources.cjs",
+    "test": "node tools/test_legacy.cjs && node tools/test_revised.cjs && node tools/test_phase1.cjs && node tools/test_fieldwork.cjs && node tools/test_trail.cjs && node tools/test_phone_sources.cjs && node tools/test_spatial.cjs",
     "audit:assets": "node audit_assets.js",
     "build": "python3 tools/build_site.py",
-    "test:browser": "node tools/test_revised_browser.cjs && node tools/test_phase1_browser.cjs && node tools/test_fieldwork_browser.cjs && node tools/test_trail_browser.cjs",
+    "test:browser": "node tools/test_revised_browser.cjs && node tools/test_phase1_browser.cjs && node tools/test_fieldwork_browser.cjs && node tools/test_trail_browser.cjs && node tools/test_spatial_browser.cjs",
     "test:production": "node tools/test_revised_delivery.cjs",
     "test:legacy": "node tools/test_legacy.cjs",
     "test:webkit": "node tools/test_webkit_optional.cjs",
     "package:playable": "python3 tools/package_playable.py",
-    "test:upgrade": "node tools/test_upgrade_optional.cjs"
+    "test:upgrade": "node tools/test_upgrade_optional.cjs",
+    "test:live": "node tools/test_pages_live.cjs"
   },
   "devDependencies": {
     "jsdom": "^31.0.1",

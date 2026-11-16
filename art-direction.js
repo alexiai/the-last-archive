@@ -14,6 +14,7 @@ view = function (name) {
       audio: "tape",
       interview: "interview",
       puzzle: "analysis",
+      analysis: "analysis",
       timeline: "timeline",
       board: "board",
       profiles: "dossier",
@@ -41,10 +42,10 @@ home = function () {
   view("home");
   const apps = STORY.apps.filter((a) => E.vis({ ch: a[3] }));
   const phoneApps = apps.filter(
-    (a) => !["ev", "int", "pz", "map"].includes(a[0]),
+    (a) => !["ev", "int", "pz", "map", "lab"].includes(a[0]),
   );
   const caseApps = apps.filter((a) =>
-    ["ev", "int", "pz", "map"].includes(a[0]),
+    ["ev", "int", "pz", "map", "lab"].includes(a[0]),
   );
   const entry = ([id, name, on], i) =>
     `<button ${on === 0 ? "disabled" : `onclick="open_('${id}')"`} class="index-entry"><span class="index-number">${String(i + 1).padStart(2, "0")}</span><span>${esc(name)}</span><span class="index-arrow" aria-hidden="true">↗</span></button>`;
@@ -336,7 +337,7 @@ files = function () {
     bar("Files", "home()") +
     '<div class="document-drawer"><div class="eyebrow">THE DOCUMENT REGISTER / AVAILABLE RECORDS</div><h1>On the record.</h1>' +
     STORY.files
-      .filter(E.vis)
+      .filter(visible)
       .map(
         (f, i) =>
           `<button class="th drawer-entry" onclick="fileOpen('${f.id}')"><span class="drawer-index">${String(i + 1).padStart(2, "0")}</span><span><b>${esc(f.n)}</b><small>${/csv$/.test(f.n) ? "DATA EXPORT" : "DOCUMENT"}${f.ev && S.ev.includes(f.ev) ? " / ARCHIVED" : ""}</small></span><span class="drawer-format">${f.n.split(".").pop().toUpperCase()}</span></button>`,
@@ -352,7 +353,7 @@ aud = function () {
     bar("Audio", "home()") +
     '<div class="eyebrow">VOICE ARCHIVE / TRANSCRIPTS AVAILABLE</div><h1 class="tape-title">What was<br><em>left unsaid.</em></h1>' +
     STORY.audio
-      .filter(E.vis)
+      .filter(visible)
       .map(
         (a, i) =>
           `<button class="th tape-entry" onclick="clip('${a.id}')"><span class="tape-spool" aria-hidden="true"></span><span><b>${esc(a.n)}</b><small>${esc(a.ts)}<br>${esc(a.src)}</small></span><span class="tape-side">${String(i + 1).padStart(2, "0")}</span></button>`,

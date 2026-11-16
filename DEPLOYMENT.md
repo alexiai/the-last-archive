@@ -1,6 +1,8 @@
 # GitHub Pages deployment
 
-1. Run `npm test`, `npm run audit:assets` and `python3 tools/build_site.py`.
+**Current instruction: do not merge or deploy.** The following steps are for a later approved release.
+
+1. Run `npm test`, `npm run test:browser`, `npm run test:production`, `npm run audit:assets` and `python3 tools/build_site.py`.
 2. Inspect `dist/`: only runtime HTML/CSS/JavaScript, real assets and `.nojekyll` belong here. Private story documentation and test suites must not be included.
 3. In repository Settings → Pages, choose **GitHub Actions**. After reviewing and merging the UI branch, the supplied workflow builds and publishes `dist/` on a push to main. It may also be run manually.
 4. For manual hosting, upload the contents of `dist/` to the static hosting root. No compilation or backend is required.

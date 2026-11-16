@@ -1,9 +1,10 @@
+// Original interaction regressions use explicit legacy checkpoint fixtures; expanded new-game gates are tested in tools/test_production.cjs.
 const {JSDOM}=require("jsdom"),fs=require("fs"),d=__dirname+"/";
 const mk=(s)=>new JSDOM(fs.readFileSync(d+"index.html","utf8").replace(/<script src="([^"]+)"><\/script>/g,(m,f)=>"<script>"+fs.readFileSync(d+f,"utf8")+"</script>"),{runScripts:"dangerously",url:"http://localhost/",beforeParse(x){if(s)x.localStorage.setItem("lastarchive.v2",s)}}).window;
 const w=mk();w.errs=[];w.addEventListener("error",e=>w.errs.push(e.message));const ev=s=>w.eval(s),doc=w.document,txt=()=>doc.querySelector("#screen").textContent,t=(n,c)=>{console.log(c?"PASS":"FAIL",n);if(!c)process.exitCode=1};
 const btn=x=>[...doc.querySelectorAll("button")].find(e=>e.textContent.trim().startsWith(x));
 // 1. Elena chain via the real UI
-ev("S.unlocked=true;['E2','E8','E3','M1'].forEach(take);S.solved.push('p2');['F1','N1','C1','E7'].forEach(take);S.solved.push('p3');home()");
+ev("S.unlocked=true;['E2','E8','E3','M1'].forEach(take);S.solved.push('p2');['F1','N1','C1','E7'].forEach(take);S.solved.push('p3');S.legacyThrough=2;home()");
 ev("open_('note')");const gift=[...doc.querySelectorAll("#screen .m")].find(x=>x.textContent.includes("ask E."));t("Gift note is flagged collectable",gift.className.includes("has"));
 gift.click();t("tapping note saves E10",ev("S.ev.includes('E10')"));
 ev("open_('con')");t("Elena contact appears",txt().includes("Elena Vasilescu"));
@@ -11,7 +12,7 @@ ev("con('elena')");t("Elena has a thread button",!!btn("Open messages"));btn("Op
 [...doc.querySelectorAll("#screen .m.has")][0].click();t("Elena message saves E11",ev("S.ev.includes('E11')"));
 // 2. Apps list integrity
 const ids=JSON.parse(ev("JSON.stringify(STORY.apps.map(a=>a[0]))"));
-t("app list intact (16 unique apps)",ids.length==16&&new Set(ids).size==16&&["msg","con","call","mail","gal","note","ev","map","int","pz","cal","file","web","soc","aud","vault"].every(x=>ids.includes(x)));
+t("app list intact (17 unique apps)",ids.length==17&&new Set(ids).size==17&&["msg","con","call","mail","gal","note","ev","map","int","pz","cal","file","web","soc","aud","vault"].every(x=>ids.includes(x)));
 ev("home()");const labels=[...doc.querySelectorAll(".grid button")].map(b=>b.textContent);t("ch2 apps visible, ch3 hidden at chapter 3 start",ev("E.chapter()")==3&&labels.some(x=>x.includes("Calendar"))&&labels.some(x=>x.includes("Social")));
 // 3. Interview exploit tests
 ev("['E6','S3','E4','A1','B1','E5'].forEach(take)");
@@ -35,7 +36,7 @@ for(const k of ["adrian","victor"]){const evs=ev("S.ev.slice()"),nodes=Object.ke
 t("fuzz keeps evidence list unique",ev("new Set(S.ev).size==S.ev.length"));
 // 4. Chapter 4->6 via engine; decision branches
 const play=()=>{};const p=JSON.parse(fs.readFileSync("/dev/null")+"[]");
-ev(`['S1','S2','A1','A2','A3','D1','D2','D3','H2','E9','L3'].forEach(take);S.solved.push('p4','p5','p6','p7');E.flag('unlock:vault');['K1','K2','K3','K5','L1','L2','T1'].forEach(take);home()`);
+ev(`['S1','S2','A1','A2','A3','D1','D2','D3','H2','E9','L3'].forEach(take);S.solved.push('p4','p5','p6','p7');E.flag('unlock:vault');['K1','K2','K3','K5','L1','L2','T1'].forEach(take);S.legacyThrough=4;home()`);
 t("chapter 5 reached",ev("E.chapter()")==5);
 ev("open_('ev')");t("decision shown",txt().includes("Do you share it?"));
 ev("open_('msg');thread('moth')");t("no MOTH follow-up before choosing",!txt().includes("depot hours"));
@@ -58,7 +59,7 @@ t("follow-up now available",!!btn("Ask again about the break"));btn("Ask again a
 ev("take('L3');['W1'].forEach(take);S.solved.push('p8','p9');['F1'].length");
 ev("S.ev.includes('W1')||take('W1')");ev("E.flag('x')");
 ev("home()");t("chapter 6 reached after puzzles/evidence",ev("E.chapter()")>=5);
-ev("S.solved.includes('p8')||S.solved.push('p8');S.solved.includes('p9')||S.solved.push('p9');home()");t("chapter 6",ev("E.chapter()")==6);
+ev("S.solved.includes('p8')||S.solved.push('p8');S.solved.includes('p9')||S.solved.push('p9');S.legacyThrough=5;home()");t("chapter 6",ev("E.chapter()")==6);
 ev("open_('int')");btn("Mara").click();t("Mara Warmth meter",txt().includes("Warmth: guarded"));
 pres("K5");t("with MOTH shared, Mara answers smoothly (no slip)",txt().includes("misremembered")&&!ev("E.has('mara:slip')"));
 pres("A3");t("A3 yields MV1",ev("S.ev.includes('MV1')")&&txt().includes("Victor"));

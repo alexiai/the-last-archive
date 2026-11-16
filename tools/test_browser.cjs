@@ -15,6 +15,7 @@ for (const file of [
   "assets/photos/P17.jpg",
   "assets/photos/P18.jpg",
   "assets/portraits/julia.png",
+  "assets/audio/a1.mp3",
 ])
   fs.rmSync(path.join(fixture, file), { force: true });
 fs.mkdirSync("/tmp/br", { recursive: true });

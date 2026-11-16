@@ -433,6 +433,7 @@ function soc() {
       .join("");
 }
 function clip(id) {
+  const gated=STORY.audio.find(a=>a.id===id);if(!gated||!visible(gated)){view("audio");scr.innerHTML=bar("Recording unavailable","aud()")+'<p>This recording has not been recovered yet. Continue the current investigation.</p>';return;}
   view("audio");
   const a = STORY.audio.find((x) => x.id === id),
     can = typeof speechSynthesis !== "undefined" && !!speechSynthesis;

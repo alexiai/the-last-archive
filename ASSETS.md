@@ -1,3 +1,9 @@
+# Production asset update
+
+Finished English recordings are now installed: 11 narrative clips and 76 interview responses. Twelve original procedural music/effect assets are included. All are local MP3s; runtime speech synthesis is no longer required. Exact records: audio_manifest.json and sound_manifest.json.
+
+The build is approximately 12.42 MB, including 5.90 MB audio. No model weights or WAV masters ship. See PRODUCTION_STATUS.md, AUDIO_CREDITS.txt and ASSET_AUDIT.md for current provenance and limitations. The following earlier image-stage record is retained as history; any statement that audio is absent is superseded by this update.
+
 # Local visual assets
 
 Installed: **23 photographic images, seven character portrait images, one deliberately graphic anonymous mark**. All photographic assets were generated specifically from the repository's existing asset brief; no stock images or external runtime image URLs are used.

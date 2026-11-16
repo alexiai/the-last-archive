@@ -492,7 +492,10 @@ const STORY = {
           "Voice message retained in original night communications.",
           null,
           5,
-          null
+          null,
+          {
+            "audio": "r03"
+          }
         ],
         [
           "them",
@@ -516,7 +519,10 @@ const STORY = {
           "I can give you my working log. I cannot make it look less like my work than it is.",
           null,
           4,
-          null
+          null,
+          {
+            "file": "C21"
+          }
         ]
       ]
     },
@@ -1134,6 +1140,60 @@ const STORY = {
           null,
           null,
           null
+        ]
+      ]
+    },
+    "listening": {
+      "name": "Mara · retained working exchange",
+      "sub": "Owner-authorised project correspondence / 24 September",
+      "ch": 4,
+      "need": "versions:compared",
+      "m": [
+        [
+          "them",
+          "Sep 24 · 18:42",
+          "The fourth listening copy is attached. Same source reel; the interruption is left out. Try it on your own speakers before you decide.",
+          null,
+          null,
+          null,
+          {
+            "file": "C43"
+          }
+        ],
+        [
+          "me",
+          "Sep 24 · 19:06",
+          "I played it twice. For the first time I did not stop before the kitchen bit. Keep this one for the family listening copy.",
+          null,
+          null,
+          null
+        ],
+        [
+          "them",
+          "Sep 24 · 19:10",
+          "You do not have to listen to the whole thing tonight. I can bring dinner and we can be two people who cannot fix a drawer.",
+          null,
+          null,
+          null
+        ],
+        [
+          "me",
+          "Sep 24 · 19:14",
+          "Yes to dinner. Leave the original in the box. I want both, even if I can only bear one just now.",
+          null,
+          null,
+          null
+        ],
+        [
+          "them",
+          "Oct 19 · 10:16",
+          "This is the exchange behind the September entry in my log. The custodian also retained the programme proof. Please compare the version references; I do not want my explanation substituted for either record.",
+          null,
+          null,
+          null,
+          {
+            "file": "C44"
+          }
         ]
       ]
     }
@@ -1837,6 +1897,35 @@ const STORY = {
       "Examination",
       [],
       []
+    ],
+    "C43": [
+      "Listening-copy cue sheet",
+      "Retained project source / authorised comparison",
+      [
+        "iris",
+        "mara"
+      ],
+      []
+    ],
+    "C44": [
+      "Programme proof",
+      "Retained project source / authorised comparison",
+      [
+        "iris",
+        "mara"
+      ],
+      []
+    ],
+    "C45": [
+      "A version-use trail",
+      "Cited comparison / examiner finding",
+      [
+        "iris",
+        "mara"
+      ],
+      [
+        "trail:compared"
+      ]
     ]
   },
   "links": [
@@ -2854,7 +2943,8 @@ const STORY = {
         "C21": "labels",
         "C24": "labels",
         "C26": "labels",
-        "C36": "night"
+        "C36": "night",
+        "C45": "paper"
       },
       "states": [
         {
@@ -4317,6 +4407,38 @@ const STORY = {
         "V-B / parent V-A / retained rectangle: left 0, top 0, right 1200, bottom 640 / output 1200 x 640",
         "V-C / parent V-A / retained rectangle: left 72, top 0, right 1200, bottom 640 / output 1128 x 640",
         "These fields describe the referenced files. The original images remain available for examination. The register does not identify a person in the room."
+      ]
+    },
+    {
+      "id": "C43",
+      "n": "c43.pdf",
+      "title": "Listening-copy cue sheet",
+      "ch": 4,
+      "need": "versions:compared",
+      "ev": "C43",
+      "lines": [
+        "LISTENING COPY / WORKING CUE SHEET",
+        "24 SEPTEMBER 2025 / attached to retained working exchange",
+        "Version: FAMILY_LISTEN_04 / source: domestic reel / prepared by Mara.",
+        "Playback spans: opening kitchen passage; later interruption omitted; subsequent passage retained. Source reel remains unaltered.",
+        "Delivery destination: family listening copy. Review returned in the attached correspondence at 19:06.",
+        "Handwritten on the working sleeve: Keep the original too."
+      ]
+    },
+    {
+      "id": "C44",
+      "n": "c44.pdf",
+      "title": "Programme proof",
+      "ch": 4,
+      "need": "versions:compared",
+      "ev": "C44",
+      "lines": [
+        "PROGRAMME PROOF / PRODUCTION COPY",
+        "06 OCTOBER 2025 / studio retained issue / not a source transcript",
+        "Assembly input: FAMILY_LISTEN_04. Output: INSTALLATION_06.",
+        "Caption field: Continuous original family recording.",
+        "Change list for this assembly: level adjustment; exhibition fade; programme caption. No new source spans added.",
+        "10 OCTOBER / Julia query attached to proof: Does the caption describe the input or the source? Please retain the cue sheet with this version."
       ]
     }
   ],
@@ -6130,6 +6252,24 @@ const STORY = {
       "label": "Examination · Image comparison",
       "action": "pz('D06')",
       "ch": 4
+    },
+    "C43": {
+      "label": "Files · Listening-copy cue sheet",
+      "action": "fileOpen('C43')",
+      "ch": 4,
+      "need": "versions:compared"
+    },
+    "C44": {
+      "label": "Files · Programme proof",
+      "action": "fileOpen('C44')",
+      "ch": 4,
+      "need": "versions:compared"
+    },
+    "C45": {
+      "label": "Examination · Follow the version trail",
+      "action": "trailOpen()",
+      "ch": 4,
+      "need": "versions:compared"
     }
   },
   "movementActors": {

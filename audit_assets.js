@@ -18,7 +18,7 @@ check('assets/video/security-export.mp4','video','security-export','Labelled tim
 // Validate references, not just existing files: a broken ID can silently suppress a real image.
 const mappingErrors=[];
 for(const post of S.social){if(post.photo&&!S.photos.some(p=>p.id===post.photo))mappingErrors.push('Social image reference');}
-for(const t of Object.values(S.threads))for(const m of t.m){const a=m[6];if(a?.photo&&!S.photos.some(p=>p.id===a.photo))mappingErrors.push('Message photo reference');if(a?.audio&&!S.audio.some(p=>p.id===a.audio))mappingErrors.push('Message recording reference');}
+for(const t of Object.values(S.threads))for(const m of t.m){const a=m[6];if(a?.file&&!S.files.some(f=>f.id===a.file))mappingErrors.push('Message document reference');if(a?.photo&&!S.photos.some(p=>p.id===a.photo))mappingErrors.push('Message photo reference');if(a?.audio&&!S.audio.some(p=>p.id===a.audio))mappingErrors.push('Message recording reference');}
 for(const call of S.calls)if(call[4]&&!S.audio.some(a=>a.id===call[4]))mappingErrors.push('Call recording reference');
 for(const a of S.audio)if(!manifest.clips[a.id])mappingErrors.push('Audio manifest reference');
 for(const [actor,iv]of Object.entries(S.interviews))for(const node of Object.keys(iv.nodes))if(!manifest.dialogue[actor]?.[node])mappingErrors.push('Interview recording reference');

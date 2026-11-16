@@ -2,7 +2,7 @@
 const KEY=STORY.saveKey||"lastarchive.v2";
 // Storage that never throws: falls back to memory when localStorage is blocked (private modes) or full.
 const Store=(()=>{const mem={};try{const s=window.localStorage;s.setItem("__t","1");s.removeItem("__t");return{ok:true,get:k=>s.getItem(k),set:(k,v)=>s.setItem(k,v),del:k=>s.removeItem(k)}}catch(e){return{ok:false,get:k=>(k in mem?mem[k]:null),set:(k,v)=>{mem[k]=v},del:k=>{delete mem[k]}}}})();
-const blank=()=>({v:2,narrativeEdition:STORY.narrativeEdition,edition:3,legacyThrough:0,drafts:{},scenePage:{},sourceNotes:{},observations:[],obsSerial:0,theories:[],theorySerial:0,fieldwork:FieldLogic.blank(),personNotes:{},audio:{},events:[],ev:[],flags:[],nb:"",unlocked:false,made:[],trust:{},talk:{},solved:[],pres:{},choices:{},hints:0,hintLvl:{},board:{}});
+const blank=()=>({v:2,narrativeEdition:STORY.narrativeEdition,edition:3,legacyThrough:0,drafts:{},scenePage:{},sourceNotes:{},observations:[],obsSerial:0,theories:[],theorySerial:0,fieldwork:FieldLogic.blank(),trail:Trail.blank(),observationMeta:{},personNotes:{},audio:{},events:[],ev:[],flags:[],nb:"",unlocked:false,made:[],trust:{},talk:{},solved:[],pres:{},choices:{},hints:0,hintLvl:{},board:{}});
 const isStr=x=>typeof x==="string",isObj=x=>!!x&&typeof x==="object"&&!Array.isArray(x),uniq=a=>[...new Set(a)];
 const BOARD_W=600,BOARD_H=500;
 const E={

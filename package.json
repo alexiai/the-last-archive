@@ -1,0 +1,16 @@
+{
+  "name": "the-last-archive",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static narrative investigation game. Dependencies are for development tests only.",
+  "scripts": {
+    "test": "node tools/test_all.cjs",
+    "audit:assets": "node audit_assets.js",
+    "build": "python3 tools/build_site.py",
+    "test:browser": "node tools/test_browser.cjs && node tools/test_experience.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^31.0.1",
+    "puppeteer-core": "^25.17.0"
+  }
+}

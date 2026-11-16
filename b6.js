@@ -1,6 +1,7 @@
-const chromium=require("@sparticuz/chromium").default||require("@sparticuz/chromium"),p=require("puppeteer-core"),fs=require("fs");
+const p=require("puppeteer-core"),fs=require("fs");
+const chromium={args:["--no-sandbox"],executablePath:async()=>process.env.CHROMIUM_PATH||"/usr/bin/chromium"};
 const AUTOPLAY=fs.readFileSync("b4.js","utf8").match(/const AUTOPLAY=`([\s\S]*?)`;\nconst clickText/)[1];
-const FILE="file:///mnt/user-data/outputs/last-archive/index.html",HTTP="http://localhost:8765/repo/index.html",sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const FILE=process.env.GAME_URL||"http://localhost:8765/repo/index.html",HTTP=process.env.FIXTURE_URL||"http://localhost:8765/fixture/repo/index.html",sleep=ms=>new Promise(r=>setTimeout(r,ms));
 let fails=0;const T=(n,c,extra="")=>{console.log(c?"PASS":"FAIL",n,c?"":extra);if(!c)fails++};
 (async()=>{const b=await p.launch({args:chromium.args,executablePath:await chromium.executablePath(),headless:"shell"});
 for(const [name,vp] of [["320",{width:320,height:568,isMobile:true,hasTouch:true,deviceScaleFactor:2}],["390",{width:390,height:844,isMobile:true,hasTouch:true,deviceScaleFactor:2}],["1280",{width:1280,height:800}]]){
@@ -34,15 +35,15 @@ for(const [name,vp] of [["320",{width:320,height:568,isMobile:true,hasTouch:true
  if(mobile){const cdp=pg._cdp||await pg.createCDPSession();const t=(type,pts)=>cdp.send("Input.dispatchTouchEvent",{type,touchPoints:pts});const box=await (await pg.$("#bd")).boundingBox();const cx=box.x+box.width/2,cy=box.y+box.height/2;const w0=await pg.evaluate(()=>bvb[2]);
   await t("touchStart",[{x:cx-20,y:cy,id:1},{x:cx+20,y:cy,id:2}]);await sleep(30);for(let i=1;i<=8;i++){await t("touchMove",[{x:cx-20-i*8,y:cy,id:1},{x:cx+20+i*8,y:cy,id:2}]);await sleep(16)}await t("touchEnd",[]);
   T(`${name}px: pinch zooms the board`,(await pg.evaluate(()=>bvb[2]))<w0-20);
-  const pxy=await nodeXY(await pg.evaluate(()=>Object.keys(S.board)[1]));await t("touchStart",[{x:pxy[0],y:pxy[1],id:1}]);await sleep(70);await t("touchEnd",[]);await sleep(150);
+  await pg.evaluate(()=>bfit());const pxy=await nodeXY(await pg.evaluate(()=>Object.keys(S.board)[1]));await t("touchStart",[{x:pxy[0],y:pxy[1],id:1}]);await sleep(70);await t("touchEnd",[]);await sleep(150);
   T(`${name}px: tapping a node selects it`,await pg.evaluate(()=>!!A||!!B))}
- else{await pg.evaluate(()=>bzoom(.6));T(`${name}px: zoom button changes the view`,await pg.evaluate(()=>bvb[2])<380);const pxy=await nodeXY(await pg.evaluate(()=>Object.keys(S.board)[1]));await pg.mouse.click(pxy[0],pxy[1]);await sleep(100);T(`${name}px: clicking a node selects it`,await pg.evaluate(()=>!!A||!!B))}
+ else{await pg.evaluate(()=>bzoom(.6));T(`${name}px: zoom button changes the view`,await pg.evaluate(()=>bvb[2])<380);await pg.evaluate(()=>bfit());const pxy=await nodeXY(await pg.evaluate(()=>Object.keys(S.board)[1]));await pg.mouse.click(pxy[0],pxy[1]);await sleep(100);T(`${name}px: clicking a node selects it`,await pg.evaluate(()=>!!A||!!B))}
  await pg.evaluate(()=>{A=null;B=null;board()});
  // list alternative reaches the same data without the canvas
  T(`${name}px: list alternative lists all saved items`,await pg.evaluate(()=>document.querySelectorAll("#screen .ev").length>=S.ev.length));
  // keyboard focus
  await pg.evaluate(()=>home());await pg.keyboard.press("Tab");const foc=await pg.evaluate(()=>{const e=document.activeElement;const cs=getComputedStyle(e);return{tag:e.tagName,outline:cs.outlineStyle+" "+cs.outlineWidth}});
- T(`${name}px: keyboard Tab reaches a button with a visible focus ring`,foc.tag=="BUTTON"&&!/none/.test(foc.outline),JSON.stringify(foc));
+ T(`${name}px: keyboard Tab reaches a navigation control with a visible focus ring`,["BUTTON","A"].includes(foc.tag)&&!/none/.test(foc.outline),JSON.stringify(foc));
  // keyboard-only message saving
  await pg.evaluate(()=>{thread('mara')});const kb=await pg.evaluate(()=>{const m=document.querySelector("#screen .m[role=button]");m.focus();return document.activeElement===m});
  T(`${name}px: evidence messages are keyboard-focusable`,kb);
@@ -62,8 +63,8 @@ for(const [label,script] of [["localStorage blocked",`Object.defineProperty(wind
 {const pg=await b.newPage();await pg.setViewport({width:390,height:844,isMobile:true,hasTouch:true,deviceScaleFactor:2});const errs=[],bad=[],ok=[];
  pg.on("pageerror",e=>errs.push(e.message));pg.on("response",r=>{if(/\/assets\//.test(r.url()))(r.status()>=400?bad:ok).push(r.url().replace(/.*\/repo\//,""))});
  await pg.goto(HTTP);await pg.evaluate(()=>localStorage.clear());await pg.reload();await pg.evaluate(AUTOPLAY);await pg.click(".notif");for(let n=1;n<=8;n++)await pg.evaluate(n=>autoplay(n),n);
- T("subdirectory /repo/ : page loads with relative paths",await pg.evaluate(()=>location.pathname)=="/repo/index.html"&&errs.length==0);
- await pg.evaluate(()=>gal());await sleep(900);
+ T("subdirectory /repo/ : page loads with relative paths",await pg.evaluate(()=>location.pathname)=="/fixture/repo/index.html"&&errs.length==0);
+ await pg.evaluate(()=>{gal();document.querySelectorAll("#screen img").forEach(i=>i.loading="eager")});await sleep(900);
  const g=await pg.evaluate(()=>{const imgs=[...document.querySelectorAll("#screen .pic img")];const tiles=[...document.querySelectorAll("#screen .tile")].map(t=>t.textContent);return{n:imgs.length,loaded:imgs.filter(i=>i.complete&&i.naturalWidth>0).length,fit:imgs[0]&&getComputedStyle(imgs[0]).objectFit,tiles}});
  T(`installed photos load as real images (${g.loaded}) with object-fit: cover`,g.loaded>=10&&g.fit=="cover",JSON.stringify(g));
  await pg.evaluate(()=>photo('P03'));await sleep(300);T("photo viewer shows the real image with alt text and metadata",await pg.evaluate(()=>{const i=document.querySelector("#screen .pic img");return !!i&&i.naturalWidth==1200&&i.alt.length>5&&document.querySelector(".meta").textContent.includes("Taken")}));

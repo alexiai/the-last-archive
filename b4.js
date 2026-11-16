@@ -1,5 +1,6 @@
-const chromium=require("@sparticuz/chromium").default||require("@sparticuz/chromium"),p=require("puppeteer-core");
-const URL="file:///mnt/user-data/outputs/last-archive/index.html",sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const p=require("puppeteer-core");
+const chromium={args:["--no-sandbox"],executablePath:async()=>process.env.CHROMIUM_PATH||"/usr/bin/chromium"};
+const URL=process.env.GAME_URL||"http://localhost:8765/repo/index.html",sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const AUTOPLAY=`window.autoplay=(n)=>{const V=x=>E.vis(x)&&(!x.need||E.has(x.need));const src=()=>{const o=[];
  for(const t of Object.values(STORY.threads))if(V(t))t.m.forEach(m=>m[3]&&(!m[4]||E.vis({ch:m[4]}))&&(!m[5]||E.has(m[5]))&&o.push(m[3]));
  STORY.notes.forEach(x=>E.vis({ch:x[3]})&&x[2]&&o.push(x[2]));STORY.mails.forEach(m=>V(m)&&m.ev&&o.push(m.ev));STORY.photos.forEach(x=>V(x)&&o.push(x.id));

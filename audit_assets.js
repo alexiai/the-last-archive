@@ -1,6 +1,6 @@
 // Asset audit: node tools/audit_assets.js  -> writes ASSET_AUDIT.md
 // Reads the game data, checks which files actually exist, reads real image dimensions, and lists where each asset is used.
-const fs=require("fs"),path=require("path"),vm=require("vm"),root=path.join(__dirname,"..");
+const fs=require("fs"),path=require("path"),vm=require("vm"),root=__dirname;
 const sb={window:{},console};vm.createContext(sb);
 for(const f of ["story.js","content_extra.js"])vm.runInContext(fs.readFileSync(path.join(root,f),"utf8").replace(/^const /gm,"var ").replace(/\nconst /g,"\nvar "),sb);
 const S=sb.STORY;

@@ -1,5 +1,5 @@
-const {JSDOM}=require("jsdom"),fs=require("fs"),d="/mnt/user-data/outputs/last-archive/";
-const AUTOPLAY=fs.readFileSync("/tmp/br/b4.js","utf8").match(/const AUTOPLAY=`([\s\S]*?)`;\nconst clickText/)[1];
+const {JSDOM}=require("jsdom"),fs=require("fs"),d=__dirname+"/";
+const AUTOPLAY=fs.readFileSync(__dirname+"/b4.js","utf8").match(/const AUTOPLAY=`([\s\S]*?)`;\nconst clickText/)[1];
 const html=fs.readFileSync(d+"index.html","utf8").replace(/<script src="([^"]+)"><\/script>/g,(m,f)=>"<script>"+fs.readFileSync(d+f,"utf8")+"</script>");
 const mk=()=>new JSDOM(html,{runScripts:"dangerously",url:"http://localhost/"}).window;
 const t=(n,c)=>{console.log(c?"PASS":"FAIL",n);if(!c)process.exitCode=1};

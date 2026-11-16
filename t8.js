@@ -1,4 +1,4 @@
-const {JSDOM}=require("jsdom"),fs=require("fs"),d="/mnt/user-data/outputs/last-archive/";
+const {JSDOM}=require("jsdom"),fs=require("fs"),d=__dirname+"/";
 const html=fs.readFileSync(d+"index.html","utf8").replace(/<script src="([^"]+)"><\/script>/g,(m,f)=>"<script>"+fs.readFileSync(d+f,"utf8")+"</script>");
 const mk=(s,pre)=>new JSDOM(html,{runScripts:"dangerously",url:"http://localhost/",beforeParse(x){if(s)x.localStorage.setItem("lastarchive.v2",typeof s=="string"?s:JSON.stringify(s));if(pre)pre(x)}}).window;
 const t=(n,c)=>{console.log(c?"PASS":"FAIL",n);if(!c)process.exitCode=1};const J=(w,s)=>JSON.parse(w.eval(`JSON.stringify(${s})`));

@@ -1,6 +1,6 @@
 # Asset prompts (for external image generation)
 
-No images are bundled with this project. The environment that built it has no image or audio generation, so nothing here has been generated. Every file below is optional at runtime: the game shows a fallback for any missing file. Drop finished files at the exact paths given and no code changes are needed. Run `node tools/audit_assets.js` afterwards to verify the files, their sizes and where each is used.
+The 23 photograph files and all eight portrait/mark slots are now installed locally. The following existing production descriptions remain the visual reference. Five optional recording slots remain unfilled. Run `node audit_assets.js` to verify actual file dimensions and availability.
 
 Do not bake readable text, timestamps or metadata into any image; the game draws metadata in HTML.
 

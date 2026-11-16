@@ -1,4 +1,4 @@
-const {JSDOM}=require("jsdom"),fs=require("fs"),d="/mnt/user-data/outputs/last-archive/";
+const {JSDOM}=require("jsdom"),fs=require("fs"),d=__dirname+"/";
 const dom=new JSDOM(fs.readFileSync(d+"index.html","utf8").replace(/<script src="([^"]+)"><\/script>/g,(m,f)=>"<script>"+fs.readFileSync(d+f,"utf8")+"</script>"),{runScripts:"dangerously",url:"http://localhost/"});
 const w=dom.window;let err=[];w.addEventListener("error",e=>err.push(e.message));
 w.eval("window.G={take,open_,board,pickN,test,thread,con,cons,doc,mailOpen,photo,msgs}");

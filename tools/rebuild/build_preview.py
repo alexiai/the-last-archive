@@ -3,6 +3,7 @@ import argparse,subprocess,tempfile,tarfile,io,shutil,json,hashlib
 from pathlib import Path
 root=Path(__file__).resolve().parents[2]
 p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--main-ref',default='origin/main');a=p.parse_args();out=Path(a.output).resolve()
+subprocess.run(['node',str(root/'tools/rebuild/test_engine.mjs')],cwd=root,check=True)
 if out.exists():raise SystemExit('Preview output must be a new directory.')
 with tempfile.TemporaryDirectory(prefix='archive-preview-') as tmp:
  tmp=Path(tmp);stable=tmp/'stable';stable.mkdir()

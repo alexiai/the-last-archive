@@ -68,6 +68,22 @@ for (const p of C.puzzles) {
     for (const id of ["reassurance", "apartment-reference", "hotel-reference"])
       E.soundInspected(id);
     answer = { place: p.answer };
+  } else if (p.type === "alignment") {
+    check(
+      !E.solve(p.id, p.answer).ok,
+      "listening comparison requires inspection",
+    );
+    E.soundInspected("original-reel");
+    E.soundInspected("assembly");
+    check(
+      !E.solve(p.id, { ...p.answer, segments: ["0", "0", "0"] }).ok,
+      "repeated wrong alignment rejected",
+    );
+    check(
+      !E.solve(p.id, { ...p.answer, claim: "live" }).ok,
+      "matching voice cannot certify live capture",
+    );
+    answer = p.answer;
   } else if (p.type === "case") answer = p.answer;
   else answer = { action: "present" };
   if (p.id === "room") {
@@ -98,6 +114,26 @@ check(
     memory.get("lastarchive.fieldwork.v1") === "preserve-current",
   "earlier saves untouched",
 );
+const legacy = structuredClone(E.state);
+delete legacy.findings.accounts.answer.revision;
+for (const key of ["vehicle", "purchase", "provider"])
+  delete legacy.findings.accounts.answer.refs[key];
+check(
+  E.importGame(legacy) && E.state.chapter === 9,
+  "expanded document comparison preserves genuine earlier preview proofs",
+);
+const expanded=C.puzzles.find(p=>p.id==='accounts');const expandedRefs=Object.fromEntries(Object.entries(expanded.slots).map(([key,[source,reading]])=>[key,E.state.observations.find(o=>o.source===source&&o.reading===reading).id]));check(E.solve('accounts',{refs:expandedRefs,account:expanded.answer}).ok&&E.state.findings.accounts.answer.revision===2&&E.state.chapter===9,'revisiting an expanded finding retains its new source citations without resetting progression');
+const completed = structuredClone(E.state);
+delete completed.findings.alignment;
+check(
+  E.importGame(completed) && E.state.chapter === 9,
+  "new optional investigation does not roll back earlier preview saves",
+);
+check(
+  E.availableLeads().some((p) => p.id === "alignment"),
+  "earlier optional lead remains discoverable after progression",
+);
+const later=E.solve('alignment',C.puzzles.find(p=>p.id==='alignment').answer);check(later.ok&&!later.done&&E.state.chapter===9,'new optional finding after closure does not replay the ending or reset progress');
 const before = JSON.stringify(E.state);
 check(!E.importGame({ edition: "old" }), "foreign save rejected");
 check(JSON.stringify(E.state) === before, "foreign save leaves state intact");

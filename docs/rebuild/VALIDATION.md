@@ -12,13 +12,13 @@ A working casebook supports notes, personal theories, supporting/contradicting/c
 
 ## Verified by automated checks
 
-- 180 authored-logic checks: all nine chapters, required-source availability, incorrect interpretations, marked-image scope, text alternatives, camera-frame requirements, sound-source inspection, save reconstruction, unsupported imports and preservation of earlier saves.
-- 57 complete-campaign UI checks: fresh opening to final record, reload after every comparison, all three final decisions, optional final questions, each aftermath and replaying the opening without resetting progress, and an explicitly confirmed fresh start. This is an authored-solution regression, not a blind playthrough.
+- 202 authored-logic checks: all nine chapters, required-source availability, incorrect interpretations, marked-image scope, text alternatives, camera-frame requirements, sound-source inspection, save reconstruction, unsupported imports and preservation of earlier saves.
+- 59 complete-campaign UI checks: fresh opening to final record, reload after every comparison, all three final decisions, optional final questions, each aftermath and replaying the opening without resetting progress, and an explicitly confirmed fresh start. This is an authored-solution regression, not a blind playthrough.
 - Five additional visual-inspection checks use actual image marking under magnification and scrolling, then complete the first finding without a text-location substitute.
-- 32 Chromium desktop/mobile interaction checks: phone navigation, messages, calendar, source retention, personal notes, theory roles, focus-independent persistence and layout overflow.
+- 43 Chromium desktop/mobile interaction checks: phone navigation, messages, calendar, source retention, personal notes, theory roles, focus-independent persistence and layout overflow.
 - 18 Linux WebKit desktop/mobile checks: phone search, forensic magnification/input focus, calendar, chronology/source attachments and reloads. Linux WebKit is not a physical iPhone.
-- 317 media/source checks: source references, all 18 original views, recording bytes/hashes and correspondence between finished recording scripts and implemented transcripts.
-- All 49 new recordings decode in Chromium; explicit in-game briefing playback starts.
+- 458 media/source checks: source references, all 18 original views, recording bytes/hashes and correspondence between finished recording scripts and implemented transcripts.
+- All 51 finished recordings decode in Chromium; explicit in-game briefing playback starts.
 - Static web installation, offline reload, saved phone context and cached recordings verified in Chromium.
 - The self-contained review copy completes the authored campaign without network asset requests. CI also opens the self-contained HTML as a local file in an unmanaged browser.
 - Existing edition logic and its GitHub verification workflow pass independently.
@@ -29,10 +29,18 @@ The chronology, physical location/camera relationship, source-release chain, ind
 
 ## Still unverified
 
-Independent first-time completion time, difficulty, emotional impact, red-herring effectiveness and sustained atmosphere need blind human playtesting. The 2–4 hour target remains unmeasured. Full listening review is still needed for voice performance, pronunciation and mix. Physical iPhone Safari, Android devices and screen-reader use require testing. The rebuilt game has not been deployed to the published GitHub Pages site or verified there. No merge or production deployment has occurred.
+Independent first-time completion time, difficulty, emotional impact, red-herring effectiveness and sustained atmosphere need blind human playtesting. The 2–4 hour target remains unmeasured. Full listening review is still needed for voice performance, pronunciation and mix. Physical iPhone Safari, Android devices and screen-reader use require testing. The isolated preview is live at https://alexiai.github.io/the-last-archive/preview/; the root game remains unchanged. The primary and fallback preview URLs were exercised in Chromium and Linux WebKit. No development game code was merged into main; main contains a narrowly scoped preview-publishing workflow because the Pages environment only permits that ref. Physical-device Safari audio is not certified: the Linux WebKit runner cannot create its media temporary file.
 
-The self-contained desktop review build is about 18.8 MB because finished media are embedded. The normal static build is about 13.9 MB; spoken recordings are about 5 MB. Neither includes voice models, WAV masters or production environments. Production uses free local tools; no paid APIs, runtime AI, subscriptions or new recurring services were introduced.
+The self-contained desktop review build is about 18.8 MB because finished media are embedded. The normal static build is about 14.4 MB; spoken recordings are about 5.4 MB. Neither includes voice models, WAV masters or production environments. Production uses free local tools; no paid APIs, runtime AI, subscriptions or new recurring services were introduced.
 
 ## Blind-playtesting gate
 
 Use a clean save and visible controls only. Testers should not read source code, this edition’s private foundation, puzzle fixtures or walkthroughs. Record actual active play time, source discoveries, unsupported assumptions, hint use, bottlenecks and the clarity of the first objective. Include desktop and physical mobile sessions. Verify factual closure and the aftermath under each decision. Resolve observed confusion and fairness failures before release; do not infer a playtime target from test execution or content counts.
+
+## Preview development continuation
+
+An optional indexed-recording comparison uses original and delivered recordings, measured amplitude displays, real seeking and clickable transcript positions. It requires inspected sources and an authored bounded interpretation, then retains exact source spans and unlocks a follow-up conversation. Existing completed saves can play it without losing closure. An existing document comparison now uses independently inspectable original records; historical proofs remain valid and can be upgraded on replay.
+
+11 additional checks cover actual audio playback/seek, incorrect interpretations, source retention, follow-up and earlier completed-save preservation. A separate old-service-worker test reproduces and fixes the production navigation-cache conflict, verifies the fallback URL, preserves the production save and shares the preview save between aliases. Offline tests cover normal/suffix byte ranges and invalid-range responses.
+
+The opening now presents tangible assignment materials; phone messages, attachments and appointments reopen at their native source. Phone search/calendar context survives reload. Reduced-motion preferences remain respected. These are author-side functional and layout checks, not a blind assessment of cinematic quality or emotional impact.

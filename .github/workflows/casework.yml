@@ -35,11 +35,13 @@ jobs:
           node tools/rebuild/test_browser.cjs
           node tools/rebuild/test_visual_inspection.cjs
           node tools/rebuild/test_campaign.cjs
+          node tools/rebuild/test_listening.cjs
           node tools/rebuild/test_offline.cjs
           node tools/rebuild/test_recordings.cjs
           CASEWORK_URL="http://127.0.0.1:8092/START_GAME.html" NO_NETWORK=1 node tools/rebuild/test_campaign.cjs
           CASEWORK_URL="file://$RUNNER_TEMP/casework-build/START_GAME.html" node tools/rebuild/test_browser.cjs
       - uses: actions/upload-artifact@v4
+        if: github.event_name == 'workflow_dispatch'
         with:
           name: THE_LAST_ARCHIVE_CASEWORK_DEVELOPMENT
           path: ${{ runner.temp }}/casework-build/

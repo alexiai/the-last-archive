@@ -4,7 +4,12 @@ const assert = require("node:assert/strict"),
   const b = await puppeteer.launch({
     executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
     headless: true,
-    args: ["--no-sandbox", ...(process.env.TEST_PROXY_TLS==='1'?['--ignore-certificate-errors']:[])],
+    args: [
+      "--no-sandbox",
+      ...(process.env.TEST_PROXY_TLS === "1"
+        ? ["--ignore-certificate-errors"]
+        : []),
+    ],
   });
   const p = await b.newPage();
   await p.goto(process.env.CASEWORK_URL || "http://localhost:8092/");
@@ -48,7 +53,15 @@ const assert = require("node:assert/strict"),
     }
     return count;
   });
-  assert.equal(result, 49);
+  assert.equal(
+    result,
+    await p.evaluate(
+      async () =>
+        Object.keys(
+          (await (await fetch("assets/audio/manifest.json")).json()).clips,
+        ).length,
+    ),
+  );
   await p.click("#begin");
   await p.click("#briefing-play");
   await p.waitForFunction(() =>

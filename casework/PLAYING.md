@@ -2,9 +2,15 @@
 
 This is a separate development edition, not the published game or an approved release candidate. It contains an authored nine-chapter route. First-time pacing, difficulty and emotional impact still need independent playtesting. The 2–4 hour target is unmeasured.
 
-## Play the self-contained review copy
+## Play in your browser
 
-1. Download and extract the `THE_LAST_ARCHIVE_CASEWORK_DEVELOPMENT` artifact from the latest successful casework verification run on Draft PR #4.
+Open **https://alexiai.github.io/the-last-archive/preview/** in Safari or a desktop browser. No download or installation is required. If an older installed production worker opens the previous edition, use **https://alexiai.github.io/the-last-archive/editions/casework-preview/**. Both preview addresses share this edition’s save. The root address remains the production game.
+
+Allow the first online load to finish before testing offline. Use Settings / save to export a backup before clearing browser data. Updates preserve the casework save; a visible update notice lets you save and reload when ready. Browser storage is specific to this device and browser and does not synchronize between devices.
+
+## Optional self-contained desktop review copy
+
+1. Download and extract the `THE_LAST_ARCHIVE_CASEWORK_DEVELOPMENT` artifact from a manually requested casework verification run on Draft PR #4. Automatic verification does not upload duplicate ZIP archives.
 The review artifact is retained for seven days. Keep your downloaded copy and save backups.
 
 2. Open `START_GAME.html` in your browser. It includes the finished images, recordings and game code. No installation, server or Python launcher is required.

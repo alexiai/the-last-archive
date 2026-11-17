@@ -544,3 +544,180 @@
     min-height: 44px;
   }
 }
+.phone-lock {
+  background:
+    linear-gradient(160deg, #142d26aa, #071c16e8),
+    url("../assets/world/window-memory.jpg") center/cover;
+}
+.phone-homescreen {
+  background:
+    linear-gradient(160deg, #244939de, #0e291fe8),
+    url("../assets/world/window-memory.jpg") center/cover;
+}
+.lock-time {
+  font-size: 74px;
+  font-weight: 200;
+  letter-spacing: -4px;
+}
+.phone-lock > p {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.lock-notification {
+  backdrop-filter: blur(12px);
+  border: 1px solid #f5f5db55;
+  box-shadow: 0 8px 30px #0002;
+}
+.phone-owner img {
+  box-shadow: 0 3px 20px #0004;
+}
+.unlock-copy {
+  border-top: 1px solid #c6d0b644;
+  border-radius: 0;
+  font-size: 12px;
+  width: 100%;
+  padding: 20px 0;
+}
+.phone-app-heading.with-avatar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.phone-app-heading.with-avatar > img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #fff8;
+}
+.phone-app-heading.with-avatar h2 {
+  font-size: 20px;
+  letter-spacing: -0.6px;
+}
+.message-day {
+  text-align: center;
+  font: 10px system-ui;
+  color: #6c7d66;
+  margin: 22px 0 12px;
+}
+.phone-message {
+  box-shadow: 0 1px 2px #344b2112;
+}
+.phone-message.outgoing {
+  background: linear-gradient(150deg, #d3e0cd, #c5d8be);
+}
+.phone-message time {
+  font-size: 8px;
+}
+.phone-attachment {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  text-align: left;
+}
+.phone-attachment img {
+  display: block;
+  width: 100%;
+  max-height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.phone-attachment span {
+  font: 10px system-ui;
+}
+.app-tile {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #eee3c1, #bbb994);
+  box-shadow:
+    inset 0 1px #fff8,
+    0 3px 9px #0003;
+}
+.tile-messages,
+.tile-calls {
+  background: linear-gradient(145deg, #a1cf8e, #5b9b65);
+  color: #f5ffed;
+}
+.tile-mail {
+  background: linear-gradient(145deg, #91b9c0, #426f83);
+  color: #f1f8e9;
+}
+.tile-notes {
+  background: repeating-linear-gradient(
+    0deg,
+    #f0e9d1,
+    #f0e9d1 9px,
+    #b6bda266 10px
+  );
+  border-top: 10px solid #cfb76e;
+}
+.tile-notes svg {
+  margin-top: -8px;
+}
+.tile-calendar {
+  background: #f4efe0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: flex-start;
+}
+.calendar-icon-month {
+  display: block;
+  background: #af705d;
+  color: #fff6e5;
+  font: 8px/16px system-ui;
+  width: 100%;
+  height: 16px;
+  letter-spacing: 0.1em;
+}
+.calendar-icon-day {
+  font: 26px/33px system-ui;
+  font-weight: 300;
+  color: #314b35;
+}
+.tile-camera {
+  background: linear-gradient(145deg, #dadfd4, #969f96);
+  color: #223b2b;
+}
+.tile-browser {
+  background: linear-gradient(145deg, #d8e8df, #91b4ad);
+  color: #315d60;
+}
+.tile-social {
+  background: linear-gradient(145deg, #b6a7b9, #746a91);
+  color: #f1e9eb;
+}
+.tile-recorder {
+  background: linear-gradient(145deg, #d7bca1, #9b6d59);
+  color: #f9efdc;
+}
+.calendar-grid .selected-day {
+  outline: 2px solid #8c6742;
+  outline-offset: -2px;
+  background: #d2ddc6;
+}
+.phone-gallery button {
+  padding-bottom: 7px;
+}
+.phone-gallery img {
+  border-radius: 3px;
+}
+.device-dock {
+  box-shadow: inset 0 1px #fff2;
+  backdrop-filter: blur(15px);
+}
+.device-system {
+  position: relative;
+}
+.device-system:after {
+  content: "";
+  height: 3px;
+  width: 70px;
+  background: #81927866;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 3px;
+  left: calc(50% - 35px);
+}
+@media(max-width:450px){.device-status{height:calc(35px + env(safe-area-inset-top));padding-top:calc(10px + env(safe-area-inset-top))}.device-system{padding-bottom:max(.5rem,env(safe-area-inset-bottom))}}
+.phone-message.source-cited,.phone-appointment.source-cited{outline:2px solid #9b7844;outline-offset:3px;box-shadow:0 0 0 6px #bba67422}.phone-message.source-cited:before{content:'SOURCE REOPENED';display:block;font:8px monospace;letter-spacing:.12em;color:#7b693e;margin-bottom:7px}

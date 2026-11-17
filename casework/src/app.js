@@ -1,3 +1,5 @@
+import { briefingArtifact, workingLeadNote } from "./presentation.js";
+import { listeningPanel, mountListening } from "./listening.js";
 import { asset, assetMarkup } from "./assets.js";
 import { GEOMETRY } from "./geometry.js";
 import {
@@ -42,7 +44,7 @@ function render() {
   if (s.intro < C.intro.length) {
     const i = C.intro[s.intro];
     root.innerHTML = assetMarkup(
-      `<section class="briefing" style="--back:url('assets/world/${i.image || "opening-night"}.jpg')"><div class="briefing-copy">${i.portrait ? `<img class="briefing-portrait" src="assets/portraits/${i.portrait}.png" alt="${e(i.title)}">` : ""}<p class="eyebrow">${e(i.eyebrow)}</p><h1>${e(i.title)}</h1><p>${e(i.text)}</p>${i.audio ? button("Play briefing", 'id="briefing-play"') + `<details class="briefing-transcript"><summary>Recording transcript</summary><p>${e(C.audio[i.audio].lines.map(([who, text]) => who + ": " + text).join("\n"))}</p></details>` : ""}${button(s.intro === C.intro.length - 1 ? "Enter the apartment" : "Continue", 'id="continue"')}<small>${s.intro + 1} / ${C.intro.length} · Captions shown in full</small></div></section>`,
+      `<section class="briefing" style="--back:url('assets/world/${i.image || "opening-night"}.jpg')"><div class="briefing-copy"><p class="eyebrow">${e(i.eyebrow)}</p><h1>${e(i.title)}</h1><p>${e(i.text)}</p>${i.audio ? button("Play briefing", 'id="briefing-play"') + `<details class="briefing-transcript"><summary>Recording transcript</summary><p>${e(C.audio[i.audio].lines.map(([who, text]) => who + ": " + text).join("\n"))}</p></details>` : ""}${button(s.intro === C.intro.length - 1 ? "Enter the apartment" : "Continue", 'id="continue"')}<small>${s.intro + 1} / ${C.intro.length} · Captions shown in full</small></div>${briefingArtifact(s.intro)}</section>`,
     );
     document
       .querySelector("#briefing-play")
@@ -72,7 +74,7 @@ function render() {
             )
             .join("")}</div>`
         : ""
-    }<footer class="game-tools"><button id="casebook">${icon("book")}Casebook</button><button id="records">${icon("camera")}Records & examinations</button><button id="phone" ${!E.has("phone") ? "disabled" : ""}>${icon("phone")}Iris’s phone</button><button id="people">${icon("contacts")}Conversations</button></footer><div class="scene-caption">${ch.location === "apartment" ? "8 TEILOR STREET · ORIGINAL ROOM / BODY REMOVED" : e(ch.location.toUpperCase()) + " · RETAINED SOURCES"}</div></section>`,
+    }${ch.location !== "apartment" ? workingLeadNote(E.availableLeads()) : ""}<footer class="game-tools"><button id="casebook">${icon("book")}Casebook</button><button id="records">${icon("camera")}Records & examinations</button><button id="phone" ${!E.has("phone") ? "disabled" : ""}>${icon("phone")}Iris’s phone</button><button id="people">${icon("contacts")}Conversations</button></footer><div class="scene-caption">${ch.location === "apartment" ? "8 TEILOR STREET · ORIGINAL ROOM / BODY REMOVED" : e(ch.location.toUpperCase()) + " · RETAINED SOURCES"}</div></section>`,
   );
   bindSources(root);
   const photo = root.querySelector(".scene-background");
@@ -117,6 +119,23 @@ function openSource(id) {
       "This source has not yet been released into the investigation.",
     );
   E.inspected(id);
+  if (id.startsWith("msg.")) {
+    const thread = Object.entries(C.threads).find(([, t]) =>
+      t.messages.some((m) => m.id === id),
+    );
+    if (thread && E.has("phone")) {
+      phone.openMessageSource(thread[0], id);
+      return;
+    }
+  }
+  if (id.startsWith("calendar.")) {
+    const event = C.calendar.find((ev) => ev.source === id);
+    if (event && E.has("phone")) {
+      phone.openCalendarSource(event);
+      return;
+    }
+  }
+
   let point = null,
     frame = 4,
     textMode = false;
@@ -124,7 +143,7 @@ function openSource(id) {
   const audio = id.startsWith("audio.") ? C.audio[id.slice(6)] : null;
   const d = modal(
     src.title,
-    `<div class="inspection ${e(src.kind)}"><div class="original-source">${id === "trace" ? traceSheet() : id === "building-a" ? circulation(false) : id === "building-b" ? circulation(true) : id === "catalogue" ? catalogue() : id === "object-report" ? contactSheet() : ""}${src.image ? `<div class="image-tools"><label>Magnification <input aria-label="Image magnification" type="range" min="1" max="3" step=".25" value="1" id="magnify"></label>${id === "hotel-camera" ? '<label>Retained frame <select id="frame"><option value="0">00:24:56 / empty</option><option value="4" selected>00:25:00 / crossing</option><option value="8">00:25:04 / empty</option></select></label>' : ""}</div><div class="photo-viewport"><div class="photo-surface"><img id="original-image" src="assets/world/${src.image}.jpg" alt="${e(src.title)}"><span class="inspection-mark" hidden>+</span>${src.kind === "surveillance" ? `<div class="camera-overlay">${id === "hotel-camera" ? "AURELIA / CAM 02 · 18 OCT 00:25:00" : "TEILOR / E1 · FIXED VIEW"}<span>RETAINED STILL / NO AUDIO</span></div>` : ""}</div></div>` : ""}<article class="source-paper"><p class="document-heading">${e(src.kind.toUpperCase())} / ORIGINAL ${e(id)}</p><h2>${e(src.title)}</h2><p class="source-meta">${e(src.meta)}</p><div class="source-text">${e(src.text)}</div>${src.visual ? `<details><summary>Equivalent visual description</summary><p>${e(src.visual)}</p></details>` : ""}</article>${audio ? `<div class="sound-deck"><button id="play-source">Play original recording</button><button id="pause-source">Pause</button><label>Recording position<input id="audio-position" type="range" min="0" max="1" step=".1" value="0" aria-label="Recording position in seconds"></label><output id="audio-time">Ready to play</output><button id="read-sound">Use transcript and sound description</button><p>Transcript and equivalent sound observations are printed above. Replay freely.</p></div>` : ""}</div><aside class="observation-slip"><p class="eyebrow">YOUR OBSERVATION</p>${photographic ? '<p>Mark a detail in the image. Zoom and scroll to inspect it.</p><button id="text-location">Use equivalent text location</button><p id="point-feedback" role="status">No point marked.</p>' : ""}<label>What does this source show?<select id="reading"><option value="">Choose your observation</option>${Object.entries(
+    `<div class="inspection ${e(src.kind)}"><div class="original-source">${id === "trace" ? traceSheet() : id === "building-a" ? circulation(false) : id === "building-b" ? circulation(true) : id === "catalogue" ? catalogue() : id === "object-report" ? contactSheet() : ""}${src.image ? `<div class="image-tools"><label>Magnification <input aria-label="Image magnification" type="range" min="1" max="3" step=".25" value="1" id="magnify"></label>${id === "hotel-camera" ? '<label>Retained frame <select id="frame"><option value="0">00:24:56 / empty</option><option value="4" selected>00:25:00 / crossing</option><option value="8">00:25:04 / empty</option></select></label>' : ""}</div><div class="photo-viewport"><div class="photo-surface"><img id="original-image" src="assets/world/${src.image}.jpg" alt="${e(src.title)}"><span class="inspection-mark" hidden>+</span>${src.kind === "surveillance" ? `<div class="camera-overlay">${id === "hotel-camera" ? "AURELIA / CAM 02 · 18 OCT 00:25:00" : "TEILOR / E1 · FIXED VIEW"}<span>RETAINED STILL / NO AUDIO</span></div>` : ""}</div></div>` : ""}<article class="source-paper"><p class="document-heading">${src.issuer ? `<span class="document-issuer">${e(src.issuer)}</span>` : ""}${e(src.kind.toUpperCase())} / ORIGINAL ${e(id)}</p><h2>${e(src.title)}</h2><p class="source-meta">${e(src.meta)}</p><div class="source-text">${audio ? "" : e(src.text)}</div>${src.visual ? `<details><summary>Equivalent visual description</summary><p>${e(src.visual)}</p></details>` : ""}</article>${audio ? listeningPanel(id.slice(6), true) : ""}</div><aside class="observation-slip"><p class="eyebrow">YOUR OBSERVATION</p>${photographic ? '<p>Mark a detail in the image. Zoom and scroll to inspect it.</p><button id="text-location">Use equivalent text location</button><p id="point-feedback" role="status">No point marked.</p>' : ""}<label>What does this source show?<select id="reading"><option value="">Choose your observation</option>${Object.entries(
       src.choices,
     )
       .map(([k, v]) => `<option value="${e(k)}">${e(v)}</option>`)
@@ -192,27 +211,9 @@ function openSource(id) {
     d.close();
     phone.open("lock");
   });
-  if (audio) {
-    d.querySelector("#play-source").onclick = () => {
-      const item = A.getManifest()?.clips?.[id.slice(6)],
-        range = d.querySelector("#audio-position");
-      range.max = item?.duration || 1;
-      A.play(id.slice(6), (time) => {
-        range.value = time;
-        d.querySelector("#audio-time").textContent =
-          Math.floor(time) + " seconds";
-      });
-    };
-    d.querySelector("#audio-position").oninput = (ev) =>
-      A.seek(Number(ev.target.value));
-    d.addEventListener("close", A.pause);
-    d.querySelector("#pause-source").onclick = A.pause;
-    d.querySelector("#read-sound").onclick = () => {
-      E.soundInspected(id.slice(6));
-      toast("Transcript and sound description inspected.");
-    };
-  }
+  if (audio) mountListening(d);
 }
+
 function records() {
   const phoneOriginals = new Set([
     "room-before",
@@ -428,7 +429,7 @@ function openPuzzle(id) {
     for (const key of Object.keys(p.slots))
       controls += select(
         "ref." + key,
-        key + " / cite an observation",
+        (p.slotLabels?.[key] || key) + " / cite an observation",
         Object.fromEntries(
           E.state.observations.map((o) => [
             o.id,
@@ -496,6 +497,15 @@ function openPuzzle(id) {
       },
       a.place,
     );
+  if (p.type === "alignment") {
+    const originals = Object.fromEntries(
+      C.audio["original-reel"].lines.map(([, text], i) => [
+        String(i),
+        C.audio["original-reel"].offsets[i] + " — " + text,
+      ]),
+    );
+    controls = `<div class="listening-switcher" aria-label="Recording view"><button type="button" data-listening-tab="original-reel" aria-pressed="true">Original excerpts</button><button type="button" data-listening-tab="assembly" aria-pressed="false">Delivered extract</button></div><div class="listening-room">${listeningPanel("original-reel")}${listeningPanel("assembly")}</div><div class="splice-sheet"><p class="eyebrow">YOUR RECONSTRUCTION / NO CUTS PRESELECTED</p>${C.audio.assembly.lines.map(([, text], i) => select("segment." + i, "Extract " + String.fromCharCode(65 + i) + " / " + text, originals, a.segments?.[i])).join("")}${select("omitted", "Which original passage is absent?", originals, a.omitted)}${select("claim", "What does the comparison support?", { selected: "An authentic selection changes the context; it is not the whole original.", invented: "The omission proves the surviving words were invented.", live: "The matching voice establishes a new live recording." }, a.claim)}</div>`;
+  }
   if (p.type === "case")
     controls =
       select(
@@ -537,10 +547,11 @@ function openPuzzle(id) {
     controls = `<p>${e(C.ending.intro)}</p>${select("privacy", "Preserve the private family source", { sealed: "Keep the raw family source sealed", summary: "Provide a factual summary without the raw recording", consented: "Offer a consent-led private family listening" }, E.state.decisions.privacy)}<input type="hidden" name="action" value="present">`;
   const d = modal(
     p.title,
-    `<div class="comparison"><p class="eyebrow">INVESTIGATIVE COMPARISON</p><h2>${e(p.title)}</h2><p>${e(p.prompt)}</p>${["room", "preparation"].includes(p.id) ? `<div class="photo-comparison">${(p.id === "room" ? ["room-before", "scene-wide"] : ["room-prepared", "scene-wide"]).map((id) => `<button type="button" data-source="${id}"><img src="assets/world/${C.sources[id].image}.jpg" alt="${e(C.sources[id].title)}"><span>${e(C.sources[id].meta)}</span></button>`).join("")}</div>` : ""}<div class="source-tabs">${p.sources.map((id) => button(C.sources[id].title, `data-source="${id}"`)).join("")}</div><form>${controls}<button type="submit">${p.type === "confront" ? "Present the supported account" : "Test this account"}</button><p id="comparison-feedback" role="status"></p></form><details class="optional-hint"><summary>Optional hint</summary><p>${e(p.hint)}</p></details><p class="comparison-note">Sources remain available while comparing. Personal notes are never treated as proof.</p></div>`,
+    `<div class="comparison ${p.type === "alignment" ? "audio-comparison" : ""}"><p class="eyebrow">INVESTIGATIVE COMPARISON</p><h2>${e(p.title)}</h2><p>${e(p.prompt)}</p>${p.revision && E.state.findings[p.id] && !E.state.findings[p.id].answer.revision ? '<p class="comparison-update">Additional original records are available. Your earlier finding and progress are kept; you can extend the comparison here.</p>' : ""}${["room", "preparation"].includes(p.id) ? `<div class="photo-comparison">${(p.id === "room" ? ["room-before", "scene-wide"] : ["room-prepared", "scene-wide"]).map((id) => `<button type="button" data-source="${id}"><img src="assets/world/${C.sources[id].image}.jpg" alt="${e(C.sources[id].title)}"><span>${e(C.sources[id].meta)}</span></button>`).join("")}</div>` : ""}<div class="source-tabs">${p.sources.map((id) => button(C.sources[id].title, `data-source="${id}"`)).join("")}</div><form>${controls}<button type="submit">${p.type === "confront" ? "Present the supported account" : "Test this account"}</button><p id="comparison-feedback" role="status"></p></form><details class="optional-hint"><summary>Optional hint</summary><p>${e(p.hint)}</p></details><p class="comparison-note">Sources remain available while comparing. Personal notes are never treated as proof.</p></div>`,
     true,
   );
   bindSources(d);
+  if (p.type === "alignment") mountListening(d);
   let sequence = [...(a.order || a.route || [])];
   d.querySelectorAll("[data-order],[data-route]").forEach(
     (b) =>
@@ -589,7 +600,10 @@ function openPuzzle(id) {
   const answer = () => {
     const r = {};
     for (const [k, v] of new FormData(d.querySelector("form"))) {
-      if (k.startsWith("ref.")) {
+      if (k.startsWith("segment.")) {
+        r.segments ??= [];
+        r.segments[Number(k.slice(8))] = v;
+      } else if (k.startsWith("ref.")) {
         r.refs ??= {};
         r.refs[k.slice(4)] = v;
       } else r[k] = v;
@@ -627,10 +641,16 @@ function openPuzzle(id) {
           C.chapters[
             (result.chapterChanged ? result.chapter - 1 : result.chapter) - 1
           ];
-        modal(
+        const finding = modal(
           "Finding retained",
-          `<div class="chapter-note"><p>${e(result.chapterChanged ? ch.response : "Your supported finding has been entered in the casebook. Other available leads remain open.")}</p><p>The originals and your observations remain available for review.</p></div>`,
+          `<div class="chapter-note"><p>${e(p.response || (result.chapterChanged ? ch.response : "Your supported finding has been entered in the casebook. Other available leads remain open."))}</p><p>The originals and your observations remain available for review.</p>${p.followupPerson ? '<button id="finding-followup">Continue the conversation</button>' : ""}</div>`,
         );
+        finding
+          .querySelector("#finding-followup")
+          ?.addEventListener("click", () => {
+            finding.close();
+            interview(p.followupPerson);
+          });
       }
     }
   };
@@ -658,7 +678,7 @@ function interview(id) {
   if (!E.visible(person)) return;
   const d = modal(
     person.name,
-    `<div class="interview"><img src="assets/portraits/${id}.png" alt="${e(person.name)}"><section><p class="eyebrow">${e(person.role)}</p><h2>${e(person.name)}</h2><div id="spoken" aria-live="polite">${e(person.opening)}</div><button id="replay-talk">Replay voice</button><div class="questions">${person.questions.map(([q, , source], i) => (!source || E.state.visited.includes(source) ? button(q, `data-question="${i}"`) : `<p class="interview-locked">A more specific question requires inspecting its original record.</p>`)).join("")}</div><label>Present an inspected original<select id="present-source"><option value="">Choose an available source</option>${Object.keys(
+    `<div class="interview"><img src="assets/portraits/${id}.png" alt="${e(person.name)}"><section><p class="eyebrow">${e(person.role)}</p><h2>${e(person.name)}</h2><div id="spoken" aria-live="polite">${e(person.opening)}</div><button id="replay-talk">Replay voice</button><div class="questions">${person.questions.map(([q, , source], i) => (!source || (source.startsWith("finding:") ? E.has(source.slice(8)) : E.state.visited.includes(source)) ? button(q, `data-question="${i}"`) : `<p class="interview-locked">A more specific question requires inspecting its original record.</p>`)).join("")}</div><label>Present an inspected original<select id="present-source"><option value="">Choose an available source</option>${Object.keys(
       person.present,
     )
       .filter(
@@ -814,6 +834,20 @@ function settings() {
   };
   d.querySelector("#revisit-ending")?.addEventListener("click", ending);
 }
+window.addEventListener("preview-updated", () => {
+  if (document.querySelector("#preview-update")) return;
+  const banner = document.createElement("aside");
+  banner.id = "preview-update";
+  banner.setAttribute("role", "status");
+  banner.innerHTML =
+    '<span>An updated casework build is ready. Your investigation is saved.</span><button type="button">Update & resume</button>';
+  banner.querySelector("button").onclick = () => {
+    E.save();
+    A.stopVoice();
+    location.reload();
+  };
+  document.body.appendChild(banner);
+});
 window.addEventListener("storage-unavailable", () =>
   toast(
     "This browser could not store progress. Keep this tab open and download a save backup from Settings.",

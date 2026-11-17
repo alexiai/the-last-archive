@@ -20,8 +20,13 @@ export class VictimPhone {
     this.route = state.context?.phoneRoute || "lock";
     this.argument = state.context?.phoneArgument || null;
     this.history = [];
+    this.search = state.context?.phoneSearch || "";
   }
-  open(route) {
+  open(route, arg = null) {
+    if (this.dialog?.open) {
+      this.dialog.close();
+      this.dialog.remove();
+    }
     if (!has("phone"))
       return toast("Recover the phone from the side table first.");
     if (!this.dialog?.isConnected) {
@@ -33,7 +38,7 @@ export class VictimPhone {
         icon("back") +
         '</button><button data-system="home" aria-label="Phone home">' +
         icon("home") +
-        '</button><button data-system="close">Return to scene</button></footer></div>';
+        '</button><button data-system="close">Return to investigation</button></footer></div>';
       document.body.appendChild(d);
       this.dialog = d;
       d.querySelector("[data-system=close]").onclick = () => d.close();
@@ -42,7 +47,7 @@ export class VictimPhone {
       d.addEventListener("close", () => d.remove());
       d.showModal();
     }
-    this.go(route || this.route || "lock", route ? null : this.argument, false);
+    this.go(route || this.route || "lock", route ? arg : this.argument, false);
   }
   go(route, arg = null, remember = true) {
     if (route === "email" && !visible(C.mail.find((m) => m.id === arg))) {
@@ -62,11 +67,21 @@ export class VictimPhone {
     this.render();
   }
   back() {
-    const [route, arg] = this.history.pop() || ["home", null];
+    const parents = {
+      thread: "messages",
+      contact: "contacts",
+      call: "calls",
+      email: "mail",
+      page: "browser",
+    };
+    const [route, arg] = this.history.pop() || [
+      parents[this.route] || "home",
+      null,
+    ];
     this.go(route, arg, false);
   }
-  header(title, sub = "") {
-    return `<header class="phone-app-heading"><h2>${e(title)}</h2>${sub ? `<p>${e(sub)}</p>` : ""}</header>`;
+  header(title, sub = "", portrait = null) {
+    return `<header class="phone-app-heading ${portrait ? "with-avatar" : ""}">${portrait ? `<img src="assets/portraits/${portrait}.png" alt="">` : ""}<div><h2>${e(title)}</h2>${sub ? `<p>${e(sub)}</p>` : ""}</div></header>`;
   }
   render() {
     const screen = this.dialog.querySelector(".device-screen");
@@ -74,25 +89,33 @@ export class VictimPhone {
     screen.scrollTop = 0;
     let html = "";
     if (this.route === "lock")
-      html = `<section class="phone-lock"><div class="lock-time">09:41</div><p>Sunday, 19 October</p><div class="phone-owner"><img src="assets/portraits/iris.png" alt="Iris Vasilescu"><span>Iris</span></div><div class="lock-notification"><b>Elena · missed call</b><p>Yesterday · 07:04</p></div><div class="copy-authority">Device A-04 · authorised read-only copy.<br>The original remains sealed.</div><button data-go="home" class="unlock-copy">Swipe up / open copy ↑</button></section>`;
+      html = `<section class="phone-lock"><div class="lock-time">09:41</div><p>Sunday, 19 October</p><div class="phone-owner"><img src="assets/portraits/iris.png" alt="Iris Vasilescu"><span>Iris</span></div><button type="button" class="lock-notification" data-lock-call="elena"><b>Elena · missed call</b><p>Yesterday · 07:04 / voicemail</p></button><div class="copy-authority">Device A-04 · authorised read-only copy.<br>The original remains sealed.</div><button data-go="home" class="unlock-copy">Swipe up / open copy ↑</button></section>`;
     if (this.route === "home")
-      html = `<section class="phone-homescreen"><div class="owner-name">Iris</div><div class="phone-app-grid">${APPS.map(([id, label]) => `<button data-go="${id}"><span class="app-tile tile-${id}">${icon(id)}</span><span>${label}</span></button>`).join("")}</div><div class="device-dock">${["messages", "calls", "camera", "notes"].map((id) => `<button aria-label="Open ${id}" data-go="${id}">${icon(id)}</button>`).join("")}</div><p class="copy-label">Recovered device · no messages will be sent.</p></section>`;
+      html = `<section class="phone-homescreen"><div class="owner-name">Iris</div><div class="phone-app-grid">${APPS.map(([id, label]) => `<button data-go="${id}"><span class="app-tile tile-${id}">${id === "calendar" ? '<b class="calendar-icon-month">OCT</b><strong class="calendar-icon-day">19</strong>' : icon(id)}</span><span>${label}</span></button>`).join("")}</div><div class="device-dock">${["messages", "calls", "camera", "notes"].map((id) => `<button aria-label="Open ${id}" data-go="${id}">${icon(id)}</button>`).join("")}</div><p class="copy-label">Recovered device · no messages will be sent.</p></section>`;
     if (this.route === "messages")
       html =
         this.header("Messages", "Personal conversations / original order") +
         '<label class="sr-only" for="phone-search">Search available messages</label><input type="search" class="phone-search" id="phone-search" placeholder="Search words or a person"><div id="phone-thread-results">' +
-        this.threadList() +
+        this.threadList(this.search) +
         "</div>";
     if (this.route === "thread") {
       const t = C.threads[this.argument];
+      let day = "";
       html =
-        this.header(t.name, t.subtitle) +
+        this.header(t.name, t.subtitle, t.id === "studio" ? null : t.id) +
         t.messages
           .filter(visible)
-          .map(
-            (m) =>
-              `<article class="phone-message ${m.who === "me" ? "outgoing" : ""}"><p>${e(m.text)}</p><time>${e(m.time)} · ${m.who === "me" ? "Iris" : e(m.who === "them" ? t.name : m.who)}</time>${m.attachment ? (visible(C.sources[m.attachment]) ? `<button class="phone-attachment" data-source="${m.attachment}">${icon("camera")}<span>Open retained attachment →</span></button>` : '<button class="phone-attachment" data-puzzle="recovery">Queued attachment · inspect recovery index →</button>') : ""}<button class="retain-message" data-retain="${m.id}">Keep message with its source</button></article>`,
-          )
+          .map((m) => {
+            const date = m.time.split(" · ")[0],
+              separator =
+                date !== day ? `<div class="message-day">${e(date)}</div>` : "";
+            day = date;
+            const source = m.attachment && C.sources[m.attachment];
+            return (
+              separator +
+              `<article data-message-id="${e(m.id)}" class="phone-message ${m.who === "me" ? "outgoing" : ""}"><p>${e(m.text)}</p><time>${e(m.time.split(" · ")[1] || m.time)} · ${m.who === "me" ? "Iris" : e(m.who === "them" ? t.name : m.who)}</time>${source ? (visible(source) ? `<button class="phone-attachment" data-source="${source.id}">${source.image ? `<img src="assets/world/${source.image}.jpg" alt="Attachment preview">` : icon("mail")}<span>Open original attachment →</span></button>` : '<button class="phone-attachment" data-puzzle="recovery">Queued attachment · inspect recovery index →</button>') : ""}<button class="retain-message" data-retain="${m.id}">Keep message with its source</button></article>`
+            );
+          })
           .join("");
     }
     if (this.route === "camera")
@@ -159,7 +182,7 @@ export class VictimPhone {
         events = C.calendar.filter(visible);
       html =
         this.header("October 2025", "Appointments and personal reminders") +
-        `<div class="phone-calendar"><div class="calendar-week">${["M", "T", "W", "T", "F", "S", "S"].map((x) => `<span>${x}</span>`).join("")}</div><div class="calendar-grid">${Array.from({ length: blanks }, () => "<span></span>").join("")}${Array.from({ length: 31 }, (_, i) => `<button data-day="${i + 1}" class="${events.some((ev) => ev.day === i + 1) ? "has-appointment" : ""}">${i + 1}</button>`).join("")}</div></div><div id="phone-appointments">${this.appointments(17)}</div>`;
+        `<div class="phone-calendar"><div class="calendar-week">${["M", "T", "W", "T", "F", "S", "S"].map((x) => `<span>${x}</span>`).join("")}</div><div class="calendar-grid">${Array.from({ length: blanks }, () => "<span></span>").join("")}${Array.from({ length: 31 }, (_, i) => `<button data-day="${i + 1}" class="${events.some((ev) => ev.day === i + 1) ? "has-appointment" : ""} ${(state.context.calendarDay || 17) === i + 1 ? "selected-day" : ""}">${i + 1}</button>`).join("")}</div></div><div id="phone-appointments">${this.appointments(state.context.calendarDay || 17)}</div>`;
     }
     if (this.route === "browser")
       html =
@@ -206,6 +229,33 @@ export class VictimPhone {
           )
           .join("");
     screen.innerHTML = assetMarkup(html);
+    screen
+      .querySelector("[data-lock-call]")
+      ?.addEventListener("click", () => this.go("call", "elena"));
+    const lock = screen.querySelector(".phone-lock");
+    if (lock) {
+      let start = null;
+      lock.addEventListener(
+        "touchstart",
+        (ev) => {
+          const t = ev.changedTouches[0];
+          start = [t.clientX, t.clientY];
+        },
+        { passive: true },
+      );
+      lock.addEventListener(
+        "touchend",
+        (ev) => {
+          if (!start) return;
+          const t = ev.changedTouches[0];
+          if (start[1] - t.clientY > 65 && Math.abs(start[0] - t.clientX) < 90)
+            this.go("home");
+          start = null;
+        },
+        { passive: true },
+      );
+    }
+
     screen
       .querySelectorAll("[data-call]")
       .forEach((b) => (b.onclick = () => this.go("call", b.dataset.call)));
@@ -262,6 +312,11 @@ export class VictimPhone {
     screen.querySelectorAll("[data-day]").forEach(
       (b) =>
         (b.onclick = () => {
+          state.context.calendarDay = Number(b.dataset.day);
+          save();
+          screen
+            .querySelectorAll("[data-day]")
+            .forEach((day) => day.classList.toggle("selected-day", day === b));
           screen.querySelector("#phone-appointments").innerHTML =
             this.appointments(Number(b.dataset.day));
           this.bindCalendar(screen);
@@ -269,8 +324,12 @@ export class VictimPhone {
     );
     this.bindCalendar(screen);
     const search = screen.querySelector("#phone-search");
+    if (search) search.value = this.search;
     if (search)
       search.oninput = () => {
+        this.search = search.value;
+        state.context.phoneSearch = this.search;
+        save();
         screen.querySelector("#phone-thread-results").innerHTML = assetMarkup(
           this.threadList(search.value),
         );
@@ -310,6 +369,29 @@ export class VictimPhone {
         .join("") ||
       '<p class="phone-context">No available conversation matches.</p>'
     );
+  }
+  openMessageSource(thread, id) {
+    this.open("thread", thread);
+    const el = [...this.dialog.querySelectorAll("[data-message-id]")].find(
+      (el) => el.dataset.messageId === id,
+    );
+    if (el) {
+      el.classList.add("source-cited");
+      el.tabIndex = -1;
+      el.scrollIntoView({ block: "center" });
+      el.focus({ preventScroll: true });
+    }
+  }
+  openCalendarSource(event) {
+    this.open("calendar");
+    this.dialog.querySelector(`[data-day="${event.day}"]`)?.click();
+    const el = [...this.dialog.querySelectorAll("[data-calendar-retain]")]
+      .find((el) => el.dataset.calendarRetain === event.source)
+      ?.closest("article");
+    if (el) {
+      el.classList.add("source-cited");
+      el.scrollIntoView({ block: "center" });
+    }
   }
   appointments(day) {
     const items = C.calendar.filter(visible).filter((ev) => ev.day === day);

@@ -1,12 +1,14 @@
+import { RECORDINGS } from "./recordings.js";
 import { asset } from "./assets.js";
 import { state, save, soundInspected } from "./engine.js";
 let foreground = null,
   music = null,
-  manifest = null,
+  manifest = { clips: RECORDINGS },
   initialization = null,
-  requestVersion = 0;
+  requestVersion = 0,
+  foregroundId = null;
 export function initAudio() {
-  return initialization ??= (async()=>{try{manifest=await(await fetch(asset("assets/audio/manifest.json"))).json();}catch{}return manifest;})();
+  return (initialization ??= Promise.resolve(manifest));
 }
 export function setSound(on) {
   state.sound.enabled = on;
@@ -17,7 +19,7 @@ export function setSound(on) {
     music.volume = state.sound.music;
     music.play().catch(() => {});
   } else {
-    foreground?.pause();
+    pause();
     music?.pause();
   }
 }
@@ -25,6 +27,12 @@ export function stopVoice() {
   requestVersion++;
   foreground?.pause();
   foreground = null;
+  foregroundId = null;
+  window.dispatchEvent(
+    new CustomEvent("recording-state", {
+      detail: { id: null, status: "stopped" },
+    }),
+  );
   if (music) music.volume = state.sound.music;
 }
 export function setVolume(value) {
@@ -32,19 +40,36 @@ export function setVolume(value) {
   if (foreground) foreground.volume = state.sound.volume;
   save();
 }
-export async function play(id, onTime) {
+export async function play(id, onTime, offset = 0) {
   stopVoice();
-  const request=requestVersion;
-  await initAudio();
-  if(request!==requestVersion)return false;
+  const request = requestVersion;
+  if (!manifest) await initAudio();
+  if (request !== requestVersion) return false;
   const item = manifest?.clips?.[id];
   const file = item?.file || "assets/audio/" + id + ".mp3";
   foreground = new Audio(asset(file));
+  const player = foreground;
+  foregroundId = id;
   foreground.volume = state.sound.volume;
-  foreground.addEventListener("timeupdate", () =>
-    onTime?.(foreground.currentTime, item),
-  );
+  if(offset>0){
+    const position=()=>{if(foreground===player)player.currentTime=Math.min(offset,Number.isFinite(player.duration)?Math.max(0,player.duration-.01):offset);};
+    player.addEventListener('loadedmetadata',position,{once:true});
+    if(player.readyState>=1)position();
+  }
+  foreground.addEventListener("timeupdate", () => {
+    if (foreground !== player) return;
+    onTime?.(player.currentTime, item);
+    window.dispatchEvent(
+      new CustomEvent("recording-time", {
+        detail: { id, time: player.currentTime },
+      }),
+    );
+  });
   foreground.addEventListener("ended", () => {
+    if (foreground !== player) return;
+    window.dispatchEvent(
+      new CustomEvent("recording-state", { detail: { id, status: "ended" } }),
+    );
     if (music) music.volume = state.sound.music;
   });
   if (music) music.volume = state.sound.music * 0.28;
@@ -52,15 +77,29 @@ export async function play(id, onTime) {
     window.dispatchEvent(new CustomEvent("audio-error", { detail: id })),
   );
   try {
-    await foreground.play();
+    await player.play();
+    if(offset>0&&Math.abs(player.currentTime-offset)>.15)player.currentTime=Math.min(offset,Math.max(0,player.duration-.01));
+    if (request !== requestVersion) {
+      player.pause();
+      return false;
+    }
     soundInspected(id);
+    window.dispatchEvent(
+      new CustomEvent("recording-state", { detail: { id, status: "playing" } }),
+    );
     return true;
   } catch {
     return false;
   }
 }
 export function pause() {
+  requestVersion++;
   foreground?.pause();
+  window.dispatchEvent(
+    new CustomEvent("recording-state", {
+      detail: { id: foregroundId, status: "paused" },
+    }),
+  );
   if (music) music.volume = state.sound.music;
 }
 export function setMusicVolume(value) {
@@ -79,7 +118,7 @@ export function getManifest() {
 }
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
-    foreground?.pause();
+    pause();
     music?.pause();
   }
 });

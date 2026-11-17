@@ -416,7 +416,7 @@ export const CONTENT = {
       kind: "transcript",
       title: "Continuous source alignment",
       chapter: 5,
-      text: "DOMESTIC REEL / 13 March 2022\n00:12 Ana: Leave the light on. Your sister is still looking for the red button.\n00:23 Ana: I am not angry with you. I am trying to get the potatoes out before they turn to glue.\n03:08 Ana: Do not tell me I never listened. That is not fair. Stop the recorder for a minute.\n03:31 Ana: I am sorry I said that. You do not have to take care of my feelings every time I get tired.\nAssembly cue list: source positions 00:12 / 00:23 / 03:08. The continuous source retains intervening material.",
+      text: "W-12 / DOMESTIC REEL / 13 March 2022\nFour spoken passages are indexed at source offsets 00:12, 00:23, 03:08 and 03:31. The original reel remains separately preserved.\nThe listening desk provides these original excerpts in source order and the delivered listening extract. Non-speech gaps between the indexed excerpts are omitted in the review copy; source offsets and words remain available.\nThis index records locations in the source, not an editor’s choice of what to include. Compare the recordings or their equivalent transcripts to reconstruct that choice.",
       meta: "Retained original / English",
       image: null,
       choices: {
@@ -433,12 +433,12 @@ export const CONTENT = {
       kind: "letter",
       title: "Adrian’s retained account",
       chapter: 6,
-      text: "VOLUNTARY ORIGINAL\nWe were separating. I kept calling it a bad week because that sounded less final. She asked me to bring boxes the next day.\nI did not go back to the apartment after the gathering. The car and shop records are supplied separately.\nI watered the plant. I wish that were the only ordinary thing I had been right about.\nIndependent copies: vehicle entry at his own building 00:46; shop purchase at that building 01:14; building exit 08:02. These delimit his claimed location without certifying what he did in private.",
+      text: "VOLUNTARY ORIGINAL\nWe were separating. I kept calling it a bad week because that sounded less final. She asked me to bring boxes the next day.\nI did not go back to the apartment after the gathering. The car and shop records are supplied separately.\nI watered the plant. I wish that were the only ordinary thing I had been right about.",
       meta: "Retained original / English",
       image: null,
       choices: {
         bounded:
-          "The independent movement record bounds a concealed personal visit.",
+          "The statement discloses a separation and makes a claim about later whereabouts; independent originals can test its limits.",
         alternative: "The omission alone proves an act of violence.",
         uncertain: "No independently retained movement is available.",
       },
@@ -450,12 +450,12 @@ export const CONTENT = {
       kind: "report",
       title: "Payment purpose comparison",
       chapter: 6,
-      text: "INDEPENDENT APPROVAL CHAIN\nThe private listening edit and public assembly were separately paid for. Transfer VC-19, 11 October: Victor put a family-care payment of 340 lei in the production account. Care provider receipt CP-882 identifies the named family account and home-care hours. The provider’s retained copy matches the amount, date and receiving account.\nThe concealment is real. The record does not establish a commission to harm Iris. The public licensing pressure still requires an honest account.",
+      text: "INDEPENDENT APPROVAL CHAIN / PRODUCTION ACCOUNT\n11 October: transfer VC-19, 340 lei, entered under production expenses. The receiving account belongs to Vespera Home Care. Invoice reference CP-882.\nThe project’s approved expense schedule does not include personal care. The provider supplied its own receiving original separately.\nThe account entry and its stated expense category are different fields. Compare them with what the receiving provider actually supplied.",
       meta: "Retained original / English",
       image: null,
       choices: {
         purpose:
-          "The transfer has a documented project purpose, despite its initial appearance.",
+          "The bookkeeping category and receiving account can be checked against a separately supplied provider original.",
         alternative:
           "The transfer is expressly described as a payment for violence.",
         uncertain: "The source contains no recipient or project reference.",
@@ -1587,11 +1587,17 @@ export const CONTENT = {
       kind: "audio",
       title: "Delivered listening extract",
       chapter: 4,
-      text: "Ana: Leave the light on.\nAna: I am not angry with you.\nAna: Stop the recorder for a minute.",
+      text: "Ana: Leave the light on. Your sister is still looking for the red button.\nAna: I am not angry with you. I am trying to get the potatoes out before they turn to glue.\nAna: I am sorry I said that. You do not have to take care of my feelings every time I get tired.",
       meta: "Retained recording / transcript available",
       image: null,
       choices: {
         text: "Keep the original wording",
+        "span.0":
+          "Extract A / Ana: Leave the light on. Your sister is still looking for the red button.",
+        "span.1":
+          "Extract B / Ana: I am not angry with you. I am trying to get the potatoes out before they turn to glue.",
+        "span.2":
+          "Extract C / Ana: I am sorry I said that. You do not have to take care of my feelings every time I get tired.",
       },
       need: null,
       sound: "assembly",
@@ -1837,6 +1843,85 @@ export const CONTENT = {
         text: "Keep the original transfer and release wording",
       },
       need: "original-message",
+      sound: null,
+    },
+    "audio.original-reel": {
+      id: "audio.original-reel",
+      kind: "audio",
+      title: "Kitchen reel / indexed original excerpts",
+      chapter: 5,
+      need: "original-message",
+      text: "00:12 / Ana: Leave the light on. Your sister is still looking for the red button.\n00:23 / Ana: I am not angry with you. I am trying to get the potatoes out before they turn to glue.\n03:08 / Ana: Do not tell me I never listened. That is not fair. Stop the recorder for a minute.\n03:31 / Ana: I am sorry I said that. You do not have to take care of my feelings every time I get tired.\n\nFour indexed excerpts from the retained original, in source order. Original reel offsets are printed beside the words. Gaps between excerpts are omitted in this review copy.",
+      meta: "Workshop W-12 / 13 March 2022 / source offsets retained",
+      image: null,
+      choices: {
+        text: "Keep the indexed original wording",
+        "span.0":
+          "00:12 / Ana: Leave the light on. Your sister is still looking for the red button.",
+        "span.1":
+          "00:23 / Ana: I am not angry with you. I am trying to get the potatoes out before they turn to glue.",
+        "span.2":
+          "03:08 / Ana: Do not tell me I never listened. That is not fair. Stop the recorder for a minute.",
+        "span.3":
+          "03:31 / Ana: I am sorry I said that. You do not have to take care of my feelings every time I get tired.",
+      },
+      sound: "original-reel",
+    },
+    "parking-original": {
+      id: "parking-original",
+      kind: "official",
+      title: "Vehicle entry register / AP-17",
+      chapter: 6,
+      text: "VEHICLE ACCESS REGISTER / 18 October\nLocation: 4 Mirov Close. Permit AP-17 is registered to Adrian Popescu.\n00:46: vehicle enters. No corresponding exit is recorded before 08:02. Recorder reference checked against the desk clock.\nThe access system records the vehicle permit. It does not record who remained in the flat, and it does not cover pedestrian movement.",
+      choices: {
+        vehicle:
+          "Permit AP-17’s vehicle is recorded inside from 00:46 until 08:02; pedestrian movement is not recorded.",
+        person:
+          "The register visually identifies Adrian in his flat throughout the interval.",
+        exit: "The vehicle is recorded leaving before 01:00.",
+      },
+      issuer: "MIROV CLOSE / VEHICLE ACCESS",
+      meta: "Independent retained copy / English",
+      image: null,
+      need: null,
+      sound: null,
+    },
+    "shop-original": {
+      id: "shop-original",
+      kind: "receipt",
+      title: "Ground-floor purchase / shop original",
+      chapter: 6,
+      text: "MIROV GROCER / 4 Mirov Close\n18 October 2025 · 01:14\nMilk · 6.40 lei\nWashing powder · 18.00 lei\nTOTAL · 24.40 lei\nTransaction MG-218 · card ending 1174\nProvider reference matches the account supplied by Adrian.\nCardholder identity is not verified by this printed receipt.",
+      choices: {
+        purchase:
+          "A purchase at the stated location and time matches the supplied payment account; the receipt does not itself verify the buyer’s identity.",
+        identity:
+          "The printed receipt proves the named person’s continuous location.",
+        other: "The purchase was made at the victim’s address.",
+      },
+      issuer: "MIROV GROCER / ORIGINAL RECEIPT",
+      meta: "Independent retained copy / English",
+      image: null,
+      need: null,
+      sound: null,
+    },
+    "care-original": {
+      id: "care-original",
+      kind: "receipt",
+      title: "Receiving provider / CP-882",
+      chapter: 6,
+      text: "VESPERA HOME CARE / receiving original\nInvoice CP-882 · service delivered 11 October\nFour home-care hours · 340.00 lei\nPayment received · 340.00 lei\nTransfer reference VC-19\nBeneficiary: Neagu family account. Detailed care information withheld from this examination copy.\nThe service ledger and receiving bank entry independently match this invoice, amount and reference.",
+      choices: {
+        purpose:
+          "The receiving provider’s original records home-care hours and matches VC-19 for 340 lei.",
+        production:
+          "The receiving provider supplied exhibition installation labour.",
+        unmatched: "No transfer or receiving amount matches the invoice.",
+      },
+      issuer: "VESPERA HOME CARE / RECEIVING COPY",
+      meta: "Independent retained copy / English",
+      image: null,
+      need: null,
       sound: null,
     },
   },
@@ -2527,9 +2612,18 @@ export const CONTENT = {
       title: "Delivered listening extract",
       chapter: 4,
       lines: [
-        ["Ana", "Leave the light on."],
-        ["Ana", "I am not angry with you."],
-        ["Ana", "Stop the recorder for a minute."],
+        [
+          "Ana",
+          "Leave the light on. Your sister is still looking for the red button.",
+        ],
+        [
+          "Ana",
+          "I am not angry with you. I am trying to get the potatoes out before they turn to glue.",
+        ],
+        [
+          "Ana",
+          "I am sorry I said that. You do not have to take care of my feelings every time I get tired.",
+        ],
       ],
     },
     apology: {
@@ -2541,6 +2635,32 @@ export const CONTENT = {
           "I keep trying to find the right version. There was a good evening. There was an argument. You were there. I was there. I do not want to choose which one gets to have happened.",
         ],
       ],
+    },
+    "original-reel": {
+      title: "Kitchen reel / indexed original excerpts",
+      chapter: 5,
+      need: "original-message",
+      lines: [
+        [
+          "Ana",
+          "Leave the light on. Your sister is still looking for the red button.",
+        ],
+        [
+          "Ana",
+          "I am not angry with you. I am trying to get the potatoes out before they turn to glue.",
+        ],
+        [
+          "Ana",
+          "Do not tell me I never listened. That is not fair. Stop the recorder for a minute.",
+        ],
+        [
+          "Ana",
+          "I am sorry I said that. You do not have to take care of my feelings every time I get tired.",
+        ],
+      ],
+      offsets: ["00:12", "00:23", "03:08", "03:31"],
+      description:
+        "Four indexed excerpts from the retained original, in source order. Original reel offsets are printed beside the words. Gaps between excerpts are omitted in this review copy.",
     },
   },
   chapters: [
@@ -2809,6 +2929,26 @@ export const CONTENT = {
       hint: "Convert the shelf letter with A=1. The catalogue supplies coordinates, not a complete setting. Count the long pulses in the decoded slate.",
     },
     {
+      id: "alignment",
+      chapter: 5,
+      need: "original-message",
+      optional: true,
+      type: "alignment",
+      title: "Hear the joins",
+      prompt:
+        "Reconstruct which original passages survive in the delivered extract, in delivery order. Identify the omitted passage and keep the inference within what the comparison establishes.",
+      sources: ["audio.original-reel", "audio.assembly", "cue", "programme"],
+      answer: {
+        segments: ["0", "1", "3"],
+        omitted: "2",
+        claim: "selected",
+      },
+      hint: "Compare the actual words, not the speaker’s identity or the file’s delivery time. Every delivered passage has an original. An omitted passage changes the context without making the surviving words invented.",
+      response:
+        "The delivered extract preserves genuine passages while leaving out part of the original. Recognising the voice is not the same as hearing the whole account. The comparison and two original passages are retained in your casebook. A follow-up question is now available in the family conversation.",
+      followupPerson: "elena",
+    },
+    {
       id: "delivery",
       chapter: 5,
       title: "A voice delivered later",
@@ -2838,11 +2978,22 @@ export const CONTENT = {
       type: "evidence",
       prompt:
         "Compare the omissions with independent purposes and movements before using them as an accusation.",
-      sources: ["adrian-account", "payment", "julia-account", "entry-log"],
+      sources: [
+        "adrian-account",
+        "payment",
+        "julia-account",
+        "entry-log",
+        "parking-original",
+        "shop-original",
+        "care-original",
+      ],
       slots: {
         personal: ["adrian-account", "bounded"],
         financial: ["payment", "purpose"],
         custodian: ["julia-account", "departure"],
+        vehicle: ["parking-original", "vehicle"],
+        purchase: ["shop-original", "purchase"],
+        provider: ["care-original", "purpose"],
       },
       accounts: {
         bounded:
@@ -2852,6 +3003,16 @@ export const CONTENT = {
       },
       answer: "bounded",
       hint: "A financial purpose and a private separation can be investigated. Neither can take the place of evidence of an act.",
+      revision: 2,
+      legacySlots: ["personal", "financial", "custodian"],
+      slotLabels: {
+        personal: "The account being tested",
+        financial: "The bookkeeping entry",
+        custodian: "The other departure account",
+        vehicle: "Independent vehicle record",
+        purchase: "Independent purchase record",
+        provider: "Independent receiving provider",
+      },
     },
     {
       id: "plan",
@@ -2999,6 +3160,11 @@ export const CONTENT = {
         [
           "What was she trying to change?",
           "She kept saying we could keep something without saying it happened exactly that way. I heard the first half as a promise and the second as her taking it back.",
+        ],
+        [
+          "Which part did you want to keep?",
+          "The bit where she comes back and says sorry. I knew what came before it. I was in the room. Some mornings I could not get through that part again just to reach the apology. I wanted the copy. I did not ask anyone to tell strangers there had never been an argument.",
+          "finding:alignment",
         ],
       ],
       present: {

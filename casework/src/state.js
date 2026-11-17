@@ -166,6 +166,13 @@ export function clean(raw) {
       ? Math.max(0, Math.min(0.4, raw.sound.music))
       : 0.16,
   };
+  s.context.phoneSearch = str(raw.context?.phoneSearch, 160);
+  s.context.calendarDay =
+    Number.isInteger(raw.context?.calendarDay) &&
+    raw.context.calendarDay >= 1 &&
+    raw.context.calendarDay <= 31
+      ? raw.context.calendarDay
+      : 17;
   const routes = [
     "lock",
     "home",

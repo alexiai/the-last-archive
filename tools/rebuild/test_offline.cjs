@@ -4,7 +4,12 @@ const assert = require("node:assert/strict"),
   const b = await puppeteer.launch({
     executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
     headless: true,
-    args: ["--no-sandbox", ...(process.env.TEST_PROXY_TLS==='1'?['--ignore-certificate-errors']:[])],
+    args: [
+      "--no-sandbox",
+      ...(process.env.TEST_PROXY_TLS === "1"
+        ? ["--ignore-certificate-errors"]
+        : []),
+    ],
   });
   const p = await b.newPage();
   await p.goto(process.env.CASEWORK_URL || "http://localhost:8092/");
@@ -40,9 +45,10 @@ const assert = require("node:assert/strict"),
     }),
     "actual recording cached offline",
   );
+  const ranges=await p.evaluate(async()=>{const m=await(await fetch('assets/audio/manifest.json')).json();const file=m.clips.briefing.file;const full=new Uint8Array(await(await fetch(file)).arrayBuffer());const first=await fetch(file,{headers:{Range:'bytes=0-127'}});const data=new Uint8Array(await first.arrayBuffer());const suffix=await fetch(file,{headers:{Range:'bytes=-128'}});const invalid=await fetch(file,{headers:{Range:'bytes='+full.length+'-'}});return {first:first.status,contentRange:first.headers.get('Content-Range'),same:data.length===128&&data.every((v,i)=>v===full[i]),suffix:suffix.status,suffixBytes:(await suffix.arrayBuffer()).byteLength,invalid:invalid.status};});assert.equal(ranges.first,206);assert.ok(ranges.same);assert.equal(ranges.suffix,206);assert.equal(ranges.suffixBytes,128);assert.equal(ranges.invalid,416);
   await b.close();
   console.log(
-    "Offline installation, cold reload, saved phone context and cached audio verified in Chromium.",
+    "Offline installation, cold reload, saved phone context and cached audio and byte-range seeking verified in Chromium.",
   );
 })().catch((e) => {
   console.error(e);

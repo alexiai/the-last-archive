@@ -161,29 +161,29 @@
       "segments": [
         {
           "start": 0.2,
-          "end": 1.715,
+          "end": 4.076,
           "speaker": "Ana",
-          "text": "Leave the light on."
+          "text": "Leave the light on. Your sister is still looking for the red button."
         },
         {
-          "start": 2.015,
-          "end": 3.827,
+          "start": 4.376,
+          "end": 9.219,
           "speaker": "Ana",
-          "text": "I am not angry with you."
+          "text": "I am not angry with you. I am trying to get the potatoes out before they turn to glue."
         },
         {
-          "start": 4.127,
-          "end": 6.111,
+          "start": 9.519,
+          "end": 14.937,
           "speaker": "Ana",
-          "text": "Stop the recorder for a minute."
+          "text": "I am sorry I said that. You do not have to take care of my feelings every time I get tired."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 6.411,
-      "bytes": 52076,
-      "sha256": "904392e75c22e4e6109962d1317abcecec169980008fe01ab94f33b06bb296a2",
-      "scriptHash": "4e6e74f517f455371c9657f2c4770236c42adf3e0462d896de905b1b652190a1"
+      "duration": 15.237,
+      "bytes": 122540,
+      "sha256": "e7ab54563f74f2ddf7d858121f91c95061274540b9dc62ada42d5621bfe99d2b",
+      "scriptHash": "435e2aa718a07de264a5fd6acd9ee2585dba5225466219b0e5401040a8505d4f"
     },
     "apology": {
       "file": "assets/audio/v-e161201db018.mp3",
@@ -847,6 +847,58 @@
       "bytes": 165356,
       "sha256": "8dd315e8c83b109cf7e4416c13b70027d04abc0bd305cd388dcfad3de228d4b8",
       "scriptHash": "9d4349d0869f5adaff62011323239d96a44eddbcc66c5edf37a6898c17573bec"
+    },
+    "original-reel": {
+      "file": "assets/audio/v-d7a537adab49.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 4.076,
+          "speaker": "Ana",
+          "text": "Leave the light on. Your sister is still looking for the red button."
+        },
+        {
+          "start": 4.376,
+          "end": 9.219,
+          "speaker": "Ana",
+          "text": "I am not angry with you. I am trying to get the potatoes out before they turn to glue."
+        },
+        {
+          "start": 9.519,
+          "end": 14.425,
+          "speaker": "Ana",
+          "text": "Do not tell me I never listened. That is not fair. Stop the recorder for a minute."
+        },
+        {
+          "start": 14.725,
+          "end": 20.143,
+          "speaker": "Ana",
+          "text": "I am sorry I said that. You do not have to take care of my feelings every time I get tired."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 20.443,
+      "bytes": 164204,
+      "sha256": "16e87f7cc1525ff66686bd9e95081aa157910352eea89892cd48b919a2e64657",
+      "scriptHash": "abb88ea0e03d80d328e0d63a70f1041029c4627c8c10a8220db5674dbe7ac638"
+    },
+    "talk.elena.q3": {
+      "file": "assets/audio/v-075c31e2e7ec.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 14.695,
+          "speaker": "Elena Vasilescu",
+          "text": "The bit where she comes back and says sorry. I knew what came before it. I was in the room. Some mornings I could not get through that part again just to reach the apology. I wanted the copy. I did not ask anyone to tell strangers there had never been an argument."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 14.995,
+      "bytes": 120620,
+      "sha256": "2e995ad2eb72fb4272cd5142a824716464aafd8a0c44023e377871b69f9586f1",
+      "scriptHash": "7ae60390b3d59f6cb39262815122f6b11b14f7dcb4827de57ea6fc8afedd7ec5"
     }
   },
   "production": {

@@ -5,7 +5,12 @@ const assert = require("node:assert/strict"),
   const b = await puppeteer.launch({
     executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
     headless: true,
-    args: ["--no-sandbox", ...(process.env.TEST_PROXY_TLS==='1'?['--ignore-certificate-errors']:[])],
+    args: [
+      "--no-sandbox",
+      ...(process.env.TEST_PROXY_TLS === "1"
+        ? ["--ignore-certificate-errors"]
+        : []),
+    ],
   });
   const p = await b.newPage();
   await p.setViewport({ width: 1440, height: 1000 });

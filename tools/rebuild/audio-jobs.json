@@ -100,17 +100,17 @@
     "lines": [
       {
         "who": "Ana",
-        "text": "Leave the light on.",
+        "text": "Leave the light on. Your sister is still looking for the red button.",
         "voice": "bf_isabella"
       },
       {
         "who": "Ana",
-        "text": "I am not angry with you.",
+        "text": "I am not angry with you. I am trying to get the potatoes out before they turn to glue.",
         "voice": "bf_isabella"
       },
       {
         "who": "Ana",
-        "text": "Stop the recorder for a minute.",
+        "text": "I am sorry I said that. You do not have to take care of my feelings every time I get tired.",
         "voice": "bf_isabella"
       }
     ]
@@ -122,6 +122,31 @@
         "who": "Iris",
         "text": "I keep trying to find the right version. There was a good evening. There was an argument. You were there. I was there. I do not want to choose which one gets to have happened.",
         "voice": "af_heart"
+      }
+    ]
+  },
+  {
+    "id": "original-reel",
+    "lines": [
+      {
+        "who": "Ana",
+        "text": "Leave the light on. Your sister is still looking for the red button.",
+        "voice": "bf_isabella"
+      },
+      {
+        "who": "Ana",
+        "text": "I am not angry with you. I am trying to get the potatoes out before they turn to glue.",
+        "voice": "bf_isabella"
+      },
+      {
+        "who": "Ana",
+        "text": "Do not tell me I never listened. That is not fair. Stop the recorder for a minute.",
+        "voice": "bf_isabella"
+      },
+      {
+        "who": "Ana",
+        "text": "I am sorry I said that. You do not have to take care of my feelings every time I get tired.",
+        "voice": "bf_isabella"
       }
     ]
   },
@@ -231,6 +256,16 @@
       {
         "who": "Elena Vasilescu",
         "text": "She kept saying we could keep something without saying it happened exactly that way. I heard the first half as a promise and the second as her taking it back.",
+        "voice": "bf_emma"
+      }
+    ]
+  },
+  {
+    "id": "talk.elena.q3",
+    "lines": [
+      {
+        "who": "Elena Vasilescu",
+        "text": "The bit where she comes back and says sorry. I knew what came before it. I was in the room. Some mornings I could not get through that part again just to reach the apology. I wanted the copy. I did not ask anyone to tell strangers there had never been an argument.",
         "voice": "bf_emma"
       }
     ]

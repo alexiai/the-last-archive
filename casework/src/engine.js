@@ -115,7 +115,7 @@ export function photoSupports(o) {
     })
   );
 }
-export function diagnose(p, answer, s = state) {
+export function diagnose(p, answer, s = state, { restoring = false } = {}) {
   const fail = (message) => ({ ok: false, message });
   if (!p || !answer || typeof answer !== "object")
     return fail("Build an account from the available sources first.");
@@ -129,7 +129,11 @@ export function diagnose(p, answer, s = state) {
       "Recover the authorised phone copy before comparing its originals.",
     );
   if (p.type === "evidence") {
-    for (const [key, [source, reading]] of Object.entries(p.slots)) {
+    for (const [key, [source, reading]] of Object.entries(
+      restoring && p.legacySlots && !answer.revision
+        ? Object.fromEntries(p.legacySlots.map((key) => [key, p.slots[key]]))
+        : p.slots,
+    )) {
       const o = s.observations.find((o) => o.id === answer.refs?.[key]);
       if (
         o &&
@@ -212,6 +216,23 @@ export function diagnose(p, answer, s = state) {
         "The background pattern does not match that location reference. Compare the recurring rhythm, not just the voice.",
       );
   }
+  if (p.type === "alignment") {
+    if (!["original-reel", "assembly"].every((id) => s.listened.includes(id)))
+      return fail(
+        "Inspect both recordings by listening or using their equivalent transcripts before reconstructing the edit.",
+      );
+    if (
+      !same(answer.segments, p.answer.segments) ||
+      answer.omitted !== p.answer.omitted
+    )
+      return fail(
+        "At least one delivered passage is paired with a different original. Compare the words and source positions; the same speaker can appear in several passages.",
+      );
+    if (answer.claim !== p.answer.claim)
+      return fail(
+        "The retained words are genuine. Reconsider what selecting a passage can change without inventing a new voice.",
+      );
+  }
   if (
     p.type === "case" &&
     !Object.entries(p.answer).every(([k, v]) => answer[k] === v)
@@ -237,12 +258,38 @@ export function solve(id, answer) {
     result = diagnose(p, answer);
   if (!result.ok) return result;
   const earlier = state.chapter;
-  if (!state.findings[id]) {
+  if (
+    !state.findings[id] ||
+    (p.revision && (state.findings[id].answer.revision || 0) < p.revision)
+  ) {
     state.findings[id] = {
-      answer: JSON.parse(JSON.stringify(answer)),
+      answer: JSON.parse(
+        JSON.stringify({
+          ...answer,
+          ...(p.revision ? { revision: p.revision } : {}),
+        }),
+      ),
       at: new Date().toISOString(),
     };
     if (p.grant && !state.flags.includes(p.grant)) state.flags.push(p.grant);
+  }
+  if (p.type === "alignment" && !state.findings[id].observations) {
+    const original = observe(
+      "audio.original-reel",
+      "span." + answer.omitted,
+      null,
+      "Compared against the delivered extract.",
+    );
+    const delivered = observe(
+      "audio.assembly",
+      "span.2",
+      null,
+      "Retained as part of the listening comparison.",
+    );
+    state.findings[id].observations = [
+      original.observation.id,
+      delivered.observation.id,
+    ];
   }
   advance();
   save();
@@ -250,7 +297,7 @@ export function solve(id, answer) {
     ...result,
     chapterChanged: earlier !== state.chapter,
     chapter: state.chapter,
-    done: !!state.findings.confrontation,
+    done: p.id === "confrontation" && !!state.findings.confrontation,
   };
 }
 function advance() {
@@ -272,7 +319,7 @@ export function resumeProofs() {
       if (
         saved &&
         !state.findings[p.id] &&
-        diagnose(p, saved.answer, state).ok
+        diagnose(p, saved.answer, state, { restoring: true }).ok
       ) {
         state.findings[p.id] = saved;
         if (p.grant && !state.flags.includes(p.grant))
@@ -314,7 +361,7 @@ export function rememberTalk(person, node) {
 export function availableLeads() {
   return C.puzzles.filter(
     (p) =>
-      p.chapter === state.chapter &&
+      p.chapter <= state.chapter &&
       (!p.need || has(p.need)) &&
       !state.findings[p.id],
   );

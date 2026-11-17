@@ -6,7 +6,12 @@ const assert = require("node:assert/strict"),
   const browser = await puppeteer.launch({
     executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
     headless: true,
-    args: ["--no-sandbox", ...(process.env.TEST_PROXY_TLS==='1'?['--ignore-certificate-errors']:[])],
+    args: [
+      "--no-sandbox",
+      ...(process.env.TEST_PROXY_TLS === "1"
+        ? ["--ignore-certificate-errors"]
+        : []),
+    ],
   });
   const page = await browser.newPage();
   await page.setViewport({ width: 1365, height: 1000 });
@@ -61,7 +66,7 @@ const assert = require("node:assert/strict"),
   for (const p of C.puzzles) {
     console.log("Checking authored chapter", p.chapter, p.type);
     await page.click("#casebook");
-    await page.click(`[data-puzzle="${p.id}"]`);
+    await page.click(`dialog[open] [data-puzzle="${p.id}"]`);
     let refs = {};
     if (p.type === "evidence") {
       for (const [key, [id, reading]] of Object.entries(p.slots)) {
@@ -124,6 +129,16 @@ const assert = require("node:assert/strict"),
         await closeTop();
       }
       await page.select('[name="place"]', p.answer);
+    } else if (p.type === "alignment") {
+      await page.waitForFunction(
+        () => document.querySelector("[data-listen-read]")?.onclick,
+      );
+      await page.click('[data-listen-read="original-reel"]');
+      await page.click('[data-listen-read="assembly"]');
+      for (let i = 0; i < 3; i++)
+        await page.select(`[name="segment.${i}"]`, p.answer.segments[i]);
+      await page.select('[name="omitted"]', p.answer.omitted);
+      await page.select('[name="claim"]', p.answer.claim);
     } else if (p.type === "case") {
       for (const [k, v] of Object.entries(p.answer))
         await page.select(`[name="${k}"]`, v);
@@ -151,7 +166,7 @@ const assert = require("node:assert/strict"),
   for (const privacy of ["sealed", "summary", "consented"]) {
     await page.click("#casebook");
     await page.click("details summary");
-    await page.click('[data-puzzle="confrontation"]');
+    await page.click('dialog[open] [data-puzzle="confrontation"]');
     await page.select('[name="privacy"]', privacy);
     await page.click('button[type="submit"]');
     await page.waitForSelector("#ending-response");

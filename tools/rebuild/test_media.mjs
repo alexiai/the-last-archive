@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import {RECORDINGS} from "../../casework/src/recordings.js";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -29,6 +30,10 @@ assert.deepEqual(missing, [], "unfinished location media");
 const manifest = JSON.parse(
   fs.readFileSync(new URL("assets/audio/manifest.json", root)),
 );
+const waveforms=JSON.parse(fs.readFileSync(new URL('assets/audio/waveforms.json',root)));
+for(const[id,data]of Object.entries(waveforms)){assert.equal(data.sha256,manifest.clips[id].sha256,'waveform measured from current finished audio');assert.ok(data.peaks.length>100&&data.peaks.every(v=>v>=0&&v<=1),'measured waveform envelope has valid samples');checks+=2;}
+for(const[id,clip]of Object.entries(manifest.clips)){assert.equal(RECORDINGS[id]?.file,clip.file,'gesture-safe recording index matches finished assets');assert.equal(RECORDINGS[id]?.sha256,clip.sha256);checks+=2;}
+const comparison=C.puzzles.find(p=>p.id==='alignment');comparison.answer.segments.forEach((v,i)=>{assert.deepEqual(C.audio.assembly.lines[i],C.audio['original-reel'].lines[Number(v)],'delivered passages agree with the authored original');checks++;});
 for (const [id, clip] of Object.entries(manifest.clips)) {
   const file = new URL(clip.file, root);
   assert.ok(fs.existsSync(file), "local recording exists");

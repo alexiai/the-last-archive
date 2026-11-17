@@ -24,8 +24,29 @@ label('AURELIA',(0,7.91,2.3),.25,metal);label('PRIVATE LISTENING',(0,7.9,1.9),.1
 light((0,1,3),320,(0,1,0));light((0,6,3),350,(0,6,0))
 render(s,'hotel-0',(-1.8,-1.5,2.8),(.3,4,1.1),23)
 figure=[]
-figure.append(box('coat silhouette',(.1,3.8,1),(.43,.26,.9),human));bpy.ops.mesh.primitive_uv_sphere_add(segments=20,ring_count=12,radius=.14,location=(.1,3.8,1.58));bpy.context.object.data.materials.append(human);figure.append(bpy.context.object)
-for x in [-.02,.22]:figure.append(box('leg',(x,3.8,.33),(.12,.15,.65),human))
+# Anonymous moving figure, with a continuous coat silhouette and articulated gait.
+# No face is used for identification; the camera cannot support that claim.
+def ellipsoid(name,pos,scale,material):
+ bpy.ops.mesh.primitive_uv_sphere_add(segments=32,ring_count=20,radius=1,location=pos);o=bpy.context.object;o.name=name;o.scale=scale;o.data.materials.append(material)
+ for poly in o.data.polygons:poly.use_smooth=True
+ figure.append(o);return o
+def limb(name,a,b,r,material):
+ d=Vector(b)-Vector(a);bpy.ops.mesh.primitive_cylinder_add(vertices=24,radius=r,depth=d.length,location=(Vector(a)+Vector(b))/2);o=bpy.context.object;o.name=name;o.rotation_euler=d.to_track_quat('Z','Y').to_euler();o.data.materials.append(material)
+ for poly in o.data.polygons:poly.use_smooth=True
+ figure.append(o);return o
+skin=mat('unidentified person in shadow',(.13,.115,.095));pants=mat('dark trousers',(.045,.055,.055))
+ellipsoid('coat upper body',(.1,3.8,1.25),(.23,.15,.34),human)
+ellipsoid('coat lower body',(.08,3.8,1.00),(.22,.155,.27),human)
+ellipsoid('shoulder line',(.1,3.8,1.43),(.27,.155,.12),human)
+limb('neck',(.1,3.8,1.49),(.1,3.8,1.60),.052,skin)
+ellipsoid('head profile',(.08,3.8,1.72),(.112,.10,.145),skin)
+ellipsoid('hair silhouette',(.095,3.8,1.78),(.112,.103,.10),human)
+ellipsoid('nose in profile',(-.035,3.8,1.72),(.04,.035,.045),skin)
+for sign in [-1,1]:
+ shoulder=(.1+sign*.23,3.8,1.43);elbow=(.1+sign*.27,3.8+sign*.09,1.17);wrist=(.1+sign*.22,3.8+sign*.17,.96)
+ limb('coat sleeve',shoulder,elbow,.075,human);limb('coat forearm',elbow,wrist,.06,human);ellipsoid('hand',wrist,(.047,.045,.065),skin)
+ hip=(.1+sign*.10,3.8,.92);knee=(.1+sign*.13,3.8+sign*.14,.50);ankle=(.1+sign*.15,3.8+sign*.22,.10)
+ limb('trouser thigh',hip,knee,.085,pants);limb('trouser shin',knee,ankle,.065,pants);ellipsoid('shoe',(.1+sign*.15-.05,3.8+sign*.22,.07),(.15,.085,.065),human)
 render(s,'hotel-4',(-1.8,-1.5,2.8),(.3,4,1.1),23)
 for o in figure:o.hide_render=True
 render(s,'hotel-8',(-1.8,-1.5,2.8),(.3,4,1.1),23)

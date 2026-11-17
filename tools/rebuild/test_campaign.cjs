@@ -92,6 +92,14 @@ const assert = require("node:assert/strict"),
         await page.select(`[name="ref.${key}"]`, id);
       await page.select('[name="account"]', p.answer);
     } else if (p.type === "order") {
+      const display = await page.$$eval("[data-order]", (buttons) =>
+        buttons.map((b) => b.dataset.order),
+      );
+      assert.notDeepEqual(
+        display,
+        p.answer,
+        "event cards must not present the chronology already solved",
+      );
       for (const v of p.answer) await page.click(`[data-order="${v}"]`);
     } else if (["code", "morse", "lock"].includes(p.type)) {
       await page.type('[name="value"]', p.answer);

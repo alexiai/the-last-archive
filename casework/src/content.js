@@ -482,7 +482,7 @@ export const CONTENT = {
       kind: "plan",
       title: "Completed circulation drawing B",
       chapter: 6,
-      text: "8 TEILOR STREET / completed service works\nThe side service connection joins the apartment-facing landing behind E1. The camera still faces the front entrance. Its position did not move under the work order.\nAn available route does not establish that a particular person used it.",
+      text: "8 TEILOR STREET / completed service works\nWork order S-2: the east service opening is reinstated with a new lintel. Stair enclosure unchanged. Camera E1 fixture retained at its earlier mounting point.\nThe completion drawing and older desk copy share a scale. Compare the actual openings and the camera sector before drawing a route. A drawing is not a record of who travelled through it.",
       meta: "Retained original / English",
       image: null,
       choices: {
@@ -2668,10 +2668,10 @@ export const CONTENT = {
         "Use the calendar and independent receipt to reconstruct the night’s documented movement.",
       sources: ["trip", "hotel-receipt"],
       items: {
-        pickup: "Pickup at Atelier Nord",
-        arrival: "Arrival at Hotel Aurelia",
         appointment: "Listening-room appointment begins",
         return: "Arrival at 8 Teilor Street",
+        pickup: "Pickup at Atelier Nord",
+        arrival: "Arrival at Hotel Aurelia",
       },
       answer: ["pickup", "arrival", "appointment", "return"],
       hint: "Pickup and arrival are different fields. The receiving appointment has its own independently retained time.",

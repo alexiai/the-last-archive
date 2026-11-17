@@ -25,7 +25,7 @@ A working casebook supports notes, personal theories, supporting/contradicting/c
 
 ## Manual inspection
 
-The chronology, physical location/camera relationship, source-release chain, independent records, clue prerequisites and distinction between contact, time and attribution received a manual consistency pass. This is author-side inspection and does not establish independent player fairness.
+The chronology, physical location/camera relationship, source-release chain, independent records, clue prerequisites and distinction between contact, time and attribution received a manual consistency pass. The final pass corrected an incomplete surveillance view, reconciled the circulation drawing with the rendered camera direction, removed a suggested route from an original plan and stopped event cards appearing in already-solved order. This is author-side inspection and does not establish independent player fairness.
 
 ## Still unverified
 

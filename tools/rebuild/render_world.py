@@ -34,13 +34,29 @@ for z in [.18,.8]:
  for loc,dim in [((-.0,3.39,z),(7,.045,.08)),((3.39,.25,z),(.045,6.5,.08))]:cube('wall moulding',loc,dim,wood,.01)
 cube('ceiling',(0,.25,3.16),(7,6.5,.12),cream)
 # Hall behind the opening; same doorway in every view.
-cube('hall floor',(-2.25,5.1,-.05),(1.5,3.2,.1),floor);cube('hall side',(-3.08,5.1,1.5),(.1,3.2,3),wall);
+cube('hall floor',(-2.25,5.1,-.05),(1.5,3.2,.1),floor)
+for ya,yb in [(3.5,3.6),(4.35,6.7)]:cube('hall west side',(-3.08,(ya+yb)/2,1.5),(.1,yb-ya,3),wall)
+cube('stair connection floor',(-4.48,3.95,-.05),(2.8,.75,.1),floor)
+for i in range(6):cube('stair tread',(-4.1-i*.26,3.95,.08+i*.08),(.26,.75,.16+i*.16),wood)
+
 for ya,yb in [(3.5,3.6),(4.35,6.7)]:cube('hall side',(-1.42,(ya+yb)/2,1.5),(.1,yb-ya,3),wall)
 cube('service corridor floor',(-.25,3.95,-.05),(2.4,.75,.1),floor);cube('service corridor back',(-.25,4.38,1.5),(2.4,.1,3),wall)
 for x in [-2.86,-1.64]:cube('door casing',(x,3.40,1.2),(.10,.16,2.4),wood,.02)
 cube('door casing',(-2.25,3.4,2.42),(1.3,.16,.12),wood,.02)
 door=cube('service door',(-2.75,3.85,1.18),(.09,1.12,2.35),wood,.025);door.rotation_euler.z=-.18
 cyl('brass latch',(-2.76,3.38,1.02),.045,.07,brass).rotation_euler.x=math.pi/2
+# The apartment-facing opening is south of E1; this view sees only the north entrance.
+for xa,xb in [(-3.08,-2.83),(-1.67,-1.42)]:cube('front entrance wall',((xa+xb)/2,6.75,1.5),(xb-xa,.12,3),wall)
+cube('front entrance lintel',(-2.25,6.75,2.7),(1.16,.12,.6),wall)
+cube('front entrance door',(-2.25,6.70,1.15),(1.12,.075,2.3),wood,.02)
+for x in [-2.84,-1.66]:cube('front door frame',(x,6.61,1.18),(.07,.12,2.38),cream,.01)
+cube('front door frame',(-2.25,6.61,2.38),(1.25,.12,.08),cream,.01)
+cube('push plate',(-1.82,6.60,1.05),(.08,.025,.28),brass,.008)
+cube('door lower panel',(-2.25,6.645,.55),(.84,.022,.70),dark,.02)
+cube('door upper panel',(-2.25,6.645,1.55),(.84,.022,.70),dark,.02)
+cube('hall ceiling',(-2.25,5.1,3.06),(1.72,3.35,.12),cream)
+text('FRONT ENTRY',(-2.25,6.59,2.60),.10,cream,(math.pi/2,0,0))
+
 # Shelf and recognizable heavy bookend.
 for x in [.25,2.95]:cube('shelf upright',(x,3.24,1.35),(.08,.38,2.6),wood,.015)
 for z in [.15,.85,1.55,2.25,2.6]:cube('shelf',(1.6,3.24,z),(2.8,.42,.065),wood,.012)
@@ -87,6 +103,7 @@ stain=cyl('small floor trace',(-.25,-.65,.035),.045,.002,red);markers.append(sta
 def area(name,loc,power,color,size,target):
  bpy.ops.object.light_add(type='AREA',location=loc);o=bpy.context.object;o.name=name;o.data.energy=power;o.data.color=color;o.data.shape='DISK';o.data.size=size;o.rotation_euler=(Vector(target)-o.location).to_track_quat('-Z','Y').to_euler();return o
 windowlight=area('window daylight',(-3.1,1.1,2.4),520,(.62,.73,1),2.4,(0,0,.5));practical=area('practical lamp',(-2.7,2.35,1.55),115,(1,.62,.29),.45,(-1,1,0));fill=area('room bounce',(1,-2.4,2.7),120,(1,.84,.62),3,(0,1,.5))
+area('hall practical',(-2.25,5.7,2.84),210,(1,.83,.57),1.0,(-2.25,6.6,.8))
 bpy.ops.object.camera_add();camera=bpy.context.object;scene.camera=camera;camera.data.lens=28;camera.data.clip_end=100
 views={
  'scene-wide':((2.75,-4.9,2.05),(-.25,.7,1.0),26,'scene'),

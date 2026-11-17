@@ -1,4 +1,3 @@
-/* Authored runtime case. Private architecture and renderer sources are never included in builds. */
 export const CONTENT = {
   "case": {
     "id": "0416",
@@ -299,7 +298,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "audiences": "The public correction and raw family return have different permitted audiences.",
+        "alternative": "Publication of all raw material is authorised.",
+        "uncertain": "All retained originals must be destroyed."
       },
       "need": null,
       "sound": null
@@ -313,7 +314,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "destinations": "Two recipients receive separately described copies.",
+        "alternative": "Both copies are addressed to the public programme.",
+        "uncertain": "There is no family recipient."
       },
       "need": null,
       "sound": null
@@ -327,7 +330,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "earlier": "The named working version existed before the later withdrawal.",
+        "alternative": "The edit was created only after withdrawal.",
+        "uncertain": "There is no dated revision history."
       },
       "need": null,
       "sound": null
@@ -341,7 +346,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "limited": "Approval names a family listening copy, not a public authentication.",
+        "alternative": "Approval authenticates all later public captions.",
+        "uncertain": "Approval contains no scope limitation."
       },
       "need": null,
       "sound": null
@@ -355,7 +362,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "caption": "The public caption claims continuity for the named working input.",
+        "alternative": "The programme clearly describes every assembly cut.",
+        "uncertain": "The source is a different version from the approval."
       },
       "need": null,
       "sound": null
@@ -383,7 +392,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "retry": "The later timestamp labels delivery retry, not capture.",
+        "alternative": "The later timestamp certifies a live capture.",
+        "uncertain": "No earlier queued item is identified."
       },
       "need": null,
       "sound": null
@@ -397,7 +408,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "assembly": "The delivered phrases can be aligned to an older continuous source.",
+        "alternative": "The delivered item is an uninterrupted new recording.",
+        "uncertain": "The source voices have no retained origin."
       },
       "need": null,
       "sound": null
@@ -411,7 +424,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "bounded": "The independent movement record bounds a concealed personal visit.",
+        "alternative": "The omission alone proves an act of violence.",
+        "uncertain": "No independently retained movement is available."
       },
       "need": null,
       "sound": null
@@ -425,7 +440,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "purpose": "The transfer has a documented project purpose, despite its initial appearance.",
+        "alternative": "The transfer is expressly described as a payment for violence.",
+        "uncertain": "The source contains no recipient or project reference."
       },
       "need": null,
       "sound": null
@@ -467,7 +484,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "incapacity": "The findings support fatal injury and inability to give the later sustained reassurance; no exact minute is certified.",
+        "alternative": "The findings certify an exact minute of death.",
+        "uncertain": "The findings confirm a simple unobserved collapse."
       },
       "need": null,
       "sound": null
@@ -479,9 +498,11 @@ export const CONTENT = {
       "chapter": 7,
       "text": "EXAMINATION OF THE RECOVERED BRONZE BOOKEND\nIts dimensions and edge profile are compatible with the injury class. Compatibility alone does not identify a user.\nThe custody label overlies a blood-bearing surface. It was applied after the surface was contaminated. The retained label batch and dispatch copy belong to Julia’s custody case.\nAn older photograph proves Julia had handled this gift before. Her print alone cannot date that contact.",
       "meta": "Retained original / English",
-      "image": null,
+      "image": "recovered-object",
       "choices": {
-        "text": "Keep the original wording"
+        "layering": "The custody label lies over the blood-bearing surface; old contact cannot date its application.",
+        "alternative": "An old contact impression establishes an exact minute.",
+        "uncertain": "The label lies beneath the blood-bearing surface."
       },
       "need": null,
       "sound": null
@@ -495,7 +516,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "departure": "The stated departure and claimed later location can be checked against independent records.",
+        "alternative": "A stated location is sufficient proof without corroboration.",
+        "uncertain": "No later-location claim was made."
       },
       "need": null,
       "sound": null
@@ -509,7 +532,9 @@ export const CONTENT = {
       "meta": "Retained original / English",
       "image": null,
       "choices": {
-        "text": "Keep the original wording"
+        "independent": "Separately retained custody and presence records can test the stated departure.",
+        "alternative": "Only the custodian’s own account records custody.",
+        "uncertain": "The records identify no custody batch."
       },
       "need": null,
       "sound": null
@@ -1415,7 +1440,7 @@ export const CONTENT = {
       "kind": "audio",
       "title": "Duty briefing",
       "chapter": 1,
-      "text": "Captain Pavel: Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else’s conclusion. Start with the room. Nadia is waiting downstairs.",
+      "text": "Captain Pavel: Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else’s conclusion. Start with the room. The first examination is ready.",
       "meta": "Retained recording / transcript available",
       "image": null,
       "choices": {
@@ -2210,7 +2235,7 @@ export const CONTENT = {
       "lines": [
         [
           "Captain Pavel",
-          "Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else’s conclusion. Start with the room. Nadia is waiting downstairs."
+          "Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else’s conclusion. Start with the room. The first examination is ready."
         ]
       ]
     },
@@ -2594,11 +2619,11 @@ export const CONTENT = {
       "slots": {
         "use": [
           "rider",
-          "text"
+          "audiences"
         ],
         "destination": [
           "routing",
-          "text"
+          "destinations"
         ]
       },
       "accounts": {
@@ -2623,15 +2648,15 @@ export const CONTENT = {
       "slots": {
         "approval": [
           "cue",
-          "text"
+          "limited"
         ],
         "input": [
           "programme",
-          "text"
+          "caption"
         ],
         "history": [
           "revision",
-          "text"
+          "earlier"
         ]
       },
       "accounts": {
@@ -2684,11 +2709,11 @@ export const CONTENT = {
       "slots": {
         "provider": [
           "transfer",
-          "text"
+          "retry"
         ],
         "source": [
           "source-alignment",
-          "text"
+          "assembly"
         ],
         "heard": [
           "audio.assembly",
@@ -2717,15 +2742,15 @@ export const CONTENT = {
       "slots": {
         "personal": [
           "adrian-account",
-          "text"
+          "bounded"
         ],
         "financial": [
           "payment",
-          "text"
+          "purpose"
         ],
         "custodian": [
           "julia-account",
-          "text"
+          "departure"
         ]
       },
       "accounts": {
@@ -2783,19 +2808,19 @@ export const CONTENT = {
       "slots": {
         "object": [
           "object-report",
-          "text"
+          "layering"
         ],
         "injury": [
           "clinical",
-          "text"
+          "incapacity"
         ],
         "independent": [
           "custody",
-          "text"
+          "independent"
         ],
         "account": [
           "julia-account",
-          "text"
+          "departure"
         ]
       },
       "accounts": {
@@ -2984,7 +3009,31 @@ export const CONTENT = {
     "intro": "Julia does not look at the photograph first. She looks at the space beside it, where the note about old contact has been kept apart from the later physical findings.",
     "response": "I kept saying I never changed an original. As though that were the whole of what someone had asked me to do. She was trying to ask me to say it with both our names still there. I wanted to be the person who decided how it could be heard. When she would not let me, I hurt her. What I did afterwards was not the room misunderstanding me. It was me.",
     "after": "The factual record is submitted. It does not depend on a final admission. The family source remains separately held under the recorded permission. In the photograph, the chairs face each other. It was an ordinary arrangement, made for a conversation that did not get to be ordinary.",
-    "last": "You close the casebook. You do not close the life inside it."
+    "last": "You close the casebook. You do not close the life inside it.",
+    "questions": [
+      [
+        "What was she asking you to do?",
+        "To let the correction have both our names on it. I had imagined losing everything, and she was still making room for me inside an honest account. I could not hear that as anything except being exposed. That was my choice. She did not make it for me."
+      ],
+      [
+        "The later records show separate decisions.",
+        "Yes. I want to tell it as one terrible instant. The records will not let me. There was time afterwards. I used it to protect the account I wanted people to hear instead of getting her help."
+      ],
+      [
+        "What should her family understand?",
+        "You should not ask them to understand me. Tell them what you can establish. If there is something private she wanted returned, return it on her terms. I do not get to decide which part makes me easier to remember."
+      ]
+    ],
+    "aftermath": [
+      {
+        "title": "The factual record",
+        "text": "The independent examinations and original records are submitted with their limits intact. An acknowledgement has been added as a separate statement. None of the earlier findings has been rewritten to make it sound inevitable.\nThere will be formal proceedings after the point where this investigation ends. You have not been asked to turn that uncertainty into a verdict the evidence cannot give. The account of the death is supported; the private family source remains subject to its own permission."
+      },
+      {
+        "title": "An ordinary object",
+        "text": "Elena comes for the personal property that has been released. She checks the list carefully and then asks about the repaired mug.\nYou show her the wrapped object. She does not unwrap it. “She could always feel where the handle had been fixed,” she says. “She would turn it that way when she was thinking.”\nYou tell her which records are held, which copies can be returned and what choice has been recorded for the private source. She asks you to write that down. It is a practical request. You are grateful to be able to do it."
+      }
+    ]
   },
   "morse": {
     "A": ".-",
@@ -3013,5 +3062,55 @@ export const CONTENT = {
     "X": "-..-",
     "Y": "-.--",
     "Z": "--.."
-  }
+  },
+  "scenes": [
+    {
+      "chapter": 2,
+      "title": "The name on the lock screen",
+      "image": "scene-phone",
+      "text": "Elena has not asked whether you have found anything. She asks whether the phone still has the photograph Iris used as her wallpaper. You tell her the copy preserves it.\nFor a moment she seems relieved, and then annoyed with herself for being relieved about something so small. “She hated the photograph I liked,” she says. “She said I liked it because she was looking at me instead of the camera.”\nThe screen goes dark between your hands. You wake it again. There is a difference between finding a person’s information and learning how someone else remembers her. Neither can take the place of the other."
+    },
+    {
+      "chapter": 3,
+      "title": "The desk beside the lift",
+      "image": "hotel-0",
+      "text": "The night clerk sets a paper cup beside the recorder export. Nobody has put sugar in it. You had not noticed that you were holding out a hand.\nHe remembers being tired. He is less certain of the person in the corridor than he was when the first officer asked him, and embarrassed about becoming less certain. You ask him to leave that uncertainty in the statement.\nThe machine has no such embarrassment. It prints every second in the same white figures. On the counter beside it is the maintenance record. You put both originals down where you can read them together."
+    },
+    {
+      "chapter": 4,
+      "title": "Something still warm",
+      "image": "archive-room",
+      "text": "Mara brings two coffees and then looks for somewhere to put the second. The table is covered with originals. You move your own notebook, not the papers.\n“She would take the lid off immediately,” Mara says. “As though it was a personal insult to be given a drink she couldn’t smell.” She removes neither lid.\nThere are moments when an interview gives you a fact and moments when it gives you a person. You do not write this one into a theory. When she is ready, you ask her to distinguish what she remembers from what the retained versions can establish."
+    },
+    {
+      "chapter": 5,
+      "title": "The marks left by use",
+      "image": "archive-room",
+      "text": "The workshop case has a thumb-sized patch on its handle where the finish has worn smooth. Someone has repaired the catch instead of replacing the box. On the index card, a second hand has corrected a drawer number and dated the correction.\nThe safeguards are ordinary things: keep a source, name a revision, say who may hear a copy. They were made by people who expected to work together again.\nYou set the slate beside the catalogue. If the case is to be opened, it will be opened by following the records its owners left, not by pretending a personal object was built as a riddle for the police."
+    },
+    {
+      "chapter": 6,
+      "title": "A question she can answer",
+      "image": "scene-wide",
+      "text": "Elena calls while you are reading. She asks whether she should cancel the person who was coming to collect the boxes. You ask which boxes.\n“Just the empty ones,” she says. “We kept saying we would get rid of them. Every week they became a plan.”\nYou tell her that you will check which objects still need to be preserved. She thanks you for giving her an answer with a boundary. Then, after a silence, she says she is tired of being grateful for boundaries.\nYou put the call in the personal contact log. It is part of what the investigation costs; it is not evidence against anyone."
+    },
+    {
+      "chapter": 7,
+      "title": "Return to the room",
+      "image": "scene-reverse",
+      "text": "The light has crossed the floor since your first examination. Nothing in the room has moved. For a moment that distinction feels harder to hold than it should.\nYou can remember your first explanation of the furniture. It was neat. It required very little of the person who had lived here. The retained originals have made it harder to keep.\nYou open a fresh page. Contact, time, responsibility. Three different claims. The room will not make them equivalent simply because you need an answer."
+    },
+    {
+      "chapter": 8,
+      "title": "What belongs in the record",
+      "image": "station-desk",
+      "text": "The examination copies are arranged on the desk with their origins still attached. Beside them is the private family source. The two piles do not look very different until you read the permissions.\nYou can support a factual account without using everything you have been allowed to inspect. You can also preserve a person’s privacy without withholding the evidence of what happened to her.\nThe decision will be recorded plainly. It will not alter an inconvenient fact or substitute kindness for proof. Before making it, you check that every consequential claim can stand when the intimate material is set aside."
+    },
+    {
+      "chapter": 9,
+      "title": "Before the conversation",
+      "image": "station-desk",
+      "text": "The interview room has a table, water and a chair whose felt pad has come loose. Someone has folded a piece of card under the short leg.\nYou leave the supported account face down until everyone is seated. You have already made the case that the independent sources allow you to make. This conversation may add an acknowledgement. It cannot be required to repair a missing proof.\nOutside the room, a family is still waiting for an answer that will not give them back an ordinary evening. You take a moment before opening the door."
+    }
+  ]
 };

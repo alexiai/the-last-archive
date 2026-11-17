@@ -4,7 +4,7 @@
     "lines": [
       {
         "who": "Captain Pavel",
-        "text": "Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else’s conclusion. Start with the room. Nadia is waiting downstairs.",
+        "text": "Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else’s conclusion. Start with the room. The first examination is ready.",
         "voice": "bm_daniel"
       }
     ]
@@ -471,6 +471,36 @@
       {
         "who": "Julia",
         "text": "I kept saying I never changed an original. As though that were the whole of what someone had asked me to do. She was trying to ask me to say it with both our names still there. I wanted to be the person who decided how it could be heard. When she would not let me, I hurt her. What I did afterwards was not the room misunderstanding me. It was me.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "ending.julia.q0",
+    "lines": [
+      {
+        "who": "Julia",
+        "text": "To let the correction have both our names on it. I had imagined losing everything, and she was still making room for me inside an honest account. I could not hear that as anything except being exposed. That was my choice. She did not make it for me.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "ending.julia.q1",
+    "lines": [
+      {
+        "who": "Julia",
+        "text": "Yes. I want to tell it as one terrible instant. The records will not let me. There was time afterwards. I used it to protect the account I wanted people to hear instead of getting her help.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "ending.julia.q2",
+    "lines": [
+      {
+        "who": "Julia",
+        "text": "You should not ask them to understand me. Tell them what you can establish. If there is something private she wanted returned, return it on her terms. I do not get to decide which part makes me easier to remember.",
         "voice": "af_nicole"
       }
     ]

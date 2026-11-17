@@ -5,17 +5,17 @@
       "segments": [
         {
           "start": 0.2,
-          "end": 16.143,
+          "end": 16.199,
           "speaker": "Captain Pavel",
-          "text": "Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else\u2019s conclusion. Start with the room. Nadia is waiting downstairs."
+          "text": "Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else\u2019s conclusion. Start with the room. The first examination is ready."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 16.443,
-      "bytes": 132332,
-      "sha256": "fc1c2a41d0ad7997f1acb56578fb0bfbe6c7ccaa9dbd6b32169ca5756a902b6f",
-      "scriptHash": "b17118b8ef1718f8044792767f108df107b2775702b9f56ef6313b27b8f41a54"
+      "duration": 16.499,
+      "bytes": 132716,
+      "sha256": "95131fc13452e2a46708a4321011f162b24de71bdc737c08f84d38526dd54bc7",
+      "scriptHash": "b500666985a25eae9b430c643981dd94c742a704f3be31a2339005a4cc2e44f8"
     },
     "voicemail-elena": {
       "file": "assets/audio/voicemail-elena.mp3",

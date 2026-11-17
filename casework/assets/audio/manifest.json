@@ -428,306 +428,306 @@
       "segments": [
         {
           "start": 0.2,
-          "end": 9.158,
+          "end": 10.609,
           "speaker": "Adrian Popescu",
-          "text": "She was exhausted. We had been arguing. I wanted people to know that because it was easier than telling them what we were arguing about."
+          "text": "I have already told the first officer we had an argument. I have the number if you need it. I do not want her family hearing three different versions of what I said."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 9.458,
-      "bytes": 76460,
-      "sha256": "62fcec7683aa3c3b308d9547004f26765127c4a46c42d00c769ea82ebe5eb17b",
-      "scriptHash": "14dcfe28f0f5504b47a32e4b988b1d183e7ce56f950cefee99f56ddae4dbfc55"
+      "duration": 10.909,
+      "bytes": 87980,
+      "sha256": "218c3f90a528b8c55f45c2170773f6eb58f5cf6721247d18c23428497b42c261",
+      "scriptHash": "5041eccae223c4049f839cd87e7bae9df62cefb3588037e736d731d2fd382b34"
     },
     "talk.adrian.q0": {
       "file": "assets/audio/talk.adrian.q0.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 8.661,
+          "end": 12.781,
           "speaker": "Adrian Popescu",
-          "text": "Yes. She asked me to bring boxes. I kept calling it a bad week. That sounded less like a decision she had made without me."
+          "text": "She wanted boxes. I told her I could bring them Saturday. We had said things like that before and then not done it. This time she had folded the blankets I kept there. So, yes."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 8.961,
-      "bytes": 72428,
-      "sha256": "1d60e4e0ce274ae852b0aa7931a8261d251e9bc4da25c6b1e98056ffc3c6ee59",
-      "scriptHash": "44acd95ab46b3f4920a727cda3c7b38730719560d32881cd0f2bb0a4c7bdc5ba"
+      "duration": 13.081,
+      "bytes": 105452,
+      "sha256": "5e8befe649fe0649501c3e55e82b5155dcde6e1e76416521f0f1f8f5e95d1da2",
+      "scriptHash": "6ef86cbbeedf8c36ddc93c6362df9747722b5f6b5abb789b46386be7700a300b"
     },
     "talk.adrian.q1": {
       "file": "assets/audio/talk.adrian.q1.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 10.354,
+          "end": 13.842,
           "speaker": "Adrian Popescu",
-          "text": "I saw her at the gathering. I did not see what happened in the apartment. I should have learned to say the second sentence before I tried to explain the first."
+          "text": "At the gathering? She was cold with me. Then she laughed at something Mara said and I was angry about that too. That is what I saw. I did not go back to the apartment. You can have the car records."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 10.654,
-      "bytes": 85868,
-      "sha256": "f708c3aec5d32893162cb08fa8bd77dd99591a53eb1c7da635ec55fe5413dd3e",
-      "scriptHash": "3b65e47406d37a5878e1c914b91505871f12573023b2132c9a764557e8dab838"
+      "duration": 14.142,
+      "bytes": 113900,
+      "sha256": "5c35137d0851a537117e79735a63253b291afcb91bca740b1d2f72729b9169b6",
+      "scriptHash": "285ae1d6949b99712365526e130a613777f27e5aeefe04816340669d4706e8ae"
     },
     "talk.adrian.e.adrian-account": {
       "file": "assets/audio/talk.adrian.e.adrian-account.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 10.734,
+          "end": 11.021,
           "speaker": "Adrian Popescu",
-          "text": "Keep that she was leaving me. Keep that I offered the boxes. Those can both stay true. Please do not call the second proof that I was good about the first."
+          "text": "The boxes were real. I was going to help. I was also hoping she would see them and change her mind. I do not know which part you want me to make sound better."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 11.034,
-      "bytes": 88940,
-      "sha256": "b404e6c2f545a30f09476bddf555a195ab3367339cfa647549b4d1a5e163373c",
-      "scriptHash": "5547d930079a5fc1d5de1ffa599d0ae019a660e6a7a94edbf58b89ef4fe5f01c"
+      "duration": 11.321,
+      "bytes": 91244,
+      "sha256": "a8479b9a0acd3aaec97f89d99784fe14fe7d728c976a6b56be8922d9ba7ffa88",
+      "scriptHash": "424018135f601508c2f4ef4400fc783aa865f79c924f5fdca27f7cc6bd973205"
     },
     "talk.victor.open": {
       "file": "assets/audio/talk.victor.open.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 12.796,
+          "end": 15.461,
           "speaker": "Victor Neagu",
-          "text": "The licensing meeting was real. So was the audit condition. I have spent years making an unfinished thing sound as though it is nearly ready. That does not make every unfinished thing the same."
+          "text": "Before we start, I have sent the contract and the payment schedule. Originals, not a summary. I know how that sounds. There were six people waiting on that licence, Dima. I was trying to keep the work from disappearing. Yes, I put pressure on her."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 13.096,
-      "bytes": 105452,
-      "sha256": "413438ff59fc23831d19146d97d0a583971b5fc62fe883094c3edcb16d9f2f31",
-      "scriptHash": "0efd9f78789ce6bb4c3df29278158440e0f3a48f76bcf7f70a4cd28c3a854aae"
+      "duration": 15.761,
+      "bytes": 126764,
+      "sha256": "bb239427fa5a1787a38226695f6b1d5bc0fb36fc5e68ef42703c5cd4c86cd36b",
+      "scriptHash": "a1c5b06263f2fe30cda6b5e2e67dce3fdbac430537f9ab2d3ba62d55fd78d173"
     },
     "talk.victor.q0": {
       "file": "assets/audio/talk.victor.q0.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 10.075,
+          "end": 13.746,
           "speaker": "Victor Neagu",
-          "text": "Because postponement looks different on an invoice. I was afraid of losing the work, and I made that sound like the only responsibility in the room."
+          "text": "The venue had a date. The crew had invoices. Every time Iris said wait, I had to call someone and tell them it was not their fault they would not be paid yet. I used that against her. It does not excuse it."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 10.375,
-      "bytes": 83756,
-      "sha256": "e3403c4411f01c585f0d2df2c00705f78dad16afa97bee835278783a50d0950e",
-      "scriptHash": "a42b28e335b75355936a5ae5bf762ce540ccb2e7941b32fe33e2697f56341daa"
+      "duration": 14.046,
+      "bytes": 113132,
+      "sha256": "6d4218b38de4f512a50b6001bcc260b91136d066612f95742efb7309c6d3ec2b",
+      "scriptHash": "a3710b2430e64d0b161098903e6b08a6954d25e04ad7a4b8fe35a5f7d657e229"
     },
     "talk.victor.q1": {
       "file": "assets/audio/talk.victor.q1.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 10.61,
+          "end": 13.147,
           "speaker": "Victor Neagu",
-          "text": "A family-care payment in a production account. It should not have been there. The receiving provider has the original purpose. You do not have to take my word for it."
+          "text": "Home care. For my father. I put it through the production account because I had no money left in the other one. There. The provider can give you the hours and the name. My father does not know I did it that way."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 10.91,
-      "bytes": 87980,
-      "sha256": "7d178b4c6e08e37bca640a9c00e6739867fec654e891bbd1d7a14391697fe82f",
-      "scriptHash": "2ccc6c574ecd96ab4ef944923b98b87fd9f07e9034951776878510c159181d0e"
+      "duration": 13.447,
+      "bytes": 108332,
+      "sha256": "6690ebed232940c0dd8e2f39f602ddd8d920275f87927397a07fecb15ea1fc87",
+      "scriptHash": "5924f4e62621b516022aedefcda8d446c18769b9d67d74d6d0e805eeb0c20269"
     },
     "talk.victor.e.payment": {
       "file": "assets/audio/talk.victor.e.payment.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 8.369,
+          "end": 14.397,
           "speaker": "Victor Neagu",
-          "text": "It is a real concealment. It is not the purpose you first suspected. I know that distinction does not turn it into honesty."
+          "text": "That is the provider. CP-882. The original will match. I should have put the money back before anybody had to ask. Please keep my father\u2019s details out of the public copy if they are not needed."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 8.669,
-      "bytes": 70124,
-      "sha256": "6bf58a0740217084b9882aaa7af601a2f7baf4f86b4a53166fd313fd801af9d2",
-      "scriptHash": "32b404ce3f7e532e234cdd8856aa07d469025fecd30c07b56413987966d680d5"
+      "duration": 14.697,
+      "bytes": 118316,
+      "sha256": "01badc38e699d63336431b5924c545fae51e849bccb16fb895f56940e614e59a",
+      "scriptHash": "0b496af9718aa8fe5c0780e5c33834df93830bcee17805555d800897fde5cb2b"
     },
     "talk.victor.e.rider": {
       "file": "assets/audio/talk.victor.e.rider.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 6.631,
+          "end": 11.805,
           "speaker": "Victor Neagu",
-          "text": "She asked for somewhere to disagree that was not a room full of guests. We kept inviting guests."
+          "text": "She wanted the meeting postponed. I told her everyone would be there anyway and we could sort it out afterwards. In front of guests, she was never going to make a scene. I knew that."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 6.931,
-      "bytes": 56108,
-      "sha256": "4fcd13207dd0509029f51877d3c137d20ae23ad3ac11d47f9bd64bcc51c250d8",
-      "scriptHash": "625907077a216ccbdfd1ae558f8fb564f2d7909fd47d5bba9ce353a41216c9bf"
+      "duration": 12.105,
+      "bytes": 97580,
+      "sha256": "a2b67a7d24915f60d08b3f23f775d66e114e3f9b31e333c2f27cb272416db8ab",
+      "scriptHash": "c09e4d7d50300873a0d6cd2feb469cb4502455ea074b211df5437b91dc48de52"
     },
     "talk.luca.open": {
       "file": "assets/audio/talk.luca.open.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 10.816,
+          "end": 12.728,
           "speaker": "Luca Marin",
-          "text": "I signed the receiving copy. Julia kept the seal number. Delivery only. I know that sounds like making myself small, but it is the part I can actually tell you."
+          "text": "You have the delivery number? Good. I can remember the case because one wheel pulled to the left. I took it to the receiving desk, got the signature and went back to work. If you need the route, I can draw it."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 11.116,
-      "bytes": 89708,
-      "sha256": "5988b8ec5e771b78ab18ff033f361c983f65938c5c0c757798ed8befc1966ac1",
-      "scriptHash": "5b29800bb2c3ff21de47bce62c8f5e877e902172402759f392256ce581aae03f"
+      "duration": 13.028,
+      "bytes": 104876,
+      "sha256": "2056e382a149b409d8b78efb7e08a3feafa5ef1b57eb2c55e710f3e5598eca0f",
+      "scriptHash": "fe8f627ce8ef4b4737618dd147864e0c7d8deeafc8316d405ac22b4274523038"
     },
     "talk.luca.q0": {
       "file": "assets/audio/talk.luca.q0.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 7.001,
+          "end": 11.474,
           "speaker": "Luca Marin",
-          "text": "My break allowed it. I did not want my supervisor to turn a lawful delivery into a story about my whole life."
+          "text": "It was my break. Forty-two minutes out, then I badged back in. People at work heard police and decided I had been sneaking off. I was allowed to leave. Please check the roster."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 7.301,
-      "bytes": 59180,
-      "sha256": "b1146b2df9f47f57eec28091aa10d7073374a092f8d3fd6a2cda3f44dd85db23",
-      "scriptHash": "437971c0aff1eab88d445bba17154841462f39222ef6b3eb1dc90dc5a85ca496"
+      "duration": 11.774,
+      "bytes": 94892,
+      "sha256": "0e4a2b45c493dabbbeb2f516cbeb7d8d8a8b6872f27b5bb6a7a357088105ac3e",
+      "scriptHash": "19b20c985ab6056387370ab148895a0ce04cb4cc3f0d471713bc5100adc1237a"
     },
     "talk.luca.q1": {
       "file": "assets/audio/talk.luca.q1.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 7.207,
+          "end": 10.293,
           "speaker": "Luca Marin",
-          "text": "A sealed case with two rubber wheels. I did not open it. A wheel can leave a mark without becoming another person."
+          "text": "Black case. Two wheels. Seal 0416. Heavy on the right when you picked it up. I did not open it, and nobody paid me to keep quiet about it."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 7.507,
-      "bytes": 60716,
-      "sha256": "600ab0acbc0921fa668ee263b4e4c12a5d783b7762e7d10e812eb579746b2e93",
-      "scriptHash": "4bd9568ff5427dd918e8495c63f925191be68d9923be381ff885f4e9dea863f5"
+      "duration": 10.593,
+      "bytes": 85484,
+      "sha256": "9d63755f8de8ac60d37e3d20c27e76020c55edce9b208dd535aad99e424f5ae1",
+      "scriptHash": "89cb32a6e1d56f6aac4e6bc9aa120097e392bf3bab7b0c867ed6e02c35b5c11f"
     },
     "talk.luca.e.hotel-receipt": {
       "file": "assets/audio/talk.luca.e.hotel-receipt.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 7.715,
+          "end": 11.492,
           "speaker": "Luca Marin",
-          "text": "That is the signature I watched her make. I can tell you who received it. I cannot tell you what they said after I left."
+          "text": "Julia signed there. I watched her write it because I had to take my copy back. Iris was by the other chair. After that I left. I cannot tell you what they did in the room."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 8.015,
-      "bytes": 64748,
-      "sha256": "66f9d16f8ca1fa6a7f9e444526324614e049875a0d03d1e65c79dbb61c29cae2",
-      "scriptHash": "324633e51feb2e10743846d2db27d28d767c9e9f07b0e3d749f297f7709638f7"
+      "duration": 11.792,
+      "bytes": 95084,
+      "sha256": "b97bd15ba83e91a65881c23bf92dc3fb59fff97451c9276bba3cf977faa3fa9d",
+      "scriptHash": "6ade903005aca0c11d1fe464ac1a38922146e4554f8c3d0c5b2cc6a1987c15cf"
     },
     "talk.luca.e.trace": {
       "file": "assets/audio/talk.luca.e.trace.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 6.066,
+          "end": 11.585,
           "speaker": "Luca Marin",
-          "text": "Those are compatible marks, not a name. The receiving desk supplies something the sole cannot."
+          "text": "Those wheels, yes. The soles look like mine, but I am not the only person wearing work boots. Do you still need the boots? I have to tell my supervisor if I cannot use them."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 6.366,
-      "bytes": 51692,
-      "sha256": "57ef9003eff73a2d307386687a9610d7e3444c95cc38ce9ee121c196cfa63ec7",
-      "scriptHash": "2b8c1a2af7cc872643d96e6a9de0b46b4707354738a33130bfc6ea95ca0f17a5"
+      "duration": 11.885,
+      "bytes": 95852,
+      "sha256": "006fac716cbb683b8cf3522d7e7b7683eff3cd337578f1a8640622406dd4a3b2",
+      "scriptHash": "dc1bae9893a263882df72d7a2afd0046a31a4a74e339c25273c05fe92416f538"
     },
     "talk.julia.open": {
       "file": "assets/audio/talk.julia.open.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 15.538,
+          "end": 18.462,
           "speaker": "Julia Radu",
-          "text": "I kept the sources where she asked. I know that sounds like a very small thing to have done for someone. I have built a great deal of my life around believing it is not small."
+          "text": "I have brought the receiving copy. There are two versions because the custodian does not keep the only record. Iris understood that. She was careful about it. May I see which copy you are using?"
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 15.838,
-      "bytes": 127340,
-      "sha256": "9a5e14e5610872237d56647fa5362824c05447afa0353c4d706e82f32fcae89a",
-      "scriptHash": "4f3484ec83ac44bd3b8aa94b422906cefe06b336ae8a400ab9e3b35978234a72"
+      "duration": 18.762,
+      "bytes": 150764,
+      "sha256": "904c27ea125e92d000babb0beb1a3b1dd94c0124486372622c85f397a34fb849",
+      "scriptHash": "d9b75b400a66f196a0054d6c9492734fef135226953a137ee0f258ec738d2ff0"
     },
     "talk.julia.q0": {
       "file": "assets/audio/talk.julia.q0.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 14.343,
+          "end": 15.72,
           "speaker": "Julia Radu",
-          "text": "Both versions. Both names. I thought she was letting someone off. Perhaps she was trying to stop us deciding in advance whose account would survive."
+          "text": "The family original and the listening copy. Both. She was very clear. There is a difference between withdrawing a use and destroying its source. We agreed on that."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 14.643,
-      "bytes": 117932,
-      "sha256": "7765abe63398a242e9b44812d6610b56bb092682783d26f03f98af74fc9d27b2",
-      "scriptHash": "d2e987879f3697fdf7fb848bd297990918876809a9eac770a6008a3054662e23"
+      "duration": 16.02,
+      "bytes": 128876,
+      "sha256": "b67ef870301d4216f593ee5518e28f7a41ed16de4d53b57c2715e1a778c0f23c",
+      "scriptHash": "185d8dcd9cc5e7a6caf76f8ad51c58cea8688b97e8b08c1000fad3bf609e317e"
     },
     "talk.julia.q1": {
       "file": "assets/audio/talk.julia.q1.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 14.184,
+          "end": 17.704,
           "speaker": "Julia Radu",
-          "text": "I returned to the archive. I supplied my account. I would rather you compare its originals than let me describe them until they sound inevitable."
+          "text": "I returned to the archive. It is in my statement. If you need a departure time, compare it with the register; I do not want to give you a convenient minute and find I have made a mistake."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 14.484,
-      "bytes": 116588,
-      "sha256": "c7d43fe76ee3c3eadaa29afd022400daaf911d4a00c462fdd11562ea5a507f37",
-      "scriptHash": "fb198ba05f076e12c79ede628f4ea3fc779c87cc6643b4296f99d1094f1adc95"
+      "duration": 18.004,
+      "bytes": 144812,
+      "sha256": "502f76b2e06a7b9c29e64bb1f433fcc75169186416c92dc7eaa28264163c803e",
+      "scriptHash": "c956deedfbe85a84a842cafd497f237bbc435710cf59a203dd6ef18aa2397d36"
     },
     "talk.julia.q2": {
       "file": "assets/audio/talk.julia.q2.mp3",
       "segments": [
         {
           "start": 0.2,
-          "end": 13.214,
+          "end": 12.851,
           "speaker": "Julia Radu",
-          "text": "Because a correction without the earlier copy can become another kind of erasure. Keeping something is not the same as explaining it honestly."
+          "text": "So the next person can see what was corrected. Otherwise they have to take your word for it. I teach this. I have taught it for a long time."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 13.514,
-      "bytes": 108908,
-      "sha256": "2c595c4d52e0f47bf613fd3271fd669a0368227d31e1c69f48cf288d4d1dee93",
-      "scriptHash": "b7ddc799f86951e235002002991a0a4bab8fbb7cbca422791e726e5d68a403a2"
+      "duration": 13.151,
+      "bytes": 105836,
+      "sha256": "64613ba9dbb9d696b25ac972f5f4fb38d5e6df0c9a7ed398aed4f5aa0a97cad3",
+      "scriptHash": "e57e58d893587fecadd381097e7fd56f113d483b5a4316a115cc9321a6a48888"
     },
     "talk.julia.e.routing": {
       "file": "assets/audio/talk.julia.e.routing.mp3",
@@ -751,17 +751,17 @@
       "segments": [
         {
           "start": 0.2,
-          "end": 18.451,
+          "end": 11.293,
           "speaker": "Julia Radu",
-          "text": "That was my label batch. I cannot make that into an innocent fact by telling you I once gave her the bookend. You already know old contact and later action are not the same claim."
+          "text": "My batch number. Yes. I gave her that bookend long before any of this. That is not what you are asking, is it?"
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 18.751,
-      "bytes": 150764,
-      "sha256": "8756c408cb54228c0c2115bfd42c9c873e9134ee8d89c325dec2c3559379fd30",
-      "scriptHash": "3a7f2a4fbe34eb26018d7a0d467cbb04e07be9ffa6e8d6ffccd6106f79996df7"
+      "duration": 11.593,
+      "bytes": 93548,
+      "sha256": "13b87f34f9031b16a6c9968df7b5c2b069ad372852b559a141f969b89e50cc08",
+      "scriptHash": "42f5d39d628636747a90c92e78bcb21233de4995a528e1817b875f6eb06c9ad8"
     },
     "talk.julia.e.custody": {
       "file": "assets/audio/talk.julia.e.custody.mp3",
@@ -796,6 +796,57 @@
       "bytes": 243116,
       "sha256": "2e9edf188f746a02983f9dd90fa5324d02dcbc76b6ba8246d2f75078fe1b76f3",
       "scriptHash": "b99f26a24e1c92eb79c0a495fcd378e07a2955af2b081ab2b380fc4726cfc7e6"
+    },
+    "ending.julia.q0": {
+      "file": "assets/audio/ending.julia.q0.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 23.775,
+          "speaker": "Julia",
+          "text": "To let the correction have both our names on it. I had imagined losing everything, and she was still making room for me inside an honest account. I could not hear that as anything except being exposed. That was my choice. She did not make it for me."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 24.075,
+      "bytes": 193388,
+      "sha256": "53d8dd8f4dc724c5f3263412ac046838d99fbc1f82d8b9351a34b99cb0775e14",
+      "scriptHash": "fb8c64543a9d876cf8c817dfc0bda4981ef5d5fc36c016688bffd134c4c2a4c8"
+    },
+    "ending.julia.q1": {
+      "file": "assets/audio/ending.julia.q1.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 18.231,
+          "speaker": "Julia",
+          "text": "Yes. I want to tell it as one terrible instant. The records will not let me. There was time afterwards. I used it to protect the account I wanted people to hear instead of getting her help."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 18.531,
+      "bytes": 149036,
+      "sha256": "be69afa4b7da637f2be9500c8074a26f2fcf2fb84bf9737219aeb1729c590534",
+      "scriptHash": "80ec226ccfa7b706f496885cf9544606a9d1d96f588022194645d06a8ba07d65"
+    },
+    "ending.julia.q2": {
+      "file": "assets/audio/ending.julia.q2.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 20.274,
+          "speaker": "Julia",
+          "text": "You should not ask them to understand me. Tell them what you can establish. If there is something private she wanted returned, return it on her terms. I do not get to decide which part makes me easier to remember."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 20.574,
+      "bytes": 165356,
+      "sha256": "8dd315e8c83b109cf7e4416c13b70027d04abc0bd305cd388dcfad3de228d4b8",
+      "scriptHash": "9d4349d0869f5adaff62011323239d96a44eddbcc66c5edf37a6898c17573bec"
     }
   },
   "production": {

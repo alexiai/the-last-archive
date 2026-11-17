@@ -1,0 +1,37 @@
+name: Verify casework development edition
+on:
+  pull_request:
+    paths:
+      - 'casework/**'
+      - 'tools/rebuild/**'
+      - '.github/workflows/casework.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  casework:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CHROMIUM_PATH: /usr/bin/google-chrome
+      CASEWORK_URL: http://127.0.0.1:8092/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node tools/rebuild/test_engine.mjs && node tools/rebuild/test_media.mjs
+      - run: python3 tools/rebuild/build_casework.py --output "$RUNNER_TEMP/casework-build"
+      - name: Test the packaged static game
+        run: |
+          python3 -m http.server 8092 --bind 127.0.0.1 --directory "$RUNNER_TEMP/casework-build" > "$RUNNER_TEMP/casework-server.log" 2>&1 &
+          node tools/rebuild/test_browser.cjs
+          node tools/rebuild/test_campaign.cjs
+          node tools/rebuild/test_offline.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: THE_LAST_ARCHIVE_CASEWORK_DEVELOPMENT
+          path: ${{ runner.temp }}/casework-build/
+          retention-days: 3

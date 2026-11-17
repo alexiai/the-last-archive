@@ -526,4 +526,21 @@
     height: 35px;
   }
 }
-@media(max-width:700px){.device-screen input,.device-screen select,.device-screen textarea,.phone-search{font-size:16px}.calendar-grid button{min-height:44px}.device-system button{min-height:44px;min-width:44px}.retain-message{min-height:44px}}
+@media (max-width: 700px) {
+  .device-screen input,
+  .device-screen select,
+  .device-screen textarea,
+  .phone-search {
+    font-size: 16px;
+  }
+  .calendar-grid button {
+    min-height: 44px;
+  }
+  .device-system button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .retain-message {
+    min-height: 44px;
+  }
+}

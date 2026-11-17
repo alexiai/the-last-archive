@@ -12,6 +12,16 @@ const assert = require("node:assert/strict"),
   await page.setViewport({ width: 1365, height: 1000 });
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
+  const network = [];
+  if (process.env.NO_NETWORK === "1") {
+    await page.setRequestInterception(true);
+    page.on("request", (req) => {
+      if (req.url().startsWith("http") && !req.isNavigationRequest()) {
+        if (!req.url().endsWith("/favicon.ico")) network.push(req.url());
+        req.abort();
+      } else req.continue();
+    });
+  }
   await page.goto(
     process.env.CASEWORK_URL || "http://localhost:8091/casework/",
   );
@@ -131,6 +141,11 @@ const assert = require("node:assert/strict"),
     checks++;
   }
   assert.equal(errors.length, 0, errors.join(";"));
+  assert.equal(
+    network.length,
+    0,
+    "self-contained copy must not request external game assets",
+  );
   await browser.close();
   console.log(
     `${checks} complete-campaign UI checks passed across nine chapters, including reloads. Authored route; no playtime claim.`,

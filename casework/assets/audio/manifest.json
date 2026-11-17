@@ -768,17 +768,17 @@
       "segments": [
         {
           "start": 0.2,
-          "end": 15.016,
+          "end": 8.178,
           "speaker": "Julia Radu",
-          "text": "The receiving copy should have been outside my account. That is why there are duplicates. I used to say that as though the rule could only be needed for other people."
+          "text": "Please leave the signed copy on the table. I know what the time says. I need a moment."
         }
       ],
       "cue": null,
       "morse": false,
-      "duration": 15.316,
-      "bytes": 123308,
-      "sha256": "276feceb9dd509b38d516f95667d78be6ce7272ca7b4eaffb49c5047b5caca49",
-      "scriptHash": "34e009f772379dcce0759730271495f106370de73b1eb1b7c1f61a4fc2a29fb5"
+      "duration": 8.478,
+      "bytes": 68588,
+      "sha256": "e48564842157391849ed88887636d800ec5e51dfeaec6e85be137b08c07d350e",
+      "scriptHash": "d3081a6df23d274b71c5569893bcd06fca0776e08f9c45c93c2353f3f31bcb88"
     },
     "ending.julia": {
       "file": "assets/audio/ending.julia.mp3",

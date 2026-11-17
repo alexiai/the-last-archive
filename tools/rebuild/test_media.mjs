@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import assert from "node:assert/strict";
 import { CONTENT as C } from "../../casework/src/content.js";
@@ -12,6 +13,7 @@ const required = new Set([
   "hotel-4",
   "hotel-8",
 ]);
+for (const scene of C.scenes || []) required.add(scene.image);
 for (const s of Object.values(C.sources)) {
   if (s.image) required.add(s.image);
   assert.ok(
@@ -30,6 +32,12 @@ const manifest = JSON.parse(
 for (const [id, clip] of Object.entries(manifest.clips)) {
   const file = new URL(clip.file, root);
   assert.ok(fs.existsSync(file), "local recording exists");
+  assert.equal(
+    createHash("sha256").update(fs.readFileSync(file)).digest("hex"),
+    clip.sha256,
+    "recording matches reviewed manifest bytes",
+  );
+  checks++;
   assert.ok(
     clip.duration > 0 && clip.bytes > 100,
     "recording has actual audio",
@@ -43,6 +51,24 @@ for (const [id, t] of Object.entries(C.interviews)) {
   for (const source of Object.keys(t.present))
     assert.ok(manifest.clips["talk." + id + ".e." + source]);
 }
+const spoken = (id, text) => {
+  assert.equal(
+    manifest.clips[id]?.segments.map((s) => s.text).join("\n"),
+    text,
+    "finished recording script matches the implemented transcript",
+  );
+  checks++;
+};
+for (const [id, a] of Object.entries(C.audio))
+  if (a.lines.length) spoken(id, a.lines.map(([, t]) => t).join("\n"));
+for (const [id, t] of Object.entries(C.interviews)) {
+  spoken("talk." + id + ".open", t.opening);
+  t.questions.forEach(([, text], i) => spoken("talk." + id + ".q" + i, text));
+  for (const [source, text] of Object.entries(t.present))
+    spoken("talk." + id + ".e." + source, text);
+}
+spoken("ending.julia", C.ending.response);
+C.ending.questions.forEach(([, text], i) => spoken("ending.julia.q" + i, text));
 for (const p of C.puzzles)
   for (const id of p.sources)
     assert.ok(C.sources[id], "comparison source exists");

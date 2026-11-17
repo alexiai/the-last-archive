@@ -1,3 +1,4 @@
+import { asset, assetMarkup } from "./assets.js";
 import { GEOMETRY } from "./geometry.js";
 import {
   traceSheet,
@@ -29,7 +30,9 @@ function bindSources(el) {
 function render() {
   const s = E.state;
   if (!s.started) {
-    root.innerHTML = `<section class="title-screen"><div class="title-copy"><p class="eyebrow">AN INVESTIGATION IN NINE CHAPTERS</p><h1>THE LAST<br>ARCHIVE</h1><p>Some things survive because someone keeps them.<br>Others survive because someone refuses to let them go.</p>${button("Begin the investigation", 'id="begin"')}<small>A new narrative edition. Earlier editions and saves remain separate.</small></div></section>`;
+    root.innerHTML = assetMarkup(
+      `<section class="title-screen"><div class="title-copy"><p class="eyebrow">AN INVESTIGATION IN NINE CHAPTERS</p><h1>THE LAST<br>ARCHIVE</h1><p>Some things survive because someone keeps them.<br>Others survive because someone refuses to let them go.</p>${button("Begin the investigation", 'id="begin"')}<small>A new narrative edition. Earlier editions and saves remain separate.</small></div></section>`,
+    );
     document.querySelector("#begin").onclick = () => {
       E.newGame();
       render();
@@ -38,7 +41,9 @@ function render() {
   }
   if (s.intro < C.intro.length) {
     const i = C.intro[s.intro];
-    root.innerHTML = `<section class="briefing" style="--back:url('assets/world/${i.image || "opening-night"}.jpg')"><div class="briefing-copy">${i.portrait ? `<img class="briefing-portrait" src="assets/portraits/${i.portrait}.png" alt="${e(i.title)}">` : ""}<p class="eyebrow">${e(i.eyebrow)}</p><h1>${e(i.title)}</h1><p>${e(i.text)}</p>${i.audio ? button("Play briefing", 'id="briefing-play"') + `<details class="briefing-transcript"><summary>Recording transcript</summary><p>${e(C.audio[i.audio].lines.map(([who, text]) => who + ": " + text).join("\n"))}</p></details>` : ""}${button(s.intro === C.intro.length - 1 ? "Enter the apartment" : "Continue", 'id="continue"')}<small>${s.intro + 1} / ${C.intro.length} · Captions shown in full</small></div></section>`;
+    root.innerHTML = assetMarkup(
+      `<section class="briefing" style="--back:url('assets/world/${i.image || "opening-night"}.jpg')"><div class="briefing-copy">${i.portrait ? `<img class="briefing-portrait" src="assets/portraits/${i.portrait}.png" alt="${e(i.title)}">` : ""}<p class="eyebrow">${e(i.eyebrow)}</p><h1>${e(i.title)}</h1><p>${e(i.text)}</p>${i.audio ? button("Play briefing", 'id="briefing-play"') + `<details class="briefing-transcript"><summary>Recording transcript</summary><p>${e(C.audio[i.audio].lines.map(([who, text]) => who + ": " + text).join("\n"))}</p></details>` : ""}${button(s.intro === C.intro.length - 1 ? "Enter the apartment" : "Continue", 'id="continue"')}<small>${s.intro + 1} / ${C.intro.length} · Captions shown in full</small></div></section>`,
+    );
     document
       .querySelector("#briefing-play")
       ?.addEventListener("click", () => A.play(i.audio));
@@ -51,22 +56,24 @@ function render() {
     return;
   }
   const ch = C.chapters[s.chapter - 1];
-  root.innerHTML = `<section class="scene" aria-label="Investigation environment"><img class="scene-background" src="assets/world/${ch.location === "apartment" ? "scene-wide" : ch.location === "hotel" ? "hotel-4" : ch.location === "archive" ? "archive-room" : "station-desk"}.jpg" alt="${ch.location === "apartment" ? "Iris’s living room, preserved for examination" : e(ch.location) + " investigation workspace"}"><header class="game-heading"><span>THE LAST ARCHIVE</span><span>DETECTIVE DIMA · CASE 0416</span><button id="settings" aria-label="Settings and save">Settings / save</button></header><div class="scene-objective"><p class="eyebrow">CHAPTER ${s.chapter} / ${e(ch.title)}</p><h1>${s.chapter === 1 ? "A room. A life. A first question." : e(ch.title)}</h1><p>${e(ch.objective)}</p></div>${
-    ch.location === "apartment"
-      ? `<div class="scene-points">${[
-          ["scene-shelf", "The shelf", 71, 28],
-          ["scene-table", "The low table", 46, 64],
-          ["phone-object", "The phone", 82, 78],
-          ["scene-door", "The apartment door", 39, 23],
-          ["scene-wide", "Examine the room", 56, 46],
-        ]
-          .map(
-            ([id, label, x, y]) =>
-              `<button class="scene-point" data-geometry="${{ "scene-shelf": "shelf", "scene-table": "table", "phone-object": "phone", "scene-door": "door" }[id] || "overview"}" style="left:${x}%;top:${y}%" data-source="${id}"><span>+</span>${label}</button>`,
-          )
-          .join("")}</div>`
-      : ""
-  }<footer class="game-tools"><button id="casebook">${icon("book")}Casebook</button><button id="records">${icon("camera")}Records & examinations</button><button id="phone" ${!E.has("phone") ? "disabled" : ""}>${icon("phone")}Iris’s phone</button><button id="people">${icon("contacts")}Conversations</button></footer><div class="scene-caption">${ch.location === "apartment" ? "8 TEILOR STREET · ORIGINAL ROOM / BODY REMOVED" : e(ch.location.toUpperCase()) + " · RETAINED SOURCES"}</div></section>`;
+  root.innerHTML = assetMarkup(
+    `<section class="scene" aria-label="Investigation environment"><img class="scene-background" src="assets/world/${ch.location === "apartment" ? "scene-wide" : ch.location === "hotel" ? "hotel-4" : ch.location === "archive" ? "archive-room" : "station-desk"}.jpg" alt="${ch.location === "apartment" ? "Iris’s living room, preserved for examination" : e(ch.location) + " investigation workspace"}"><header class="game-heading"><span>THE LAST ARCHIVE</span><span>DETECTIVE DIMA · CASE 0416</span><button id="settings" aria-label="Settings and save">Settings / save</button></header><div class="scene-objective"><p class="eyebrow">CHAPTER ${s.chapter} / ${e(ch.title)}</p><h1>${s.chapter === 1 ? "A room. A life. A first question." : e(ch.title)}</h1><p>${e(ch.objective)}</p></div>${
+      ch.location === "apartment"
+        ? `<div class="scene-points">${[
+            ["scene-shelf", "The shelf", 71, 28],
+            ["scene-table", "The low table", 46, 64],
+            ["phone-object", "The phone", 82, 78],
+            ["scene-door", "The apartment door", 39, 23],
+            ["scene-wide", "Examine the room", 56, 46],
+          ]
+            .map(
+              ([id, label, x, y]) =>
+                `<button class="scene-point" data-geometry="${{ "scene-shelf": "shelf", "scene-table": "table", "phone-object": "phone", "scene-door": "door" }[id] || "overview"}" style="left:${x}%;top:${y}%" data-source="${id}"><span>+</span>${label}</button>`,
+            )
+            .join("")}</div>`
+        : ""
+    }<footer class="game-tools"><button id="casebook">${icon("book")}Casebook</button><button id="records">${icon("camera")}Records & examinations</button><button id="phone" ${!E.has("phone") ? "disabled" : ""}>${icon("phone")}Iris’s phone</button><button id="people">${icon("contacts")}Conversations</button></footer><div class="scene-caption">${ch.location === "apartment" ? "8 TEILOR STREET · ORIGINAL ROOM / BODY REMOVED" : e(ch.location.toUpperCase()) + " · RETAINED SOURCES"}</div></section>`,
+  );
   bindSources(root);
   const photo = root.querySelector(".scene-background");
   photo.onload = positionScenePoints;
@@ -152,8 +159,9 @@ function openSource(id) {
     });
     d.querySelector("#frame")?.addEventListener("change", (ev) => {
       frame = Number(ev.target.value);
-      d.querySelector("#original-image").src =
-        `assets/world/hotel-${frame}.jpg`;
+      d.querySelector("#original-image").src = asset(
+        `assets/world/hotel-${frame}.jpg`,
+      );
       d.querySelector(".camera-overlay").firstChild.textContent =
         "AURELIA / CAM 02 · 18 OCT " +
         { 0: "00:24:56", 4: "00:25:00", 8: "00:25:04" }[frame];
@@ -792,5 +800,4 @@ window.addEventListener("audio-error", () =>
     "This recording could not play. The full transcript remains available.",
   ),
 );
-await A.initAudio();
-render();
+A.initAudio().then(render);

@@ -1,3 +1,4 @@
+import { assetMarkup } from "./assets.js";
 import { CONTENT as C } from "./content.js";
 import { state, visible, has, observe, save } from "./engine.js";
 import { escape as e, icon, toast } from "./dom.js";
@@ -204,7 +205,7 @@ export class VictimPhone {
               `<button class="phone-row" data-source="audio.${id}"><span>${icon("recorder")}</span><span><b>${e(a.title)}</b><small>Open recording and original transcript</small></span></button>`,
           )
           .join("");
-    screen.innerHTML = html;
+    screen.innerHTML = assetMarkup(html);
     screen
       .querySelectorAll("[data-call]")
       .forEach((b) => (b.onclick = () => this.go("call", b.dataset.call)));
@@ -270,8 +271,9 @@ export class VictimPhone {
     const search = screen.querySelector("#phone-search");
     if (search)
       search.oninput = () => {
-        screen.querySelector("#phone-thread-results").innerHTML =
-          this.threadList(search.value);
+        screen.querySelector("#phone-thread-results").innerHTML = assetMarkup(
+          this.threadList(search.value),
+        );
         screen
           .querySelectorAll("[data-thread]")
           .forEach(

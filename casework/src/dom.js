@@ -1,3 +1,4 @@
+import { assetMarkup } from "./assets.js";
 export const escape = (value) =>
   String(value ?? "").replace(
     /[&<>"']/g,
@@ -31,9 +32,16 @@ export function toast(message) {
 export function modal(label, html, large = false) {
   const d = document.createElement("dialog");
   d.dataset.transient = "";
+  const nativeClose = d.close.bind(d);
+  d.close = (...args) => {
+    nativeClose(...args);
+    d.remove();
+  };
   d.className = large ? "evidence-dialog" : "paper-dialog";
   d.setAttribute("aria-label", label);
-  d.innerHTML = `<header class="dialog-heading"><span>${escape(label)}</span><button class="close-dialog" aria-label="Close inspection">×</button></header>${html}`;
+  d.innerHTML = assetMarkup(
+    `<header class="dialog-heading"><span>${escape(label)}</span><button class="close-dialog" aria-label="Close inspection">×</button></header>${html}`,
+  );
   document.body.appendChild(d);
   d.querySelector(".close-dialog").onclick = () => d.close();
   d.addEventListener("close", () => d.remove());

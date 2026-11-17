@@ -13,7 +13,7 @@ A working casebook supports notes, personal theories, supporting/contradicting/c
 ## Verified by automated checks
 
 - 180 authored-logic checks: all nine chapters, required-source availability, incorrect interpretations, marked-image scope, text alternatives, camera-frame requirements, sound-source inspection, save reconstruction, unsupported imports and preservation of earlier saves.
-- 56 complete-campaign UI checks: fresh opening to final record, reload after every comparison, all three final decisions, optional final questions, each aftermath and replaying the opening without resetting progress. This is an authored-solution regression, not a blind playthrough.
+- 57 complete-campaign UI checks: fresh opening to final record, reload after every comparison, all three final decisions, optional final questions, each aftermath and replaying the opening without resetting progress, and an explicitly confirmed fresh start. This is an authored-solution regression, not a blind playthrough.
 - 32 Chromium desktop/mobile interaction checks: phone navigation, messages, calendar, source retention, personal notes, theory roles, focus-independent persistence and layout overflow.
 - 18 Linux WebKit desktop/mobile checks: phone search, forensic magnification/input focus, calendar, chronology/source attachments and reloads. Linux WebKit is not a physical iPhone.
 - 317 media/source checks: source references, all 18 original views, recording bytes/hashes and correspondence between finished recording scripts and implemented transcripts.

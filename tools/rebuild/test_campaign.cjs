@@ -197,6 +197,17 @@ const assert = require("node:assert/strict"),
     "opening replay preserves completed progression",
   );
   checks++;
+  page.on("dialog", (dialog) => dialog.accept());
+  await page.click("#settings");
+  await page.click("#restart-case");
+  await page.waitForSelector("#continue");
+  const fresh = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("lastarchive.casework.v1")),
+  );
+  assert.equal(fresh.chapter, 1);
+  assert.equal(Object.keys(fresh.findings).length, 0);
+  assert.equal(fresh.observations.length, 0);
+  checks++;
   assert.equal(errors.length, 0, errors.join(";"));
   assert.equal(
     network.length,

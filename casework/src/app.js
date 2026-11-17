@@ -763,7 +763,7 @@ function ending() {
 function settings() {
   const d = modal(
     "Sound & saved investigation",
-    `<div class="settings"><label><input id="sound-enabled" type="checkbox" ${E.state.sound.enabled ? "checked" : ""}> Enable atmosphere and automatic interview voices</label><label>Recording volume<input id="volume" type="range" min="0" max="1" step=".05" value="${E.state.sound.volume}"></label><label>Atmosphere volume<input id="music-volume" type="range" min="0" max=".4" step=".02" value="${E.state.sound.music}"></label><p>This narrative edition saves separately on this browser. Download a backup before moving devices.</p><button id="export">Download save backup</button><label>Restore this edition’s backup<input id="import" type="file" accept="application/json"></label><p id="backup-feedback" role="status"></p><button id="replay-opening">Revisit opening briefing</button>${E.state.findings.confrontation ? '<button id="revisit-ending">Revisit final record</button>' : ""}</div>`,
+    `<div class="settings"><label><input id="sound-enabled" type="checkbox" ${E.state.sound.enabled ? "checked" : ""}> Enable atmosphere and automatic interview voices</label><label>Recording volume<input id="volume" type="range" min="0" max="1" step=".05" value="${E.state.sound.volume}"></label><label>Atmosphere volume<input id="music-volume" type="range" min="0" max=".4" step=".02" value="${E.state.sound.music}"></label><p>This narrative edition saves separately on this browser. Download a backup before moving devices.</p><button id="export">Download save backup</button><label>Restore this edition’s backup<input id="import" type="file" accept="application/json"></label><p id="backup-feedback" role="status"></p><button id="replay-opening">Revisit opening briefing</button><button id="restart-case">Start a fresh investigation</button>${E.state.findings.confrontation ? '<button id="revisit-ending">Revisit final record</button>' : ""}</div>`,
   );
   d.querySelector("#sound-enabled").onchange = (ev) =>
     A.setSound(ev.target.checked);
@@ -795,6 +795,21 @@ function settings() {
     E.state.intro = 0;
     E.save();
     d.close();
+    render();
+  };
+  d.querySelector("#restart-case").onclick = () => {
+    if (
+      !confirm(
+        "Begin a fresh investigation in this edition? This replaces its current save. Download a backup first if you want to keep this case. Earlier editions keep their separate saves.",
+      )
+    )
+      return;
+    A.setSound(false);
+    document.querySelectorAll("dialog").forEach((dialog) => dialog.close());
+    phone.history = [];
+    phone.route = "lock";
+    phone.argument = null;
+    E.newGame();
     render();
   };
   d.querySelector("#revisit-ending")?.addEventListener("click", ending);

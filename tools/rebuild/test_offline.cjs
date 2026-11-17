@@ -34,7 +34,8 @@ const assert = require("node:assert/strict"),
   assert.ok(await p.$(".app-thread"), "phone restores offline");
   assert.ok(
     await p.evaluate(async () => {
-      const r = await fetch("assets/audio/briefing.mp3");
+      const manifest = await (await fetch("assets/audio/manifest.json")).json();
+      const r = await fetch(manifest.clips.briefing.file);
       return r.ok && (await r.arrayBuffer()).byteLength > 1000;
     }),
     "actual recording cached offline",

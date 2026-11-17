@@ -1,0 +1,807 @@
+{
+  "clips": {
+    "briefing": {
+      "file": "assets/audio/briefing.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 16.143,
+          "speaker": "Captain Pavel",
+          "text": "Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else\u2019s conclusion. Start with the room. Nadia is waiting downstairs."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 16.443,
+      "bytes": 132332,
+      "sha256": "fc1c2a41d0ad7997f1acb56578fb0bfbe6c7ccaa9dbd6b32169ca5756a902b6f",
+      "scriptHash": "b17118b8ef1718f8044792767f108df107b2775702b9f56ef6313b27b8f41a54"
+    },
+    "voicemail-elena": {
+      "file": "assets/audio/voicemail-elena.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 8.305,
+          "speaker": "Elena",
+          "text": "It is me. I know you said not to do the rest of it by message. I am not trying to. Just tell me you are awake. You can be angry afterwards."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 8.605,
+      "bytes": 69548,
+      "sha256": "b9bfa2d78b70705e54cdfb054cf450410cd412749b1d70b1ad7729c84c782839",
+      "scriptHash": "10c581d2377539a782b814c1ccda1b04a61b0c5cbb2ed1b8e95d26b0af8a7b21"
+    },
+    "room-note": {
+      "file": "assets/audio/room-note.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 12.466,
+          "speaker": "Iris",
+          "text": "I finally moved the sofa. It turns out you can change a room without replacing everything in it. Do not let me make that into a statement for the wall. I mean the chairs can face each other now. That is all."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 12.766,
+      "bytes": 102764,
+      "sha256": "b8e83b18af40825b4bd164f0ff7ede43511ff5a17d6246838dfb723e17696415",
+      "scriptHash": "0d1aa72e9f4fcf0a1e4b353b763257bdeb99784130b36436f7754add1e479a12"
+    },
+    "slate": {
+      "file": "assets/audio/slate.mp3",
+      "segments": [],
+      "cue": null,
+      "morse": true,
+      "duration": 10.44,
+      "bytes": 84140,
+      "sha256": "de9b73101b015337b1dc86dc7f2c15e2940f33d00929b7509f021bd563d76539",
+      "scriptHash": "272ddce4b354e7e925591e61c2cf8f61df111cd4eb08982c2f5e9182ee940d23"
+    },
+    "apartment-reference": {
+      "file": "assets/audio/apartment-reference.mp3",
+      "segments": [],
+      "cue": "clock",
+      "morse": false,
+      "duration": 8.2,
+      "bytes": 66284,
+      "sha256": "71d21e2e8bb22c1324fab7ffceeaa888deacbfa9f3ab8759e17eb8f8cbf58304",
+      "scriptHash": "689b486e5843cc43ca84fe120f487ccf076e6b0d267b9464518a42b165cd6245"
+    },
+    "hotel-reference": {
+      "file": "assets/audio/hotel-reference.mp3",
+      "segments": [],
+      "cue": "lift",
+      "morse": false,
+      "duration": 8.2,
+      "bytes": 66284,
+      "sha256": "0f3a8ef80fddcde4ffd61165ad92ee7f025c2a397bcd37d42408214ab3c2db49",
+      "scriptHash": "368206bdbda0b50c5855f0e24b924821cd34a511799e92475b004edf471677cd"
+    },
+    "reassurance": {
+      "file": "assets/audio/reassurance.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 10.185,
+          "speaker": "Unknown voice",
+          "text": "She is settled now. She does not want an ambulance. Leave it until morning. I will keep the copy here."
+        }
+      ],
+      "cue": "clock",
+      "morse": false,
+      "duration": 10.485,
+      "bytes": 84524,
+      "sha256": "9eed35a0502023f2cf00174c86742a9ed7578fc5fe23617992b25b1067bc218a",
+      "scriptHash": "9d12c1a41f1bc9262d067f9aab3a77cce066963ec700a7aaebd8c64b0bb49c67"
+    },
+    "room-original": {
+      "file": "assets/audio/room-original.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 4.018,
+          "speaker": "Iris",
+          "text": "You can keep it private. But you cannot keep calling it my choice."
+        },
+        {
+          "start": 4.318,
+          "end": 6.684,
+          "speaker": "Julia",
+          "text": "I cannot let them hear it like that."
+        },
+        {
+          "start": 6.984,
+          "end": 11.953,
+          "speaker": "Iris",
+          "text": "Them, or me? We can say what we did without handing her whole life to strangers."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 12.253,
+      "bytes": 98732,
+      "sha256": "f1267d18d7315c124f2f7af38868b471aa44f2e27925b9ee5e4367f455bf57cc",
+      "scriptHash": "cbcd543252a3af28baa0ef3b28a0c08d19d50e3077409a495e6b074468376342"
+    },
+    "family-fragment": {
+      "file": "assets/audio/family-fragment.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 5.002,
+          "speaker": "Ana",
+          "text": "Then announce that the potatoes are ready. And stop both of you making that face at me."
+        },
+        {
+          "start": 5.302,
+          "end": 7.149,
+          "speaker": "Elena",
+          "text": "Nobody can hear a face."
+        },
+        {
+          "start": 7.449,
+          "end": 8.608,
+          "speaker": "Ana",
+          "text": "I can."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 8.908,
+      "bytes": 72044,
+      "sha256": "fb7ce140b8958cc58d4bdd24bdc110bc71d494bcb1f7bd0f03076d935bd932af",
+      "scriptHash": "a9a2187ce69e82a6847ba7f9bf5b62aff1735ea872816215c4a45437007550c4"
+    },
+    "assembly": {
+      "file": "assets/audio/assembly.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 1.715,
+          "speaker": "Ana",
+          "text": "Leave the light on."
+        },
+        {
+          "start": 2.015,
+          "end": 3.827,
+          "speaker": "Ana",
+          "text": "I am not angry with you."
+        },
+        {
+          "start": 4.127,
+          "end": 6.111,
+          "speaker": "Ana",
+          "text": "Stop the recorder for a minute."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 6.411,
+      "bytes": 52076,
+      "sha256": "904392e75c22e4e6109962d1317abcecec169980008fe01ab94f33b06bb296a2",
+      "scriptHash": "4e6e74f517f455371c9657f2c4770236c42adf3e0462d896de905b1b652190a1"
+    },
+    "apology": {
+      "file": "assets/audio/apology.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 9.959,
+          "speaker": "Iris",
+          "text": "I keep trying to find the right version. There was a good evening. There was an argument. You were there. I was there. I do not want to choose which one gets to have happened."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 10.259,
+      "bytes": 82796,
+      "sha256": "4a8f0cf37a1889e2d62b703692d8545a3e2c5f52f51d461a199ab4d9151a885c",
+      "scriptHash": "3881cf6e3d148df69280ef82ff6f75d32a464b1d3dce43e5488b6e3d357c808c"
+    },
+    "talk.mara.open": {
+      "file": "assets/audio/talk.mara.open.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 9.883,
+          "speaker": "Mara Ionescu",
+          "text": "I was going to make coffee and realised I would ask how she took it. I have known her for sixteen years. There are apparently still ways for the morning to surprise you."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 10.183,
+      "bytes": 82220,
+      "sha256": "096ce98744db4f97ed0b185edef2cbffe727f4ad6dc22166b1efdc94095c114d",
+      "scriptHash": "549deb421dd493e45a8d6976cf1c0cd758e5a7667e0d89f9584d4cf9dde37102"
+    },
+    "talk.mara.q0": {
+      "file": "assets/audio/talk.mara.q0.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 16.549,
+          "speaker": "Mara Ionescu",
+          "text": "We had a caf\u00e9 with chairs so uncomfortable nobody could turn lunch into an entire business strategy. She once ordered a sandwich so large I was allowed to discuss structural integrity. I keep remembering her trying not to laugh with a mouth full of bread."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 16.849,
+      "bytes": 135596,
+      "sha256": "2a14e501e6399b627b9342bc946b163603ec15b12bebff4aecbfbec624b20557",
+      "scriptHash": "7fe05847b0c878814f4898638065ab859e8cba0d95bcf5f14c000865d24c0d9a"
+    },
+    "talk.mara.q1": {
+      "file": "assets/audio/talk.mara.q1.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 11.761,
+          "speaker": "Mara Ionescu",
+          "text": "A listening copy. Something Elena could leave playing without bracing for the next sentence. I understood that too well. Later I wanted people to think I had found it, not assembled it."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 12.061,
+      "bytes": 97196,
+      "sha256": "b4d1eb35ad612c5b688742753fd9ac60780bbd339656ee1e6865c6d00d52ec3a",
+      "scriptHash": "0bfdc0f1b9dda4d8165c80d17d70f0ed8765c4b30fcee1eb96afd8aa4e7d3833"
+    },
+    "talk.mara.q2": {
+      "file": "assets/audio/talk.mara.q2.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 8.487,
+          "speaker": "Mara Ionescu",
+          "text": "Yes. She asked if I had kept the version before we made it kind. I said yes. It is a very small word to remember this often."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 8.787,
+      "bytes": 71084,
+      "sha256": "334d98caf5e7a4967d8b0b4d61c70dd2e5e35165155dae8ff54a318cace8cc06",
+      "scriptHash": "12f7e357ee5c8d4089e292491c62094c5e196c670a4fd053b9ff9690bc0e2651"
+    },
+    "talk.mara.e.programme": {
+      "file": "assets/audio/talk.mara.e.programme.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 11.462,
+          "speaker": "Mara Ionescu",
+          "text": "Nobody made me type original instead of restored. When she stopped defending it, I thought she had abandoned what we made together. I did not ask if she was trying to come back to it honestly."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 11.762,
+      "bytes": 94892,
+      "sha256": "609604d1c7b6459ac41c37e90fff4335e01c1c65eacb6f9a3548fb91d44447e6",
+      "scriptHash": "f24701b36f4b4aec74f37324616271758f18438d72d28c9b3808b09925730e0c"
+    },
+    "talk.mara.e.transfer": {
+      "file": "assets/audio/talk.mara.e.transfer.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 9.266,
+          "speaker": "Mara Ionescu",
+          "text": "I queued it after the rehearsal. The retry happened without me. Keep the capture and delivery fields separate, even if I wanted them to look simpler."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 9.566,
+      "bytes": 77228,
+      "sha256": "75c7029dc685976651d6648f122f973bd954a6c3ceea17de31a30580f3a36ea8",
+      "scriptHash": "4186197ca3b4ab8178d1eee60fb08659cdd79acbfacdc21128087706c888f05f"
+    },
+    "talk.mara.e.audio.reassurance": {
+      "file": "assets/audio/talk.mara.e.audio.reassurance.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 8.391,
+          "speaker": "Mara Ionescu",
+          "text": "I heard an adult saying she would stay. I needed that to mean someone was helping. I was not in the room. I did not hear a dispatcher."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 8.691,
+      "bytes": 70316,
+      "sha256": "16fbe4fed51cdeff5c7da923ecedb0aa5124e65a5024cfe0dda8f9e844438b44",
+      "scriptHash": "540bb5ddae74feed722ac87d67e5848cbf33a8f7694d7e373d100aa2971b8bf2"
+    },
+    "talk.elena.open": {
+      "file": "assets/audio/talk.elena.open.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 9.787,
+          "speaker": "Elena Vasilescu",
+          "text": "I keep putting two cups out. Then I am furious with myself, as if it is a trick I am playing. You do not need that in your report. I just needed to say it somewhere."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 10.087,
+      "bytes": 81452,
+      "sha256": "d825a636e49794e4bde382559121fb10952c9ccfd65019d0228508869ff8aa0e",
+      "scriptHash": "775134d5d781164b0d8a0748e03089841aa18c73d4d536ed63dfd462704a34ee"
+    },
+    "talk.elena.q0": {
+      "file": "assets/audio/talk.elena.q0.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 9.383,
+          "speaker": "Elena Vasilescu",
+          "text": "There is a version I can listen to while I make tea. I know it is not the whole evening. I was there. I wanted one thing that did not make me wait for the argument."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 9.683,
+      "bytes": 78188,
+      "sha256": "3c09e2a4b7e3942988d74b10d53e04f310613d84e6d2d07ac70d6e473a438e05",
+      "scriptHash": "4ab2e44d8bb9636fc619934e47be50ccd7bcf27427831ed7c07d6aa300884c16"
+    },
+    "talk.elena.q1": {
+      "file": "assets/audio/talk.elena.q1.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 9.466,
+          "speaker": "Elena Vasilescu",
+          "text": "We argued. I left. I do not have a sentence that makes those facts sound kinder. I thought we could do it tomorrow because she had asked me to keep the recipe cards."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 9.766,
+      "bytes": 78764,
+      "sha256": "6adc32460483cabb19a3f1fc0e326eee2c04fc3ace09d11b15d98c97fb0aa27f",
+      "scriptHash": "bad5fa50ae722fe6deed1ee096d8eb0cc7c8a0b89caa26fe777174472823134c"
+    },
+    "talk.elena.q2": {
+      "file": "assets/audio/talk.elena.q2.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 8.945,
+          "speaker": "Elena Vasilescu",
+          "text": "She kept saying we could keep something without saying it happened exactly that way. I heard the first half as a promise and the second as her taking it back."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 9.245,
+      "bytes": 74732,
+      "sha256": "9536caecacd1cff9eabe92c04f2f18378b91767835590041430e51ca2c5b3505",
+      "scriptHash": "20bc90379ab42f9386dc3815c8027c793bb68aa426559c74a09e4be02490c8b1"
+    },
+    "talk.elena.e.room-prepared": {
+      "file": "assets/audio/talk.elena.e.room-prepared.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 8.221,
+          "speaker": "Elena Vasilescu",
+          "text": "She had moved everything so we could look at each other. I thought she was preparing to win. I did not ask whether she was just trying to sit beside me."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 8.521,
+      "bytes": 68972,
+      "sha256": "dc4499a591a410eb3df59b8edad9030493a70642c219fd9c9bac8356d99962e2",
+      "scriptHash": "d4ba173318c10f60fad890b5f118cb8ec97d8cfb0f50f6ac9f03898137aba1c9"
+    },
+    "talk.elena.e.routing": {
+      "file": "assets/audio/talk.elena.e.routing.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 8.849,
+          "speaker": "Elena Vasilescu",
+          "text": "The personal envelope was for me. That does not mean I am the audience for everyone else\u2019s truth. I understand the distinction better now than I did then."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 9.149,
+      "bytes": 73964,
+      "sha256": "2bdf48438611fd5ff18e7d444003cd3d685ce82ce164f795945c8aa2ce3fa042",
+      "scriptHash": "fc9f98e04c502ac540400b53f5dd6845acefbf969db6c6bd944ac59a6a21e707"
+    },
+    "talk.adrian.open": {
+      "file": "assets/audio/talk.adrian.open.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 9.158,
+          "speaker": "Adrian Popescu",
+          "text": "She was exhausted. We had been arguing. I wanted people to know that because it was easier than telling them what we were arguing about."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 9.458,
+      "bytes": 76460,
+      "sha256": "62fcec7683aa3c3b308d9547004f26765127c4a46c42d00c769ea82ebe5eb17b",
+      "scriptHash": "14dcfe28f0f5504b47a32e4b988b1d183e7ce56f950cefee99f56ddae4dbfc55"
+    },
+    "talk.adrian.q0": {
+      "file": "assets/audio/talk.adrian.q0.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 8.661,
+          "speaker": "Adrian Popescu",
+          "text": "Yes. She asked me to bring boxes. I kept calling it a bad week. That sounded less like a decision she had made without me."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 8.961,
+      "bytes": 72428,
+      "sha256": "1d60e4e0ce274ae852b0aa7931a8261d251e9bc4da25c6b1e98056ffc3c6ee59",
+      "scriptHash": "44acd95ab46b3f4920a727cda3c7b38730719560d32881cd0f2bb0a4c7bdc5ba"
+    },
+    "talk.adrian.q1": {
+      "file": "assets/audio/talk.adrian.q1.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 10.354,
+          "speaker": "Adrian Popescu",
+          "text": "I saw her at the gathering. I did not see what happened in the apartment. I should have learned to say the second sentence before I tried to explain the first."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 10.654,
+      "bytes": 85868,
+      "sha256": "f708c3aec5d32893162cb08fa8bd77dd99591a53eb1c7da635ec55fe5413dd3e",
+      "scriptHash": "3b65e47406d37a5878e1c914b91505871f12573023b2132c9a764557e8dab838"
+    },
+    "talk.adrian.e.adrian-account": {
+      "file": "assets/audio/talk.adrian.e.adrian-account.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 10.734,
+          "speaker": "Adrian Popescu",
+          "text": "Keep that she was leaving me. Keep that I offered the boxes. Those can both stay true. Please do not call the second proof that I was good about the first."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 11.034,
+      "bytes": 88940,
+      "sha256": "b404e6c2f545a30f09476bddf555a195ab3367339cfa647549b4d1a5e163373c",
+      "scriptHash": "5547d930079a5fc1d5de1ffa599d0ae019a660e6a7a94edbf58b89ef4fe5f01c"
+    },
+    "talk.victor.open": {
+      "file": "assets/audio/talk.victor.open.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 12.796,
+          "speaker": "Victor Neagu",
+          "text": "The licensing meeting was real. So was the audit condition. I have spent years making an unfinished thing sound as though it is nearly ready. That does not make every unfinished thing the same."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 13.096,
+      "bytes": 105452,
+      "sha256": "413438ff59fc23831d19146d97d0a583971b5fc62fe883094c3edcb16d9f2f31",
+      "scriptHash": "0efd9f78789ce6bb4c3df29278158440e0f3a48f76bcf7f70a4cd28c3a854aae"
+    },
+    "talk.victor.q0": {
+      "file": "assets/audio/talk.victor.q0.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 10.075,
+          "speaker": "Victor Neagu",
+          "text": "Because postponement looks different on an invoice. I was afraid of losing the work, and I made that sound like the only responsibility in the room."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 10.375,
+      "bytes": 83756,
+      "sha256": "e3403c4411f01c585f0d2df2c00705f78dad16afa97bee835278783a50d0950e",
+      "scriptHash": "a42b28e335b75355936a5ae5bf762ce540ccb2e7941b32fe33e2697f56341daa"
+    },
+    "talk.victor.q1": {
+      "file": "assets/audio/talk.victor.q1.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 10.61,
+          "speaker": "Victor Neagu",
+          "text": "A family-care payment in a production account. It should not have been there. The receiving provider has the original purpose. You do not have to take my word for it."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 10.91,
+      "bytes": 87980,
+      "sha256": "7d178b4c6e08e37bca640a9c00e6739867fec654e891bbd1d7a14391697fe82f",
+      "scriptHash": "2ccc6c574ecd96ab4ef944923b98b87fd9f07e9034951776878510c159181d0e"
+    },
+    "talk.victor.e.payment": {
+      "file": "assets/audio/talk.victor.e.payment.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 8.369,
+          "speaker": "Victor Neagu",
+          "text": "It is a real concealment. It is not the purpose you first suspected. I know that distinction does not turn it into honesty."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 8.669,
+      "bytes": 70124,
+      "sha256": "6bf58a0740217084b9882aaa7af601a2f7baf4f86b4a53166fd313fd801af9d2",
+      "scriptHash": "32b404ce3f7e532e234cdd8856aa07d469025fecd30c07b56413987966d680d5"
+    },
+    "talk.victor.e.rider": {
+      "file": "assets/audio/talk.victor.e.rider.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 6.631,
+          "speaker": "Victor Neagu",
+          "text": "She asked for somewhere to disagree that was not a room full of guests. We kept inviting guests."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 6.931,
+      "bytes": 56108,
+      "sha256": "4fcd13207dd0509029f51877d3c137d20ae23ad3ac11d47f9bd64bcc51c250d8",
+      "scriptHash": "625907077a216ccbdfd1ae558f8fb564f2d7909fd47d5bba9ce353a41216c9bf"
+    },
+    "talk.luca.open": {
+      "file": "assets/audio/talk.luca.open.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 10.816,
+          "speaker": "Luca Marin",
+          "text": "I signed the receiving copy. Julia kept the seal number. Delivery only. I know that sounds like making myself small, but it is the part I can actually tell you."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 11.116,
+      "bytes": 89708,
+      "sha256": "5988b8ec5e771b78ab18ff033f361c983f65938c5c0c757798ed8befc1966ac1",
+      "scriptHash": "5b29800bb2c3ff21de47bce62c8f5e877e902172402759f392256ce581aae03f"
+    },
+    "talk.luca.q0": {
+      "file": "assets/audio/talk.luca.q0.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 7.001,
+          "speaker": "Luca Marin",
+          "text": "My break allowed it. I did not want my supervisor to turn a lawful delivery into a story about my whole life."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 7.301,
+      "bytes": 59180,
+      "sha256": "b1146b2df9f47f57eec28091aa10d7073374a092f8d3fd6a2cda3f44dd85db23",
+      "scriptHash": "437971c0aff1eab88d445bba17154841462f39222ef6b3eb1dc90dc5a85ca496"
+    },
+    "talk.luca.q1": {
+      "file": "assets/audio/talk.luca.q1.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 7.207,
+          "speaker": "Luca Marin",
+          "text": "A sealed case with two rubber wheels. I did not open it. A wheel can leave a mark without becoming another person."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 7.507,
+      "bytes": 60716,
+      "sha256": "600ab0acbc0921fa668ee263b4e4c12a5d783b7762e7d10e812eb579746b2e93",
+      "scriptHash": "4bd9568ff5427dd918e8495c63f925191be68d9923be381ff885f4e9dea863f5"
+    },
+    "talk.luca.e.hotel-receipt": {
+      "file": "assets/audio/talk.luca.e.hotel-receipt.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 7.715,
+          "speaker": "Luca Marin",
+          "text": "That is the signature I watched her make. I can tell you who received it. I cannot tell you what they said after I left."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 8.015,
+      "bytes": 64748,
+      "sha256": "66f9d16f8ca1fa6a7f9e444526324614e049875a0d03d1e65c79dbb61c29cae2",
+      "scriptHash": "324633e51feb2e10743846d2db27d28d767c9e9f07b0e3d749f297f7709638f7"
+    },
+    "talk.luca.e.trace": {
+      "file": "assets/audio/talk.luca.e.trace.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 6.066,
+          "speaker": "Luca Marin",
+          "text": "Those are compatible marks, not a name. The receiving desk supplies something the sole cannot."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 6.366,
+      "bytes": 51692,
+      "sha256": "57ef9003eff73a2d307386687a9610d7e3444c95cc38ce9ee121c196cfa63ec7",
+      "scriptHash": "2b8c1a2af7cc872643d96e6a9de0b46b4707354738a33130bfc6ea95ca0f17a5"
+    },
+    "talk.julia.open": {
+      "file": "assets/audio/talk.julia.open.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 15.538,
+          "speaker": "Julia Radu",
+          "text": "I kept the sources where she asked. I know that sounds like a very small thing to have done for someone. I have built a great deal of my life around believing it is not small."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 15.838,
+      "bytes": 127340,
+      "sha256": "9a5e14e5610872237d56647fa5362824c05447afa0353c4d706e82f32fcae89a",
+      "scriptHash": "4f3484ec83ac44bd3b8aa94b422906cefe06b336ae8a400ab9e3b35978234a72"
+    },
+    "talk.julia.q0": {
+      "file": "assets/audio/talk.julia.q0.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 14.343,
+          "speaker": "Julia Radu",
+          "text": "Both versions. Both names. I thought she was letting someone off. Perhaps she was trying to stop us deciding in advance whose account would survive."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 14.643,
+      "bytes": 117932,
+      "sha256": "7765abe63398a242e9b44812d6610b56bb092682783d26f03f98af74fc9d27b2",
+      "scriptHash": "d2e987879f3697fdf7fb848bd297990918876809a9eac770a6008a3054662e23"
+    },
+    "talk.julia.q1": {
+      "file": "assets/audio/talk.julia.q1.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 14.184,
+          "speaker": "Julia Radu",
+          "text": "I returned to the archive. I supplied my account. I would rather you compare its originals than let me describe them until they sound inevitable."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 14.484,
+      "bytes": 116588,
+      "sha256": "c7d43fe76ee3c3eadaa29afd022400daaf911d4a00c462fdd11562ea5a507f37",
+      "scriptHash": "fb198ba05f076e12c79ede628f4ea3fc779c87cc6643b4296f99d1094f1adc95"
+    },
+    "talk.julia.q2": {
+      "file": "assets/audio/talk.julia.q2.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 13.214,
+          "speaker": "Julia Radu",
+          "text": "Because a correction without the earlier copy can become another kind of erasure. Keeping something is not the same as explaining it honestly."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 13.514,
+      "bytes": 108908,
+      "sha256": "2c595c4d52e0f47bf613fd3271fd669a0368227d31e1c69f48cf288d4d1dee93",
+      "scriptHash": "b7ddc799f86951e235002002991a0a4bab8fbb7cbca422791e726e5d68a403a2"
+    },
+    "talk.julia.e.routing": {
+      "file": "assets/audio/talk.julia.e.routing.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 19.121,
+          "speaker": "Julia Radu",
+          "text": "She asked if two envelopes could be put together. Then she said that was precisely what she was trying to stop us doing. I understood the instruction. I have no good reason for pretending I did not."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 19.421,
+      "bytes": 156140,
+      "sha256": "ebb62909481ab3b7a4db71bda7843736a648158c64f0df0dc29e64e38d0beb84",
+      "scriptHash": "fa4984c75e4d11e190ca6a161859f9fa1bc6d1f8f256aeef4fd3a6b19e4127d1"
+    },
+    "talk.julia.e.object-report": {
+      "file": "assets/audio/talk.julia.e.object-report.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 18.451,
+          "speaker": "Julia Radu",
+          "text": "That was my label batch. I cannot make that into an innocent fact by telling you I once gave her the bookend. You already know old contact and later action are not the same claim."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 18.751,
+      "bytes": 150764,
+      "sha256": "8756c408cb54228c0c2115bfd42c9c873e9134ee8d89c325dec2c3559379fd30",
+      "scriptHash": "3a7f2a4fbe34eb26018d7a0d467cbb04e07be9ffa6e8d6ffccd6106f79996df7"
+    },
+    "talk.julia.e.custody": {
+      "file": "assets/audio/talk.julia.e.custody.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 15.016,
+          "speaker": "Julia Radu",
+          "text": "The receiving copy should have been outside my account. That is why there are duplicates. I used to say that as though the rule could only be needed for other people."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 15.316,
+      "bytes": 123308,
+      "sha256": "276feceb9dd509b38d516f95667d78be6ce7272ca7b4eaffb49c5047b5caca49",
+      "scriptHash": "34e009f772379dcce0759730271495f106370de73b1eb1b7c1f61a4fc2a29fb5"
+    },
+    "ending.julia": {
+      "file": "assets/audio/ending.julia.mp3",
+      "segments": [
+        {
+          "start": 0.2,
+          "end": 29.995,
+          "speaker": "Julia",
+          "text": "I kept saying I never changed an original. As though that were the whole of what someone had asked me to do. She was trying to ask me to say it with both our names still there. I wanted to be the person who decided how it could be heard. When she would not let me, I hurt her. What I did afterwards was not the room misunderstanding me. It was me."
+        }
+      ],
+      "cue": null,
+      "morse": false,
+      "duration": 30.295,
+      "bytes": 243116,
+      "sha256": "2e9edf188f746a02983f9dd90fa5324d02dcbc76b6ba8246d2f75078fe1b76f3",
+      "scriptHash": "b99f26a24e1c92eb79c0a495fcd378e07a2955af2b081ab2b380fc4726cfc7e6"
+    }
+  },
+  "production": {
+    "model": "Kokoro 82M / local CPU",
+    "language": "English",
+    "runtimeInference": false,
+    "licences": "Apache-2.0 model / MIT kokoro-onnx"
+  }
+}

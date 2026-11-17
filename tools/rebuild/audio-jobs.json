@@ -1,0 +1,478 @@
+[
+  {
+    "id": "briefing",
+    "lines": [
+      {
+        "who": "Captain Pavel",
+        "text": "Dima. You are taking the Teilor Street case. Iris Vasilescu was found in her living room yesterday morning. The preliminary report cannot explain the injury as a simple fall. You are not being sent to tidy up someone else’s conclusion. Start with the room. Nadia is waiting downstairs.",
+        "voice": "bm_daniel"
+      }
+    ]
+  },
+  {
+    "id": "voicemail-elena",
+    "lines": [
+      {
+        "who": "Elena",
+        "text": "It is me. I know you said not to do the rest of it by message. I am not trying to. Just tell me you are awake. You can be angry afterwards.",
+        "voice": "bf_emma"
+      }
+    ]
+  },
+  {
+    "id": "room-note",
+    "lines": [
+      {
+        "who": "Iris",
+        "text": "I finally moved the sofa. It turns out you can change a room without replacing everything in it. Do not let me make that into a statement for the wall. I mean the chairs can face each other now. That is all.",
+        "voice": "af_heart"
+      }
+    ]
+  },
+  {
+    "id": "slate",
+    "lines": [],
+    "morse": "ORCHID"
+  },
+  {
+    "id": "apartment-reference",
+    "lines": [],
+    "cue": "clock"
+  },
+  {
+    "id": "hotel-reference",
+    "lines": [],
+    "cue": "lift"
+  },
+  {
+    "id": "reassurance",
+    "lines": [
+      {
+        "who": "Unknown voice",
+        "text": "She is settled now. She does not want an ambulance. Leave it until morning. I will keep the copy here.",
+        "voice": "af_nicole"
+      }
+    ],
+    "cue": "clock"
+  },
+  {
+    "id": "room-original",
+    "lines": [
+      {
+        "who": "Iris",
+        "text": "You can keep it private. But you cannot keep calling it my choice.",
+        "voice": "af_heart"
+      },
+      {
+        "who": "Julia",
+        "text": "I cannot let them hear it like that.",
+        "voice": "af_nicole"
+      },
+      {
+        "who": "Iris",
+        "text": "Them, or me? We can say what we did without handing her whole life to strangers.",
+        "voice": "af_heart"
+      }
+    ]
+  },
+  {
+    "id": "family-fragment",
+    "lines": [
+      {
+        "who": "Ana",
+        "text": "Then announce that the potatoes are ready. And stop both of you making that face at me.",
+        "voice": "bf_isabella"
+      },
+      {
+        "who": "Elena",
+        "text": "Nobody can hear a face.",
+        "voice": "bf_emma"
+      },
+      {
+        "who": "Ana",
+        "text": "I can.",
+        "voice": "bf_isabella"
+      }
+    ]
+  },
+  {
+    "id": "assembly",
+    "lines": [
+      {
+        "who": "Ana",
+        "text": "Leave the light on.",
+        "voice": "bf_isabella"
+      },
+      {
+        "who": "Ana",
+        "text": "I am not angry with you.",
+        "voice": "bf_isabella"
+      },
+      {
+        "who": "Ana",
+        "text": "Stop the recorder for a minute.",
+        "voice": "bf_isabella"
+      }
+    ]
+  },
+  {
+    "id": "apology",
+    "lines": [
+      {
+        "who": "Iris",
+        "text": "I keep trying to find the right version. There was a good evening. There was an argument. You were there. I was there. I do not want to choose which one gets to have happened.",
+        "voice": "af_heart"
+      }
+    ]
+  },
+  {
+    "id": "talk.mara.open",
+    "lines": [
+      {
+        "who": "Mara Ionescu",
+        "text": "I was going to make coffee and realised I would ask how she took it. I have known her for sixteen years. There are apparently still ways for the morning to surprise you.",
+        "voice": "af_bella"
+      }
+    ]
+  },
+  {
+    "id": "talk.mara.q0",
+    "lines": [
+      {
+        "who": "Mara Ionescu",
+        "text": "We had a café with chairs so uncomfortable nobody could turn lunch into an entire business strategy. She once ordered a sandwich so large I was allowed to discuss structural integrity. I keep remembering her trying not to laugh with a mouth full of bread.",
+        "voice": "af_bella"
+      }
+    ]
+  },
+  {
+    "id": "talk.mara.q1",
+    "lines": [
+      {
+        "who": "Mara Ionescu",
+        "text": "A listening copy. Something Elena could leave playing without bracing for the next sentence. I understood that too well. Later I wanted people to think I had found it, not assembled it.",
+        "voice": "af_bella"
+      }
+    ]
+  },
+  {
+    "id": "talk.mara.q2",
+    "lines": [
+      {
+        "who": "Mara Ionescu",
+        "text": "Yes. She asked if I had kept the version before we made it kind. I said yes. It is a very small word to remember this often.",
+        "voice": "af_bella"
+      }
+    ]
+  },
+  {
+    "id": "talk.mara.e.programme",
+    "lines": [
+      {
+        "who": "Mara Ionescu",
+        "text": "Nobody made me type original instead of restored. When she stopped defending it, I thought she had abandoned what we made together. I did not ask if she was trying to come back to it honestly.",
+        "voice": "af_bella"
+      }
+    ]
+  },
+  {
+    "id": "talk.mara.e.transfer",
+    "lines": [
+      {
+        "who": "Mara Ionescu",
+        "text": "I queued it after the rehearsal. The retry happened without me. Keep the capture and delivery fields separate, even if I wanted them to look simpler.",
+        "voice": "af_bella"
+      }
+    ]
+  },
+  {
+    "id": "talk.mara.e.audio.reassurance",
+    "lines": [
+      {
+        "who": "Mara Ionescu",
+        "text": "I heard an adult saying she would stay. I needed that to mean someone was helping. I was not in the room. I did not hear a dispatcher.",
+        "voice": "af_bella"
+      }
+    ]
+  },
+  {
+    "id": "talk.elena.open",
+    "lines": [
+      {
+        "who": "Elena Vasilescu",
+        "text": "I keep putting two cups out. Then I am furious with myself, as if it is a trick I am playing. You do not need that in your report. I just needed to say it somewhere.",
+        "voice": "bf_emma"
+      }
+    ]
+  },
+  {
+    "id": "talk.elena.q0",
+    "lines": [
+      {
+        "who": "Elena Vasilescu",
+        "text": "There is a version I can listen to while I make tea. I know it is not the whole evening. I was there. I wanted one thing that did not make me wait for the argument.",
+        "voice": "bf_emma"
+      }
+    ]
+  },
+  {
+    "id": "talk.elena.q1",
+    "lines": [
+      {
+        "who": "Elena Vasilescu",
+        "text": "We argued. I left. I do not have a sentence that makes those facts sound kinder. I thought we could do it tomorrow because she had asked me to keep the recipe cards.",
+        "voice": "bf_emma"
+      }
+    ]
+  },
+  {
+    "id": "talk.elena.q2",
+    "lines": [
+      {
+        "who": "Elena Vasilescu",
+        "text": "She kept saying we could keep something without saying it happened exactly that way. I heard the first half as a promise and the second as her taking it back.",
+        "voice": "bf_emma"
+      }
+    ]
+  },
+  {
+    "id": "talk.elena.e.room-prepared",
+    "lines": [
+      {
+        "who": "Elena Vasilescu",
+        "text": "She had moved everything so we could look at each other. I thought she was preparing to win. I did not ask whether she was just trying to sit beside me.",
+        "voice": "bf_emma"
+      }
+    ]
+  },
+  {
+    "id": "talk.elena.e.routing",
+    "lines": [
+      {
+        "who": "Elena Vasilescu",
+        "text": "The personal envelope was for me. That does not mean I am the audience for everyone else’s truth. I understand the distinction better now than I did then.",
+        "voice": "bf_emma"
+      }
+    ]
+  },
+  {
+    "id": "talk.adrian.open",
+    "lines": [
+      {
+        "who": "Adrian Popescu",
+        "text": "She was exhausted. We had been arguing. I wanted people to know that because it was easier than telling them what we were arguing about.",
+        "voice": "am_michael"
+      }
+    ]
+  },
+  {
+    "id": "talk.adrian.q0",
+    "lines": [
+      {
+        "who": "Adrian Popescu",
+        "text": "Yes. She asked me to bring boxes. I kept calling it a bad week. That sounded less like a decision she had made without me.",
+        "voice": "am_michael"
+      }
+    ]
+  },
+  {
+    "id": "talk.adrian.q1",
+    "lines": [
+      {
+        "who": "Adrian Popescu",
+        "text": "I saw her at the gathering. I did not see what happened in the apartment. I should have learned to say the second sentence before I tried to explain the first.",
+        "voice": "am_michael"
+      }
+    ]
+  },
+  {
+    "id": "talk.adrian.e.adrian-account",
+    "lines": [
+      {
+        "who": "Adrian Popescu",
+        "text": "Keep that she was leaving me. Keep that I offered the boxes. Those can both stay true. Please do not call the second proof that I was good about the first.",
+        "voice": "am_michael"
+      }
+    ]
+  },
+  {
+    "id": "talk.victor.open",
+    "lines": [
+      {
+        "who": "Victor Neagu",
+        "text": "The licensing meeting was real. So was the audit condition. I have spent years making an unfinished thing sound as though it is nearly ready. That does not make every unfinished thing the same.",
+        "voice": "bm_george"
+      }
+    ]
+  },
+  {
+    "id": "talk.victor.q0",
+    "lines": [
+      {
+        "who": "Victor Neagu",
+        "text": "Because postponement looks different on an invoice. I was afraid of losing the work, and I made that sound like the only responsibility in the room.",
+        "voice": "bm_george"
+      }
+    ]
+  },
+  {
+    "id": "talk.victor.q1",
+    "lines": [
+      {
+        "who": "Victor Neagu",
+        "text": "A family-care payment in a production account. It should not have been there. The receiving provider has the original purpose. You do not have to take my word for it.",
+        "voice": "bm_george"
+      }
+    ]
+  },
+  {
+    "id": "talk.victor.e.payment",
+    "lines": [
+      {
+        "who": "Victor Neagu",
+        "text": "It is a real concealment. It is not the purpose you first suspected. I know that distinction does not turn it into honesty.",
+        "voice": "bm_george"
+      }
+    ]
+  },
+  {
+    "id": "talk.victor.e.rider",
+    "lines": [
+      {
+        "who": "Victor Neagu",
+        "text": "She asked for somewhere to disagree that was not a room full of guests. We kept inviting guests.",
+        "voice": "bm_george"
+      }
+    ]
+  },
+  {
+    "id": "talk.luca.open",
+    "lines": [
+      {
+        "who": "Luca Marin",
+        "text": "I signed the receiving copy. Julia kept the seal number. Delivery only. I know that sounds like making myself small, but it is the part I can actually tell you.",
+        "voice": "am_fenrir"
+      }
+    ]
+  },
+  {
+    "id": "talk.luca.q0",
+    "lines": [
+      {
+        "who": "Luca Marin",
+        "text": "My break allowed it. I did not want my supervisor to turn a lawful delivery into a story about my whole life.",
+        "voice": "am_fenrir"
+      }
+    ]
+  },
+  {
+    "id": "talk.luca.q1",
+    "lines": [
+      {
+        "who": "Luca Marin",
+        "text": "A sealed case with two rubber wheels. I did not open it. A wheel can leave a mark without becoming another person.",
+        "voice": "am_fenrir"
+      }
+    ]
+  },
+  {
+    "id": "talk.luca.e.hotel-receipt",
+    "lines": [
+      {
+        "who": "Luca Marin",
+        "text": "That is the signature I watched her make. I can tell you who received it. I cannot tell you what they said after I left.",
+        "voice": "am_fenrir"
+      }
+    ]
+  },
+  {
+    "id": "talk.luca.e.trace",
+    "lines": [
+      {
+        "who": "Luca Marin",
+        "text": "Those are compatible marks, not a name. The receiving desk supplies something the sole cannot.",
+        "voice": "am_fenrir"
+      }
+    ]
+  },
+  {
+    "id": "talk.julia.open",
+    "lines": [
+      {
+        "who": "Julia Radu",
+        "text": "I kept the sources where she asked. I know that sounds like a very small thing to have done for someone. I have built a great deal of my life around believing it is not small.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "talk.julia.q0",
+    "lines": [
+      {
+        "who": "Julia Radu",
+        "text": "Both versions. Both names. I thought she was letting someone off. Perhaps she was trying to stop us deciding in advance whose account would survive.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "talk.julia.q1",
+    "lines": [
+      {
+        "who": "Julia Radu",
+        "text": "I returned to the archive. I supplied my account. I would rather you compare its originals than let me describe them until they sound inevitable.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "talk.julia.q2",
+    "lines": [
+      {
+        "who": "Julia Radu",
+        "text": "Because a correction without the earlier copy can become another kind of erasure. Keeping something is not the same as explaining it honestly.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "talk.julia.e.routing",
+    "lines": [
+      {
+        "who": "Julia Radu",
+        "text": "She asked if two envelopes could be put together. Then she said that was precisely what she was trying to stop us doing. I understood the instruction. I have no good reason for pretending I did not.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "talk.julia.e.object-report",
+    "lines": [
+      {
+        "who": "Julia Radu",
+        "text": "That was my label batch. I cannot make that into an innocent fact by telling you I once gave her the bookend. You already know old contact and later action are not the same claim.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "talk.julia.e.custody",
+    "lines": [
+      {
+        "who": "Julia Radu",
+        "text": "The receiving copy should have been outside my account. That is why there are duplicates. I used to say that as though the rule could only be needed for other people.",
+        "voice": "af_nicole"
+      }
+    ]
+  },
+  {
+    "id": "ending.julia",
+    "lines": [
+      {
+        "who": "Julia",
+        "text": "I kept saying I never changed an original. As though that were the whole of what someone had asked me to do. She was trying to ask me to say it with both our names still there. I wanted to be the person who decided how it could be heard. When she would not let me, I hurt her. What I did afterwards was not the room misunderstanding me. It was me.",
+        "voice": "af_nicole"
+      }
+    ]
+  }
+]

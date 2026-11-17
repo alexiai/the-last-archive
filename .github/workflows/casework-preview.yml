@@ -1,0 +1,46 @@
+name: Publish isolated casework preview
+on:
+  push:
+    branches: [codex/casework-rebuild]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write
+  pages: write
+  id-token: write
+concurrency:
+  group: casework-preview
+  cancel-in-progress: false
+jobs:
+  dispatch:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request the approved main-ref preview publisher
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${{ github.repository }}/actions/workflows/casework-preview.yml/dispatches" -f ref=main
+  preview:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}preview/
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/casework-rebuild
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/configure-pages@v5
+      - run: python3 tools/rebuild/build_preview.py --output "$RUNNER_TEMP/combined-preview"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/combined-preview
+      - uses: actions/deploy-pages@v4
+        id: deployment

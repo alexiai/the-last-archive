@@ -140,6 +140,63 @@ const assert = require("node:assert/strict"),
     assert.ok(resumed.findings[p.id], "finding survives browser reload");
     checks++;
   }
+  for (const privacy of ["sealed", "summary", "consented"]) {
+    await page.click("#casebook");
+    await page.click("details summary");
+    await page.click('[data-puzzle="confrontation"]');
+    await page.select('[name="privacy"]', privacy);
+    await page.click('button[type="submit"]');
+    await page.waitForSelector("#ending-response");
+    for (let i = 0; i < C.ending.questions.length; i++) {
+      await page.click(`[data-ending-question="${i}"]`);
+      assert.equal(
+        await page.$eval("#ending-response", (el) => el.textContent),
+        C.ending.questions[i][1],
+        "optional final conversation plays the authored response",
+      );
+      checks++;
+    }
+    await page.click("#ending-next");
+    assert.ok(
+      await page.$eval("#aftermath", (el) => !el.hidden),
+      "aftermath has its own stage",
+    );
+    checks++;
+    await page.click("#aftermath-next");
+    assert.ok(
+      await page.$eval("#last-page", (el) => !el.hidden),
+      "final human aftermath remains accessible",
+    );
+    checks++;
+    assert.ok(
+      (await page.$eval("#private-outcome", (el) => el.textContent)).includes(
+        C.ending.privacy[privacy].text,
+      ),
+      "choice produces its own authored aftermath",
+    );
+    checks++;
+    await closeTop();
+    await page.reload();
+    const resumed = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("lastarchive.casework.v1")),
+    );
+    assert.equal(resumed.decisions.privacy, privacy);
+    assert.equal(resumed.chapter, 9);
+    assert.ok(resumed.findings.case && resumed.findings.confrontation);
+    checks++;
+  }
+  await page.click("#settings");
+  await page.click("#replay-opening");
+  for (let i = 0; i < 3; i++) await page.click("#continue");
+  assert.ok(await page.$(".scene-objective"));
+  assert.equal(
+    await page.evaluate(
+      () => JSON.parse(localStorage.getItem("lastarchive.casework.v1")).chapter,
+    ),
+    9,
+    "opening replay preserves completed progression",
+  );
+  checks++;
   assert.equal(errors.length, 0, errors.join(";"));
   assert.equal(
     network.length,

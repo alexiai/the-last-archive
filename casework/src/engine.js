@@ -292,8 +292,8 @@ export function newGame() {
   save();
 }
 export function importGame(raw) {
+  if (!raw || raw.version !== 1 || raw.edition !== C.case.edition) return false;
   const candidate = clean(raw);
-  if (!raw || raw.edition !== C.case.edition) return false;
   state = candidate;
   resumeProofs();
   save();

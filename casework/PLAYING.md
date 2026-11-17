@@ -5,6 +5,8 @@ This is a separate development edition, not the published game or an approved re
 ## Play the self-contained review copy
 
 1. Download and extract the `THE_LAST_ARCHIVE_CASEWORK_DEVELOPMENT` artifact from the latest successful casework verification run on Draft PR #4.
+The review artifact is retained for seven days. Keep your downloaded copy and save backups.
+
 2. Open `START_GAME.html` in your browser. It includes the finished images, recordings and game code. No installation, server or Python launcher is required.
 3. Choose **Begin the investigation**. Follow the briefing and inspect the room before using the recovered phone.
 4. Use **Casebook** for current lines of inquiry, source-linked observations, personal theories, notes and your working chronology.

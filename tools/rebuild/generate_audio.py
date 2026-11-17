@@ -20,7 +20,7 @@ def sound(cue,length):
    start=int(offset*sr);t=np.arange(int(1.4*sr))/sr;v=(np.sin(2*np.pi*f*t)+.3*np.sin(2*np.pi*f*2*t))*np.exp(-2.8*t)*.15;a[start:start+len(v)]+=v
  return a
 for index,j in enumerate(jobs):
- digest=hashlib.sha256(json.dumps(j,sort_keys=True).encode()).hexdigest();file=out/(j['id']+'.mp3')
+ digest=hashlib.sha256(json.dumps(j,sort_keys=True).encode()).hexdigest();file=out/('v-'+hashlib.sha256(j['id'].encode()).hexdigest()[:12]+'.mp3')
  if manifest['clips'].get(j['id'],{}).get('scriptHash')==digest and file.exists():continue
  parts=[np.zeros(int(.2*sr),np.float32)];segments=[];cursor=.2
  if j.get('morse'):

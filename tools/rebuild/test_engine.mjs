@@ -101,6 +101,14 @@ check(
 const before = JSON.stringify(E.state);
 check(!E.importGame({ edition: "old" }), "foreign save rejected");
 check(JSON.stringify(E.state) === before, "foreign save leaves state intact");
+check(
+  !E.importGame({ ...E.state, version: 999 }),
+  "unsupported backup version rejected",
+);
+check(
+  JSON.stringify(E.state) === before,
+  "unsupported backup cannot erase the active investigation",
+);
 for (const privacy of ["sealed", "summary", "consented"]) {
   E.choices("privacy", privacy);
   check(

@@ -1,7 +1,7 @@
 {
   "clips": {
     "briefing": {
-      "file": "assets/audio/briefing.mp3",
+      "file": "assets/audio/v-714e51bab9a4.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -18,7 +18,7 @@
       "scriptHash": "b500666985a25eae9b430c643981dd94c742a704f3be31a2339005a4cc2e44f8"
     },
     "voicemail-elena": {
-      "file": "assets/audio/voicemail-elena.mp3",
+      "file": "assets/audio/v-a29e6d6b4b5b.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -35,7 +35,7 @@
       "scriptHash": "10c581d2377539a782b814c1ccda1b04a61b0c5cbb2ed1b8e95d26b0af8a7b21"
     },
     "room-note": {
-      "file": "assets/audio/room-note.mp3",
+      "file": "assets/audio/v-bace422af612.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -52,7 +52,7 @@
       "scriptHash": "0d1aa72e9f4fcf0a1e4b353b763257bdeb99784130b36436f7754add1e479a12"
     },
     "slate": {
-      "file": "assets/audio/slate.mp3",
+      "file": "assets/audio/v-b62f3b3b1b40.mp3",
       "segments": [],
       "cue": null,
       "morse": true,
@@ -62,7 +62,7 @@
       "scriptHash": "272ddce4b354e7e925591e61c2cf8f61df111cd4eb08982c2f5e9182ee940d23"
     },
     "apartment-reference": {
-      "file": "assets/audio/apartment-reference.mp3",
+      "file": "assets/audio/v-2c41948bdb18.mp3",
       "segments": [],
       "cue": "clock",
       "morse": false,
@@ -72,7 +72,7 @@
       "scriptHash": "689b486e5843cc43ca84fe120f487ccf076e6b0d267b9464518a42b165cd6245"
     },
     "hotel-reference": {
-      "file": "assets/audio/hotel-reference.mp3",
+      "file": "assets/audio/v-ba0e5d7112cd.mp3",
       "segments": [],
       "cue": "lift",
       "morse": false,
@@ -82,7 +82,7 @@
       "scriptHash": "368206bdbda0b50c5855f0e24b924821cd34a511799e92475b004edf471677cd"
     },
     "reassurance": {
-      "file": "assets/audio/reassurance.mp3",
+      "file": "assets/audio/v-a01650d1de42.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -99,7 +99,7 @@
       "scriptHash": "9d12c1a41f1bc9262d067f9aab3a77cce066963ec700a7aaebd8c64b0bb49c67"
     },
     "room-original": {
-      "file": "assets/audio/room-original.mp3",
+      "file": "assets/audio/v-6b50a1f671fd.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -128,7 +128,7 @@
       "scriptHash": "cbcd543252a3af28baa0ef3b28a0c08d19d50e3077409a495e6b074468376342"
     },
     "family-fragment": {
-      "file": "assets/audio/family-fragment.mp3",
+      "file": "assets/audio/v-62677d5d2e66.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -157,7 +157,7 @@
       "scriptHash": "a9a2187ce69e82a6847ba7f9bf5b62aff1735ea872816215c4a45437007550c4"
     },
     "assembly": {
-      "file": "assets/audio/assembly.mp3",
+      "file": "assets/audio/v-e020bdf56879.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -186,7 +186,7 @@
       "scriptHash": "4e6e74f517f455371c9657f2c4770236c42adf3e0462d896de905b1b652190a1"
     },
     "apology": {
-      "file": "assets/audio/apology.mp3",
+      "file": "assets/audio/v-e161201db018.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -203,7 +203,7 @@
       "scriptHash": "3881cf6e3d148df69280ef82ff6f75d32a464b1d3dce43e5488b6e3d357c808c"
     },
     "talk.mara.open": {
-      "file": "assets/audio/talk.mara.open.mp3",
+      "file": "assets/audio/v-94a1a6d8b9f1.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -220,7 +220,7 @@
       "scriptHash": "549deb421dd493e45a8d6976cf1c0cd758e5a7667e0d89f9584d4cf9dde37102"
     },
     "talk.mara.q0": {
-      "file": "assets/audio/talk.mara.q0.mp3",
+      "file": "assets/audio/v-38b95f287a12.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -237,7 +237,7 @@
       "scriptHash": "7fe05847b0c878814f4898638065ab859e8cba0d95bcf5f14c000865d24c0d9a"
     },
     "talk.mara.q1": {
-      "file": "assets/audio/talk.mara.q1.mp3",
+      "file": "assets/audio/v-2ef3c924a56a.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -254,7 +254,7 @@
       "scriptHash": "0bfdc0f1b9dda4d8165c80d17d70f0ed8765c4b30fcee1eb96afd8aa4e7d3833"
     },
     "talk.mara.q2": {
-      "file": "assets/audio/talk.mara.q2.mp3",
+      "file": "assets/audio/v-386360ff64db.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -271,7 +271,7 @@
       "scriptHash": "12f7e357ee5c8d4089e292491c62094c5e196c670a4fd053b9ff9690bc0e2651"
     },
     "talk.mara.e.programme": {
-      "file": "assets/audio/talk.mara.e.programme.mp3",
+      "file": "assets/audio/v-6c09cfc4e67e.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -288,7 +288,7 @@
       "scriptHash": "f24701b36f4b4aec74f37324616271758f18438d72d28c9b3808b09925730e0c"
     },
     "talk.mara.e.transfer": {
-      "file": "assets/audio/talk.mara.e.transfer.mp3",
+      "file": "assets/audio/v-411b9e27853f.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -305,7 +305,7 @@
       "scriptHash": "4186197ca3b4ab8178d1eee60fb08659cdd79acbfacdc21128087706c888f05f"
     },
     "talk.mara.e.audio.reassurance": {
-      "file": "assets/audio/talk.mara.e.audio.reassurance.mp3",
+      "file": "assets/audio/v-ff90c8d7a4f2.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -322,7 +322,7 @@
       "scriptHash": "540bb5ddae74feed722ac87d67e5848cbf33a8f7694d7e373d100aa2971b8bf2"
     },
     "talk.elena.open": {
-      "file": "assets/audio/talk.elena.open.mp3",
+      "file": "assets/audio/v-471b84acb59a.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -339,7 +339,7 @@
       "scriptHash": "775134d5d781164b0d8a0748e03089841aa18c73d4d536ed63dfd462704a34ee"
     },
     "talk.elena.q0": {
-      "file": "assets/audio/talk.elena.q0.mp3",
+      "file": "assets/audio/v-61bbedb1772c.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -356,7 +356,7 @@
       "scriptHash": "4ab2e44d8bb9636fc619934e47be50ccd7bcf27427831ed7c07d6aa300884c16"
     },
     "talk.elena.q1": {
-      "file": "assets/audio/talk.elena.q1.mp3",
+      "file": "assets/audio/v-6d71dbd13569.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -373,7 +373,7 @@
       "scriptHash": "bad5fa50ae722fe6deed1ee096d8eb0cc7c8a0b89caa26fe777174472823134c"
     },
     "talk.elena.q2": {
-      "file": "assets/audio/talk.elena.q2.mp3",
+      "file": "assets/audio/v-c3dc679e2d87.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -390,7 +390,7 @@
       "scriptHash": "20bc90379ab42f9386dc3815c8027c793bb68aa426559c74a09e4be02490c8b1"
     },
     "talk.elena.e.room-prepared": {
-      "file": "assets/audio/talk.elena.e.room-prepared.mp3",
+      "file": "assets/audio/v-2aee477097cc.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -407,7 +407,7 @@
       "scriptHash": "d4ba173318c10f60fad890b5f118cb8ec97d8cfb0f50f6ac9f03898137aba1c9"
     },
     "talk.elena.e.routing": {
-      "file": "assets/audio/talk.elena.e.routing.mp3",
+      "file": "assets/audio/v-f713c8bfdaf2.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -424,7 +424,7 @@
       "scriptHash": "fc9f98e04c502ac540400b53f5dd6845acefbf969db6c6bd944ac59a6a21e707"
     },
     "talk.adrian.open": {
-      "file": "assets/audio/talk.adrian.open.mp3",
+      "file": "assets/audio/v-520325b5f249.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -441,7 +441,7 @@
       "scriptHash": "5041eccae223c4049f839cd87e7bae9df62cefb3588037e736d731d2fd382b34"
     },
     "talk.adrian.q0": {
-      "file": "assets/audio/talk.adrian.q0.mp3",
+      "file": "assets/audio/v-c3dd65db9c18.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -458,7 +458,7 @@
       "scriptHash": "6ef86cbbeedf8c36ddc93c6362df9747722b5f6b5abb789b46386be7700a300b"
     },
     "talk.adrian.q1": {
-      "file": "assets/audio/talk.adrian.q1.mp3",
+      "file": "assets/audio/v-5dc2e9c8cde6.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -475,7 +475,7 @@
       "scriptHash": "285ae1d6949b99712365526e130a613777f27e5aeefe04816340669d4706e8ae"
     },
     "talk.adrian.e.adrian-account": {
-      "file": "assets/audio/talk.adrian.e.adrian-account.mp3",
+      "file": "assets/audio/v-25952729ec22.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -492,7 +492,7 @@
       "scriptHash": "424018135f601508c2f4ef4400fc783aa865f79c924f5fdca27f7cc6bd973205"
     },
     "talk.victor.open": {
-      "file": "assets/audio/talk.victor.open.mp3",
+      "file": "assets/audio/v-0349cecbb610.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -509,7 +509,7 @@
       "scriptHash": "a1c5b06263f2fe30cda6b5e2e67dce3fdbac430537f9ab2d3ba62d55fd78d173"
     },
     "talk.victor.q0": {
-      "file": "assets/audio/talk.victor.q0.mp3",
+      "file": "assets/audio/v-e7d73a807691.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -526,7 +526,7 @@
       "scriptHash": "a3710b2430e64d0b161098903e6b08a6954d25e04ad7a4b8fe35a5f7d657e229"
     },
     "talk.victor.q1": {
-      "file": "assets/audio/talk.victor.q1.mp3",
+      "file": "assets/audio/v-049bfaff317d.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -543,7 +543,7 @@
       "scriptHash": "5924f4e62621b516022aedefcda8d446c18769b9d67d74d6d0e805eeb0c20269"
     },
     "talk.victor.e.payment": {
-      "file": "assets/audio/talk.victor.e.payment.mp3",
+      "file": "assets/audio/v-10c1980e0170.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -560,7 +560,7 @@
       "scriptHash": "0b496af9718aa8fe5c0780e5c33834df93830bcee17805555d800897fde5cb2b"
     },
     "talk.victor.e.rider": {
-      "file": "assets/audio/talk.victor.e.rider.mp3",
+      "file": "assets/audio/v-3d1a9d4844c9.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -577,7 +577,7 @@
       "scriptHash": "c09e4d7d50300873a0d6cd2feb469cb4502455ea074b211df5437b91dc48de52"
     },
     "talk.luca.open": {
-      "file": "assets/audio/talk.luca.open.mp3",
+      "file": "assets/audio/v-098c7fdfcf7b.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -594,7 +594,7 @@
       "scriptHash": "fe8f627ce8ef4b4737618dd147864e0c7d8deeafc8316d405ac22b4274523038"
     },
     "talk.luca.q0": {
-      "file": "assets/audio/talk.luca.q0.mp3",
+      "file": "assets/audio/v-975c0b28ea06.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -611,7 +611,7 @@
       "scriptHash": "19b20c985ab6056387370ab148895a0ce04cb4cc3f0d471713bc5100adc1237a"
     },
     "talk.luca.q1": {
-      "file": "assets/audio/talk.luca.q1.mp3",
+      "file": "assets/audio/v-f749a670c03d.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -628,7 +628,7 @@
       "scriptHash": "89cb32a6e1d56f6aac4e6bc9aa120097e392bf3bab7b0c867ed6e02c35b5c11f"
     },
     "talk.luca.e.hotel-receipt": {
-      "file": "assets/audio/talk.luca.e.hotel-receipt.mp3",
+      "file": "assets/audio/v-e310fc19d414.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -645,7 +645,7 @@
       "scriptHash": "6ade903005aca0c11d1fe464ac1a38922146e4554f8c3d0c5b2cc6a1987c15cf"
     },
     "talk.luca.e.trace": {
-      "file": "assets/audio/talk.luca.e.trace.mp3",
+      "file": "assets/audio/v-0e2525919242.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -662,7 +662,7 @@
       "scriptHash": "dc1bae9893a263882df72d7a2afd0046a31a4a74e339c25273c05fe92416f538"
     },
     "talk.julia.open": {
-      "file": "assets/audio/talk.julia.open.mp3",
+      "file": "assets/audio/v-11a43a76aa0b.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -679,7 +679,7 @@
       "scriptHash": "d9b75b400a66f196a0054d6c9492734fef135226953a137ee0f258ec738d2ff0"
     },
     "talk.julia.q0": {
-      "file": "assets/audio/talk.julia.q0.mp3",
+      "file": "assets/audio/v-fee4be1a08cb.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -696,7 +696,7 @@
       "scriptHash": "185d8dcd9cc5e7a6caf76f8ad51c58cea8688b97e8b08c1000fad3bf609e317e"
     },
     "talk.julia.q1": {
-      "file": "assets/audio/talk.julia.q1.mp3",
+      "file": "assets/audio/v-3fe6cff53489.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -713,7 +713,7 @@
       "scriptHash": "c956deedfbe85a84a842cafd497f237bbc435710cf59a203dd6ef18aa2397d36"
     },
     "talk.julia.q2": {
-      "file": "assets/audio/talk.julia.q2.mp3",
+      "file": "assets/audio/v-23aa56036d82.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -730,7 +730,7 @@
       "scriptHash": "e57e58d893587fecadd381097e7fd56f113d483b5a4316a115cc9321a6a48888"
     },
     "talk.julia.e.routing": {
-      "file": "assets/audio/talk.julia.e.routing.mp3",
+      "file": "assets/audio/v-bcf542e3e54f.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -747,7 +747,7 @@
       "scriptHash": "fa4984c75e4d11e190ca6a161859f9fa1bc6d1f8f256aeef4fd3a6b19e4127d1"
     },
     "talk.julia.e.object-report": {
-      "file": "assets/audio/talk.julia.e.object-report.mp3",
+      "file": "assets/audio/v-c90b716a48b7.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -764,7 +764,7 @@
       "scriptHash": "42f5d39d628636747a90c92e78bcb21233de4995a528e1817b875f6eb06c9ad8"
     },
     "talk.julia.e.custody": {
-      "file": "assets/audio/talk.julia.e.custody.mp3",
+      "file": "assets/audio/v-726cc4e00b68.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -781,7 +781,7 @@
       "scriptHash": "d3081a6df23d274b71c5569893bcd06fca0776e08f9c45c93c2353f3f31bcb88"
     },
     "ending.julia": {
-      "file": "assets/audio/ending.julia.mp3",
+      "file": "assets/audio/v-09bb38f19eef.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -798,7 +798,7 @@
       "scriptHash": "b99f26a24e1c92eb79c0a495fcd378e07a2955af2b081ab2b380fc4726cfc7e6"
     },
     "ending.julia.q0": {
-      "file": "assets/audio/ending.julia.q0.mp3",
+      "file": "assets/audio/v-d9f488152de7.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -815,7 +815,7 @@
       "scriptHash": "fb8c64543a9d876cf8c817dfc0bda4981ef5d5fc36c016688bffd134c4c2a4c8"
     },
     "ending.julia.q1": {
-      "file": "assets/audio/ending.julia.q1.mp3",
+      "file": "assets/audio/v-d354d5045cf4.mp3",
       "segments": [
         {
           "start": 0.2,
@@ -832,7 +832,7 @@
       "scriptHash": "80ec226ccfa7b706f496885cf9544606a9d1d96f588022194645d06a8ba07d65"
     },
     "ending.julia.q2": {
-      "file": "assets/audio/ending.julia.q2.mp3",
+      "file": "assets/audio/v-dcd52aad02b2.mp3",
       "segments": [
         {
           "start": 0.2,

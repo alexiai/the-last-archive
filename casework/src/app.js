@@ -712,6 +712,7 @@ function arrival(chapter) {
   }
 }
 function ending() {
+  const outcome = C.ending.privacy[E.state.decisions.privacy || "sealed"];
   const choice = {
     sealed:
       "The private recording remains sealed. The family receives the supported factual account.",
@@ -722,9 +723,17 @@ function ending() {
   }[E.state.decisions.privacy];
   const d = modal(
     "The final record",
-    `<div class="ending-copy"><p class="eyebrow">THE EMPTY CHAIR</p><section id="ending-conversation"><h1>The account that remains</h1><p id="ending-response" aria-live="polite">${e(C.ending.response)}</p><button id="ending-audio">Hear the response</button><div class="questions">${C.ending.questions.map(([q], i) => button(q, `data-ending-question="${i}"`)).join("")}</div><p>You may ask each question, replay the response or continue. Factual closure does not depend on obtaining an admission.</p><button id="ending-next">Continue to the aftermath</button></section><section id="aftermath" hidden><h1>${e(C.ending.aftermath[0].title)}</h1><p>${e(C.ending.aftermath[0].text)}</p><p>${e(choice)}</p><button id="aftermath-next">Continue</button></section><section id="last-page" hidden><h1>${e(C.ending.aftermath[1].title)}</h1><p>${e(C.ending.aftermath[1].text)}</p><h2>${e(C.ending.last)}</h2><p>You may return to the casebook, conversations and original sources. Your investigation remains saved.</p></section></div>`,
+    `<div class="ending-copy"><p class="eyebrow">THE EMPTY CHAIR</p><section id="ending-conversation"><h1>The account that remains</h1><p id="ending-response" aria-live="polite">${e(C.ending.response)}</p><button id="ending-audio">Hear the response</button><div class="questions">${C.ending.questions.map(([q], i) => button(q, `data-ending-question="${i}"`)).join("")}</div><p>You may ask each question, replay the response or continue. Factual closure does not depend on obtaining an admission.</p><button id="ending-next">Continue to the aftermath</button></section><section id="aftermath" hidden><h1>${e(C.ending.aftermath[0].title)}</h1><p>${e(C.ending.aftermath[0].text)}</p><p>${e(choice)}</p><button id="aftermath-next">Continue</button></section><section id="last-page" hidden><h1>${e(C.ending.aftermath[1].title)}</h1><p>${e(C.ending.aftermath[1].text)}</p><section id="private-outcome"><h3>${e(outcome.title)}</h3><p>${e(outcome.text)}</p>${E.state.decisions.privacy === "consented" ? '<button id="private-listening">Play the agreed kitchen fragment</button><button id="stop-private-listening">Stop listening</button>' : ""}</section><h2>${e(C.ending.last)}</h2><p>You may return to the casebook, conversations and original sources. Your investigation remains saved.</p></section></div>`,
     true,
   );
+  d.querySelector("#private-listening")?.addEventListener("click", () =>
+    A.play("family-fragment"),
+  );
+  d.querySelector("#stop-private-listening")?.addEventListener(
+    "click",
+    A.pause,
+  );
+  d.addEventListener("close", A.pause);
   let clip = "ending.julia";
   d.querySelector("#ending-audio").onclick = () => A.play(clip);
   d.querySelectorAll("[data-ending-question]").forEach(

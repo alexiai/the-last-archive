@@ -3138,6 +3138,20 @@ export const CONTENT = {
         text: "Elena comes for the personal property that has been released. She checks the list carefully and then asks about the repaired mug.\nYou show her the wrapped object. She does not unwrap it. “She could always feel where the handle had been fixed,” she says. “She would turn it that way when she was thinking.”\nYou tell her which records are held, which copies can be returned and what choice has been recorded for the private source. She asks you to write that down. It is a practical request. You are grateful to be able to do it.",
       },
     ],
+    privacy: {
+      sealed: {
+        title: "A sealed copy",
+        text: "The sensitive police copy is sealed separately from the factual record. The family originals are listed for return under the existing instructions; sealing a case copy does not take that right away.\nElena checks the seal number against the paper you give her. “I do not want someone else deciding when I have to be ready,” she says. You write down who she can contact if she chooses to listen later.",
+      },
+      summary: {
+        title: "Words she can put down",
+        text: "You provide a written factual summary without attaching the raw family recording. The original remains separately held for return to the family.\nElena reads the first paragraph and puts it face down. “Thank you for making it something I can stop reading,” she says. You do not ask whether she wants the rest explained aloud. She takes the summary with the property inventory.",
+      },
+      consented: {
+        title: "Only the part she asks for",
+        text: "You offer a private listening. Nothing is played until Elena has chosen what she wants to hear. The original remains hers to receive under the existing instructions, regardless of her answer now.\n“Just the kitchen,” she says. “Not the rest today.”\nThe short kitchen fragment is within that permission. You set the headphones where she can reach them. She can stop whenever she chooses.",
+      },
+    },
   },
   morse: {
     A: ".-",

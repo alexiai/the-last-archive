@@ -19,7 +19,7 @@ for name,exts in [('src',{'.js'}),('styles',{'.css'}),('assets',{'.jpg','.png','
  for file in (src/name).rglob('*'):
   if file.is_file() and file.suffix in exts:
    target=out/file.relative_to(src);target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(file,target)
-index=(out/'index.html').read_text();index=index.replace('</body>',"<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});</script></body>");(out/'index.html').write_text(index)
+index=(out/'index.html').read_text();index=index.replace('</body>',"<script>if('serviceWorker' in navigator)window.addEventListener('load',()=>setTimeout(()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}),1500));</script></body>");(out/'index.html').write_text(index)
 files=sorted('./'+str(f.relative_to(out)) for f in out.rglob('*') if f.is_file());digest=hashlib.sha256(''.join(hashlib.sha256((out/f[2:]).read_bytes()).hexdigest() for f in files).encode()).hexdigest()[:16]
 (out/'offline-manifest.json').write_text(json.dumps({'edition':'casework-1','hash':digest,'files':files},indent=2))
 (out/'sw.js').write_text("""const SCOPE='lastarchive-casework-'+encodeURIComponent(self.registration.scope)+'-';const CACHE=SCOPE+'"""+digest+"""';

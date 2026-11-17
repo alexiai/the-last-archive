@@ -2,12 +2,11 @@ import { asset } from "./assets.js";
 import { state, save, soundInspected } from "./engine.js";
 let foreground = null,
   music = null,
-  manifest = null;
-export async function initAudio() {
-  try {
-    manifest = await (await fetch(asset("assets/audio/manifest.json"))).json();
-  } catch {}
-  return manifest;
+  manifest = null,
+  initialization = null,
+  requestVersion = 0;
+export function initAudio() {
+  return initialization ??= (async()=>{try{manifest=await(await fetch(asset("assets/audio/manifest.json"))).json();}catch{}return manifest;})();
 }
 export function setSound(on) {
   state.sound.enabled = on;
@@ -23,6 +22,7 @@ export function setSound(on) {
   }
 }
 export function stopVoice() {
+  requestVersion++;
   foreground?.pause();
   foreground = null;
   if (music) music.volume = state.sound.music;
@@ -34,6 +34,9 @@ export function setVolume(value) {
 }
 export async function play(id, onTime) {
   stopVoice();
+  const request=requestVersion;
+  await initAudio();
+  if(request!==requestVersion)return false;
   const item = manifest?.clips?.[id];
   const file = item?.file || "assets/audio/" + id + ".mp3";
   foreground = new Audio(asset(file));

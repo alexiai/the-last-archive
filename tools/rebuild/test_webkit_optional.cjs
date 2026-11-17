@@ -12,6 +12,7 @@ const { webkit } = require("playwright");
   for (const width of [390, 1280]) {
     const context = await browser.newContext({
       viewport: { width, height: 844 },
+      ignoreHTTPSErrors:process.env.TEST_PROXY_TLS==='1',
       hasTouch: width === 390,
       isMobile: width === 390,
     });

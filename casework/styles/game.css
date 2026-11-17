@@ -766,3 +766,4 @@ dialog::backdrop {
     min-height: 36px;
   }
 }
+.boot-screen{height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:#101b15}.boot-screen p{font:1.5rem Georgia;letter-spacing:.25em}.boot-screen span{font:12px system-ui;color:#b5b59b}

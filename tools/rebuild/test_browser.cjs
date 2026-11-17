@@ -4,7 +4,7 @@ const puppeteer = require("puppeteer-core");
   const browser = await puppeteer.launch({
     executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
     headless: true,
-    args: ["--no-sandbox"],
+    args: ["--no-sandbox", ...(process.env.TEST_PROXY_TLS==='1'?['--ignore-certificate-errors']:[])],
   });
   let checks = 0;
   const check = (v, m) => {

@@ -824,4 +824,5 @@ window.addEventListener("audio-error", () =>
     "This recording could not play. The full transcript remains available.",
   ),
 );
-A.initAudio().then(render);
+render();
+A.initAudio();

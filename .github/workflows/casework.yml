@@ -33,6 +33,7 @@ jobs:
         run: |
           python3 -m http.server 8092 --bind 127.0.0.1 --directory "$RUNNER_TEMP/casework-build" > "$RUNNER_TEMP/casework-server.log" 2>&1 &
           node tools/rebuild/test_browser.cjs
+          node tools/rebuild/test_visual_inspection.cjs
           node tools/rebuild/test_campaign.cjs
           node tools/rebuild/test_offline.cjs
           node tools/rebuild/test_recordings.cjs

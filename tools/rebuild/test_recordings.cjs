@@ -63,6 +63,7 @@ const assert = require("node:assert/strict"),
     ),
   );
   await p.click("#begin");
+  if (await p.$("#film-read")) await p.click("#film-read");
   await p.click("#briefing-play");
   await p.waitForFunction(() =>
     JSON.parse(

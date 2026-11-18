@@ -1,0 +1,170 @@
+{
+  "intro-0": {
+    "file": "assets/audio/intro-0.mp3",
+    "text": "Detective Dima? Iris Vasilescu. Thirty-four. Found dead yesterday morning. A head injury the first report cannot explain. The room is yours.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 9.999,
+    "scriptHash": "82aff186dd1e4d8548a6b02aeb2468f18c18df8391887366f2e27186651bc3e6",
+    "sha256": "d547a731ddae27b3d05fc6040fafc837eb8f1768ccc3cadde58343e504ccae2a"
+  },
+  "intro-1": {
+    "file": "assets/audio/intro-1.mp3",
+    "text": "Her sister called twice while we waited. First she asked what had happened. Then she asked if the lamp was still on.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 7.373,
+    "scriptHash": "84ce8c987b967cf5aeb6c90ca6f23ea7c53bf85d5a8150c60a22bb7d1dec6b98",
+    "sha256": "3bfb6dfc203f5e4f00a0e6357fd2076ffe5384ea1276233529ce55efca38eec7"
+  },
+  "intro-2": {
+    "file": "assets/audio/intro-2.mp3",
+    "text": "Leave it on. I will start with the room.",
+    "speaker": "Alex Dima",
+    "duration": 2.733,
+    "scriptHash": "ac747aa729a8d21ff7f26d52941a3372820d0600532834f7c7346e63d101d5ac",
+    "sha256": "8f7e90817412a535b78c5746aa56d749c06a4e993669ee7d56b1558449bd987d"
+  },
+  "intro-3": {
+    "file": "assets/audio/intro-3.mp3",
+    "text": "Nothing has been put back. There is an authorised phone copy on the side table. Take your time. Then tell me what you can actually establish.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 9.319,
+    "scriptHash": "7eab555459cc93d26ca8a5059ee7ee6e8cb4fd1da6712fa949470946a5bf700e",
+    "sha256": "365a5f542f6e6b853e6eb424f73dc7208f82e7720f55025cb6df4274b4bb519b"
+  },
+  "question-object": {
+    "file": "assets/audio/question-object.mp3",
+    "text": "What should the search team be looking for?",
+    "speaker": "Sergeant Petrescu",
+    "duration": 2.793,
+    "scriptHash": "01b2b7b79d0125f4acbd0cc6804ba66604f449e6d7de14a560907fd1ba4e91c7",
+    "sha256": "9deff747d86df74e03d48a14534cda208a9de2c936df4db83432a89822bcc6bb"
+  },
+  "question-source": {
+    "file": "assets/audio/question-source.mp3",
+    "text": "Which original gives us the latest known view of it still here?",
+    "speaker": "Sergeant Petrescu",
+    "duration": 4.137,
+    "scriptHash": "7cb4bc1621aab067de90e32d6991412157bb7290b93329439052da54cce80f64",
+    "sha256": "ece5244dfcdd8ecc2ba6aa2a1127022da6cbbf88e819079f0e91b4139ac2a9f1"
+  },
+  "question-layout": {
+    "file": "assets/audio/question-layout.mp3",
+    "text": "Then what do you make of the furniture?",
+    "speaker": "Sergeant Petrescu",
+    "duration": 2.718,
+    "scriptHash": "4acd791da94158c51bac9459e945e48047ba669b0e230014bee707b5c6bf496c",
+    "sha256": "4408c607dc7bc4c8fac1aaf411ecb27c855e6311207f7845252005e7838a166d"
+  },
+  "question-limit": {
+    "file": "assets/audio/question-limit.mp3",
+    "text": "And what can that comparison establish? Be precise.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 3.982,
+    "scriptHash": "0f317ecb6df890f81778cc03772e3269da23c92b7dbeb8a331514b14a88ef2c6",
+    "sha256": "b3a1d14373ecb1c64c55be3a53312d1174593c9aa1c59fd8035aa9fd44005638"
+  },
+  "welcome": {
+    "file": "assets/audio/welcome.mp3",
+    "text": "Iris was found here yesterday. The body is with the examiner. I have kept the room as it was. Start with the room and the phone copy. I will wait on the landing.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 10.375,
+    "scriptHash": "c0d398a6f806f8e8570a989b32f62e3b94baf2fb1eae12ea1e25a668e6619495",
+    "sha256": "0951ca62e42a50b88c0a329973936ab0541c58ac10307ccc7acd74a80748a842"
+  },
+  "family": {
+    "file": "assets/audio/family.mp3",
+    "text": "Elena. Her sister. She asked me to leave the lamp on. I do not think she meant it as evidence.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 6.251,
+    "scriptHash": "bd4f7745e100cda1f7037b283354636ed28a05eb2295357c7dde9ab47586e31d",
+    "sha256": "56e4db98985264535fc60d2199aeba5d3ee6555937a26075f1d0b45ecc4f6ada"
+  },
+  "room": {
+    "file": "assets/audio/room.mp3",
+    "text": "The photographs were taken before removal. We have not straightened a chair or returned anything to a shelf. That is all I can tell you about the arrangement.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 9.772,
+    "scriptHash": "15a78d3d3e594059bec76fa9949ea306824f6e29be0c32ca40a1357b06024a4a",
+    "sha256": "324924ee6ae23532dce9e4b3414da0fbf678f25fbfeee8b40bc8fa2b17e0121e"
+  },
+  "hypothesis": {
+    "file": "assets/audio/hypothesis.mp3",
+    "text": "All right. Show me the difference, and something that tells us when it was already there. A room can change for more than one reason.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 7.527,
+    "scriptHash": "cc8aba6782b8af7b32cc835b4979547476ef5cf4b5479fbb2f624ca559014032",
+    "sha256": "dfb3aaac1aeec553f37ad119b6ef703d1e42cd4fcdaa45a22c7ae299bf797650"
+  },
+  "notYet": {
+    "file": "assets/audio/notYet.mp3",
+    "text": "You have a possibility. I need a comparison. Keep the original image, not just the impression it gives you.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 7.109,
+    "scriptHash": "e2a2d4d047a84943cd9eab83cbbdac30ab5e7b41c051a5e3d88938a6bd6a0b74",
+    "sha256": "cbddba4f263184446595bcb0639641c814a2e451eecc2493cabf4e2453836ed7"
+  },
+  "wrong": {
+    "file": "assets/audio/wrong.mp3",
+    "text": "That does not agree with the originals you have shown me. Keep looking. We do not need an answer quickly; we need one that holds.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 7.887,
+    "scriptHash": "40824e280eba34867ab65ee5cff4bc52279f562dd84b1d2a3fcb62a87ec23ff2",
+    "sha256": "ccfc029aa4f717e6ffe192a47b7514d340a16f96613c8a02674649b173a195f9"
+  },
+  "bounded": {
+    "file": "assets/audio/bounded.mp3",
+    "text": "There is an interval. Do not turn it into a time of death, or a name. What can the two sources actually establish?",
+    "speaker": "Sergeant Petrescu",
+    "duration": 7.363,
+    "scriptHash": "2b6d13ef9dfb084dea6d2d1ba30ffda9fe2b15ac0297794d30f2f13851062426",
+    "sha256": "90c12d0c79aad2174dacd8d97f4324fc7dea7e94b713c2de4ef4c5ee07d3e020"
+  },
+  "finding": {
+    "file": "assets/audio/finding.mp3",
+    "text": "Yes. The earlier original changes the question. I will have the search request written that way. You have kept what the image can prove separate from what it cannot.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 10.271,
+    "scriptHash": "b9caaa41dd924ba7d6525a5bb0a808f0f3454900f0cc96e80b4e04227b602d69",
+    "sha256": "e1ead8e4314e65508d65e9de11c522b633c585a17b3620a501be33b9e0793c17"
+  },
+  "next": {
+    "file": "assets/audio/next.mp3",
+    "text": "The receiving desk at the Aurelia has kept its own records. I will arrange access. Leave this room as it is; we may need to come back to it.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 9.451,
+    "scriptHash": "00fa05e19c5ffaf50664cccc99ada2db2c1eaf78f37b542a05d8f1d51218ee05",
+    "sha256": "8cd0a4ddea28366d9964e9129950010d4b07e11574c2c848762f968eb6747739"
+  },
+  "hint1": {
+    "file": "assets/audio/hint1.mp3",
+    "text": "Do not start with a person. Start with what is physically different between this room and an original photograph.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 7.045,
+    "scriptHash": "e005506ab4161930275160308a35150c8ecc85a1891200be36ca42c04aed8b74",
+    "sha256": "fdfbb84269dc20961e2519876fe9e0cb0ed1e8f9d780089167af6461954ae18e"
+  },
+  "hint2": {
+    "file": "assets/audio/hint2.mp3",
+    "text": "A photograph can belong to a different day. Check the original capture information before using a changed arrangement to explain the death.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 8.829,
+    "scriptHash": "6018d1f51da0483926a93ab18e331d40e4b5ea42c087d1c3c6905a3cead53e8e",
+    "sha256": "adcfdec26b295f7987a7df76d5665d2ff85465294ae2a6b92dfde92a5cb1828d"
+  },
+  "hint3": {
+    "file": "assets/audio/hint3.mp3",
+    "text": "There is a retained image inside the unsent message. Compare both the furniture and the lower shelf. You can zoom, and use the image description if that is clearer.",
+    "speaker": "Sergeant Petrescu",
+    "duration": 10.643,
+    "scriptHash": "ae366a05b9bd046bed2bc7cbecb70f5fe5829b6f3d465b81f93b4809a2acaa5f",
+    "sha256": "f18487ba83a1253a2c8be9588b790d68e65140da717011d99a8a460b2adb0642"
+  },
+  "iris": {
+    "file": "assets/audio/iris.mp3",
+    "text": "Do not throw the blue mug out. It only leaks if I put anything in it. And please do not fix it so well that it stops being my mug.",
+    "speaker": "Iris",
+    "duration": 7.937,
+    "scriptHash": "fb19788ceeac09e504a20521e9ee825d7fdd58e20688edb90ebfe1a9cd2a4687",
+    "sha256": "5ca2b57e64e22c69e2edc4b4ac1e18b9613a7a5b1a4eeaff362a3a50e61bddbd"
+  }
+}

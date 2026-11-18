@@ -4,11 +4,11 @@ This is a separate development edition, not the published game or an approved re
 
 ## Play in your browser
 
-Open **https://alexiai.github.io/the-last-archive/preview/** in Safari or a desktop browser. No download or installation is required. If an older installed production worker opens the previous edition, use **https://alexiai.github.io/the-last-archive/editions/casework-preview/**. Both preview addresses share this edition’s save. The root address remains the production game.
+Open **https://alexiai.github.io/the-last-archive/editions/casework-preview/** in Safari or a desktop browser. This is the preserved earlier casework edition, with its existing save. No download or installation is required. The main `/preview/` address now opens the new scene-led section, which uses a separate save. The root address remains the production game.
 
 Allow the first online load to finish before testing offline. Use Settings / save to export a backup before clearing browser data. Updates preserve the casework save; a visible update notice lets you save and reload when ready. Browser storage is specific to this device and browser and does not synchronize between devices.
 
-## Try the new presentation and casework
+## Play the preserved casework edition
 
 A new case begins with a short cinematic introduction. It has pause, sound, transcript and read-the-briefing controls; reduced-motion preferences prevent automatic playback. If you already have a save, choose **Settings / save → Replay opening** to see it without resetting your investigation.
 

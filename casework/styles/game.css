@@ -1082,3 +1082,29 @@ dialog::backdrop {
 #preview-update{position:fixed;z-index:10001;bottom:1rem;left:50%;transform:translateX(-50%);width:min(580px,94vw);display:flex;align-items:center;gap:1rem;padding:1rem;background:#e6d9b8;color:#29412c;box-shadow:0 8px 40px #0008;border:1px solid #948a61}#preview-update span{font:12px/1.6 system-ui;flex:1}#preview-update button{font:12px system-ui;background:#304d37;color:#fff4db;min-width:120px}
 @media(max-width:700px){.game-heading{padding-top:calc(.7rem + env(safe-area-inset-top))}.game-tools{bottom:calc(2rem + env(safe-area-inset-bottom))}.scene-caption{bottom:calc(.8rem + env(safe-area-inset-bottom))}.briefing-copy{padding-top:calc(2rem + env(safe-area-inset-top))}.dialog-heading{padding-top:calc(.5rem + env(safe-area-inset-top))}}
 .paper-dialog,.evidence-dialog{scroll-padding-top:110px;scroll-padding-bottom:40px}.paper-dialog button,.evidence-dialog button,.paper-dialog input,.evidence-dialog input,.paper-dialog select,.evidence-dialog select,.paper-dialog textarea,.evidence-dialog textarea{scroll-margin-top:110px;scroll-margin-bottom:40px}@media(max-width:700px){.paper-dialog,.evidence-dialog{scroll-padding-top:calc(110px + env(safe-area-inset-top))}.paper-dialog button,.evidence-dialog button,.paper-dialog input,.evidence-dialog input,.paper-dialog select,.evidence-dialog select{scroll-margin-top:calc(110px + env(safe-area-inset-top))}}
+/* The film shares the canonical room: the opening never introduces a second set. */
+.opening-cinema { position:fixed;inset:0;z-index:20;background:#050a08;overflow:hidden;min-height:100svh; }
+.opening-cinema video { position:absolute;width:100%;height:100%;object-fit:cover;opacity:.86; }
+.cinema-shade { position:absolute;inset:0;background:linear-gradient(180deg,#02070688,transparent 25%,#02070633 45%,#020706c9 82%,#020706);pointer-events:none; }
+.cinema-letterbox { position:absolute;inset:0;border-top:7vh solid #040706;border-bottom:7vh solid #040706;pointer-events:none; }
+.cinema-titles { position:absolute;left:8%;right:8%;bottom:24%;max-width:1000px;text-shadow:0 3px 22px #000; }
+.cinema-titles p {font-size:.72rem;letter-spacing:.25em;color:#dec99e;}
+.cinema-titles h1 { font-size:clamp(1.8rem,4vw,4.4rem);line-height:1.12;font-weight:400;margin:.65em 0 0;text-wrap:balance; }
+.cinema-controls {position:absolute;bottom:9%;left:8%;right:8%;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.cinema-controls button {background:#10231fbc;border-color:#d7cba455;backdrop-filter:blur(10px);min-height:44px;}
+.cinema-controls output {font:11px monospace;color:#c6c9b8;margin-left:auto;}
+.cinema-description {position:absolute;bottom:2%;left:8%;font:10px/1.5 monospace;color:#b9bbaa;letter-spacing:.06em;}
+.has-cinema #continue {position:fixed;z-index:22;right:8%;top:9%;background:#10231fbc;backdrop-filter:blur(10px);}
+@media(max-width:600px){
+ .opening-cinema video {height:70svh;object-fit:cover;object-position:47% 50%;}
+ .cinema-shade {background:linear-gradient(180deg,transparent 10%,#02070622 30%,#020706 58%);}
+ .cinema-letterbox {border-top:5svh solid #040706;border-bottom:0;}
+ .cinema-titles {bottom:29%;left:7%;right:7%;}
+ .cinema-titles h1 {font-size:clamp(1.65rem,7.6vw,2.6rem);}
+ .cinema-titles p {font-size:.62rem;line-height:1.7;}
+ .cinema-controls {left:7%;right:7%;bottom:max(10%,calc(env(safe-area-inset-bottom) + 30px));gap:.5rem;}
+ .cinema-controls button {font-size:.78rem;padding:.65rem .8rem;}
+ .cinema-controls output {width:100%;margin:0;}
+ .cinema-description {left:7%;right:7%;bottom:calc(env(safe-area-inset-bottom) + 8px);font-size:9px;}
+ .has-cinema #continue {top:calc(env(safe-area-inset-top) + 12px);right:7%;font-size:.75rem;}
+}

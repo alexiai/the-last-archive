@@ -13,7 +13,7 @@ export const CONTENT = {
       eyebrow: "MAJOR CRIME / SUNDAY 19 OCTOBER",
       title: "Detective Dima.",
       text: "You have been assigned the death of Iris Vasilescu. She was thirty-four. Yesterday morning, someone found her in the living room of her apartment. The first report cannot explain the injury as a simple fall.",
-      image: "opening-night",
+      image: "scene-wide",
       audio: "briefing",
     },
     {
@@ -246,7 +246,7 @@ export const CONTENT = {
       kind: "report",
       title: "Hotel recorder calibration",
       chapter: 3,
-      text: "HOTEL AURELIA / camera 02\nRecorder is two minutes FAST relative to the independent reference clock. The camera shows the lobby approach only. It does not identify a person by coat colour.\nThe retained crossing frame is labelled 00:25. Keep calibration, arrival and identity as separate questions.",
+      text: "HOTEL AURELIA / camera 02\nRecorder is two minutes FAST relative to the independent reference clock. The camera shows the lobby approach only. It does not identify a person by coat colour.\nKeep calibration, arrival and identity as separate questions. The original sampled export supplies the recorder positions.",
       meta: "Retained original / English",
       image: null,
       choices: {
@@ -1691,13 +1691,14 @@ export const CONTENT = {
       kind: "surveillance",
       title: "Hotel Aurelia / camera 02",
       chapter: 3,
-      text: "Retained stills from the lobby approach. The camera cannot identify a face and does not cover the listening-room interior.",
+      text: "Retained sampled recording from the lobby approach / 00:24:56–00:25:04 on the recorder clock. One source sample per second; no audio. The camera cannot identify a face and does not cover the listening-room interior.",
       visual:
-        "Frame 00:25:00: empty. Frame 00:25:04: an anonymous figure crosses toward the doorway. Frame 00:25:08: the figure has left the field.",
+        "Recorder 00:24:56: no person visible. Recorder 00:24:57–00:24:59: an indistinct figure approaches from the right. Recorder 00:25:00: the figure crosses the central approach. Recorder 00:25:01–00:25:03: the silhouette moves toward the left edge. Recorder 00:25:04: no person visible. The listening-room interior remains outside the view.",
       meta: "Recorder clock / source frames preserved / no microphone",
       image: "hotel-4",
       choices: {
-        crossing: "An anonymous figure crosses the lobby approach.",
+        crossing: "An anonymous figure crosses the centre of the lobby approach.",
+        approach: "An indistinct figure is visible away from the central crossing.",
         empty: "The retained frame is empty.",
         identity: "The person can be uniquely identified.",
       },
@@ -2832,11 +2833,12 @@ export const CONTENT = {
     },
     {
       id: "camera",
+      revision: 2,
       chapter: 3,
       title: "A clock is not an alibi",
       type: "timing",
       prompt:
-        "Inspect the retained camera frame, correct its recorder time and compare it with the transport arrival.",
+        "Locate the central crossing in the retained camera interval, correct its recorder time and compare it with the transport arrival.",
       sources: ["hotel-camera", "hotel-clock", "trip", "hotel-receipt"],
       answer: {
         time: "00:23",

@@ -18,6 +18,7 @@ const types = {
   ".png": "image/png",
   ".svg": "image/svg+xml",
   ".mp3": "audio/mpeg",
+  ".mp4": "video/mp4",
   ".json": "application/json",
 };
 function walk(dir) {

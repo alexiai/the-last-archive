@@ -14,6 +14,7 @@ export const blank = () => ({
   notes: "",
   chronology: [],
   theories: [],
+  boardLayout: {},
   decisions: {},
   conversations: {},
   listened: [],
@@ -66,7 +67,7 @@ export function clean(raw) {
       point,
       mode: o.mode === "text" ? "text" : "marked",
       note: str(o.note, 2500),
-      ...(o.source === "hotel-camera" && [0, 4, 8].includes(o.frame)
+      ...(o.source === "hotel-camera" && Number.isInteger(o.frame) && o.frame >= 0 && o.frame <= 8
         ? { frame: o.frame }
         : {}),
     });
@@ -132,6 +133,13 @@ export function clean(raw) {
         )
         .map((l) => ({ id: l.id, role: l.role })),
     }));
+  // Board keys use stable observation ids and theory ordinal positions. Theory
+  // ids are deliberately normalized during import; ordinal layout survives that.
+  for (const [key, point] of Object.entries(raw.boardLayout || {})) {
+    const valid = used.has(key) || (/^theory\d+$/.test(key) && Number(key.slice(6)) < s.theories.length);
+    if (valid && Array.isArray(point) && point.length === 2 && point.every(Number.isFinite))
+      s.boardLayout[key] = [Math.max(12, Math.min(1100, point[0])), Math.max(12, Math.min(30000, point[1]))];
+  }
   s.conversations =
     raw.conversations && typeof raw.conversations === "object"
       ? Object.fromEntries(

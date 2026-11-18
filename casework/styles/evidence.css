@@ -602,3 +602,62 @@
 }
 .listening-panel.is-playing .reel-symbol{color:#d6c591;text-shadow:0 0 20px #b6c79955}.listening-panel.is-playing [data-listen-play]{border-color:#d9c78e;background:#38543d}.listening-panel.is-playing header small{color:#e5d8af}.comparison-update{border-left:3px solid #c0ae78;padding:.8rem 1rem;background:#a8a36b15;font-size:.9rem}
 .listening-switcher{display:none}.listening-panel button{min-height:44px}@media(max-width:760px){.listening-switcher{display:flex;gap:.5rem;margin:1.5rem 0 .5rem}.listening-switcher button{flex:1;font:12px system-ui;min-height:44px;text-align:center}.listening-switcher button[aria-pressed=true]{background:#e1d2a9;color:#29422d;border-color:#cab580}.audio-comparison .listening-panel:not(.mobile-active){display:none}.audio-comparison .listening-room{margin-top:.5rem}}
+.surveillance-console {background:#101c1d;border:1px solid #70858666;padding:1rem;color:#d8e2d7;box-shadow:inset 0 0 30px #0008;margin-bottom:1rem;}
+.recorder-identity {display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;font:10px/1.6 monospace;letter-spacing:.07em;border-bottom:1px solid #b2c4b344;padding-bottom:.8rem;}
+.recorder-identity>span:last-child {margin-left:auto;color:#a6bbb3;}
+.recorder-led {background:#c78d62;width:6px;height:6px;border-radius:50%;box-shadow:0 0 7px #ce875455;}
+.cctv-transport {display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:1rem 0;}
+.cctv-transport button {font-size:.75rem;background:#223738;min-height:44px;}
+.cctv-transport output {font:1.3rem monospace;margin-left:auto;color:#c1e0ce;}
+.cctv-scrubber {font:11px monospace;display:block;}
+.cctv-scrubber input {width:100%;display:block;min-height:44px;accent-color:#bec9a6;}
+.cctv-provenance,.cctv-workflow {font-size:.75rem;line-height:1.7;color:#aebfb5;}
+.cctv-descriptions {padding-left:1.2rem;}
+.cctv-descriptions button {font:12px/1.6 monospace;text-align:left;margin:.2rem 0;}
+.photo-surface>#cctv-film {display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;}
+.photo-surface>#cctv-film.playing {display:block;}
+.surveillance .photo-viewport {border:8px solid #152224;box-shadow:0 0 0 1px #8ca49366,0 15px 25px #0007;}
+.surveillance .camera-overlay {font-family:monospace;color:#c9edda;text-shadow:1px 2px #001c19;}
+@media(max-width:600px){.surveillance-console{padding:.75rem;}.recorder-identity>span:last-child{width:100%;margin:0;}.cctv-transport{gap:.35rem;}.cctv-transport button{padding:.6rem;font-size:.7rem;}.cctv-transport output{width:100%;margin:.3rem 0;}}
+/* A working wall made of player-retained sources, never pre-authored answers. */
+.wall-dialog {max-width:1500px;background:#111b17;}
+.wall-room {background:radial-gradient(ellipse at 50% 0,#6e563133,transparent 65%),#111a17;padding:1.3rem;}
+.wall-brief {max-width:1100px;margin:0 auto 1.3rem;}
+.wall-brief h1 {font-weight:400;font-size:2rem;margin:.2rem 0;}
+.wall-brief>p:not(.eyebrow) {color:#c1c3ac;font-size:.82rem;line-height:1.7;}
+.wall-controls {display:flex;align-items:end;gap:.7rem;flex-wrap:wrap;margin:1rem 0;}
+.wall-controls label {font-size:.75rem;flex:1;min-width:200px;}
+.wall-controls select {display:block;width:100%;max-width:450px;}
+.wall-controls button {min-height:44px;font-size:.75rem;}
+.wall-nudges {display:flex;gap:.2rem;}
+.wall-legend {display:flex;flex-wrap:wrap;gap:1.2rem;font:11px monospace;}
+.wall-legend span::before {content:'';display:inline-block;width:20px;margin-right:.5rem;vertical-align:middle;border-top:2px solid #a8ba8c;}
+.wall-legend [data-role=challenge]::before {border-color:#c67c62;}
+.wall-legend [data-role=context]::before {border-color:#b0a279;border-top-style:dashed;}
+.wall-viewport {overflow:auto;max-height:72svh;border:12px solid #332416;outline:1px solid #aa8e4e55;box-shadow:0 10px 50px #0008,inset 0 0 25px #0008;overscroll-behavior:contain;}
+.evidence-wall {width:1400px;position:relative;background-color:#6a5537;background-image:radial-gradient(ellipse at 50% -20%,#e4b97488,transparent 75%),radial-gradient(#30251388 .8px,transparent 1.4px),radial-gradient(#c2a27388 .7px,transparent 1.7px),repeating-linear-gradient(23deg,#a78b5822 0 2px,transparent 3px 7px);background-size:auto,7px 9px,11px 6px,auto;box-shadow:inset 0 0 80px #1b110c99;}
+.wall-strings {position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:drop-shadow(1px 3px 1px #1c0b0688);}
+.wall-strings path {fill:none;stroke-width:2;stroke:#a8ba8c;}
+.wall-strings .string-challenge {stroke:#c67c62;}
+.wall-strings .string-context {stroke:#c2b184;stroke-dasharray:7 5;}
+.wall-pin {position:absolute;width:270px;box-sizing:border-box;padding:0 14px 13px;color:#302b20;background:#e0d5b6;box-shadow:2px 5px 12px #100b0777;transform:rotate(-.7deg);border:1px solid #786d4b;}
+.wall-pin:nth-child(3n){transform:rotate(1deg);background:#e8ddc2;}
+.wall-pin.theory {background:#d4cb99;border-left:4px solid #837644;}
+.wall-pin.selected {outline:3px solid #e6cc88;outline-offset:4px;z-index:3;}
+.wall-pin h2 {font-size:15px;font-weight:600;margin:.8rem 0 .4rem;line-height:1.3;}
+.wall-pin p {font-size:12px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+.wall-pin small {font:9px monospace;color:#69573d;}
+.wall-pin .pin-caution {font-style:italic;font-size:10px;color:#756448;}
+.wall-pin .pin-annotation {font-style:italic;color:#5c4d33;border-top:1px solid #8e7f5666;padding-top:.4rem;}
+.pin-handle {width:calc(100% + 28px);margin:0 -14px;display:block;border:0;border-radius:0;background:#0000000a;color:#5f503a;touch-action:none;cursor:grab;font:9px monospace;letter-spacing:.06em;min-height:36px;box-shadow:none;}
+.pin-handle span {color:#765037;text-shadow:0 1px #efdfb6,1px 2px #271b1855;margin-right:7px;font-size:15px;}
+.wall-photo {height:98px;background-size:cover;background-position:center;border:5px solid #f1e7d1;margin-top:.2rem;filter:sepia(.15);}
+.wall-original {color:#463a26;border-color:#87795688;background:transparent;font-size:11px;width:100%;min-height:36px;}
+.wall-empty {position:absolute;left:70px;top:65px;width:330px;background:#e7dbba;color:#3f3322;padding:30px;box-shadow:2px 5px 15px #0007;transform:rotate(-3deg);}
+.wall-empty h2 {font-weight:400;}
+@media(max-width:600px){.wall-room{padding:.65rem;}.wall-brief h1{font-size:1.6rem;}.wall-viewport{border-width:7px;max-height:65svh;}.wall-controls{gap:.4rem;}.wall-controls label{width:100%;flex:auto;}.wall-pin .pin-handle{min-height:44px;}.wall-legend{gap:.7rem;font-size:10px;}}
+.surveillance .photo-surface img,.surveillance .photo-surface video {filter:saturate(.22) contrast(1.15) sepia(.18);}
+.surveillance .photo-surface::after {content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0px 3px,#001d1c15 3px 4px);box-shadow:inset 0 0 55px #011d1c55;}
+
+/* Irregular procedural fibre/grain rather than a regular dotted grid. */
+.evidence-wall {background-color:#705638;background-image:radial-gradient(ellipse at 50% -20%,#e4b97466,transparent 75%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.17 .23' numOctaves='4' seed='416' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='.6' intercept='.1'/%3E%3CfeFuncG type='linear' slope='.5' intercept='.08'/%3E%3CfeFuncB type='linear' slope='.35' intercept='.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Cpath fill='%23705738' d='M0 0h256v256H0z'/%3E%3Cpath filter='url(%23c)' opacity='.7' d='M0 0h256v256H0z'/%3E%3C/svg%3E");background-size:auto,200px 200px;background-blend-mode:normal,soft-light;}

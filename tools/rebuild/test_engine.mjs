@@ -156,6 +156,14 @@ check(
   clean({ ...E.state, theories: [null, 5, "bad", {}] }).theories.length === 1,
   "malformed theory entries ignored",
 );
+const cameraCheck=C.puzzles.find(p=>p.id==='camera');const wrongMark=structuredClone(E.state);for(const o of wrongMark.observations.filter(o=>o.source==='hotel-camera')){o.frame=4;o.mode='marked';o.point=[.02,.02];}
+check(!E.diagnose(cameraCheck,cameraCheck.answer,wrongMark).ok,'unrelated image corner cannot establish the observed crossing');
+for(const o of wrongMark.observations.filter(o=>o.source==='hotel-camera'))o.mode='text';
+check(E.diagnose(cameraCheck,cameraCheck.answer,wrongMark).ok,'equivalent source description remains fully usable');
+const boardState=structuredClone(E.state);boardState.theories=[{title:'Question',links:[]}];boardState.boardLayout={theory0:[90,120],o1:[300,400],theory99:[10,10],alien:[2,3],o2:[NaN,5]};
+const cleanedBoard=clean(boardState);check(cleanedBoard.boardLayout.theory0?.[0]===90,'theory ordinal layout survives imported id normalization');
+check(!cleanedBoard.boardLayout.theory99&&!cleanedBoard.boardLayout.alien&&!cleanedBoard.boardLayout.o2,'invalid and orphan board pins ignored');
+const frames=structuredClone(E.state);const retainedCamera=frames.observations.find(o=>o.source==='hotel-camera');if(retainedCamera){retainedCamera.frame=6;check(clean(frames).observations.find(o=>o.id===retainedCamera.id)?.frame===6,'all actual retained CCTV sample positions survive reload');retainedCamera.frame=99;check(clean(frames).observations.find(o=>o.id===retainedCamera.id)?.frame===undefined,'invented CCTV sample position is not restored');}
 check(clean({}).chapter === 1, "malformed save reset safely");
 console.log(
   `${checks} authored-logic checks passed. These are not blind playtesting or measured playtime.`,

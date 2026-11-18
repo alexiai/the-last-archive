@@ -1,3 +1,6 @@
+import { openEvidenceWall } from "./board.js";
+import { surveillanceControls, mountSurveillance } from "./surveillance.js";
+import { openingMarkup, mountOpening } from "./cinema.js";
 import { briefingArtifact, workingLeadNote } from "./presentation.js";
 import { listeningPanel, mountListening } from "./listening.js";
 import { asset, assetMarkup } from "./assets.js";
@@ -23,13 +26,15 @@ const button = (label, attrs = "") =>
   `<button type="button" ${attrs}>${e(label)}</button>`;
 function bindSources(el) {
   el.querySelectorAll("[data-source]").forEach(
-    (b) => (b.onclick = () => openSource(b.dataset.source)),
+    (b) => (b.onclick = () => openSource(b.dataset.source, E.state.observations.find(o => o.id === b.dataset.observation))),
   );
   el.querySelectorAll("[data-puzzle]").forEach(
     (b) => (b.onclick = () => openPuzzle(b.dataset.puzzle)),
   );
 }
+let stopOpening = () => {};
 function render() {
+  stopOpening();
   const s = E.state;
   if (!s.started) {
     root.innerHTML = assetMarkup(
@@ -44,8 +49,9 @@ function render() {
   if (s.intro < C.intro.length) {
     const i = C.intro[s.intro];
     root.innerHTML = assetMarkup(
-      `<section class="briefing" style="--back:url('assets/world/${i.image || "opening-night"}.jpg')"><div class="briefing-copy"><p class="eyebrow">${e(i.eyebrow)}</p><h1>${e(i.title)}</h1><p>${e(i.text)}</p>${i.audio ? button("Play briefing", 'id="briefing-play"') + `<details class="briefing-transcript"><summary>Recording transcript</summary><p>${e(C.audio[i.audio].lines.map(([who, text]) => who + ": " + text).join("\n"))}</p></details>` : ""}${button(s.intro === C.intro.length - 1 ? "Enter the apartment" : "Continue", 'id="continue"')}<small>${s.intro + 1} / ${C.intro.length} · Captions shown in full</small></div>${briefingArtifact(s.intro)}</section>`,
+      `<section class="briefing ${s.intro === 0 ? "has-cinema" : ""}" style="--back:url('assets/world/${i.image || "scene-wide"}.jpg')"><div class="briefing-copy"><p class="eyebrow">${e(i.eyebrow)}</p><h1>${e(i.title)}</h1><p>${e(i.text)}</p>${i.audio ? button("Play briefing", 'id="briefing-play"') + `<details class="briefing-transcript"><summary>Recording transcript</summary><p>${e(C.audio[i.audio].lines.map(([who, text]) => who + ": " + text).join("\n"))}</p></details>` : ""}${button(s.intro === C.intro.length - 1 ? "Enter the apartment" : s.intro === 0 ? "Skip film & continue" : "Continue", 'id="continue"')}<small>${s.intro + 1} / ${C.intro.length} · Captions shown in full</small></div>${briefingArtifact(s.intro)}${s.intro === 0 ? openingMarkup() : ""}</section>`,
     );
+    if (s.intro === 0) stopOpening = mountOpening(root, s.sound.volume);
     document
       .querySelector("#briefing-play")
       ?.addEventListener("click", () => A.play(i.audio));
@@ -112,7 +118,7 @@ function positionScenePoints() {
   });
 }
 window.addEventListener("resize", positionScenePoints);
-function openSource(id) {
+function openSource(id, retained = null) {
   const src = C.sources[id];
   if (!E.visible(src))
     return toast(
@@ -137,13 +143,13 @@ function openSource(id) {
   }
 
   let point = null,
-    frame = 4,
+    frame = Number.isInteger(retained?.frame) ? retained.frame : 4,
     textMode = false;
   const photographic = ["photo", "surveillance"].includes(src.kind);
   const audio = id.startsWith("audio.") ? C.audio[id.slice(6)] : null;
   const d = modal(
     src.title,
-    `<div class="inspection ${e(src.kind)}"><div class="original-source">${id === "trace" ? traceSheet() : id === "building-a" ? circulation(false) : id === "building-b" ? circulation(true) : id === "catalogue" ? catalogue() : id === "object-report" ? contactSheet() : ""}${src.image ? `<div class="image-tools"><label>Magnification <input aria-label="Image magnification" type="range" min="1" max="3" step=".25" value="1" id="magnify"></label>${id === "hotel-camera" ? '<label>Retained frame <select id="frame"><option value="0">00:24:56 / empty</option><option value="4" selected>00:25:00 / crossing</option><option value="8">00:25:04 / empty</option></select></label>' : ""}</div><div class="photo-viewport"><div class="photo-surface"><img id="original-image" src="assets/world/${src.image}.jpg" alt="${e(src.title)}"><span class="inspection-mark" hidden>+</span>${src.kind === "surveillance" ? `<div class="camera-overlay">${id === "hotel-camera" ? "AURELIA / CAM 02 · 18 OCT 00:25:00" : "TEILOR / E1 · FIXED VIEW"}<span>RETAINED STILL / NO AUDIO</span></div>` : ""}</div></div>` : ""}<article class="source-paper"><p class="document-heading">${src.issuer ? `<span class="document-issuer">${e(src.issuer)}</span>` : ""}${e(src.kind.toUpperCase())} / ORIGINAL ${e(id)}</p><h2>${e(src.title)}</h2><p class="source-meta">${e(src.meta)}</p><div class="source-text">${audio ? "" : e(src.text)}</div>${src.visual ? `<details><summary>Equivalent visual description</summary><p>${e(src.visual)}</p></details>` : ""}</article>${audio ? listeningPanel(id.slice(6), true) : ""}</div><aside class="observation-slip"><p class="eyebrow">YOUR OBSERVATION</p>${photographic ? '<p>Mark a detail in the image. Zoom and scroll to inspect it.</p><button id="text-location">Use equivalent text location</button><p id="point-feedback" role="status">No point marked.</p>' : ""}<label>What does this source show?<select id="reading"><option value="">Choose your observation</option>${Object.entries(
+    `<div class="inspection ${e(src.kind)}"><div class="original-source">${id === "trace" ? traceSheet() : id === "building-a" ? circulation(false) : id === "building-b" ? circulation(true) : id === "catalogue" ? catalogue() : id === "object-report" ? contactSheet() : ""}${src.image ? `${id === "hotel-camera" ? surveillanceControls() : ""}<div class="image-tools"><label>Magnification <input aria-label="Image magnification" type="range" min="1" max="3" step=".25" value="1" id="magnify"></label>${id === "hotel-camera" ? `<label>Retained frame <select id="frame">${Array.from({length:9},(_,i)=>`<option value="${i}" ${i===4 ? "selected" : ""}>Sample ${i+1} / ${i<4 ? "00:24:"+(56+i) : "00:25:0"+(i-4)}</option>`).join("")}</select></label>` : ""}</div><div class="photo-viewport"><div class="photo-surface"><img id="original-image" src="assets/world/${src.image}.jpg" alt="${e(src.title)}"><span class="inspection-mark" hidden>+</span>${src.kind === "surveillance" ? `<div class="camera-overlay">${id === "hotel-camera" ? "AURELIA / CAM 02 · 18 OCT 00:25:00" : "TEILOR / E1 · FIXED VIEW"}<span>${id === "hotel-camera" ? "SAMPLED RECORDING / NO AUDIO" : "RETAINED STILL / NO AUDIO"}</span></div>` : ""}</div></div>` : ""}<article class="source-paper"><p class="document-heading">${src.issuer ? `<span class="document-issuer">${e(src.issuer)}</span>` : ""}${e(src.kind.toUpperCase())} / ORIGINAL ${e(id)}</p><h2>${e(src.title)}</h2><p class="source-meta">${e(src.meta)}</p><div class="source-text">${audio ? "" : e(src.text)}</div>${src.visual ? `<details><summary>Equivalent visual description</summary><p>${e(src.visual)}</p></details>` : ""}</article>${audio ? listeningPanel(id.slice(6), true) : ""}</div><aside class="observation-slip"><p class="eyebrow">YOUR OBSERVATION</p>${photographic ? '<p>Mark a detail in the image. Zoom and scroll to inspect it.</p><button id="text-location">Use equivalent text location</button><p id="point-feedback" role="status">No point marked.</p>' : ""}<label>What does this source show?<select id="reading"><option value="">Choose your observation</option>${Object.entries(
       src.choices,
     )
       .map(([k, v]) => `<option value="${e(k)}">${e(v)}</option>`)
@@ -176,19 +182,7 @@ function openSource(id) {
       d.querySelector("#point-feedback").textContent =
         "Text observation mode: choose the visible detail from the descriptions below.";
     });
-    d.querySelector("#frame")?.addEventListener("change", (ev) => {
-      frame = Number(ev.target.value);
-      d.querySelector("#original-image").src = asset(
-        `assets/world/hotel-${frame}.jpg`,
-      );
-      d.querySelector(".camera-overlay").firstChild.textContent =
-        "AURELIA / CAM 02 · 18 OCT " +
-        { 0: "00:24:56", 4: "00:25:00", 8: "00:25:04" }[frame];
-      point = null;
-      d.querySelector(".inspection-mark").hidden = true;
-      d.querySelector("#point-feedback").textContent =
-        "Frame changed. Mark a detail in this original.";
-    });
+
   }
   d.querySelector("#retain").onclick = () => {
     const r = E.observe(
@@ -211,6 +205,16 @@ function openSource(id) {
     d.close();
     phone.open("lock");
   });
+  if (id === "hotel-camera") {
+    mountSurveillance(d, selected => {
+      frame = selected;
+      point = null;
+      textMode = false;
+      d.querySelector(".inspection-mark").hidden = true;
+      d.querySelector("#point-feedback").textContent = "Source sample changed. Mark a detail in this original.";
+    }, frame);
+    bindSources(d);
+  }
   if (audio) mountListening(d);
 }
 
@@ -285,14 +289,14 @@ function casebook() {
       )
       .join(
         "",
-      )}</details><h2>Private notes</h2><textarea id="case-notes" rows="7" placeholder="Keep your questions, uncertainties and connections here.">${e(s.notes)}</textarea><button id="open-chronology">Open your working chronology</button><button id="new-theory">Add a tentative theory</button><div id="theories">${s.theories
+      )}</details><h2>Private notes</h2><textarea id="case-notes" rows="7" placeholder="Keep your questions, uncertainties and connections here.">${e(s.notes)}</textarea><button id="open-evidence-wall">Open the investigation wall</button><button id="open-chronology">Open your working chronology</button><button id="new-theory">Add a tentative theory</button><div id="theories">${s.theories
       .map(
         (t) =>
           `<article class="theory" data-theory="${t.id}"><input class="theory-title" aria-label="Theory title" value="${e(t.title)}"><select class="theory-status" aria-label="Theory status">${["open", "testing", "reconsidered", "supported"].map((v) => `<option ${t.status === v ? "selected" : ""}>${v}</option>`).join("")}</select><textarea class="theory-note" aria-label="Theory notes">${e(t.note)}</textarea><p>Personal theory — the game does not evaluate free text.</p><div>${t.links
             .map((l) => {
               const o = s.observations.find((o) => o.id === l.id);
               return o
-                ? `<button data-source="${o.source}">${e(l.role)} · ${e(C.sources[o.source].title)}</button>`
+                ? `<button data-observation="${o.id}" data-source="${o.source}">${e(l.role)} · ${e(C.sources[o.source].title)}</button>`
                 : "";
             })
             .join(
@@ -301,7 +305,7 @@ function casebook() {
       )
       .join(
         "",
-      )}</div></section><section class="retained-pages"><h2>Source-linked observations</h2>${s.observations.map((o) => `<article class="retained-observation"><small>${e(o.id)} / ${e(C.sources[o.source].kind)}</small><h3>${e(C.sources[o.source].choices[o.reading])}</h3>${o.note ? `<p>${e(o.note)}</p>` : ""}<button data-source="${o.source}">↗ ${e(C.sources[o.source].title)}</button></article>`).join("") || "<p>No observations yet. Inspect originals, then retain the details you want to compare.</p>"}</section></div>`,
+      )}</div></section><section class="retained-pages"><h2>Source-linked observations</h2>${s.observations.map((o) => `<article class="retained-observation"><small>${e(o.id)} / ${e(C.sources[o.source].kind)}</small><h3>${e(C.sources[o.source].choices[o.reading])}</h3>${o.note ? `<p>${e(o.note)}</p>` : ""}<button data-observation="${o.id}" data-source="${o.source}">↗ ${e(C.sources[o.source].title)}</button></article>`).join("") || "<p>No observations yet. Inspect originals, then retain the details you want to compare.</p>"}</section></div>`,
     true,
   );
   bindSources(d);
@@ -312,6 +316,7 @@ function casebook() {
     s.notes = ev.target.value;
     E.save();
   };
+  d.querySelector("#open-evidence-wall").onclick = () => openEvidenceWall(openSource);
   d.querySelector("#open-chronology").onclick = chronology;
   d.querySelector("#new-theory").onclick = () => {
     E.addTheory("Untitled theory", "");

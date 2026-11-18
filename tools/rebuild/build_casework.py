@@ -15,7 +15,7 @@ if out.exists():
 out.mkdir(parents=True)
 for name in ['index.html','ASSET-LICENSES.md']:
  shutil.copy2(src/name,out/name)
-for name,exts in [('src',{'.js'}),('styles',{'.css'}),('assets',{'.jpg','.png','.svg','.mp3','.json'})]:
+for name,exts in [('src',{'.js'}),('styles',{'.css'}),('assets',{'.jpg','.png','.svg','.mp3','.mp4','.json'})]:
  for file in (src/name).rglob('*'):
   if file.is_file() and file.suffix in exts:
    target=out/file.relative_to(src);target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(file,target)

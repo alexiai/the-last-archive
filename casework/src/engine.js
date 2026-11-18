@@ -97,6 +97,9 @@ export function draft(id, key, value) {
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 export function photoSupports(o) {
   if (o.mode === "text") return true;
+  if (o.source === "hotel-camera" && o.frame === 4) {
+    return !!o.point && o.point[0] >= .42 && o.point[0] <= .55 && o.point[1] >= .35 && o.point[1] <= .85;
+  }
   const targets = {
     "scene-wide": ["sofa"],
     "room-before": ["sofa"],
@@ -175,11 +178,12 @@ export function diagnose(p, answer, s = state, { restoring = false } = {}) {
         (o) =>
           o.source === "hotel-camera" &&
           o.reading === "crossing" &&
-          o.frame === 4,
+          o.frame === 4 &&
+          ((restoring && !answer.revision) || photoSupports(o)),
       )
     )
       return fail(
-        "Retain an occupied crossing frame before using the timing record.",
+        "Retain the central crossing sample and mark the visible figure, or use its equivalent text location. Other positions do not establish the time of that crossing.",
       );
     if (
       !same(

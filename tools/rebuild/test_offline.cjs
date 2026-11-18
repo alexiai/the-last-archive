@@ -46,9 +46,10 @@ const assert = require("node:assert/strict"),
     "actual recording cached offline",
   );
   const ranges=await p.evaluate(async()=>{const m=await(await fetch('assets/audio/manifest.json')).json();const file=m.clips.briefing.file;const full=new Uint8Array(await(await fetch(file)).arrayBuffer());const first=await fetch(file,{headers:{Range:'bytes=0-127'}});const data=new Uint8Array(await first.arrayBuffer());const suffix=await fetch(file,{headers:{Range:'bytes=-128'}});const invalid=await fetch(file,{headers:{Range:'bytes='+full.length+'-'}});return {first:first.status,contentRange:first.headers.get('Content-Range'),same:data.length===128&&data.every((v,i)=>v===full[i]),suffix:suffix.status,suffixBytes:(await suffix.arrayBuffer()).byteLength,invalid:invalid.status};});assert.equal(ranges.first,206);assert.ok(ranges.same);assert.equal(ranges.suffix,206);assert.equal(ranges.suffixBytes,128);assert.equal(ranges.invalid,416);
+  const film=await p.evaluate(async()=>{const r=await fetch('assets/films/opening.mp4',{headers:{Range:'bytes=0-255'}});const c=await fetch('assets/films/hotel-camera.mp4',{headers:{Range:'bytes=-256'}});return{opening:r.status,openingBytes:(await r.arrayBuffer()).byteLength,cctv:c.status,cctvBytes:(await c.arrayBuffer()).byteLength};});assert.equal(film.opening,206);assert.equal(film.openingBytes,256);assert.equal(film.cctv,206);assert.equal(film.cctvBytes,256);
   await b.close();
   console.log(
-    "Offline installation, cold reload, saved phone context and cached audio and byte-range seeking verified in Chromium.",
+    "Offline installation, cold reload, saved phone context and cached audio/video and byte-range seeking verified in Chromium.",
   );
 })().catch((e) => {
   console.error(e);

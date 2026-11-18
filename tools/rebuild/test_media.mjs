@@ -77,6 +77,16 @@ C.ending.questions.forEach(([, text], i) => spoken("ending.julia.q" + i, text));
 for (const p of C.puzzles)
   for (const id of p.sources)
     assert.ok(C.sources[id], "comparison source exists");
+const films=JSON.parse(fs.readFileSync(new URL('assets/films/manifest.json',root)));
+for(const [name,info] of Object.entries(films.files)) {
+ const bytes=fs.readFileSync(new URL('assets/films/'+name,root));
+ assert.equal(bytes.length,info.bytes,'finished film bytes indexed');
+ assert.equal(createHash('sha256').update(bytes).digest('hex'),info.sha256,'finished film hash');checks+=2;
+}
+assert.equal(films.opening.duration,38);assert.equal(films.opening.captionLanguage,'en');
+assert.equal(films.files['hotel-camera.mp4'].audio,false);checks+=3;
+for(let i=0;i<9;i++){assert.ok(fs.statSync(new URL('assets/surveillance/hotel-'+i+'.jpg',root)).size>10000);checks++;}
+for(const shot of films.opening.shots){assert.ok(!['room-before','room-prepared','shelf-before','opening-night'].includes(shot.source),'opening uses only the same preserved room state');checks++;}
 const total = [...required].reduce(
   (a, id) => a + fs.statSync(new URL("assets/world/" + id + ".jpg", root)).size,
   0,

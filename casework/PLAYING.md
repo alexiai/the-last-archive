@@ -8,6 +8,14 @@ Open **https://alexiai.github.io/the-last-archive/preview/** in Safari or a desk
 
 Allow the first online load to finish before testing offline. Use Settings / save to export a backup before clearing browser data. Updates preserve the casework save; a visible update notice lets you save and reload when ready. Browser storage is specific to this device and browser and does not synchronize between devices.
 
+## Try the new presentation and casework
+
+A new case begins with a short cinematic introduction. It has pause, sound, transcript and read-the-briefing controls; reduced-motion preferences prevent automatic playback. If you already have a save, choose **Settings / save → Replay opening** to see it without resetting your investigation.
+
+In **Casebook**, choose **Open the investigation wall**. It uses your retained observations and tentative theories. Arrange pins using their handles or the selected-pin controls; source buttons reopen the originals. Supporting/contradicting strings reflect the labels you chose in your casebook.
+
+As the campaign opens the surveillance desk, retained recordings can be played, paused and stepped through. The sampled export is explicitly labelled and includes equivalent descriptions. Inspect and retain the relevant source position before comparing its recorder clock with other records.
+
 ## Optional self-contained desktop review copy
 
 1. Download and extract the `THE_LAST_ARCHIVE_CASEWORK_DEVELOPMENT` artifact from a manually requested casework verification run on Draft PR #4. Automatic verification does not upload duplicate ZIP archives.

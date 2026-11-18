@@ -6,7 +6,7 @@ export function asset(path) {
 export function assetMarkup(html) {
   if (!globalThis.CASEWORK_ASSETS) return html;
   return html
-    .replace(/src="(assets\/[^\"]+)"/g, (_, path) => `src="${asset(path)}"`)
+    .replace(/(src|poster)="(assets\/[^\"]+)"/g, (_, attribute, path) => `${attribute}="${asset(path)}"`)
     .replace(
       /url\(['"]?(assets\/[^'"\)]+)['"]?\)/g,
       (_, path) => `url('${asset(path)}')`,

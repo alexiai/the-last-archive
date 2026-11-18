@@ -12,12 +12,12 @@ A working casebook supports notes, personal theories, supporting/contradicting/c
 
 ## Verified by automated checks
 
-- 202 authored-logic checks: all nine chapters, required-source availability, incorrect interpretations, marked-image scope, text alternatives, camera-frame requirements, sound-source inspection, save reconstruction, unsupported imports and preservation of earlier saves.
+- 208 authored-logic checks: all nine chapters, required-source availability, incorrect interpretations, marked-image scope, text alternatives, camera-frame requirements, sound-source inspection, save reconstruction, unsupported imports and preservation of earlier saves.
 - 59 complete-campaign UI checks: fresh opening to final record, reload after every comparison, all three final decisions, optional final questions, each aftermath and replaying the opening without resetting progress, and an explicitly confirmed fresh start. This is an authored-solution regression, not a blind playthrough.
 - Five additional visual-inspection checks use actual image marking under magnification and scrolling, then complete the first finding without a text-location substitute.
 - 43 Chromium desktop/mobile interaction checks: phone navigation, messages, calendar, source retention, personal notes, theory roles, focus-independent persistence and layout overflow.
 - 18 Linux WebKit desktop/mobile checks: phone search, forensic magnification/input focus, calendar, chronology/source attachments and reloads. Linux WebKit is not a physical iPhone.
-- 458 media/source checks: source references, all 18 original views, recording bytes/hashes and correspondence between finished recording scripts and implemented transcripts.
+- 481 media/source checks: source references, all 18 original views, recording bytes/hashes and correspondence between finished recording scripts and implemented transcripts.
 - All 51 finished recordings decode in Chromium; explicit in-game briefing playback starts.
 - Static web installation, offline reload, saved phone context and cached recordings verified in Chromium.
 - The self-contained review copy completes the authored campaign without network asset requests. CI also opens the self-contained HTML as a local file in an unmanaged browser.
@@ -31,7 +31,7 @@ The chronology, physical location/camera relationship, source-release chain, ind
 
 Independent first-time completion time, difficulty, emotional impact, red-herring effectiveness and sustained atmosphere need blind human playtesting. The 2–4 hour target remains unmeasured. Full listening review is still needed for voice performance, pronunciation and mix. Physical iPhone Safari, Android devices and screen-reader use require testing. The isolated preview is live at https://alexiai.github.io/the-last-archive/preview/; the root game remains unchanged. The primary and fallback preview URLs were exercised in Chromium and Linux WebKit. No development game code was merged into main; main contains a narrowly scoped preview-publishing workflow because the Pages environment only permits that ref. Physical-device Safari audio is not certified: the Linux WebKit runner cannot create its media temporary file.
 
-The self-contained desktop review build is about 18.8 MB because finished media are embedded. The normal static build is about 14.4 MB; spoken recordings are about 5.4 MB. Neither includes voice models, WAV masters or production environments. Production uses free local tools; no paid APIs, runtime AI, subscriptions or new recurring services were introduced.
+The self-contained desktop review build is about 25 MB because finished media are embedded. The normal static build is about 18.8 MB; spoken recordings are about 5.4 MB. Neither includes voice models, WAV masters or production environments. Production uses free local tools; no paid APIs, runtime AI, subscriptions or new recurring services were introduced.
 
 ## Blind-playtesting gate
 
@@ -44,3 +44,13 @@ An optional indexed-recording comparison uses original and delivered recordings,
 11 additional checks cover actual audio playback/seek, incorrect interpretations, source retention, follow-up and earlier completed-save preservation. A separate old-service-worker test reproduces and fixes the production navigation-cache conflict, verifies the fallback URL, preserves the production save and shares the preview save between aliases. Offline tests cover normal/suffix byte ranges and invalid-range responses.
 
 The opening now presents tangible assignment materials; phone messages, attachments and appointments reopen at their native source. Phone search/calendar context survives reload. Reduced-motion preferences remain respected. These are author-side functional and layout checks, not a blind assessment of cinematic quality or emotional impact.
+
+## Cinematic and surveillance continuation
+
+A 38-second H.264 opening is integrated before the existing briefing, with an original synthesized score, environmental texture, camera drift and coherent canonical room views. It is an editorial sequence from original renders, not live-action or a fully animated cutscene. Inline playback, pause, mute, equivalent transcript, skip/read controls and reduced-motion behaviour are implemented. No essential evidence is exclusive to the film. Replay opening in Settings preserves campaign progress.
+
+The existing hotel investigation now includes nine original one-second samples from the same 3D environment, a silent sampled video, playback, one-second stepping, accessible descriptions and exact sample retention/reopening. No interpolated action, fake camera audio or fabricated corruption is claimed. Recorder metadata is kept distinct from corrected chronology. The timing comparison requires the central crossing; unrelated marked pixels do not establish it, while equivalent text inspection remains available. Older completed proofs remain valid. A contradictory visual-description timestamp was corrected, and the calibration source no longer supplies the crossing timestamp before inspection.
+
+The physical investigation wall displays actual retained observations and personal theories, with supporting, contradicting and context strings. Pins can be arranged with pointer/touch or keyboard/nudge controls. Position data is saved without altering evidence, personal notes, authored findings or progression. Opening an attached source reopens its original, including the exact retained surveillance sample. Personal theory statuses remain explicitly self-assessed.
+
+46 new functional checks cover real film and surveillance playback, caption timing, mute/pause, transcript/read alternatives, reduced motion, mobile controls, original-frame retention/reopening, saved wall positions and earlier completed saves. Offline checks now include byte ranges from both films. Finished media are indexed by hash; both films were checked with ffprobe for H.264 compatibility, duration and intended audio tracks. Physical iPhone playback and subjective cinematic quality still require human testing. No watermark or third-party artwork from owner references is distributed.

@@ -38,6 +38,7 @@ jobs:
           node tools/rebuild/test_listening.cjs
           node tools/rebuild/test_cinema_surveillance.cjs
           node tools/rebuild/test_offline.cjs
+          NEW_BUILD="$RUNNER_TEMP/casework-build" node tools/rebuild/test_offline_retry.cjs
           node tools/rebuild/test_recordings.cjs
           CASEWORK_URL="http://127.0.0.1:8092/START_GAME.html" NO_NETWORK=1 node tools/rebuild/test_campaign.cjs
           CASEWORK_URL="file://$RUNNER_TEMP/casework-build/START_GAME.html" node tools/rebuild/test_browser.cjs

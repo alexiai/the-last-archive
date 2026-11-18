@@ -1,0 +1,50 @@
+name: Verify casework development edition
+on:
+  pull_request:
+    paths:
+      - 'casework/**'
+      - 'tools/rebuild/**'
+      - '.github/workflows/casework.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  casework:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CHROMIUM_PATH: /usr/bin/google-chrome
+      CASEWORK_URL: http://127.0.0.1:8092/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node tools/rebuild/test_engine.mjs && node tools/rebuild/test_media.mjs
+      - run: python3 tools/rebuild/build_casework.py --output "$RUNNER_TEMP/casework-build"
+      - name: Build the self-contained review copy
+        run: |
+          npm install --prefix "$RUNNER_TEMP/casework-tools" --no-audit --no-fund esbuild@0.25.12
+          ESBUILD_PATH="$RUNNER_TEMP/casework-tools/node_modules/esbuild" node tools/rebuild/build_standalone.mjs "$RUNNER_TEMP/casework-build/START_GAME.html"
+          cp casework/PLAYING.md "$RUNNER_TEMP/casework-build/READ_ME.md"
+      - name: Test the packaged static game
+        run: |
+          python3 -m http.server 8092 --bind 127.0.0.1 --directory "$RUNNER_TEMP/casework-build" > "$RUNNER_TEMP/casework-server.log" 2>&1 &
+          node tools/rebuild/test_browser.cjs
+          node tools/rebuild/test_visual_inspection.cjs
+          node tools/rebuild/test_campaign.cjs
+          node tools/rebuild/test_listening.cjs
+          node tools/rebuild/test_cinema_surveillance.cjs
+          node tools/rebuild/test_offline.cjs
+          NEW_BUILD="$RUNNER_TEMP/casework-build" node tools/rebuild/test_offline_retry.cjs
+          node tools/rebuild/test_recordings.cjs
+          CASEWORK_URL="http://127.0.0.1:8092/START_GAME.html" NO_NETWORK=1 node tools/rebuild/test_campaign.cjs
+          CASEWORK_URL="file://$RUNNER_TEMP/casework-build/START_GAME.html" node tools/rebuild/test_browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          name: THE_LAST_ARCHIVE_CASEWORK_DEVELOPMENT
+          path: ${{ runner.temp }}/casework-build/
+          retention-days: 7

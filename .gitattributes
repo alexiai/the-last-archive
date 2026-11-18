@@ -1,2 +1,5 @@
 # Generated PDFs are binary assets; textual diffs invalidate their byte offsets.
 *.pdf binary
+# Compiled shader strings preserve upstream GLSL spacing.
+sceneplay/game.js linguist-generated=true -whitespace
+sceneplay/vendor/** linguist-vendored=true

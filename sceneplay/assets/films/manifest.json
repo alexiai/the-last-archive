@@ -1,0 +1,42 @@
+{
+  "duration": 44,
+  "fps": 24,
+  "frames": 1056,
+  "distinctFrames": 1039,
+  "dimensions": [
+    1280,
+    720
+  ],
+  "production": "Original animated 3D cameras, character and door; shared live scene geometry",
+  "geometrySha256": "3b48f71527d14380c06c160826b62bf00a6e590f0064d931e92fd7e5c8ebff29",
+  "worldSourceSha256": "a446186140afda438cf337b92f2c12baede83ef5b7f5940550b6e8678c4afec8",
+  "renderSources": [
+    {
+      "firstFrame": 0,
+      "lastFrame": 239,
+      "worldSha256": "3139b565b6e338325ad7c76241090e08d7041c687018d20493cb9df0c7b3b747",
+      "verifiedCompatibility": "Original pre-turn frames: identical camera and scene state before the later actor-translation correction begins at frame 288. The first rendered frame was compared byte-for-byte."
+    },
+    {
+      "firstFrame": 240,
+      "lastFrame": 599,
+      "worldSha256": "42574cfa58b2cc98522282fd06e19497a84e69fa5b44033af7723ee0b44fc177",
+      "verifiedCompatibility": "Only the camera path in frames 600\u2013743 changed; all scene, actor, lighting and other camera source is identical."
+    },
+    {
+      "firstFrame": 600,
+      "lastFrame": 743,
+      "worldSha256": "a446186140afda438cf337b92f2c12baede83ef5b7f5940550b6e8678c4afec8"
+    },
+    {
+      "firstFrame": 744,
+      "lastFrame": 1055,
+      "worldSha256": "42574cfa58b2cc98522282fd06e19497a84e69fa5b44033af7723ee0b44fc177",
+      "verifiedCompatibility": "Only the camera path in frames 600\u2013743 changed; all scene, actor, lighting and other camera source is identical."
+    }
+  ],
+  "fileSha256": "54be7919763fdedfb3c5f093471a056c1cf0ef696afd9bf06a33833802888349",
+  "bytes": 5126558,
+  "audio": "Original local score and English voiced dialogue",
+  "videoCodec": "h264"
+}

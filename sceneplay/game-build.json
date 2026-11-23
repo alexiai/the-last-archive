@@ -2,16 +2,17 @@
   "compiler": "esbuild 0.25.12",
   "target": "Safari 15.4 / Chrome 110",
   "sources": {
-    "src/app.js": "e960db9bf5a33679230b90c403457c3bff277b62c6d437855ba8ed37bae1a6ab",
-    "src/officer.js": "7ebc59001ee8358b2712d811c028872b194d2e3bbffcccaddc3682e65bcbd781",
+    "src/app.js": "430dac369c88ac2f298994e034bb8467d68caa4322e30f2910949d6e58ed86a9",
+    "src/controls.js": "3f282115be3f356f860aa8b419428cbbb937f3c4d51d5d850d9d34fe0a13c8ab",
+    "src/officer.js": "a9820f927d67d3f6fe69cc4293cd902c743448113d6eb86ad3a25cf8b97b5743",
     "src/recording.js": "a2f793d31c12c3d7f559eb78a6e886eaa5b51f664676a5d871e00ba10e6514dd",
     "src/sound.js": "9707732ed6dc8a0adbcdfc9011048c8dbc7e543bdd54747f860ea41b17e6e260",
-    "src/state.js": "035e7e7455171151f30383f04e26a1ed3a6284c4f14637483483903cf57ab9bf",
+    "src/state.js": "36bf7c7cae1e257c1e581cbfb3b82a07b3ae219e3be19b811e79bc2eb6f8180f",
     "src/story.js": "55c6dc81bf46709d552037dd7f7dfb650987aa3b9f26b3d7e85cb17e598bb047",
-    "src/world.js": "0a1289a2ca8676400ed280eb5ea0f0effa2d90f1d1d088e524a46a1794c5c848",
+    "src/world.js": "d3be4b43032b0d12a6c675a5a95dd748aabb2173e58250185f9092cb606c8b20",
     "vendor/loaders/GLTFLoader.js": "6f1719dcc6a179d30273dfb0de07a8c898a7981f7b08e600b446387f5967371f",
     "vendor/three.module.js": "f7cee3c7533449a1505cc12cb5128b89e3d4fd3d7ea62b05f9f5464a217472ee",
     "vendor/utils/BufferGeometryUtils.js": "c25b7930e570e9ec56173cd3b866ec8d2e10016630db3937efb439daf1cedbf6"
   },
-  "bundleSha256": "06fc6039b77eb70eb9ad0a1a3e917dba3af74f6c02d9cb395e4b823121150542"
+  "bundleSha256": "27e0d22ee2a0267eb1fb123c0c4d7bc39108fe34143508c2334f8b77568b741f"
 }

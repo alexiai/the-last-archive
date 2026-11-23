@@ -5,6 +5,7 @@ export const fresh = () => ({
   started: false,
   introSeen: false,
   position: "landing",
+  freePose: null,
   phoneRoute: "home",
   phoneThread: null,
   phoneNote: null,
@@ -45,6 +46,33 @@ export function clean(raw) {
     ].includes(raw.position)
   )
     s.position = raw.position;
+  const pose = raw.freePose;
+  if (
+    pose &&
+    [pose.position, pose.look].every(
+      (a) =>
+        Array.isArray(a) &&
+        a.length === 3 &&
+        a.every(
+          (n) =>
+            typeof n === "number" && Number.isFinite(n) && Math.abs(n) <= 40,
+        ),
+    ) &&
+    pose.position[1] >= 1 &&
+    pose.position[1] <= 2 &&
+    Number.isFinite(pose.yaw) &&
+    Number.isFinite(pose.pitch)
+  ) {
+    s.freePose = {
+      position: [...pose.position],
+      look: [...pose.look],
+      yaw:
+        ((((pose.yaw + Math.PI) % (Math.PI * 2)) + Math.PI * 2) %
+          (Math.PI * 2)) -
+        Math.PI,
+      pitch: Math.max(-0.65, Math.min(0.55, pose.pitch)),
+    };
+  }
   if (
     [
       "home",

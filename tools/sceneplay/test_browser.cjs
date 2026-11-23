@@ -39,6 +39,7 @@ const assert = require("node:assert/strict"),
       await p.click("#skip-intro");
       await p.click('[data-dialogue-choice="0"]');
       await p.waitForSelector("#pause");
+      await p.waitForFunction(() => !sceneplayView.walk, { timeout: 30000 });
       checks++;
       const ground = await p.evaluate(() => {
         for (const x of [0.2, 0.35, 0.5, 0.65, 0.8])

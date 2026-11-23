@@ -148,6 +148,8 @@ export class World {
     this.targetLook = v(PLACES.landing.look);
     this.place = "landing";
     this.walk = null;
+    this.walkInput = { forward: 0, side: 0 };
+    this.manualMoved = false;
     this.lookOffset = { yaw: 0, pitch: 0 };
     this.lightScene();
     this.bind();
@@ -251,8 +253,10 @@ export class World {
     this.batchRoom();
     this.setVersion("current");
     this.details();
+    this.batchDetails();
     this.makeOfficer();
     this.createTargets();
+    this.createNavigation();
     this.move("landing", true);
     return this;
   }
@@ -306,6 +310,50 @@ export class World {
         o.visible = false;
       });
       geometries.forEach((geometry) => geometry.dispose());
+    }
+  }
+  batchDetails() {
+    // Merge fixed set dressing by shared material. Moving doors, hands, clock
+    // pivots, weather and evidence-state objects keep their own transforms.
+    this.scene.updateMatrixWorld(true);
+    const excluded = new Set([
+      this.model,
+      this.staticRoom,
+      this.entry,
+      this.rearWall,
+      this.cup,
+      this.rain,
+      this.dust,
+      ...this.policeProps,
+      ...this.clockHands,
+    ]);
+    const groups = new Map();
+    for (const child of this.scene.children) {
+      if (excluded.has(child)) continue;
+      child.traverse((o) => {
+        if (!o.isMesh || !o.visible || Array.isArray(o.material)) return;
+        if (!groups.has(o.material)) groups.set(o.material, []);
+        groups.get(o.material).push(o);
+      });
+    }
+    for (const [material, meshes] of groups) {
+      if (meshes.length < 2) continue;
+      const geometries = meshes.map((o) => {
+        const g = o.geometry.index
+          ? o.geometry.toNonIndexed()
+          : o.geometry.clone();
+        g.applyMatrix4(o.matrixWorld);
+        return g;
+      });
+      const geometry = mergeGeometries(geometries, false);
+      if (geometry) {
+        const batch = new T.Mesh(geometry, material);
+        batch.name = "fixed set dressing";
+        batch.castShadow = batch.receiveShadow = true;
+        this.scene.add(batch);
+        meshes.forEach((o) => (o.visible = false));
+      }
+      geometries.forEach((g) => g.dispose());
     }
   }
   setVersion(version) {
@@ -689,6 +737,184 @@ export class World {
   setReducedMotion(enabled) {
     this.reducedMotion = enabled;
   }
+  createNavigation() {
+    // Footprints come from the same meshes the player sees. Low tables and
+    // chairs stop the body too; an eye-height ray would walk through them.
+    this.navigationObstacles = [];
+    this.scene.updateMatrixWorld(true);
+    const add = (o) => {
+      const b = new T.Box3().setFromObject(o);
+      this.navigationObstacles.push({
+        name: o.name,
+        minX: b.min.x,
+        maxX: b.max.x,
+        minZ: b.min.z,
+        maxZ: b.max.z,
+      });
+    };
+    this.model.traverse((o) => {
+      if (
+        o.isMesh &&
+        /^(coffee_table|chair_seat|chair_back|phone_side_table|shelf(?:_|$))/.test(
+          o.name,
+        )
+      )
+        add(o);
+    });
+    add(this.sofa);
+    add(this.scene.getObjectByName("listening desk"));
+    // The open leaf is angled. A world-aligned box would falsely close the
+    // clear half of the doorway; test it in the door's own horizontal plane.
+    this.navigationObstacles.push({
+      name: "open door",
+      minX: 0,
+      maxX: 1.12,
+      minZ: -0.065,
+      maxZ: 0.033,
+      originX: this.entry.position.x,
+      originZ: this.entry.position.z,
+      angle: this.entry.rotation.y,
+    });
+    this.navigationObstacles.push({
+      name: "officer",
+      minX: -2.02,
+      maxX: -1.53,
+      minZ: -5.08,
+      maxZ: -4.59,
+    });
+  }
+  canStand(x, z) {
+    const room = x >= -3.2 && x <= 3.2 && z >= -3.23 && z <= 2.78;
+    const hall = x >= -2.8 && x <= -1.7 && z >= -6.4 && z <= -3.23;
+    const doorway = x >= -2.62 && x <= -1.88 && z >= -3.7 && z <= -3.0;
+    if (!(room || hall || doorway)) return false;
+    return this.navigationObstacles.every((b) => {
+      const px =
+        b.angle == null
+          ? x
+          : Math.cos(b.angle) * (x - b.originX) -
+            Math.sin(b.angle) * (z - b.originZ);
+      const pz =
+        b.angle == null
+          ? z
+          : Math.sin(b.angle) * (x - b.originX) +
+            Math.cos(b.angle) * (z - b.originZ);
+      const dx = px - Math.max(b.minX, Math.min(b.maxX, px));
+      const dz = pz - Math.max(b.minZ, Math.min(b.maxZ, pz));
+      return dx * dx + dz * dz >= 0.18 * 0.18;
+    });
+  }
+  nearestPlace() {
+    return Object.entries(PLACES).sort(
+      ([, a], [, b]) =>
+        Math.hypot(
+          a.pos[0] - this.camera.position.x,
+          a.pos[2] - this.camera.position.z,
+        ) -
+        Math.hypot(
+          b.pos[0] - this.camera.position.x,
+          b.pos[2] - this.camera.position.z,
+        ),
+    )[0][0];
+  }
+  freePose() {
+    return {
+      position: this.camera.position.toArray(),
+      look: this.targetLook.toArray(),
+      yaw: this.lookOffset.yaw,
+      pitch: this.lookOffset.pitch,
+    };
+  }
+  restorePose(pose) {
+    if (!pose || !this.canStand(pose.position[0], pose.position[2]))
+      return false;
+    if (
+      Math.hypot(
+        pose.look[0] - pose.position[0],
+        pose.look[2] - pose.position[2],
+      ) < 0.01
+    )
+      return false;
+    this.camera.position.fromArray(pose.position);
+    this.targetLook.fromArray(pose.look);
+    this.lookOffset = { yaw: pose.yaw, pitch: pose.pitch };
+    this.place = this.nearestPlace();
+    return true;
+  }
+  setWalkInput(forward = 0, side = 0) {
+    // Account only for time this input was held, including the final fraction
+    // before release. A slow render must not turn a tiny tap into a large step.
+    if (this.walkInput.forward || this.walkInput.side) this.manualWalk();
+    if (!this.interactive) forward = side = 0;
+    if ((forward || side) && !(this.walkInput.forward || this.walkInput.side)) {
+      this.walk = null;
+      this.walkQueue = [];
+      this.walkResolve?.();
+      this.walkResolve = null;
+      this.inspectionOrbit = null;
+      this.manualAt = performance.now();
+      const rise = 1.64 - this.camera.position.y;
+      this.camera.position.y += rise;
+      this.targetLook.y += rise;
+    }
+    this.walkInput = { forward, side };
+    if (!forward && !side && this.manualMoved) {
+      this.manualMoved = false;
+      this.place = this.nearestPlace();
+      window.dispatchEvent(
+        new CustomEvent("manual-walk-end", {
+          detail: { place: this.place, pose: this.freePose() },
+        }),
+      );
+    }
+  }
+  manualWalk() {
+    if (!this.interactive || !(this.walkInput.forward || this.walkInput.side))
+      return;
+    const now = performance.now();
+    const dt = Math.min(0.25, Math.max(0, (now - this.manualAt) / 1000));
+    this.manualAt = now;
+    const oldX = this.camera.position.x,
+      oldZ = this.camera.position.z;
+    const direction = this.targetLook.clone().sub(this.camera.position);
+    direction.y = 0;
+    direction
+      .normalize()
+      .applyAxisAngle(new T.Vector3(0, 1, 0), this.lookOffset.yaw);
+    const right = new T.Vector3(-direction.z, 0, direction.x);
+    const delta = direction
+      .multiplyScalar(this.walkInput.forward)
+      .addScaledVector(right, this.walkInput.side)
+      .normalize()
+      .multiplyScalar(dt * 3.8);
+    // Small swept steps prevent tunnelling; resolve each axis to slide along a
+    // wall rather than catching a thumb on furniture corners.
+    const steps = Math.max(1, Math.ceil(delta.length() / 0.07));
+    for (let i = 0; i < steps; i++) {
+      const dx = delta.x / steps,
+        dz = delta.z / steps;
+      if (this.canStand(this.camera.position.x + dx, this.camera.position.z)) {
+        this.camera.position.x += dx;
+        this.targetLook.x += dx;
+      }
+      if (this.canStand(this.camera.position.x, this.camera.position.z + dz)) {
+        this.camera.position.z += dz;
+        this.targetLook.z += dz;
+      }
+    }
+    if (
+      Math.hypot(this.camera.position.x - oldX, this.camera.position.z - oldZ) <
+      0.0001
+    )
+      return;
+    this.manualMoved = true;
+    if (this.time - (this.lastStepAt || 0) > 0.36) {
+      this.lastStepAt = this.time;
+      window.dispatchEvent(
+        new CustomEvent("walking", { detail: this.nearestPlace() }),
+      );
+    }
+  }
   createTargets() {
     const add = (id, pos, size, label) => {
       const collider = new T.Mesh(
@@ -780,26 +1006,53 @@ export class World {
       ["room", "table"],
       ["room", "phone"],
     ];
-    const queue = [[this.place]],
+    const clear = (a, b) => {
+      const count = Math.ceil(Math.hypot(b[0] - a[0], b[2] - a[2]) / 0.08);
+      for (let i = 1; i <= count; i++)
+        if (
+          !this.canStand(
+            a[0] + ((b[0] - a[0]) * i) / count,
+            a[2] + ((b[2] - a[2]) * i) / count,
+          )
+        )
+          return false;
+      return true;
+    };
+    const current = this.camera.position.toArray();
+    if (clear(current, nodes[id].pos)) return [nodes[id]];
+    const distance = (a, b) => Math.hypot(a[0] - b[0], a[2] - b[2]);
+    const queue = Object.entries(nodes)
+        .filter(([, p]) => clear(current, p.pos))
+        .map(([name, p]) => ({ path: [name], cost: distance(current, p.pos) })),
       seen = new Set();
     while (queue.length) {
-      const path = queue.shift(),
+      queue.sort((a, b) => a.cost - b.cost);
+      const { path, cost } = queue.shift(),
         last = path.at(-1);
-      if (last === id) return path.slice(1).map((n) => nodes[n]);
+      if (last === id) return path.map((n) => nodes[n]);
       if (seen.has(last)) continue;
       seen.add(last);
       for (const [a, b] of links) {
-        if (a === last && !seen.has(b)) queue.push([...path, b]);
-        if (b === last && !seen.has(a)) queue.push([...path, a]);
+        if (a === last && !seen.has(b) && clear(nodes[a].pos, nodes[b].pos))
+          queue.push({
+            path: [...path, b],
+            cost: cost + distance(nodes[a].pos, nodes[b].pos),
+          });
+        if (b === last && !seen.has(a) && clear(nodes[b].pos, nodes[a].pos))
+          queue.push({
+            path: [...path, a],
+            cost: cost + distance(nodes[b].pos, nodes[a].pos),
+          });
       }
     }
-    return [nodes[id]];
+    return null;
   }
   move(id, instant = false) {
     const p = PLACES[id];
     if (!p) return Promise.resolve();
+    this.setWalkInput();
     const path = this.routeTo(id);
-    if (!path.length) path.push(p);
+    if (!path && !instant) return Promise.resolve();
     this.inspectionOrbit = null;
     this.place = id;
     this.lookOffset = { yaw: 0, pitch: 0 };
@@ -813,7 +1066,7 @@ export class World {
       this.walkQueue = [];
       return Promise.resolve();
     }
-    return this.travel(path);
+    return this.travel(path || [p]);
   }
   travel(path) {
     this.walkResolve?.();
@@ -823,7 +1076,7 @@ export class World {
       this.nextWalk();
     });
   }
-  nextWalk() {
+  nextWalk(startTime = performance.now()) {
     const p = this.walkQueue?.shift();
     if (!p) {
       this.walk = null;
@@ -833,12 +1086,12 @@ export class World {
       return;
     }
     this.walk = {
-      start: performance.now(),
+      start: startTime,
       from: this.camera.position.clone(),
       to: v(p.pos),
       lookFrom: this.targetLook.clone(),
       lookTo: v(p.look),
-      duration: Math.max(650, this.camera.position.distanceTo(v(p.pos)) * 380),
+      duration: Math.max(180, this.camera.position.distanceTo(v(p.pos)) * 190),
     };
     window.dispatchEvent(new CustomEvent("walking", { detail: this.place }));
   }
@@ -846,6 +1099,9 @@ export class World {
     this.inspectionOrbit = null;
     this.lookOffset = { yaw: 0, pitch: 0 };
     if (instant) {
+      this.walkResolve?.();
+      this.walkResolve = null;
+      this.walkQueue = [];
       this.camera.position.copy(v(pos));
       this.targetLook.copy(v(look));
       this.walk = null;
@@ -1007,16 +1263,21 @@ export class World {
 
     this.dust.rotation.y = Math.sin(time * 0.035) * 0.03;
     this.rain.position.y = -((time * 0.35) % 0.35);
-    if (this.walk) {
-      const p = Math.min(
-          1,
-          (performance.now() - this.walk.start) / this.walk.duration,
+    while (this.walk) {
+      const p = Math.max(
+          0,
+          Math.min(
+            1,
+            (performance.now() - this.walk.start) / this.walk.duration,
+          ),
         ),
         u = p * p * p * (p * (p * 6 - 15) + 10);
       this.camera.position.lerpVectors(this.walk.from, this.walk.to, u);
       this.targetLook.lerpVectors(this.walk.lookFrom, this.walk.lookTo, u);
-      if (p === 1) this.nextWalk();
+      if (p === 1) this.nextWalk(this.walk.start + this.walk.duration);
+      else break;
     }
+    this.manualWalk();
     if (this.inspectionOrbit && !this.walk) {
       const o = this.inspectionOrbit;
       o.visualScale +=
@@ -1049,7 +1310,7 @@ export class World {
   start() {
     this.cinematicTime = null;
     if (this.animating) return;
-    if (this.walk && this.pausedAt)
+    if (this.walk && this.pausedAt && this.walk.start <= this.pausedAt)
       this.walk.start += performance.now() - this.pausedAt;
     this.pausedAt = null;
     this.animating = true;
@@ -1061,6 +1322,7 @@ export class World {
     frame();
   }
   stop() {
+    this.setWalkInput();
     if (this.animating) this.pausedAt = performance.now();
     this.animating = false;
     cancelAnimationFrame(this.frameHandle);

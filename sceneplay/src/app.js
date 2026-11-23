@@ -3,6 +3,7 @@ import { STORY } from "./story.js";
 import * as S from "./state.js";
 import * as A from "./sound.js";
 import { waveformMarkup, clockText, bindRecording } from "./recording.js";
+import { bindWalkControls } from "./controls.js";
 const ui = document.querySelector("#ui"),
   canvas = document.querySelector("#world");
 const previousEdition = new URL(
@@ -13,6 +14,7 @@ const previousEdition = new URL(
 ).href;
 let inspectionToken = 0;
 let recordingDispose = null;
+let walkDispose = null;
 let world,
   mode = "loading",
   regions = {},
@@ -43,6 +45,8 @@ function status(text) {
   statusTimer = setTimeout(() => el.classList.remove("visible"), 3800);
 }
 function setMode(next) {
+  walkDispose?.();
+  walkDispose = null;
   recordingDispose?.();
   recordingDispose = null;
   ui.dataset.mode = next;
@@ -105,6 +109,11 @@ async function boot() {
     window.addEventListener("walking", (e) => {
       A.step();
       A.ambience(e.detail);
+    });
+    window.addEventListener("manual-walk-end", (e) => {
+      S.state.position = e.detail.place;
+      S.state.freePose = e.detail.pose;
+      S.save();
     });
     if (new URLSearchParams(location.search).has("capture")) {
       window.captureWorld = world;
@@ -240,6 +249,7 @@ function resume(afterIntro = false) {
   world.entry.rotation.y = -1.25;
   world.renderer.shadowMap.needsUpdate = true;
   world.move(S.state.position || "threshold", true);
+  world.restorePose(S.state.freePose);
   A.setEnabled(S.state.sound);
   A.ambience(S.state.position);
   hud();
@@ -248,14 +258,12 @@ function resume(afterIntro = false) {
       [
         "Enter the apartment",
         () => {
-          S.state.position = "threshold";
-          S.save();
-          hud();
+          go("threshold");
         },
       ],
       [
         "Who called for help?",
-        () => speak("family", [["I will look inside.", hud]]),
+        () => speak("family", [["I will look inside.", () => go("threshold")]]),
       ],
     ]);
 }
@@ -267,8 +275,19 @@ function hud() {
     if (o.userData.action?.startsWith("walk:")) o.visible = false;
   });
   setMode("play");
-  ui.innerHTML = `<section class="hud"><div class="chapter-label">THE ROOM LEFT BEHIND<br>8 TEILOR STREET · 09:24</div>${button("Pause", 'class="menu-key" id="pause"')}<div class="objective ${showObjective ? "notice" : "quiet"}"><small>${S.state.finding ? "NEXT STEP" : "FIRST EXAMINATION"}</small>${S.state.finding ? "Return to the landing when you are ready to leave." : "Inspect the preserved room and the authorised phone copy. Bring a supported comparison to Petrescu."}</div><span class="reticle" aria-hidden="true"></span><button class="interaction" id="interaction" hidden></button><p class="view-instruction">Drag to look. Tap an object or the floor.<br>Arrow keys turn; the notebook keeps your sources.</p><div class="movement">${button("← Look", 'id="look-left" aria-label="Look left"')}${button("Look →", 'id="look-right" aria-label="Look right"')}${button("Move", 'id="move-assist"')}</div><div class="inventory">${button("Notebook", 'id="notebook"')}${S.state.phone ? button("Phone", 'id="pocket-phone"') : ""}</div></section>`;
+  ui.innerHTML = `<section class="hud"><div class="chapter-label">THE ROOM LEFT BEHIND<br>8 TEILOR STREET · 09:24</div>${button("Pause", 'class="menu-key" id="pause"')}<div class="objective ${showObjective ? "notice" : "quiet"}"><small>${S.state.finding ? "NEXT STEP" : "FIRST EXAMINATION"}</small>${S.state.finding ? "Return to the landing when you are ready to leave." : "Inspect the preserved room and the authorised phone copy. Bring a supported comparison to Petrescu."}</div><span class="reticle" aria-hidden="true"></span><button class="interaction" id="interaction" hidden></button><p class="view-instruction">Hold arrows to walk · drag the room to look<span class="desktop-instruction"><br>WASD walks · arrow keys look · E inspects</span></p><div class="walk-controls"><div class="movement">${button("← Look", 'id="look-left" aria-label="Look left"')}${button("Look →", 'id="look-right" aria-label="Look right"')}${button("Move", 'id="move-assist"')}</div><div class="walk-pad" role="group" aria-label="Walk">${button("↑", 'data-walk="forward" aria-label="Walk forward" aria-pressed="false"')}${button("←", 'data-walk="left" aria-label="Step left" aria-pressed="false"')}${button("↓", 'data-walk="backward" aria-label="Walk backward" aria-pressed="false"')}${button("→", 'data-walk="right" aria-label="Step right" aria-pressed="false"')}</div></div><div class="inventory">${button("Notebook", 'id="notebook"')}${S.state.phone ? button("Phone", 'id="pocket-phone"') : ""}</div></section>`;
+  walkDispose = bindWalkControls(
+    ui.querySelector(".walk-pad"),
+    world,
+    A.unlock,
+  );
   ui.querySelector("#pause").onclick = () => settings(false);
+  ui.querySelector("#pause").addEventListener("pointerdown", (ev) => {
+    if (world.walkInput.forward || world.walkInput.side) {
+      ev.preventDefault();
+      settings(false);
+    }
+  });
   ui.querySelector("#notebook").onclick = notebook;
   ui.querySelector("#pocket-phone")?.addEventListener("click", () =>
     openPhone(S.state.phoneRoute, S.state.phoneThread, S.state.phoneNote),
@@ -290,6 +309,8 @@ function hover(data) {
   }
 }
 function go(id) {
+  world.setWalkInput();
+  S.state.freePose = null;
   S.state.position = id;
   S.save();
   world.move(id, S.state.reduced);
@@ -315,7 +336,6 @@ function act(action) {
     return;
   }
   if (action === "officer") {
-    world.focus([-2.45, 1.65, -5.85], [-1.78, 1.5, -4.84]);
     speak(S.state.finding ? "finding" : "welcome", officerChoices());
     return;
   }
@@ -353,11 +373,13 @@ function officerChoices() {
   ];
 }
 function speak(id, choices = []) {
+  const entering = mode !== "dialogue";
   const line = STORY.dialogue[id];
   lastLine = id;
   setMode("dialogue");
+  if (entering) frameOfficer(S.state.reduced);
   world.setSpeech(A.say(id), id);
-  ui.innerHTML = `<section class="dialogue-space"><div class="dialogue"><span class="speaker">${esc(line.who)}</span><p class="line">${esc(line.text)}</p><div class="choices">${choices.map(([label], i) => button(label, `data-dialogue-choice="${i}"`)).join("")}</div>${button("Replay voice", 'class="minor" id="replay-voice"')}${button(S.state.sound ? "Mute" : "Enable sound", 'class="minor" id="dialogue-sound"')}</div></section>`;
+  ui.innerHTML = `<section class="dialogue-space"><div class="dialogue"><span class="speaker">${esc(line.who)}</span><p class="line">${esc(line.text)}</p><div class="choices">${choices.map(([label], i) => button(label, `data-dialogue-choice="${i}"`)).join("")}</div><div class="dialogue-tools">${button("Replay voice", 'class="minor" id="replay-voice"')}${button(S.state.sound ? "Mute" : "Enable sound", 'class="minor" id="dialogue-sound"')}</div></div></section>`;
   choices.forEach(
     ([, fn], i) =>
       (ui.querySelector(`[data-dialogue-choice="${i}"]`).onclick = () => {
@@ -376,6 +398,18 @@ function speak(id, choices = []) {
       : "Enable sound";
   };
 }
+function frameOfficer(instant = false) {
+  world.focus(
+    [-2.45, 1.65, -5.85],
+    innerWidth > 600 || innerWidth > innerHeight
+      ? [-2.12, 1.38, -4.62]
+      : [-1.78, innerHeight < 700 ? 1.3 : 1.38, -4.84],
+    instant,
+  );
+}
+window.addEventListener("resize", () => {
+  if (mode === "dialogue") frameOfficer(true);
+});
 function hint() {
   S.state.hint = Math.min(3, S.state.hint + 1);
   S.save();
@@ -451,6 +485,7 @@ function inspect(id) {
         world.beginInspection(item.look);
     });
   S.state.position = item.place;
+  S.state.freePose = null;
   if (!S.state.visited.includes(id)) S.state.visited.push(id);
   S.save();
   ui.innerHTML = `<section class="inspection-space"><div class="inspection-caption"><small>LOOKING CLOSER</small><h2>${esc(item.title)}</h2><p>${esc(item.text)}</p>${item.note ? button(S.state.observations.includes(item.note) ? "View kept" : item.label, 'id="keep-view"') : ""}${id === "phone" ? button(S.state.phone ? "Open the copy" : "Take the authorised copy", 'id="take-phone"') : ""}${button("Lean closer", 'id="lean-closer"')}${button("Ease back", 'id="lean-back"')}${button("Step back", 'id="step-back"')}<p class="hint-quiet">Drag to lean around the detail. The original stays in place.</p></div></section>`;
@@ -892,7 +927,7 @@ function sectionEnd() {
 function settings(fromTitle = false) {
   setMode("settings");
   A.stopVoice();
-  ui.innerHTML = `<section class="panel"><div class="content">${button("Return", 'class="close" id="close-settings"')}<h1>Pause</h1><p>The scene-led opening is in development. Earlier editions and saves remain separate.</p><label><input id="sound-enabled" type="checkbox" ${S.state.sound ? "checked" : ""}>Music, room ambience and voices</label><label><input id="reduced-motion" type="checkbox" ${S.state.reduced ? "checked" : ""}>Reduced motion during movement</label>${S.state.started ? button("Replay introduction", 'id="replay-intro"') : ""}${button("Download save backup", 'id="export-save"')}<label>Restore this edition’s backup <input type="file" id="import-save" accept="application/json"></label>${button("Return to title", 'id="pause-title"')}<p class="hint-quiet">Desktop: drag to look, tap objects or the floor; arrow keys turn. Mobile: one-finger look, tap to approach; pinch photographs to inspect details. The Move control provides an alternative to precise pointing.</p><p><a href="${esc(previousEdition)}">Preserved previous casework edition</a></p><p id="save-feedback" role="status"></p></div></section>`;
+  ui.innerHTML = `<section class="panel"><div class="content">${button("Return", 'class="close" id="close-settings"')}<h1>Pause</h1><p>The scene-led opening is in development. Earlier editions and saves remain separate.</p><label><input id="sound-enabled" type="checkbox" ${S.state.sound ? "checked" : ""}>Music, room ambience and voices</label><label><input id="reduced-motion" type="checkbox" ${S.state.reduced ? "checked" : ""}>Reduced motion during movement</label>${S.state.started ? button("Replay introduction", 'id="replay-intro"') : ""}${button("Download save backup", 'id="export-save"')}<label>Restore this edition’s backup <input type="file" id="import-save" accept="application/json"></label>${button("Return to title", 'id="pause-title"')}<p class="hint-quiet">Hold the lower-left arrows to walk. Drag the room with another finger to look while moving. Release an arrow to stop. On desktop, WASD walks and arrow keys look. Tap objects to inspect; pinch photographs for detail. Move provides optional guided navigation.</p><p><a href="${esc(previousEdition)}">Preserved previous casework edition</a></p><p id="save-feedback" role="status"></p></div></section>`;
   ui.querySelector("#close-settings").onclick = fromTitle ? title : hud;
   ui.querySelector("#sound-enabled").onchange = (ev) => {
     S.state.sound = ev.target.checked;
@@ -977,6 +1012,7 @@ window.addEventListener("sceneplay-updated", () => {
   b.innerHTML =
     "<span>An updated development build is ready.</span><button>Save & reload</button>";
   b.querySelector("button").onclick = () => {
+    world?.setWalkInput();
     S.save();
     A.hush();
     document.querySelector("#intro-film")?.pause();

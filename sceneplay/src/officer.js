@@ -16,8 +16,8 @@ export function speechLevel(clip, sampleRate, time) {
   return a + ((clip.values[i + 1] || 0) - a) * (p - i);
 }
 
-// One original rig is used by both the live character and the rendered film.
-// Poses are functions of time, so individual shots can be rendered in any order.
+// Original stylized character. The film and live room share this rig, whose
+// pose is a function of time rather than the order in which frames are rendered.
 export function createOfficer() {
   const root = new T.Group(),
     torso = new T.Group(),
@@ -27,16 +27,32 @@ export function createOfficer() {
   root.rotation.y = 0.55;
   torso.position.y = 1.0;
   root.add(torso);
-  head.position.y = 0.69;
+  head.position.y = 0.642;
   torso.add(head);
-  const cloth = material("#243033"),
-    seam = material("#142124"),
-    skin = material("#a58872", 0.78),
-    lips = material("#694d45"),
-    hair = material("#282723"),
-    leather = material("#151c1d", 0.64),
-    brass = material("#a18e66", 0.48, 0.45);
-  const sphere = new T.SphereGeometry(1, 24, 18);
+  const cloth = material("#29373b", 0.94),
+    seam = material("#1c292d", 0.98),
+    skin = material("#b69883", 0.77),
+    lips = material("#8b645b", 0.82),
+    hair = material("#282722", 0.92),
+    hairLight = material("#3a3830", 0.94),
+    leather = material("#171f21", 0.62),
+    brass = material("#a99c78", 0.5, 0.38);
+  const weave = document.createElement("canvas");
+  weave.width = weave.height = 64;
+  const wx = weave.getContext("2d");
+  wx.fillStyle = "#f7f6ef";
+  wx.fillRect(0, 0, 64, 64);
+  wx.fillStyle = "#56666b18";
+  for (let i = 0; i < 64; i += 2) {
+    wx.fillRect(i, 0, 1, 64);
+    wx.fillRect(0, i, 64, 1);
+  }
+  const weaveMap = new T.CanvasTexture(weave);
+  weaveMap.colorSpace = T.SRGBColorSpace;
+  weaveMap.wrapS = weaveMap.wrapT = T.RepeatWrapping;
+  weaveMap.repeat.set(14, 14);
+  cloth.map = weaveMap;
+  const sphere = new T.SphereGeometry(1, 28, 20);
   const mesh = (parent, geometry, mat, pos, scale = [1, 1, 1]) => {
     const m = new T.Mesh(geometry, mat);
     m.position.set(...pos);
@@ -48,46 +64,128 @@ export function createOfficer() {
   const ell = (parent, pos, size, mat) => mesh(parent, sphere, mat, pos, size);
   const box = (parent, pos, size, mat) =>
     mesh(parent, new T.BoxGeometry(1, 1, 1), mat, pos, size);
-  const jacket = new T.LatheGeometry(
-    [
-      [0.178, -0.07],
-      [0.195, 0.015],
-      [0.181, 0.13],
-      [0.204, 0.31],
-      [0.222, 0.414],
-      [0.174, 0.475],
-      [0.075, 0.502],
-    ].map((p) => new T.Vector2(...p)),
-    32,
-  );
-  mesh(torso, jacket, cloth, [0, 0, 0], [1, 1, 0.59]);
-  box(torso, [0, 0.018, 0], [0.397, 0.042, 0.245], leather);
-  box(torso, [0, 0.018, -0.13], [0.04, 0.032, 0.012], brass);
+  const stroke = (parent, points, width, mat) =>
+    mesh(
+      parent,
+      new T.TubeGeometry(
+        new T.CatmullRomCurve3(points.map((p) => new T.Vector3(...p))),
+        20,
+        width,
+        5,
+        false,
+      ),
+      mat,
+      [0, 0, 0],
+    );
+
+  // A tailored cross-section gives the shoulders, chest and waist their own
+  // widths; a circular lathe made the former jacket and shoulders read as toys.
+  const rings = [
+    [-0.065, 0.184, 0.11],
+    [0.0, 0.19, 0.116],
+    [0.12, 0.173, 0.111],
+    [0.29, 0.205, 0.12],
+    [0.39, 0.218, 0.112],
+    [0.445, 0.209, 0.096],
+    [0.474, 0.169, 0.085],
+    [0.496, 0.069, 0.061],
+  ];
+  const points = [],
+    jacketUV = [],
+    indices = [],
+    segments = 40;
+  for (const [y, width, depth] of rings) {
+    for (let i = 0; i <= segments; i++) {
+      const angle = (i / segments) * Math.PI * 2,
+        c = Math.cos(angle),
+        s = Math.sin(angle);
+      points.push(
+        Math.sign(c) * Math.abs(c) ** 0.64 * width,
+        y,
+        Math.sign(s) * Math.abs(s) ** 0.8 * depth,
+      );
+      jacketUV.push(i / segments, (y + 0.065) / 0.561);
+    }
+  }
+  for (let row = 0; row < rings.length - 1; row++) {
+    for (let i = 0; i < segments; i++) {
+      const a = row * (segments + 1) + i,
+        b = a + segments + 1;
+      indices.push(a, b, a + 1, a + 1, b, b + 1);
+    }
+  }
+  const jacket = new T.BufferGeometry();
+  jacket.setAttribute("position", new T.Float32BufferAttribute(points, 3));
+  jacket.setAttribute("uv", new T.Float32BufferAttribute(jacketUV, 2));
+  jacket.setIndex(indices);
+  jacket.computeVertexNormals();
+  mesh(torso, jacket, cloth, [0, 0, 0]);
+  box(torso, [0, 0.012, 0], [0.386, 0.037, 0.242], leather);
+  box(torso, [0, 0.012, -0.128], [0.033, 0.026, 0.012], brass);
   mesh(
     torso,
-    new T.CylinderGeometry(0.055, 0.065, 0.12, 20),
+    new T.CylinderGeometry(0.053, 0.061, 0.083, 28),
     skin,
-    [0, 0.55, 0],
+    [0, 0.508, 0.006],
   );
   for (const s of [-1, 1]) {
-    const collar = box(
+    const collarShape = new T.Shape();
+    collarShape.moveTo(s * 0.012, 0.495);
+    collarShape.lineTo(s * 0.069, 0.495);
+    collarShape.lineTo(s * 0.105, 0.451);
+    collarShape.lineTo(s * 0.047, 0.42);
+    collarShape.closePath();
+    mesh(
       torso,
-      [s * 0.048, 0.486, -0.058],
-      [0.065, 0.056, 0.018],
+      new T.ShapeGeometry(collarShape),
+      seam,
+      [0, 0, -0.104],
+    ).material.side = T.DoubleSide;
+    const pocket = box(
+      torso,
+      [s * 0.128, 0.305, -0.116],
+      [0.077, 0.072, 0.008],
       seam,
     );
-    collar.rotation.z = s * 0.45;
-    box(torso, [s * 0.13, 0.315, -0.128], [0.075, 0.075, 0.011], seam);
-    box(torso, [s * 0.13, 0.355, -0.139], [0.082, 0.012, 0.008], cloth);
+    pocket.rotation.y = s * -0.1;
+    box(torso, [s * 0.128, 0.342, -0.124], [0.084, 0.014, 0.008], cloth);
+    stroke(
+      torso,
+      [
+        [s * 0.18, 0.05, -0.07],
+        [s * 0.174, 0.19, -0.09],
+        [s * 0.194, 0.33, -0.085],
+      ],
+      0.0013,
+      seam,
+    );
+    const epaulette = box(
+      torso,
+      [s * 0.18, 0.465, 0],
+      [0.082, 0.008, 0.058],
+      seam,
+    );
+    epaulette.rotation.z = s * -0.13;
+    ell(torso, [s * 0.149, 0.468, -0.012], [0.004, 0.002, 0.004], brass);
   }
-  for (const y of [0.16, 0.24, 0.32, 0.4])
-    ell(torso, [0, y, -0.132], [0.004, 0.004, 0.003], brass);
-  box(torso, [0.125, 0.415, -0.129], [0.045, 0.077, 0.025], leather);
+  stroke(
+    torso,
+    [
+      [0, 0.044, -0.119],
+      [0, 0.23, -0.122],
+      [0, 0.404, -0.113],
+    ],
+    0.0014,
+    seam,
+  );
+  for (const y of [0.12, 0.2, 0.28, 0.36])
+    ell(torso, [0, y, -0.123], [0.004, 0.004, 0.002], brass);
+  box(torso, [0.12, 0.403, -0.113], [0.043, 0.074, 0.023], leather);
   for (let i = 0; i < 4; i++)
-    box(torso, [0.125, 0.399 + i * 0.009, -0.144], [0.029, 0.002, 0.003], seam);
-  box(torso, [0.139, 0.482, -0.125], [0.004, 0.073, 0.004], leather);
-  ell(torso, [-0.12, 0.414, -0.135], [0.02, 0.027, 0.004], brass);
-  // Small original lettering; no borrowed uniform or real institution insignia.
+    box(torso, [0.12, 0.389 + i * 0.009, -0.128], [0.028, 0.002, 0.003], seam);
+  box(torso, [0.135, 0.468, -0.11], [0.004, 0.073, 0.004], leather);
+  ell(torso, [-0.119, 0.406, -0.12], [0.019, 0.025, 0.003], brass);
+  // Original lettering and insignia, rather than a real institution's uniform.
   const tag = document.createElement("canvas");
   tag.width = 256;
   tag.height = 64;
@@ -103,71 +201,203 @@ export function createOfficer() {
     torso,
     new T.PlaneGeometry(0.092, 0.023),
     new T.MeshStandardMaterial({ map: nameMap, roughness: 1 }),
-    [-0.116, 0.352, -0.145],
+    [-0.116, 0.353, -0.127],
   ).rotation.y = Math.PI;
 
-  // Integrate the bridge, nose, cheek and chin into one continuous face surface.
-  const faceGeo = new T.SphereGeometry(1, 40, 28),
-    positions = faceGeo.attributes.position;
+  // The brow ridge, eye sockets, cheeks, nose and chin are a single surface.
+  // Facial features use this same surface function, so they cannot float in
+  // front of the skin or disappear underneath it when the head is turned.
+  const faceZ = (x, y) => {
+    const ny = y / 0.143,
+      jaw = 1 - 0.18 * Math.max(0, -ny),
+      nx = x / (0.101 * jaw),
+      nz = Math.sqrt(Math.max(0, 1 - nx * nx - ny * ny));
+    let z = -nz * 0.089;
+    const front = Math.min(1, nz * 2.5);
+    const bridge =
+      0.019 * Math.exp(-((x / 0.014) ** 2) - ((y + 0.001) / 0.043) ** 2);
+    const tip =
+      0.014 * Math.exp(-((x / 0.018) ** 2) - ((y + 0.026) / 0.014) ** 2);
+    const cheek =
+      0.005 *
+      Math.exp(
+        -(((Math.abs(x) - 0.052) / 0.026) ** 2) - ((y + 0.018) / 0.03) ** 2,
+      );
+    const socket =
+      0.006 *
+      Math.exp(
+        -(((Math.abs(x) - 0.034) / 0.024) ** 2) - ((y - 0.024) / 0.016) ** 2,
+      );
+    const brow =
+      0.003 *
+      Math.exp(
+        -(((Math.abs(x) - 0.033) / 0.026) ** 2) - ((y - 0.044) / 0.013) ** 2,
+      );
+    const muzzle =
+      0.003 * Math.exp(-((x / 0.033) ** 2) - ((y + 0.063) / 0.02) ** 2);
+    return z - front * (bridge + tip + cheek + brow + muzzle - socket);
+  };
+  const faceGeo = new T.SphereGeometry(1, 64, 44),
+    positions = faceGeo.attributes.position,
+    colors = [];
   for (let i = 0; i < positions.count; i++) {
     const nx = positions.getX(i),
       ny = positions.getY(i),
-      nz = positions.getZ(i);
-    const y = ny * 0.137,
-      jaw = 1 - 0.25 * Math.max(0, -ny),
-      x = nx * 0.098 * jaw;
-    let z = nz * 0.086;
-    if (nz < 0) {
-      const front = Math.min(1, -nz * 2.5);
-      const bridge =
-        0.022 * Math.exp(-((x / 0.012) ** 2) - ((y + 0.004) / 0.038) ** 2);
-      const tip =
-        0.012 * Math.exp(-((x / 0.018) ** 2) - ((y + 0.023) / 0.013) ** 2);
-      const cheek =
-        0.004 *
-        Math.exp(
-          -(((Math.abs(x) - 0.052) / 0.025) ** 2) - ((y + 0.022) / 0.035) ** 2,
-        );
-      z -= front * (bridge + tip + cheek);
-    }
-    positions.setXYZ(i, x, y, z);
+      nz = positions.getZ(i),
+      y = ny * 0.143,
+      x = nx * 0.101 * (1 - 0.18 * Math.max(0, -ny));
+    positions.setXYZ(i, x, y, nz < 0 ? faceZ(x, y) : nz * 0.089);
+    const blush = Math.exp(
+        -(((Math.abs(x) - 0.05) / 0.035) ** 2) - ((y + 0.018) / 0.035) ** 2,
+      ),
+      tone = new T.Color("#bba08b");
+    tone.lerp(new T.Color("#b88d7e"), blush * (nz < 0 ? 0.23 : 0));
+    colors.push(tone.r, tone.g, tone.b);
   }
+  faceGeo.setAttribute("color", new T.Float32BufferAttribute(colors, 3));
   faceGeo.computeVertexNormals();
-  mesh(head, faceGeo, skin, [0, 0, 0]);
-  const cap = new T.SphereGeometry(1, 32, 18, 0, Math.PI * 2, 0, 1.37);
-  mesh(head, cap, hair, [0, 0.029, 0.008], [0.103, 0.119, 0.094]);
-  ell(head, [0, 0.012, 0.063], [0.1, 0.112, 0.045], hair);
-  ell(head, [0, 0.015, 0.123], [0.04, 0.046, 0.032], hair);
-  for (const s of [-1, 1])
-    ell(head, [s * 0.094, -0.008, 0.003], [0.012, 0.027, 0.016], skin);
-  // Eyelids and pupils share a transform: a blink cannot leave floating pupils.
-  const eyes = [];
+  const faceMaterial = material("#ffffff", 0.8);
+  faceMaterial.emissive.set("#453526");
+  faceMaterial.emissiveIntensity = 0.1;
+  faceMaterial.vertexColors = true;
+  mesh(head, faceGeo, faceMaterial, [0, 0, 0]);
+
+  const capGeo = new T.SphereGeometry(1, 48, 24, 0, Math.PI * 2, 0, 1.74),
+    capPos = capGeo.attributes.position;
+  for (let i = 0; i < capPos.count; i++) {
+    const nx = capPos.getX(i),
+      ny = capPos.getY(i),
+      nz = capPos.getZ(i);
+    const theta = Math.acos(Math.max(-1, Math.min(1, ny))),
+      front = Math.max(0, -nz),
+      side = Math.abs(nx),
+      angle = theta * (1 - 0.35 * front + 0.025 * side);
+    const phi = Math.atan2(nz, nx);
+    capPos.setXYZ(
+      i,
+      Math.cos(phi) * Math.sin(angle) * 0.105,
+      Math.cos(angle) * 0.148 + 0.008,
+      Math.sin(phi) * Math.sin(angle) * 0.095 + 0.006,
+    );
+  }
+  capGeo.computeVertexNormals();
+  mesh(head, capGeo, hair, [0, 0, 0]);
+  ell(head, [0, 0.005, 0.063], [0.1, 0.112, 0.045], hair);
+  ell(head, [0, 0.001, 0.127], [0.042, 0.043, 0.032], hair);
   for (const s of [-1, 1]) {
+    ell(head, [s * 0.096, -0.006, 0.002], [0.012, 0.027, 0.016], skin);
+    ell(head, [s * 0.101, -0.006, -0.005], [0.003, 0.016, 0.007], lips);
+    stroke(
+      head,
+      [
+        [s * 0.068, 0.107, -0.052],
+        [s * 0.09, 0.068, -0.036],
+        [s * 0.099, 0.018, 0.004],
+      ],
+      0.002,
+      hairLight,
+    );
+  }
+  for (let i = 0; i < 9; i++) {
+    const x = -0.076 + i * 0.016;
+    const strand = Array.from({ length: 9 }, (_, j) => {
+      const t = j / 8,
+        sx = x * (1 - t * 0.2),
+        z = -0.05 + t * 0.108;
+      return [
+        sx,
+        0.01 +
+          0.148 *
+            Math.sqrt(
+              Math.max(
+                0.01,
+                1 - (sx / 0.105) ** 2 - ((z - 0.006) / 0.095) ** 2,
+              ),
+            ),
+        z,
+      ];
+    });
+    stroke(head, strand, 0.00065, hairLight);
+  }
+
+  const eyes = [],
+    ivory = material("#c0bdb0", 0.6),
+    iris = material("#4b5449", 0.65),
+    pupil = material("#1c2322", 0.45),
+    highlight = material("#b6b9ac", 0.35);
+  for (const s of [-1, 1]) {
+    const x = s * 0.034,
+      y = 0.024,
+      z = faceZ(x, y) - 0.0018;
     const eye = new T.Group();
-    eye.position.set(s * 0.033, 0.025, -0.081);
+    eye.position.set(x, y, z);
     head.add(eye);
     eyes.push(eye);
-    ell(eye, [0, 0, 0], [0.014, 0.0048, 0.002], material("#a7a697"));
-    ell(eye, [0, 0, -0.002], [0.0045, 0.0043, 0.0015], material("#41483a"));
-    ell(eye, [0, 0, -0.0035], [0.0021, 0.0032, 0.001], leather);
-    const brow = ell(
-      head,
-      [s * 0.034, 0.041, -0.077],
-      [0.019, 0.0022, 0.003],
-      hair,
+    ell(eye, [0, 0, 0], [0.016, 0.0052, 0.0031], ivory);
+    ell(eye, [0, 0, -0.0024], [0.0048, 0.0048, 0.0016], iris);
+    ell(eye, [0, 0, -0.0035], [0.0026, 0.0042, 0.0009], pupil);
+    ell(eye, [-0.0014, 0.0018, -0.0044], [0.0009, 0.001, 0.0004], highlight);
+    stroke(
+      eye,
+      [
+        [-0.016, -0.0002, 0],
+        [-0.007, 0.0054, -0.0013],
+        [0.006, 0.0057, -0.0014],
+        [0.016, 0, 0],
+      ],
+      0.0014,
+      lips,
     );
-    brow.rotation.z = s * 0.07;
-    ell(head, [s * 0.034, 0.018, -0.08], [0.016, 0.0014, 0.0025], lips);
+    stroke(
+      eye,
+      [
+        [-0.015, -0.0005, 0],
+        [0, -0.0051, -0.0018],
+        [0.015, 0, 0],
+      ],
+      0.0009,
+      lips,
+    );
+    const browPoints = [
+      [x - 0.018, 0.046, faceZ(x - 0.018, 0.046) - 0.0017],
+      [x, 0.05, faceZ(x, 0.05) - 0.0017],
+      [x + 0.018, 0.045, faceZ(x + 0.018, 0.045) - 0.0017],
+    ];
+    stroke(head, browPoints, 0.0022, hair);
+    ell(
+      head,
+      [s * 0.012, -0.035, faceZ(s * 0.012, -0.035) - 0.0008],
+      [0.004, 0.0016, 0.0012],
+      lips,
+    );
   }
-  const mouth = ell(
+  const mouthZ = faceZ(0, -0.064) - 0.002,
+    mouth = ell(
+      head,
+      [0, -0.064, mouthZ],
+      [0.022, 0.0015, 0.0018],
+      material("#4a3633"),
+    );
+  const upperLip = stroke(
     head,
-    [0, -0.061, -0.078],
-    [0.022, 0.0018, 0.0018],
-    material("#3e302e"),
+    [
+      [-0.023, -0.064, mouthZ + 0.001],
+      [-0.009, -0.0618, mouthZ - 0.0008],
+      [0, -0.063, mouthZ - 0.001],
+      [0.009, -0.0618, mouthZ - 0.0008],
+      [0.023, -0.064, mouthZ + 0.001],
+    ],
+    0.0016,
+    lips,
   );
-  const lowerLip = ell(head, [0, -0.065, -0.079], [0.02, 0.002, 0.002], lips);
+  const lowerLip = ell(
+    head,
+    [0, -0.067, mouthZ - 0.0007],
+    [0.019, 0.002, 0.002],
+    lips,
+  );
 
-  const limbGeo = new T.CylinderGeometry(1, 0.85, 1, 16, 1),
+  const limbGeo = new T.CylinderGeometry(0.85, 1, 1, 24, 1),
     arms = [];
   const bone = (parent, a, b, r, mat) => {
     const m = mesh(parent, limbGeo, mat, [0, 0, 0]);
@@ -181,43 +411,134 @@ export function createOfficer() {
     return { mesh: m, pose };
   };
   for (const s of [-1, 1]) {
-    bone(root, [s * 0.105, 0.95, 0], [s * 0.115, 0.51, 0.01], 0.078, cloth);
-    bone(root, [s * 0.115, 0.51, 0.01], [s * 0.115, 0.12, 0.015], 0.061, cloth);
-    ell(root, [s * 0.115, 0.065, -0.055], [0.078, 0.058, 0.151], leather);
-    ell(torso, [s * 0.211, 0.414, 0], [0.075, 0.077, 0.09], cloth);
+    bone(root, [s * 0.104, 0.95, 0], [s * 0.111, 0.51, 0.008], 0.077, cloth);
+    bone(
+      root,
+      [s * 0.111, 0.51, 0.008],
+      [s * 0.112, 0.12, 0.014],
+      0.058,
+      cloth,
+    );
+    ell(root, [s * 0.112, 0.064, -0.045], [0.073, 0.055, 0.139], leather);
+    box(root, [s * 0.112, 0.023, -0.043], [0.131, 0.018, 0.24], leather);
+    ell(torso, [s * 0.21, 0.44, -0.003], [0.063, 0.026, 0.069], cloth);
     const upper = bone(
-      torso,
-      [s * 0.22, 0.407, 0],
-      [s * 0.27, 0.16, -0.01],
-      0.065,
-      cloth,
-    );
-    const lower = bone(
-      torso,
-      [s * 0.27, 0.16, -0.01],
-      [s * 0.143, 0.067, -0.17],
-      0.051,
-      cloth,
-    );
-    ell(torso, [s * 0.27, 0.16, -0.01], [0.055, 0.052, 0.05], cloth);
+        torso,
+        [s * 0.216, 0.428, 0],
+        [s * 0.265, 0.169, -0.006],
+        0.061,
+        cloth,
+      ),
+      lower = bone(
+        torso,
+        [s * 0.265, 0.169, -0.006],
+        [s * 0.132, 0.155, -0.174],
+        0.047,
+        cloth,
+      );
+    ell(torso, [s * 0.265, 0.169, -0.006], [0.047, 0.044, 0.045], cloth);
     arms.push({ sign: s, upper, lower });
   }
   const held = new T.Group();
-  held.position.set(0, 0.074, -0.173);
+  held.position.set(0, 0.16, -0.176);
   torso.add(held);
-  box(held, [0, 0, 0], [0.215, 0.236, 0.026], material("#4b4634"));
-  box(held, [0, 0.001, -0.015], [0.185, 0.213, 0.003], material("#b5a88b"));
+  box(held, [0, 0, 0], [0.214, 0.267, 0.022], material("#443f30"));
+  box(held, [0, 0.001, -0.013], [0.185, 0.244, 0.003], material("#b5a88b"));
+  box(held, [-0.091, 0, -0.015], [0.007, 0.245, 0.002], material("#83765b"));
+  for (const y of [-0.074, -0.045, -0.016, 0.013, 0.042, 0.071])
+    box(
+      held,
+      [0.004, y, -0.0155],
+      [0.138, 0.0008, 0.0006],
+      material("#968b73"),
+    );
   for (const s of [-1, 1]) {
-    ell(held, [s * 0.135, -0.005, 0.002], [0.032, 0.045, 0.02], skin);
-    for (let i = 0; i < 4; i++)
-      ell(
+    ell(held, [s * 0.132, -0.005, 0.005], [0.026, 0.042, 0.018], skin);
+    for (let i = 0; i < 4; i++) {
+      const finger = ell(
         held,
-        [s * (0.108 + i * 0.012), -0.02, -0.017],
-        [0.007, 0.027 - i * 0.002, 0.008],
+        [s * (0.111 + i * 0.007), -0.012 - i * 0.002, -0.015],
+        [0.0058, 0.023 - i * 0.0017, 0.007],
         skin,
       );
-    ell(held, [s * 0.106, 0.024, -0.023], [0.011, 0.019, 0.008], skin);
+      finger.rotation.z = s * -0.15;
+    }
+    const thumb = ell(
+      held,
+      [s * 0.106, 0.018, -0.021],
+      [0.009, 0.018, 0.0075],
+      skin,
+    );
+    thumb.rotation.z = s * 0.4;
   }
+  // Collapse fixed details into a few material batches. Eyes, lips, arms and
+  // the notebook keep their independent transforms for their actual movement.
+  const mergeFixed = (parent, excluded = new Set()) => {
+    const batches = new Map();
+    for (const child of [...parent.children]) {
+      if (!child.isMesh || excluded.has(child)) continue;
+      const m = child.material;
+      const key = m.map
+        ? m.uuid
+        : [
+            m.color.getHex(),
+            m.roughness,
+            m.metalness,
+            m.side,
+            m.vertexColors,
+            m.emissive?.getHex(),
+            m.emissiveIntensity,
+          ].join("/");
+      const group = batches.get(key) || { material: m, meshes: [] };
+      group.meshes.push(child);
+      batches.set(key, group);
+    }
+    for (const { material: mat, meshes } of batches.values()) {
+      if (meshes.length < 2) continue;
+      const geometries = meshes.map((m) => {
+        m.updateMatrix();
+        const geometry = m.geometry.index
+          ? m.geometry.toNonIndexed()
+          : m.geometry.clone();
+        geometry.applyMatrix4(m.matrix);
+        if (!geometry.attributes.uv)
+          geometry.setAttribute(
+            "uv",
+            new T.Float32BufferAttribute(
+              new Float32Array(geometry.attributes.position.count * 2),
+              2,
+            ),
+          );
+        return geometry;
+      });
+      const geometry = new T.BufferGeometry();
+      for (const name of ["position", "normal", "uv"]) {
+        const attributes = geometries.map((g) => g.attributes[name]);
+        const data = new Float32Array(
+          attributes.reduce((sum, a) => sum + a.array.length, 0),
+        );
+        let offset = 0;
+        attributes.forEach((a) => {
+          data.set(a.array, offset);
+          offset += a.array.length;
+        });
+        geometry.setAttribute(
+          name,
+          new T.Float32BufferAttribute(data, attributes[0].itemSize),
+        );
+      }
+      meshes.forEach((m) => parent.remove(m));
+      mesh(parent, geometry, mat, [0, 0, 0]);
+      geometries.forEach((g) => g.dispose());
+    }
+  };
+  mergeFixed(root);
+  mergeFixed(
+    torso,
+    new Set(arms.flatMap((arm) => [arm.upper.mesh, arm.lower.mesh])),
+  );
+  mergeFixed(head, new Set([mouth, lowerLip]));
+  mergeFixed(held);
   const closedBlink = (t) => {
     const p = (t + 1.65) % 5.4;
     return smooth(p / 0.075) * (1 - smooth((p - 0.075) / 0.13));
@@ -245,21 +566,22 @@ export function createOfficer() {
       );
       const blink = closedBlink(time);
       eyes.forEach((eye) => (eye.scale.y = Math.max(0.05, 1 - blink)));
-      mouth.scale.y = 0.0018 + Math.min(1, Math.max(0, level)) * 0.008;
-      lowerLip.position.y = -0.065 - level * 0.004;
+      mouth.scale.y = 0.0015 + Math.min(1, Math.max(0, level)) * 0.007;
+      lowerLip.position.y = -0.067 - level * 0.0035;
       held.rotation.x = Math.sin(time * 0.49) * 0.012 * quiet;
       held.rotation.z = Math.sin(time * 0.31) * 0.007 * quiet;
-      held.position.y = 0.074 + breath * 0.002 * quiet;
+      held.position.y = 0.16 + breath * 0.002 * quiet;
       held.updateMatrix();
       for (const arm of arms) {
         const s = arm.sign,
-          wrist = new T.Vector3(s * 0.135, -0.005, 0.002).applyMatrix4(
+          wrist = new T.Vector3(s * 0.132, -0.005, 0.005).applyMatrix4(
             held.matrix,
           );
-        const shoulder = new T.Vector3(s * 0.22, 0.407, 0),
-          elbow = new T.Vector3(s * 0.27, 0.16, -0.01);
-        arm.upper.pose(shoulder, elbow);
-        arm.lower.pose(elbow, wrist);
+        arm.upper.pose(
+          new T.Vector3(s * 0.216, 0.428, 0),
+          new T.Vector3(s * 0.265, 0.169, -0.006),
+        );
+        arm.lower.pose(new T.Vector3(s * 0.265, 0.169, -0.006), wrist);
       }
     },
   };

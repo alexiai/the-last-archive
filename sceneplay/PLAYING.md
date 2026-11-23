@@ -2,7 +2,9 @@
 
 Open https://alexiai.github.io/the-last-archive/editions/sceneplay-preview/ in your browser. This fresh address avoids an older edition already cached at the main preview address. The same new game also lives at https://alexiai.github.io/the-last-archive/preview/ . Both addresses share this new edition’s save.
 
-Choose **New game**. A voiced animated introduction leads directly into the apartment. Drag to look around; tap objects or the floor to approach them. The **Move** control is a navigation assist. On a keyboard, use arrow keys to look and E to interact with the centre of the view.
+Choose **New game**. A voiced animated introduction leads directly into the apartment. Hold the arrows in the lower-left corner to walk forward, backward or sideways. Drag the room with your other finger to look while walking. Releasing the arrow stops immediately; pause, rotation and leaving the tab release held input too. The small curved arrows turn the view. Tap an object to inspect it, or tap the floor for a faster guided approach. **Move** remains an optional navigation assist. On a keyboard, WASD walks, arrow keys look and E interacts with the centre of the view. A focused movement arrow also supports holding Space or Enter.
+
+Walking follows your view and stops at furniture and walls. Your walked position and heading are retained when you release the controller and survive reload; older saves still open normally. Guided movement uses shorter transitions and takes a direct route when the floor is clear.
 
 Examine objects in the room. During a close examination, drag to lean around the detail, use Lean closer / Ease back and keep observations you want to return to. Recover the authorised phone copy from the side table. Its conversations, photographs, unsent attachment and voice note are available through the device itself. Photographs support panning, pinch/slider magnification, source marks, original capture information and equivalent descriptions.
 

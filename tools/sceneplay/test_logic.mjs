@@ -86,6 +86,34 @@ const notes = "My tentative interpretation is mine.";
 S.state.notebook = notes;
 S.save();
 ok(S.clean(S.state).notebook === notes, "personal notes survive");
+const savedWalk = {
+  position: [-2.8, 1.64, -1.8],
+  look: [-2.8, 1.64, -0.8],
+  yaw: 0.3,
+  pitch: -0.1,
+};
+ok(
+  S.clean({ ...S.state, freePose: savedWalk }).freePose?.position[2] === -1.8,
+  "a walked position can survive the edition's existing save format",
+);
+ok(
+  S.clean({ ...S.state, freePose: undefined }).freePose === null,
+  "earlier saves without free walking still load normally",
+);
+for (const badPose of [
+  { ...savedWalk, position: [Infinity, 1.64, 0] },
+  { ...savedWalk, position: [0, -4, 0] },
+  { ...savedWalk, look: [0, "1.64", 0] },
+  { ...savedWalk, yaw: NaN },
+]) {
+  const restored = S.clean({ ...S.state, freePose: badPose });
+  ok(
+    restored.freePose === null &&
+      restored.notebook === notes &&
+      restored.finding,
+    "an invalid imported camera pose is discarded without losing investigation progress",
+  );
+}
 const audio = JSON.parse(
   fs.readFileSync(
     new URL("../../sceneplay/assets/audio/manifest.json", import.meta.url),

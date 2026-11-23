@@ -690,6 +690,7 @@ const assert = require("node:assert/strict"),
     await padLayout(844, 390);
     await page.click("#pocket-phone");
     assert.equal(await page.$(".walk-pad"), null);
+    await page.click("#phone-home");
     await page.click('[data-app="notes"]');
     await page.click("#put-phone-away");
     assert.ok(await page.$(".walk-pad"));

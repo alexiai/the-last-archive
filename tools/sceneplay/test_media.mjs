@@ -27,6 +27,20 @@ assert.equal(
   "film and live world use the same procedural character, lighting and room",
 );
 checks += 3;
+assert.ok(
+  film.visualSources?.["src/officer.js"] &&
+    film.visualSources?.["assets/audio/motion.json"],
+  "the film indexes its character rig and actual speech dynamics",
+);
+checks++;
+for (const [name, digest] of Object.entries(film.visualSources)) {
+  assert.equal(
+    hash(fs.readFileSync(new URL(name, root))),
+    digest,
+    "film/live visual recipe agrees: " + name,
+  );
+  checks++;
+}
 for (const name of ["before", "prepared", "scene", "window"]) {
   assert.ok(
     fs.statSync(new URL("assets/photos/" + name + ".jpg", root)).size > 10000,

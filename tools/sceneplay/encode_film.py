@@ -7,6 +7,8 @@ count=44*24
 source=json.loads((frames/'frame-source.json').read_text())
 world_sha=hashlib.sha256((root/'sceneplay/src/world.js').read_bytes()).hexdigest()
 if source['worldSha256']!=world_sha:raise SystemExit('The rendered world does not match the current live-world source.')
+for name,digest in source.get('visualSources',{}).items():
+ if hashlib.sha256((root/'sceneplay'/name).read_bytes()).hexdigest()!=digest:raise SystemExit('Visual recipe changed during production: '+name)
 files=[frames/f'frame-{i:05d}.jpg'for i in range(count)]
 if not all(f.exists()and f.stat().st_size>1000 for f in files):raise SystemExit('The actual animated render is incomplete.')
 def dimensions(file):
@@ -42,4 +44,5 @@ import shutil
 shutil.copy2(files[72],out/'poster.jpg')
 probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_format','-show_streams','-of','json',str(out/'arrival.mp4')]))
 info={'duration':44,'fps':24,'frames':count,'distinctFrames':unique,'dimensions':[1280,720],'production':'Original animated 3D cameras, character and door; shared live scene geometry','geometrySha256':hashlib.sha256((root/'sceneplay/assets/models/apartment.glb').read_bytes()).hexdigest(),'worldSourceSha256':world_sha,'renderSources':source.get('renderSources',[{'worldSha256':world_sha,'firstFrame':0,'lastFrame':count-1}]),'fileSha256':hashlib.sha256((out/'arrival.mp4').read_bytes()).hexdigest(),'bytes':(out/'arrival.mp4').stat().st_size,'audio':'Original local score and English voiced dialogue','videoCodec':next(s['codec_name']for s in probe['streams']if s['codec_type']=='video')}
+info['visualSources']=source.get('visualSources',{})
 (out/'manifest.json').write_text(json.dumps(info,indent=2));print(json.dumps(info,indent=2))

@@ -1,5 +1,6 @@
 import * as T from "three";
 import { GLTFLoader } from "../vendor/loaders/GLTFLoader.js";
+import { createOfficer, speechLevel } from "./officer.js";
 import { mergeGeometries } from "../vendor/utils/BufferGeometryUtils.js";
 export const PLACES = {
   landing: { pos: [-2.48, 1.65, -6.15], look: [-2.0, 1.38, -4.15] },
@@ -187,6 +188,7 @@ export class World {
     this.scene.add(this.blue);
   }
   async load() {
+    this.motionData = await (await fetch("assets/audio/motion.json")).json();
     const gltf = await new GLTFLoader().loadAsync(
       "assets/models/apartment.glb",
     );
@@ -675,145 +677,17 @@ export class World {
     );
   }
   makeOfficer() {
-    const g = new T.Group();
-    g.position.set(-1.78, 0, -4.84);
-    g.rotation.y = 0.55;
-    this.scene.add(g);
-    this.officer = g;
-    const navy = mat("#1e2b2b"),
-      skin = mat("#957861"),
-      leather = mat("#1a1c19"),
-      badge = mat("#ac9a6c", 0.38, 0.7);
-    const ellipsoid = (p, s, m) => {
-      const o = new T.Mesh(new T.SphereGeometry(1, 20, 14), m);
-      o.position.set(...p);
-      o.scale.set(...s);
-      g.add(o);
-      o.castShadow = true;
-      return o;
-    };
-    // Y is vertical in the live world. Keep the silhouette anatomical rather
-    // than carrying the Blender reference's Z-up proportions into these meshes.
-    const torso = new T.Mesh(
-      new T.LatheGeometry(
-        [
-          [0.18, 0.93],
-          [0.2, 1.02],
-          [0.18, 1.13],
-          [0.21, 1.32],
-          [0.23, 1.42],
-          [0.18, 1.48],
-          [0.085, 1.5],
-        ].map(([x, y]) => new T.Vector2(x, y)),
-        28,
-      ),
-      navy,
-    );
-    torso.scale.z = 0.58;
-    torso.castShadow = torso.receiveShadow = true;
-    g.add(torso);
-    this.head = new T.Group();
-    this.head.position.y = 1.69;
-    g.add(this.head);
-    const facePart = (p, s, m) => {
-      const o = ellipsoid(p, s, m);
-      g.remove(o);
-      this.head.add(o);
-      return o;
-    };
-    const face = new T.Mesh(
-      new T.LatheGeometry(
-        [
-          [0.035, -0.13],
-          [0.065, -0.115],
-          [0.085, -0.075],
-          [0.098, -0.01],
-          [0.097, 0.045],
-          [0.087, 0.105],
-          [0.045, 0.14],
-          [0.002, 0.147],
-        ].map(([x, y]) => new T.Vector2(x, y)),
-        32,
-      ),
-      skin,
-    );
-    face.scale.z = 0.84;
-    face.castShadow = true;
-    this.head.add(face);
-    const hair = new T.Mesh(
-      new T.SphereGeometry(1, 28, 16, 0, Math.PI * 2, 0, 1.45),
-      leather,
-    );
-    hair.scale.set(0.108, 0.127, 0.105);
-    hair.position.set(0, 0.028, 0);
-    this.head.add(hair);
-    facePart([0, 0.015, 0.058], [0.101, 0.112, 0.046], leather);
-    facePart([0, 0.015, 0.12], [0.045, 0.047, 0.038], leather);
-    facePart([0, -0.005, -0.087], [0.015, 0.029, 0.022], skin);
-    facePart([0, -0.038, -0.082], [0.024, 0.012, 0.01], skin);
-    for (const sign of [-1, 1]) {
-      facePart([sign * 0.095, -0.006, 0.003], [0.014, 0.029, 0.019], skin);
-      facePart(
-        [sign * 0.034, 0.026, -0.078],
-        [0.017, 0.0055, 0.004],
-        mat("#9b9c89"),
-      );
-      facePart(
-        [sign * 0.034, 0.026, -0.083],
-        [0.006, 0.005, 0.0025],
-        mat("#333b30"),
-      );
-      facePart([sign * 0.034, 0.041, -0.077], [0.023, 0.003, 0.005], leather);
-    }
-    facePart([0, -0.066, -0.077], [0.027, 0.0025, 0.003], mat("#63483e"));
-    const limb = (p, q, r, m) => {
-      const a = v(p),
-        b = v(q),
-        o = new T.Mesh(
-          new T.CylinderGeometry(r, r * 0.88, a.distanceTo(b), 12),
-          m,
-        );
-      o.position.copy(a).add(b).multiplyScalar(0.5);
-      o.quaternion.setFromUnitVectors(
-        new T.Vector3(0, 1, 0),
-        b.sub(a).normalize(),
-      );
-      g.add(o);
-      o.castShadow = true;
-      return o;
-    };
-    for (const sign of [-1, 1]) {
-      ellipsoid([sign * 0.21, 1.415, 0], [0.09, 0.085, 0.1], navy);
-      limb([sign * 0.11, 0.95, 0], [sign * 0.12, 0.49, 0.02], 0.09, navy);
-      limb([sign * 0.12, 0.49, 0.02], [sign * 0.12, 0.08, 0.02], 0.07, navy);
-      ellipsoid([sign * 0.12, 0.065, -0.06], [0.085, 0.065, 0.17], leather);
-      limb([sign * 0.24, 1.43, 0], [sign * 0.29, 1.15, 0.03], 0.074, navy);
-      limb([sign * 0.29, 1.15, 0.03], [sign * 0.19, 1.03, -0.12], 0.06, navy);
-      ellipsoid([sign * 0.19, 1.03, -0.13], [0.045, 0.06, 0.04], skin);
-    }
-    limb([0, 1.47, 0], [0, 1.6, 0], 0.065, skin);
-    for (const sign of [-1, 1]) {
-      box(
-        g,
-        "uniform seam",
-        [sign * 0.16, 1.25, -0.135],
-        [0.007, 0.3, 0.004],
-        mat("#121e1c"),
-      );
-    }
-    box(g, "officer badge", [-0.1, 1.4, -0.145], [0.045, 0.06, 0.008], badge);
-    box(
-      g,
-      "officer notebook",
-      [0, 1.07, -0.17],
-      [0.21, 0.23, 0.025],
-      mat("#403c29"),
-    );
-    box(g, "uniform belt", [0, 1.015, 0], [0.4, 0.045, 0.25], leather);
-    box(g, "belt clasp", [0, 1.015, -0.13], [0.045, 0.035, 0.015], badge);
-    box(g, "radio", [0.13, 1.38, -0.14], [0.055, 0.095, 0.025], leather);
-    box(g, "radio aerial", [0.15, 1.46, -0.14], [0.006, 0.09, 0.006], leather);
-    box(g, "collar", [0, 1.5, -0.08], [0.1, 0.09, 0.02], navy);
+    this.rig = createOfficer();
+    this.officer = this.rig.root;
+    this.head = this.rig.head;
+    this.scene.add(this.officer);
+  }
+  setSpeech(audio, clipId = null) {
+    this.speechAudio = audio;
+    this.speechClip = clipId;
+  }
+  setReducedMotion(enabled) {
+    this.reducedMotion = enabled;
   }
   createTargets() {
     const add = (id, pos, size, label) => {
@@ -987,6 +861,7 @@ export class World {
       yaw: 0,
       pitch: 0,
       scale: 1,
+      visualScale: 1,
     };
   }
   lean(delta) {
@@ -1098,11 +973,38 @@ export class World {
     this.renderer.setSize(innerWidth, innerHeight);
   }
   animate(time = 0) {
+    const dt = Math.max(
+      0,
+      Math.min(0.1, time - (this.previousTime ?? time - 1 / 60)),
+    );
+    this.previousTime = time;
     this.time = time;
-    this.officer.position.y = Math.sin(time * 1.4) * 0.005;
-    this.head.rotation.y = Math.sin(time * 0.43) * 0.06;
-    this.officer.rotation.z = Math.sin(time * 0.53) * 0.005;
-    this.blue.intensity = 1.5 + (Math.sin(time * 1.2) > 0.85 ? 2.5 : 0);
+    let mouth = 0;
+    if (this.cinematicTime != null) {
+      for (const [id, start] of [
+        ["intro-0", 3],
+        ["intro-1", 15],
+        ["intro-3", 31],
+      ]) {
+        mouth = Math.max(
+          mouth,
+          speechLevel(
+            this.motionData.clips[id],
+            this.motionData.sampleRate,
+            this.cinematicTime - start,
+          ),
+        );
+      }
+    } else if (this.speechAudio && !this.speechAudio.paused) {
+      mouth = speechLevel(
+        this.motionData.clips[this.speechClip],
+        this.motionData.sampleRate,
+        this.speechAudio.currentTime,
+      );
+    }
+    this.rig.update(time, mouth, this.reducedMotion);
+    this.blue.intensity = 1.7 + Math.sin(time * 1.2) * 0.45;
+
     this.dust.rotation.y = Math.sin(time * 0.035) * 0.03;
     this.rain.position.y = -((time * 0.35) % 0.35);
     if (this.walk) {
@@ -1110,17 +1012,20 @@ export class World {
           1,
           (performance.now() - this.walk.start) / this.walk.duration,
         ),
-        u = p * p * (3 - 2 * p);
+        u = p * p * p * (p * (p * 6 - 15) + 10);
       this.camera.position.lerpVectors(this.walk.from, this.walk.to, u);
       this.targetLook.lerpVectors(this.walk.lookFrom, this.walk.lookTo, u);
       if (p === 1) this.nextWalk();
     }
     if (this.inspectionOrbit && !this.walk) {
-      const o = this.inspectionOrbit,
-        offset = o.offset
-          .clone()
-          .multiplyScalar(o.scale)
-          .applyAxisAngle(new T.Vector3(0, 1, 0), o.yaw);
+      const o = this.inspectionOrbit;
+      o.visualScale +=
+        (o.scale - o.visualScale) *
+        (this.reducedMotion ? 1 : 1 - Math.exp(-dt * 16));
+      const offset = o.offset
+        .clone()
+        .multiplyScalar(o.visualScale)
+        .applyAxisAngle(new T.Vector3(0, 1, 0), o.yaw);
       const right = new T.Vector3()
         .crossVectors(offset, new T.Vector3(0, 1, 0))
         .normalize();
@@ -1142,6 +1047,7 @@ export class World {
     }
   }
   start() {
+    this.cinematicTime = null;
     if (this.animating) return;
     if (this.walk && this.pausedAt)
       this.walk.start += performance.now() - this.pausedAt;
@@ -1202,16 +1108,17 @@ export class World {
       );
       look = new T.Vector3(0.1, 1, -0.1);
     }
-    if (t < 12) this.entry.rotation.y = -0.16;
+    this.entry.rotation.y =
+      t < 12 ? -0.16 : -0.16 - 1.09 * ease(Math.min(1, (t - 12) / 6));
     this.camera.position.copy(pos);
     this.targetLook.copy(look);
-    this.officer.position.y = Math.sin(t * 1.5) * 0.007;
+    this.officer.position.y = 0;
     this.officer.rotation.y =
-      0.55 - (t > 12 ? Math.min(0.6, (t - 12) * 0.05) : 0);
+      0.55 - 0.6 * ease(Math.max(0, Math.min(1, (t - 12) / 12)));
     // She turns at her wall-side post; translating farther right would put her
     // shoulder through the narrow landing wall as Dima passes.
     this.officer.position.x = -1.78;
-    this.head.rotation.y = Math.sin(t * 0.7) * 0.06;
+    this.cinematicTime = t;
     this.animate(t);
   }
   photograph(version, pos, look) {
@@ -1219,6 +1126,7 @@ export class World {
       if (o.userData.action?.startsWith("walk:")) o.visible = false;
     });
     const old = this.version;
+    this.cinematicTime = null;
     this.setVersion(version);
     this.camera.position.copy(v(pos));
     this.targetLook.copy(v(look));

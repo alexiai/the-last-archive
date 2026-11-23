@@ -125,7 +125,7 @@ export const STORY = {
       {
         id: "elena",
         name: "Elena",
-        preview: "You kept it, then.",
+        preview: "I’ll leave the lamp on.",
         rows: [
           ["17 OCT · 17:42", "Elena", "Is the blue mug still leaking?"],
           ["17 OCT · 17:43", "Iris", "Only if I put liquid in it."],
@@ -134,6 +134,16 @@ export const STORY = {
             "17 OCT · 17:44",
             "Iris",
             "It has earned its place. Unlike the plant.",
+          ],
+          [
+            "17 OCT · 17:46",
+            "Elena",
+            "It still looks strange when the room is dark.",
+          ],
+          [
+            "17 OCT · 17:47",
+            "Iris",
+            "I’ll leave the lamp on. You can insult the plant when you visit.",
           ],
         ],
       },
@@ -148,8 +158,77 @@ export const STORY = {
             "The Aurelia kept the late appointment. Please eat something first.",
           ],
           ["17 OCT · 18:39", "Iris", "There is bread. That counts."],
+          [
+            "17 OCT · 18:39",
+            "Mara",
+            "Please don’t ask me to say we’re all fine tonight.",
+          ],
+          [
+            "17 OCT · 18:40",
+            "Iris",
+            "I was going to ask about the cab. We can do the other part tomorrow.",
+          ],
+          [
+            "17 OCT · 18:41",
+            "Mara",
+            "I know. I just don’t want to be the one who smiles for everyone again.",
+          ],
           ["17 OCT · 19:06", "Iris", "[Attachment queued — not sent]"],
         ],
+      },
+      {
+        id: "adrian",
+        name: "Adrian",
+        preview: "Ask me when you’re ready.",
+        rows: [
+          [
+            "17 OCT · 16:10",
+            "Adrian",
+            "Please don’t tell everyone we decided this together.",
+          ],
+          [
+            "17 OCT · 16:14",
+            "Iris",
+            "I won’t. I also won’t have this conversation in the doorway again.",
+          ],
+          [
+            "17 OCT · 16:17",
+            "Adrian",
+            "All right. Ask me when you’re ready to finish it.",
+          ],
+        ],
+      },
+    ],
+    // Dates are creation fields in the authorised extraction. A retained deleted
+    // entry is not proof of when, why, or by whom it was deleted.
+    notes: [
+      {
+        id: "before-i-go",
+        title: "Before I go",
+        date: "16 October 2025 · 22:10",
+        body: "Buy bread. Charge the recorder. Find the scarf that I keep moving instead of putting away.",
+        status: "draft",
+      },
+      {
+        id: "message-unsent",
+        title: "A message I didn’t send",
+        date: "17 October 2025 · 10:18",
+        body: "Adrian — I can explain that I’m sorry without asking you to tell me it was the right thing.\n\nNo. Start again.",
+        status: "deleted",
+      },
+      {
+        id: "for-elena",
+        title: "For Elena",
+        date: "17 October 2025 · 16:02",
+        body: "Ask about the plant before asking how she is sleeping. She knows when I do it in the other order.",
+        status: "draft",
+      },
+      {
+        id: "opening-words",
+        title: "Opening words",
+        date: "17 October 2025 · 18:12",
+        body: "No audience. Let the other person finish. Say the difficult part in my own voice.",
+        status: "deleted",
       },
     ],
     photos: [

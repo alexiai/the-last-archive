@@ -29,10 +29,12 @@ jobs:
           ESBUILD_PATH="$RUNNER_TEMP/sceneplay-tools/node_modules/esbuild" node tools/sceneplay/bundle.mjs "$RUNNER_TEMP/compiled-game.js"
           cmp sceneplay/game.js "$RUNNER_TEMP/compiled-game.js"
       - run: node tools/sceneplay/test_logic.mjs && node tools/sceneplay/test_media.mjs
+      - run: node tools/sceneplay/test_motion.mjs && node tools/sceneplay/test_story_continuity.mjs
       - run: python3 tools/sceneplay/build.py --output "$RUNNER_TEMP/sceneplay-build"
       - name: Test actual rendered gameplay and offline delivery
         run: |
           python3 -m http.server 8093 --bind 127.0.0.1 --directory "$RUNNER_TEMP/sceneplay-build" > "$RUNNER_TEMP/sceneplay-server.log" 2>&1 &
           node tools/sceneplay/test_browser.cjs
           node tools/sceneplay/test_touch.cjs
+          node tools/sceneplay/test_polish.cjs
           node tools/sceneplay/test_delivery.cjs

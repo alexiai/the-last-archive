@@ -3,6 +3,7 @@ import fs from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import crypto from "node:crypto";
+import { visualSources } from "./visual_sources.mjs";
 const require = createRequire(import.meta.url),
   p = require("puppeteer-core");
 const output = process.env.FRAME_DIR || "/workspace/work/sceneplay-frames";
@@ -14,18 +15,25 @@ const worldSha256 = crypto
   )
   .digest("hex");
 const sourceRecord = path.join(output, "frame-source.json");
+const recipe = visualSources();
 if (
   fs.existsSync(sourceRecord) &&
-  JSON.parse(fs.readFileSync(sourceRecord)).worldSha256 !== worldSha256
+  JSON.stringify(JSON.parse(fs.readFileSync(sourceRecord)).visualSources) !==
+    JSON.stringify(recipe)
 )
   throw Error(
     "The world changed. Capture to a new frame directory rather than mixing productions.",
   );
 fs.writeFileSync(
   sourceRecord,
-  JSON.stringify({ worldSha256, dimensions: [1280, 720] }, null, 2),
+  JSON.stringify(
+    { worldSha256, visualSources: recipe, dimensions: [1280, 720] },
+    null,
+    2,
+  ),
 );
 const b = await p.launch({
+  protocolTimeout: 600000,
   executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
   headless: true,
   args: [
@@ -89,6 +97,7 @@ try {
     g.setVersion("current");
     g.renderer.shadowMap.autoUpdate = false;
     g.renderer.shadowMap.needsUpdate = true;
+    g.shadowBucket = -1;
   });
   const frames = Number(process.env.CAPTURE_FRAMES) || 44 * 24;
   const start = Number(process.env.CAPTURE_START) || 0;

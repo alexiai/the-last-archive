@@ -2,6 +2,7 @@ import { World, PLACES } from "./world.js";
 import { STORY } from "./story.js";
 import * as S from "./state.js";
 import * as A from "./sound.js";
+import { waveformMarkup, clockText, bindRecording } from "./recording.js";
 const ui = document.querySelector("#ui"),
   canvas = document.querySelector("#world");
 const previousEdition = new URL(
@@ -11,6 +12,7 @@ const previousEdition = new URL(
   location.href,
 ).href;
 let inspectionToken = 0;
+let recordingDispose = null;
 let world,
   mode = "loading",
   regions = {},
@@ -41,9 +43,14 @@ function status(text) {
   statusTimer = setTimeout(() => el.classList.remove("visible"), 3800);
 }
 function setMode(next) {
+  recordingDispose?.();
+  recordingDispose = null;
+  ui.dataset.mode = next;
   if (next !== "inspect") inspectionToken++;
   mode = next;
   if (world) {
+    world.setReducedMotion(S.state.reduced);
+    if (next !== "dialogue") world.setSpeech(null);
     if (next !== "inspect") world.inspectionOrbit = null;
     world.interactive = next === "play";
     if (["title", "play", "inspect", "dialogue"].includes(next)) world.start();
@@ -264,7 +271,7 @@ function hud() {
   ui.querySelector("#pause").onclick = () => settings(false);
   ui.querySelector("#notebook").onclick = notebook;
   ui.querySelector("#pocket-phone")?.addEventListener("click", () =>
-    openPhone(S.state.phoneRoute, S.state.phoneThread),
+    openPhone(S.state.phoneRoute, S.state.phoneThread, S.state.phoneNote),
   );
   ui.querySelector("#move-assist").onclick = navigation;
   ui.querySelector("#look-left").onclick = () =>
@@ -349,7 +356,7 @@ function speak(id, choices = []) {
   const line = STORY.dialogue[id];
   lastLine = id;
   setMode("dialogue");
-  A.say(id);
+  world.setSpeech(A.say(id), id);
   ui.innerHTML = `<section class="dialogue-space"><div class="dialogue"><span class="speaker">${esc(line.who)}</span><p class="line">${esc(line.text)}</p><div class="choices">${choices.map(([label], i) => button(label, `data-dialogue-choice="${i}"`)).join("")}</div>${button("Replay voice", 'class="minor" id="replay-voice"')}${button(S.state.sound ? "Mute" : "Enable sound", 'class="minor" id="dialogue-sound"')}</div></section>`;
   choices.forEach(
     ([, fn], i) =>
@@ -358,7 +365,8 @@ function speak(id, choices = []) {
         fn();
       }),
   );
-  ui.querySelector("#replay-voice").onclick = () => A.say(id);
+  ui.querySelector("#replay-voice").onclick = () =>
+    world.setSpeech(A.say(id), id);
   ui.querySelector("#dialogue-sound").onclick = () => {
     S.state.sound = !S.state.sound;
     A.setEnabled(S.state.sound);
@@ -490,13 +498,14 @@ function navigation() {
     (b) => (b.onclick = () => go(b.dataset.place)),
   );
 }
-function openPhone(route = "home", thread = null) {
+function openPhone(route = "home", thread = null, note = null) {
   if (!S.state.phone) return;
   setMode("phone");
   phoneRoute = route;
   phoneThread = thread;
   S.state.phoneRoute = route;
   S.state.phoneThread = thread;
+  S.state.phoneNote = note;
   S.save();
   let body = "",
     title = "Iris’s phone";
@@ -506,6 +515,7 @@ function openPhone(route = "home", thread = null) {
       ["photos", "Photos", "✿"],
       ["outbox", "Outbox", "↗"],
       ["voice", "Voice notes", "≋"],
+      ["notes", "Notes", "▤"],
       ["contacts", "Contacts", "◉"],
     ]
       .map(
@@ -544,11 +554,24 @@ function openPhone(route = "home", thread = null) {
   }
   if (route === "voice") {
     title = "Voice notes";
-    body = `<div class="recording"><small>16 OCTOBER · 18:21</small><h2>The blue mug</h2>${button("Play recording", 'id="phone-recording"')}${button("Stop", 'id="phone-recording-stop"')}<details><summary>Transcript</summary><p>${esc(STORY.dialogue.iris.text)}</p></details></div>`;
+    body = `<div class="recording"><small>16 OCTOBER · 18:21</small><h2>The blue mug</h2><div class="recording-waveform" aria-hidden="true">${waveformMarkup(world.motionData.clips.iris)}</div><div class="recording-time"><span id="recording-elapsed">0:00</span><span id="recording-duration">${clockText(world.motionData.clips.iris.duration)}</span></div>${button("Play recording", 'id="phone-recording"')}${button("Stop", 'id="phone-recording-stop"')}<details><summary>Transcript</summary><p>${esc(STORY.dialogue.iris.text)}</p></details></div>`;
+  }
+  if (route === "notes") {
+    title = "Notes";
+    body = `<p class="notes-context">Retained from the authorised copy</p><div class="phone-notes">${STORY.phone.notes.map((n) => `<button class="note-link" data-note="${esc(n.id)}"><b>${esc(n.title)}</b><small>${esc(n.date)} · ${n.status === "deleted" ? "Recovered fragment" : "Draft"}</small><span>${esc(n.body.slice(0, 80))}…</span></button>`).join("")}</div>`;
+  }
+  if (route === "note") {
+    const n = STORY.phone.notes.find((n) => n.id === note);
+    if (!n) {
+      openPhone("notes");
+      return;
+    }
+    title = "Notes";
+    body = `<article class="personal-note"><small>CREATED ${esc(n.date)}</small><h2>${esc(n.title)}</h2><p class="note-body">${esc(n.body)}</p><footer>${n.status === "deleted" ? "Recovered deleted text. The creation field does not establish when it was deleted." : "Retained draft. No sending or publication is recorded here."}</footer></article>`;
   }
   if (route === "contacts") {
     title = "Contacts";
-    body = `<h2>Elena</h2><p>Sister</p>${button("Open retained conversation", 'data-thread="elena"')}<h2>Mara</h2><p>Friend · sound editor</p>${button("Open retained conversation", 'data-thread="mara"')}<p>This copy cannot place calls or send messages.</p>`;
+    body = `<h2>Elena</h2><p>Sister</p>${button("Open retained conversation", 'data-thread="elena"')}<h2>Mara</h2><p>Friend · sound editor</p>${button("Open retained conversation", 'data-thread="mara"')}<h2>Adrian</h2><p>Mobile</p>${button("Open retained conversation", 'data-thread="adrian"')}<p>This copy cannot place calls or send messages.</p>`;
   }
   ui.innerHTML = `<section class="phone-shell">${button("Put away", 'class="phone-close" id="put-phone-away"')}<div class="phone-device"><div class="phone-screen"><div class="phone-status"><span>09:24</span><span>▰ 74%</span></div><header>${route !== "home" ? button("‹ Back", 'id="phone-back"') : ""}<b>${esc(title)}</b></header><div class="phone-body" style="${route === "home" ? "padding:0" : ""}">${body}</div><div class="phone-copy">CASE 0416 / READ-ONLY DEVICE COPY</div><div class="phone-system">${button("Home", 'id="phone-home" aria-label="Phone home"')}</div></div></div></section>`;
   ui.querySelector("#put-phone-away").onclick = () => {
@@ -557,7 +580,9 @@ function openPhone(route = "home", thread = null) {
   };
   ui.querySelector("#phone-home").onclick = () => openPhone("home");
   ui.querySelector("#phone-back")?.addEventListener("click", () =>
-    openPhone(route === "thread" ? "messages" : "home"),
+    openPhone(
+      route === "thread" ? "messages" : route === "note" ? "notes" : "home",
+    ),
   );
   ui.querySelectorAll("[data-app]").forEach(
     (b) => (b.onclick = () => openPhone(b.dataset.app)),
@@ -570,19 +595,29 @@ function openPhone(route = "home", thread = null) {
       (b.onclick = () =>
         photo(b.dataset.photo, () => openPhone(route, thread))),
   );
+  ui.querySelectorAll("[data-note]").forEach(
+    (b) => (b.onclick = () => openPhone("note", null, b.dataset.note)),
+  );
   ui.querySelector("#queued-photo")?.addEventListener("click", () =>
     photo("queued", () => openPhone("outbox")),
   );
   ui.querySelector("#message-attachment")?.addEventListener("click", () =>
     photo("queued", () => openPhone("thread", thread)),
   );
-  ui.querySelector("#phone-recording")?.addEventListener("click", () =>
-    A.say("iris"),
-  );
-  ui.querySelector("#phone-recording-stop")?.addEventListener(
-    "click",
-    A.stopVoice,
-  );
+  let recordingAudio = null;
+  ui.querySelector("#phone-recording")?.addEventListener("click", () => {
+    recordingDispose?.();
+    recordingAudio = A.say("iris");
+    recordingDispose = bindRecording(
+      ui.querySelector(".recording"),
+      recordingAudio,
+      world.motionData.clips.iris,
+    );
+  });
+  ui.querySelector("#phone-recording-stop")?.addEventListener("click", () => {
+    A.stopVoice();
+    if (recordingAudio) recordingAudio.currentTime = 0;
+  });
 }
 function photo(id, back = () => openPhone("photos")) {
   if (!S.state.visited.includes("photo:" + id)) {
@@ -726,7 +761,7 @@ function photoOverlay(html, bind) {
 }
 function notebook() {
   setMode("notebook");
-  ui.innerHTML = `<section class="panel"><div class="content">${button("Close notebook", 'class="close" id="close-notebook"')}<article class="notebook"><h1>Alex Dima / field notebook</h1><p>Observations first. Interpretations remain provisional.</p>${S.state.observations.map((id) => `<button class="note-source" data-observation="${id}"><small>${esc(noteLabels[id][0])} ↗ ORIGINAL</small>${esc(noteLabels[id][1])}</button>`).join("") || "<p>No observation has been retained. Inspect the room and the phone before drawing a conclusion.</p>"}${S.state.finding ? "<p><b>Supported comparison retained.</b> The search request preserves the interval and the limits of the evidence.</p>" : ""}<label>Private notes<textarea id="private-notes" placeholder="Questions you want to return to…">${esc(S.state.notebook)}</textarea></label></article></div></section>`;
+  ui.innerHTML = `<section class="panel"><div class="content">${button("Close notebook", 'class="close" id="close-notebook"')}<article class="notebook"><small class="notebook-imprint">FIELD NOTES / CASE 0416</small><h1>Alex Dima / field notebook</h1><p>Observations first. Interpretations remain provisional.</p>${S.state.observations.map((id) => `<button class="note-source" data-observation="${id}"><small>${esc(noteLabels[id][0])} ↗ ORIGINAL</small>${esc(noteLabels[id][1])}</button>`).join("") || "<p>No observation has been retained. Inspect the room and the phone before drawing a conclusion.</p>"}${S.state.finding ? "<p><b>Supported comparison retained.</b> The search request preserves the interval and the limits of the evidence.</p>" : ""}<label>Private notes<textarea id="private-notes" placeholder="Questions you want to return to…">${esc(S.state.notebook)}</textarea></label></article></div></section>`;
   ui.querySelector("#close-notebook").onclick = hud;
   ui.querySelector("#private-notes").oninput = (ev) => {
     S.state.notebook = ev.target.value;
@@ -867,6 +902,7 @@ function settings(fromTitle = false) {
   };
   ui.querySelector("#reduced-motion").onchange = (ev) => {
     S.state.reduced = ev.target.checked;
+    world.setReducedMotion(S.state.reduced);
     S.save();
   };
   ui.querySelector("#replay-intro")?.addEventListener("click", () => {

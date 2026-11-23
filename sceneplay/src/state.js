@@ -7,6 +7,7 @@ export const fresh = () => ({
   position: "landing",
   phoneRoute: "home",
   phoneThread: null,
+  phoneNote: null,
   phone: false,
   observations: [],
   visited: [],
@@ -53,12 +54,21 @@ export function clean(raw) {
       "outbox",
       "voice",
       "contacts",
+      "notes",
+      "note",
     ].includes(raw.phoneRoute)
   )
     s.phoneRoute = raw.phoneRoute;
-  if (["elena", "mara"].includes(raw.phoneThread))
+  if (["elena", "mara", "adrian"].includes(raw.phoneThread))
     s.phoneThread = raw.phoneThread;
   if (s.phoneRoute === "thread" && !s.phoneThread) s.phoneRoute = "messages";
+  if (
+    ["before-i-go", "message-unsent", "for-elena", "opening-words"].includes(
+      raw.phoneNote,
+    )
+  )
+    s.phoneNote = raw.phoneNote;
+  if (s.phoneRoute === "note" && !s.phoneNote) s.phoneRoute = "notes";
   s.observations = Array.isArray(raw.observations)
     ? [
         ...new Set(

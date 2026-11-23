@@ -5,6 +5,8 @@ root=Path(__file__).resolve().parents[2];src=root/'sceneplay'
 p=argparse.ArgumentParser();p.add_argument('--output',required=True);a=p.parse_args();out=Path(a.output).resolve()
 if out==root or root in out.parents:raise SystemExit('Build output must be outside the repository.')
 subprocess.run(['node',str(root/'tools/sceneplay/test_logic.mjs')],check=True)
+subprocess.run(['node',str(root/'tools/sceneplay/test_motion.mjs')],check=True)
+subprocess.run(['node',str(root/'tools/sceneplay/test_story_continuity.mjs')],check=True)
 subprocess.run(['node',str(root/'tools/sceneplay/test_media.mjs')],check=True)
 if not (src/'assets/films/arrival.mp4').exists():raise SystemExit('The original animated introduction has not been produced.')
 if out.exists():

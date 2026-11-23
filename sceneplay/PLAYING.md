@@ -10,6 +10,8 @@ Return to the officer when you have a comparison to explain. Optional hints are 
 
 The notebook is an optional carried tool, not the main navigation screen. Private notes and observations survive reload. **Pause** has sound, reduced motion, replay, export/import and a link to the preserved previous edition. Back up a save before clearing browser data or changing device. Saves do not synchronize between devices.
 
+The phone's **Notes** app contains retained drafts and recovered text; each original opens separately, and the last-opened note survives reload. **Voice notes** shows the recording's waveform and actual playback position. The introduction preserves its whole camera frame in portrait; rotating the phone provides a larger cinematic view. No save reset is needed for these changes.
+
 This is one complete opening section, not the complete rebuilt campaign. It ends at the next enquiry; you can return to the apartment and keep investigating. No several-hour duration has been independently measured. Physical iPhone performance and independent puzzle/narrative testing remain necessary.
 
 The previous casework edition remains at https://alexiai.github.io/the-last-archive/editions/casework-preview/ with its existing `lastarchive.casework.v1` save. The new section uses `lastarchive.sceneplay.v1`. Earlier production editions retain their original saves. No migration or reset is applied to them.

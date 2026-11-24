@@ -1,4 +1,4 @@
-name: Publish isolated casework preview
+name: Publish current game preview
 on:
   push:
     branches: [codex/casework-rebuild]
@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: 22
       - uses: actions/configure-pages@v5
-      - run: python3 tools/rebuild/build_preview.py --output "$RUNNER_TEMP/combined-preview"
+      - run: python3 tools/sceneplay/publish_preview.py --output "$RUNNER_TEMP/combined-preview"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ runner.temp }}/combined-preview

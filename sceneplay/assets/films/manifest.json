@@ -1,0 +1,33 @@
+{
+  "duration": 44,
+  "fps": 24,
+  "frames": 1056,
+  "distinctFrames": 1056,
+  "dimensions": [
+    1280,
+    720
+  ],
+  "production": "Original animated 3D cameras, character and door; shared live scene geometry",
+  "geometrySha256": "3b48f71527d14380c06c160826b62bf00a6e590f0064d931e92fd7e5c8ebff29",
+  "worldSourceSha256": "d3be4b43032b0d12a6c675a5a95dd748aabb2173e58250185f9092cb606c8b20",
+  "renderSources": [
+    {
+      "worldSha256": "d3be4b43032b0d12a6c675a5a95dd748aabb2173e58250185f9092cb606c8b20",
+      "firstFrame": 0,
+      "lastFrame": 1055
+    }
+  ],
+  "fileSha256": "f00f97050838364be940986fe5a9eef57a4f1aed03a8ea108cab369ac71734f5",
+  "bytes": 5238011,
+  "audio": "Original local score and English voiced dialogue",
+  "videoCodec": "h264",
+  "visualSources": {
+    "assets/audio/motion.json": "886e5779419dc27ea3157752ee74f7e9e9242f07517e494a626904f697fba63d",
+    "assets/models/apartment.glb": "3b48f71527d14380c06c160826b62bf00a6e590f0064d931e92fd7e5c8ebff29",
+    "src/officer.js": "a9820f927d67d3f6fe69cc4293cd902c743448113d6eb86ad3a25cf8b97b5743",
+    "src/world.js": "d3be4b43032b0d12a6c675a5a95dd748aabb2173e58250185f9092cb606c8b20",
+    "vendor/loaders/GLTFLoader.js": "6f1719dcc6a179d30273dfb0de07a8c898a7981f7b08e600b446387f5967371f",
+    "vendor/three.module.js": "f7cee3c7533449a1505cc12cb5128b89e3d4fd3d7ea62b05f9f5464a217472ee",
+    "vendor/utils/BufferGeometryUtils.js": "c25b7930e570e9ec56173cd3b866ec8d2e10016630db3937efb439daf1cedbf6"
+  }
+}

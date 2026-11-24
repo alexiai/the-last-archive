@@ -1,35 +1,46 @@
 # THE LAST ARCHIVE
 
-GitHub Pages deployment target: https://alexiai.github.io/the-last-archive/
-The deployment workflow verifies the actual published artifact before reporting success. The game is entirely static: browser play requires no Python, backend, account or runtime API. Python remains an optional local-preview server.
+The current scene-led psychological detective game: an original animated arrival, an explorable apartment, physical observations, a carried phone and an authored investigative puzzle. This repository contains this edition only. The opening section is playable; the remaining campaign is still in development.
 
+[Play the current preview](https://alexiai.github.io/the-last-archive/editions/sceneplay-preview/) · [Playing instructions](sceneplay/PLAYING.md) · [Validation and limits](docs/sceneplay/VALIDATION.md)
 
-A nine-chapter psychological investigation in English, built as a static game with HTML, CSS and JavaScript. The revised narrative and connected investigative fieldwork improvements are integrated on this review branch. Publication to main and GitHub Pages is now authorised; final narrative quality and independent playtime remain subject to player review.
+## Repository
 
-Run `python3 -m http.server 8765`, then open `http://localhost:8765/`. No runtime packages, account, generation model or paid API are required. The journal, source register, interviews, examinations, evidence board and notes share the existing production interface.
+- `sceneplay/` — game source, compiled offline runtime, finished assets and vendored Three.js licence.
+- `tools/sceneplay/` — current build, production and verification tools.
+- `docs/sceneplay/` — current production/provenance records, licences and private narrative authoring files. Private records are excluded from the playable build.
+- `.github/workflows/` — verification and preview publishing for this edition.
 
-Three editions remain playable. The original is at `editions/original/index.html` (`lastarchive.v2`); the approved Phase 1 build is frozen at `editions/phase1/index.html` (`lastarchive.revised.v1`). The active fieldwork build uses `lastarchive.fieldwork.v1`. An explicit continuation control copies compatible Phase 1 progress without overwriting its source. Already-completed investigations remain credited. Each edition has an explicit offline download within its own scope.
+Earlier editions, duplicated assets and their obsolete tooling have been removed from this branch. Git history retains the earlier commits. No history rewrite or save reset is required.
 
-For a downloadable local-play build, run `python3 tools/package_playable.py`. Extract the resulting ZIP, then run `python3 START_GAME.py` (Windows: `START_WINDOWS.bat`). Free Python 3 is the only launcher requirement; the game has no runtime packages. Keep the launcher open and use the same browser address/port for existing local saves.
+## Develop
 
-For development, use Node 22+, `npm ci`, an installed Chromium/Chrome and FFmpeg/Poppler (`pdftotext`). `CHROMIUM_PATH` overrides `/usr/bin/chromium`.
+Use Node.js 22.12 or newer, Python 3 and a local Chromium/Chrome installation for browser verification. Dependencies are development tools; playing requires no account, runtime AI or paid service.
 
+```sh
+npm ci
+npm run dev
 ```
+
+Open `http://127.0.0.1:8098/sceneplay/`. After editing runtime source, regenerate the committed browser bundle:
+
+```sh
+npm run bundle
 npm test
-npm run test:browser
-npm run test:production
-npm run audit:assets
 npm run build
 ```
 
-The allowlisted build includes the active edition and both preserved previous editions. It excludes tests, private narrative plans, model weights and WAV masters. `edition.js` contains revised runtime narrative data; `edition_ui.js` integrates its journal, source navigation and decisions. The working engine, archive presentation, audio mixer, static assets and local production tools are reused.
+The standalone offline build is written to `../the-last-archive-build`, outside this repository. Serve that directory over HTTP and run the browser checks:
 
-Read [the spoiler-free Phase 1 report](docs/narrative-review/PHASE1_REPORT.md) for verified results, remaining gaps and the blind-playtesting plan. Do not infer playtime, acting quality or physical iPhone compatibility from automated checks.
+```sh
+python3 -m http.server 8099 --bind 127.0.0.1 --directory ../the-last-archive-build
+SCENEPLAY_URL=http://127.0.0.1:8099/ CHROMIUM_PATH=/usr/bin/chromium npm run test:browser
+```
 
-Read [the spoiler-free fieldwork delivery report](docs/narrative-review/FIELDWORK_DELIVERY.md) for the playable scope, verification and local launch instructions. Private development documentation may contain spoilers; play from the allowlisted package.
+See [production instructions](tools/sceneplay/README.md) before changing the shared world, film, photographs or voices. Finished media is committed; frame captures, audio masters and voice weights are not shipped.
 
-The current review adds a connected source follow-up, a two-original comparison desk, a player-built chronology, retained message observations and useful phone search/navigation. Personal theories support groups, pinned accounts, competing copies and editable supporting/challenging/context roles. Existing fieldwork saves remain compatible. See [the spoiler-free continuation delivery](docs/narrative-review/CONTINUATION_DELIVERY.md).
+## Publishing
 
-When updating an earlier local download, close its launcher first, start the new folder at the same address, then use Sound / offline → Download this playable edition and reload if the older cached interface remains. The new settings identify FIELDWORK REVIEW 5. Do not clear browser storage to update.
+Development remains on `codex/casework-rebuild`; it is not merged into `main`. The existing approved publisher keeps stable production intact and serves this edition at `/preview/` and `/editions/sceneplay-preview/`. Both use the existing scene-led save key. Its fixed workflow filename and tiny `tools/rebuild/build_preview.py` entrypoint are retained solely for that publishing contract; neither contains an old game.
 
-The latest build expands the architectural-plan and CCTV timing examinations, preserves all nine chapters and decisions, and adds differentiated original record designs. Pages serves only the allowlisted runtime build; private development notes and tests are excluded.
+The preview publisher reads the stable production snapshot from Git into a temporary directory. Old production source/assets are not duplicated in this branch. [Publishing details](docs/sceneplay/DEPLOYMENT.md).

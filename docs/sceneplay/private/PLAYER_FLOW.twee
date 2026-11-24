@@ -1,0 +1,104 @@
+:: StoryTitle
+THE LAST ARCHIVE — private scene authoring map
+
+:: StoryData
+{"ifid":"6DC79188-78EF-47D5-9F25-1B3453B78E34","format":"SugarCube","format-version":"2.37.3","start":"Authoring Start"}
+
+:: StoryInit
+<<set $roomViews = false>>
+<<set $queuedDetails = false>>
+<<set $captureFields = false>>
+
+:: Authoring Start [private authoring-only]
+PRIVATE. A source/dependency map for the author, not a playable build or a claim of campaign completeness. Import into the free Twine editor as SugarCube. The browser game retains its own tested state implementation.
+
+[[Arrival and assignment->Arrival]]
+
+:: Arrival [implemented]
+19 October, 09:24. Detective Dima arrives; Petrescu preserves the room and supplies known assignment facts. Film, live scene and photographs share the same room.
+
+[[Enter the room->Room]]
+
+:: Room [implemented]
+Observe physical originals. In the actual game each observation must be retained through its own inspection; this authoring link represents that dependency, not a replacement puzzle.
+
+[[Record room observations->Room Views]]
+[[Use authorised phone copy->Phone]]
+
+:: Room Views [implemented]
+<<set $roomViews = true>>
+Current shelf and sofa views are retained separately.
+
+[[Continue in room->Room]]
+[[Reopen phone->Phone]]
+
+:: Phone [implemented]
+Ordinary relationships, draft/recovered notes, earlier gallery images and an unsent original. Notes and incomplete messages do not grant a conclusion.
+
+[[Inspect queued original->Queued Views]]
+[[Inspect independent capture fields->Capture Fields]]
+[[Explain the comparison to Petrescu->First Finding]]
+[[Look around again->Room]]
+
+:: Queued Views [implemented]
+<<set $queuedDetails = true>>
+The queued original retains its own physical contents. Each detail is separately inspectable in the actual game.
+
+[[Return to phone->Phone]]
+
+:: Capture Fields [implemented]
+<<set $captureFields = true>>
+Creation/capture and queue/delivery are distinct. A field is retained, not silently interpreted.
+
+[[Return to phone->Phone]]
+
+:: First Finding [implemented]
+<<if $roomViews && $queuedDetails && $captureFields>>
+The source dependencies are present. The actual game's authored dialogue still requires a supported comparison and rejects overclaims.
+
+[[Next enquiry and section boundary->Journey]]
+<<else>>
+Missing independent source observations; no finding is granted.
+
+[[Return to originals->Room]]
+<</if>>
+
+:: Journey [planned]
+Scene 2 contract: humane first contact and independent travel/receiving fields reconstruct the late journey. No later recording is released just because a phone screen opened. This scene is not implemented in the new edition.
+
+[[Physical visit to Aurelia->Aurelia]]
+
+:: Aurelia [planned]
+Scene 3 contract: actual recorder, retained exports, calibrated clock and receiving originals. Anonymous crossing and field limits remain separate from identification. Lawful delivery resolves Luca's work gap.
+
+[[Archive enquiry->Archive]]
+
+:: Archive [planned]
+Scene 4 contract: Mara's working place, private permission, public use and independently retained duplicate complicate the emotional account. Earlier incomplete phone lines acquire context.
+
+[[Request older source index->Workshop]]
+
+:: Workshop [planned]
+Scene 5 contract: real slate, catalogue and case controls at a radio bench recover W-12's older source. Targeted follow-up separately releases later phone originals and provider retry fields.
+
+[[Test accounts in their own places->Accounts]]
+
+:: Accounts [planned]
+Scene 6 contract: source-supported conversations, bounded innocent omissions and actual residential coverage. A possible route is not a witnessed journey.
+
+[[Return with recovered originals->Return Room]]
+
+:: Return Room [planned]
+Scene 7 contract: original object, label layering, clinical wording, reassurance and positive custody sources. Reject exact-time, speaker-identification and contact-dating overclaims. The matrix records all prerequisites.
+
+[[Prepare consequential assertions->Preparation]]
+
+:: Preparation [planned]
+Scene 8 contract: supported assertions, reasonable alternative fact access and explained private/public handling choices. The late personal original recontextualizes ordinary early material.
+
+[[Confrontation and aftermath->Closure]]
+
+:: Closure [planned]
+Scene 9 contract: factual closure does not require a confession or publication of private grief. Time for reactions and a final voluntary action is part of the scene.
+
+[[Review the complete authoring route->Authoring Start]]

@@ -1,0 +1,37 @@
+name: Verify current game
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sceneplay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CHROMIUM_PATH: /usr/bin/google-chrome
+      SCENEPLAY_URL: http://127.0.0.1:8093/
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify the committed runtime matches the current source
+        run: |
+          node tools/sceneplay/bundle.mjs "$RUNNER_TEMP/compiled-game.js"
+          cmp sceneplay/game.js "$RUNNER_TEMP/compiled-game.js"
+      - run: npm test
+      - name: Build only the current edition
+        run: python3 tools/sceneplay/build.py --output "$RUNNER_TEMP/sceneplay-build"
+      - name: Test rendered gameplay, mobile input and offline delivery
+        run: |
+          python3 -m http.server 8093 --bind 127.0.0.1 --directory "$RUNNER_TEMP/sceneplay-build" > "$RUNNER_TEMP/sceneplay-server.log" 2>&1 &
+          npm run test:browser
+      - name: Verify preview publishing preserves production and saved progress
+        run: |
+          python3 tools/sceneplay/publish_preview.py --output "$RUNNER_TEMP/combined-preview"
+          COMBINED_BUILD="$RUNNER_TEMP/combined-preview" node tools/sceneplay/test_isolation.cjs

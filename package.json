@@ -2,21 +2,19 @@
   "name": "the-last-archive",
   "version": "2.0.0",
   "private": true,
-  "description": "Static narrative investigation game. Dependencies are for development tests only.",
+  "type": "module",
+  "description": "THE LAST ARCHIVE: current scene-led psychological detective game. Development dependencies only.",
   "scripts": {
-    "test": "node tools/test_legacy.cjs && node tools/test_revised.cjs && node tools/test_phase1.cjs && node tools/test_fieldwork.cjs && node tools/test_trail.cjs && node tools/test_phone_sources.cjs && node tools/test_spatial.cjs",
-    "audit:assets": "node audit_assets.js",
-    "build": "python3 tools/build_site.py",
-    "test:browser": "node tools/test_revised_browser.cjs && node tools/test_phase1_browser.cjs && node tools/test_fieldwork_browser.cjs && node tools/test_trail_browser.cjs && node tools/test_spatial_browser.cjs",
-    "test:production": "node tools/test_revised_delivery.cjs",
-    "test:legacy": "node tools/test_legacy.cjs",
-    "test:webkit": "node tools/test_webkit_optional.cjs",
-    "package:playable": "python3 tools/package_playable.py",
-    "test:upgrade": "node tools/test_upgrade_optional.cjs",
-    "test:live": "node tools/test_pages_live.cjs"
+    "dev": "python3 -m http.server 8098 --bind 127.0.0.1",
+    "bundle": "node tools/sceneplay/bundle.mjs sceneplay/game.js",
+    "test": "node tools/sceneplay/test_repository.mjs && node tools/sceneplay/test_logic.mjs && node tools/sceneplay/test_motion.mjs && node tools/sceneplay/test_story_continuity.mjs && node tools/sceneplay/test_media.mjs",
+    "build": "python3 tools/sceneplay/build.py --output ../the-last-archive-build",
+    "build:preview": "python3 tools/sceneplay/publish_preview.py --output ../the-last-archive-preview",
+    "test:browser": "node tools/sceneplay/test_browser.cjs && node tools/sceneplay/test_touch.cjs && node tools/sceneplay/test_controller.cjs && node tools/sceneplay/test_polish.cjs && node tools/sceneplay/test_delivery.cjs",
+    "test:isolation": "node tools/sceneplay/test_isolation.cjs"
   },
   "devDependencies": {
-    "jsdom": "^31.0.1",
-    "puppeteer-core": "^25.17.0"
+    "esbuild": "0.25.12",
+    "puppeteer-core": "25.17.0"
   }
 }

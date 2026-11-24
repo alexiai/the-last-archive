@@ -1,4 +1,4 @@
-/* Exercise the actual earlier production worker against the combined artifact. */
+/* Exercise the installed production worker and the current game's two aliases. */
 const fs = require("node:fs"),
   path = require("node:path"),
   http = require("node:http"),
@@ -12,7 +12,29 @@ const fs = require("node:fs"),
       encoding: "utf8",
     }),
     next = fs.readFileSync(path.join(build, "sw.js"), "utf8"),
-    stable = fs.readFileSync(path.join(build, "index.html"), "utf8");
+    stable = fs.readFileSync(path.join(build, "index.html"), "utf8"),
+    provenance = JSON.parse(
+      fs.readFileSync(path.join(build, "preview-provenance.json"), "utf8"),
+    );
+  assert.equal(provenance.currentOnlySource, true);
+  assert.deepEqual(provenance.previewPaths, [
+    "preview/",
+    "editions/sceneplay-preview/",
+  ]);
+  assert.equal(provenance.preservedCaseworkPath, undefined);
+  assert.equal(
+    fs.existsSync(path.join(build, "editions/casework-preview")),
+    false,
+    "the obsolete development edition is not rebuilt or published",
+  );
+  assert.equal(
+    fs.readFileSync(path.join(build, "preview/offline-manifest.json"), "utf8"),
+    fs.readFileSync(
+      path.join(build, "editions/sceneplay-preview/offline-manifest.json"),
+      "utf8",
+    ),
+    "both aliases contain the same current build",
+  );
   let upgraded = false;
   const types = {
     ".html": "text/html",
@@ -87,6 +109,7 @@ const fs = require("node:fs"),
         ),
       );
       localStorage.setItem("lastarchive.fieldwork.v1", "production-save-kept");
+      localStorage.setItem("lastarchive.casework.v1", "historical-save-kept");
     }, stable);
     await p.waitForFunction(() => navigator.serviceWorker.controller);
     let block = true;
@@ -100,25 +123,18 @@ const fs = require("node:fs"),
       "old root-worker navigation conflict reproduced",
     );
     block = false;
-    await p.goto(base + "/editions/casework-preview/");
-    await p.waitForSelector("#begin");
-    await p.click("#begin");
-    for (let i = 0; i < 3; i++) await p.click("#continue");
-    const olderSave = await p.evaluate(() =>
-      localStorage.getItem("lastarchive.casework.v1"),
-    );
-    assert.ok(await p.$("#casebook"));
     await p.goto(base + "/editions/sceneplay-preview/");
     await p.waitForSelector("#new-game", { timeout: 90000 });
     await p.click("#new-game");
     await p.click("#skip-intro");
     await p.click('[data-dialogue-choice="0"]');
+    await p.waitForSelector("#pause");
     const sceneSave = await p.evaluate(() =>
       localStorage.getItem("lastarchive.sceneplay.v1"),
     );
     assert.equal(
       await p.evaluate(() => localStorage.getItem("lastarchive.casework.v1")),
-      olderSave,
+      "historical-save-kept",
     );
     upgraded = true;
     await p.evaluate(async () => {
@@ -142,7 +158,7 @@ const fs = require("node:fs"),
     );
     assert.equal(
       await p.evaluate(() => localStorage.getItem("lastarchive.casework.v1")),
-      olderSave,
+      "historical-save-kept",
     );
     assert.equal(
       await p.evaluate(() => localStorage.getItem("lastarchive.fieldwork.v1")),
@@ -152,8 +168,17 @@ const fs = require("node:fs"),
       await p.evaluate(async () => await (await fetch("/index.html")).text()),
       stable,
     );
+    await p.click("#resume-game");
+    await p.waitForSelector("#pause");
+    await p.goto(base + "/editions/sceneplay-preview/");
+    await p.waitForSelector("#resume-game", { timeout: 90000 });
+    assert.equal(
+      await p.evaluate(() => localStorage.getItem("lastarchive.sceneplay.v1")),
+      sceneSave,
+      "the current save is shared in both directions between preview aliases",
+    );
     console.log(
-      "Production worker/fallback, preserved root and casework edition/save, and separate shared scene-led save verified.",
+      "Stable production worker/fallback, current-only preview aliases and shared current save verified; historical save keys remain untouched.",
     );
   } finally {
     await b.close();

@@ -1,5 +1,7 @@
-# Scene-led development edition
+# Current playable edition
 
-An in-world opening section for THE LAST ARCHIVE. Source, scene, sound and authored findings are separate modules. The previous casework folder and all its save keys remain intact.
+This folder contains the current scene-led opening for THE LAST ARCHIVE: runtime source, compiled `game.js`, original media and the locally vendored Three.js runtime. Other editions are not dependencies.
 
-The offline runtime is committed as game.js and indexed by game-build.json. Regenerate it with tools/sceneplay/bundle.mjs using the existing free esbuild development tool, then run the source/media/browser/delivery checks. The publisher checks source and runtime hashes before composing the isolated preview. See PLAYING.md and docs/sceneplay/VALIDATION.md for owner-safe instructions and limitations. Private full-campaign staging remains outside the build.
+Develop and verify from the repository root using [README.md](../README.md). The committed `game-build.json` indexes the exact sources and bundle; `npm run bundle` regenerates both. Do not edit the compiled bundle manually.
+
+See [PLAYING.md](PLAYING.md), [asset licences](ASSET-LICENSES.md), [production instructions](../tools/sceneplay/README.md) and [current validation](../docs/sceneplay/VALIDATION.md). Private authoring records are excluded from the playable build.

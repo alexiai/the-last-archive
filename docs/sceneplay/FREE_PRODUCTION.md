@@ -1,9 +1,9 @@
-# Production and account constraints
+# Free production constraints
 
-This pass uses local rendering, original procedural geometry and textures, existing finished speech, and the project's vendored MIT Three.js runtime. Blender, FFmpeg and the existing local Kokoro production setup require no paid generation service. The game contains no generation API key or paid runtime dependency. Hosting remains the existing GitHub Pages preview.
+Use local rendering, original procedural geometry/textures, finished local speech and the vendored MIT Three.js runtime. Blender, FFmpeg and Kokoro are offline production tools; model weights, render frames and WAV masters stay outside the repository and playable build. The game contains no generation API key, paid runtime dependency or remote media CDN.
 
-The connected Canva workspace was inspected for the existing project. Creative Claw account/model discovery and a quote were read; no generation was submitted, no credits were bought and no plan was upgraded. A credit quote is not treated as proof that a generation is covered by a free plan. During the controller pass, Creative Claw's account and existing project assets were checked again; no reusable project asset was returned. Runway authentication now succeeds and its project list is empty. No Runway project, generation or integration was created. No new hosting project or account was required.
+Use only free plans and resources. Do not buy credits, upgrade a plan or submit charged generations. An account credit balance or generation quote alone does not prove a free entitlement. Reuse existing compatible assets or the local production pipeline when cost is not established.
 
-The private evidence matrix, character vault and continuity journal remain repository authoring records. The accompanying `.twee` file is a free Twine/SugarCube authoring graph. It labels later scenes as planned and introduces no runtime service. The clinical material in those records is a later-scene writing contract, not a claim that autopsy gameplay has shipped.
+Hosting uses the existing GitHub Pages preview. No new account, project or hosting resource is required. The exact runtime, media and licences needed by this edition are kept with its build/source records. See [provenance](PROVENANCE.md).
 
-The existing opening save, original-source requirements and earlier editions are preserved. Reading the added personal messages or notes does not automatically establish an investigative finding.
+Current narrative authoring records and the free Twine/SugarCube graph stay outside the playable bundle. Planned scenes and clinical writing contracts are not claims of shipped chapters. The existing opening save and original-source requirements remain intact.

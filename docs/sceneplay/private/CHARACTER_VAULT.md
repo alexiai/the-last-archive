@@ -1,6 +1,6 @@
 # PRIVATE — character and knowledge vault
 
-Authoring material. Do not include in a playable build or quote in owner-facing progress. Fixed events remain those in `docs/rebuild/private/FOUNDATION.md`; the entries below describe delivery and motivation, not additional crimes or alibis.
+Authoring material. Do not include in a playable build or quote in owner-facing progress. Fixed events remain those in `docs/sceneplay/private/CASE_FOUNDATION.md`; the entries below describe delivery and motivation, not additional crimes or alibis.
 
 | Character | What they want in the scene | What makes the conversation difficult | Voice and behaviour | Knowledge boundary | Fair resolution |
 | --- | --- | --- | --- | --- | --- |

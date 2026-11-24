@@ -1,9 +1,7 @@
 node_modules/
 dist/
+.playable/
 *.log
 .DS_Store
-
-.legacy-check-*/
-.playable/
-THE_LAST_ARCHIVE_PLAYABLE.zip
 __pycache__/
+*.pyc

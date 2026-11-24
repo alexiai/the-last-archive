@@ -1,11 +1,11 @@
-"""Free local voices for the scene-led edition; the existing edition is untouched."""
+"""Free local voices for the current scene-led edition."""
 import os
 os.environ['OMP_NUM_THREADS']='4';os.environ['ORT_DISABLE_TELEMETRY']='1'
 from pathlib import Path
 import json,hashlib,subprocess,numpy as np,soundfile as sf
 from kokoro_onnx import Kokoro
-root=Path(__file__).resolve().parents[2];out=root/'sceneplay/assets/audio';masters=Path('/workspace/work/sceneplay-masters');masters.mkdir(exist_ok=True);out.mkdir(parents=True,exist_ok=True)
-model=Kokoro('/workspace/work/kokoro-models/kokoro-v1.0.onnx','/workspace/work/kokoro-models/voices-v1.0.bin');jobs=json.loads(Path(__file__).with_name('audio-jobs.json').read_text());manifest={}
+root=Path(__file__).resolve().parents[2];out=root/'sceneplay/assets/audio';masters=Path(os.environ.get('LAST_ARCHIVE_MASTERS','/workspace/work/sceneplay-masters'));masters.mkdir(parents=True,exist_ok=True);out.mkdir(parents=True,exist_ok=True)
+model=Kokoro(os.environ.get('KOKORO_MODEL','/workspace/work/kokoro-models/kokoro-v1.0.onnx'),os.environ.get('KOKORO_VOICES','/workspace/work/kokoro-models/voices-v1.0.bin'));jobs=json.loads(Path(__file__).with_name('audio-jobs.json').read_text());manifest={}
 old=json.loads((out/'manifest.json').read_text()) if (out/'manifest.json').exists() else {}
 for j in jobs:
  digest=hashlib.sha256(json.dumps(j,sort_keys=True).encode()).hexdigest();file=out/(j['id']+'.mp3')

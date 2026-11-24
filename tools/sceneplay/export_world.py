@@ -1,7 +1,7 @@
 """One canonical apartment for realtime play, cinematic cameras and source photographs."""
 from pathlib import Path
-source=Path(__file__).parents[1]/'rebuild/render_world.py'
-exec(compile(source.read_text().split('regions={};points=')[0],str(source),'exec'))
+source=Path(__file__).with_name('apartment_source.py')
+exec(compile(source.read_text(),str(source),'exec'))
 sofa.location=(1.7,.8,0);sofa.rotation_euler.z=-math.pi/2
 # Both states are included; the game selects scene/current vs photographed/past.
 for o in bookend:o.hide_render=False

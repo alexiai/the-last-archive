@@ -1,6 +1,6 @@
 # Scene-led development opening — spoiler-free status
 
-The new edition replaces the investigation-hub entry with an animated arrival, an embodied supporting character and a real-time explorable room. It does not claim that the entire campaign has been rebuilt. The first section has a completed authored investigation and a transition to the next enquiry. The earlier full casework edition remains separately playable, with its save namespace intact.
+The new edition replaces the investigation-hub entry with an animated arrival, an embodied supporting character and a real-time explorable room. It does not claim that the entire campaign has been rebuilt. The first section has a completed authored investigation and a transition to the next enquiry.
 
 ## Implemented
 
@@ -30,10 +30,10 @@ Additional presentation checks cover full-frame portrait cinema, readable captio
 
 Controller verification uses native held touch input, simultaneous look/walk, wall and low-table collisions, input lifecycle stops, tool return, reload, keyboard focus changes and guided navigation. Timing is measured within the page between delivered input events, separately from browser-automation round trips. A new guided walk starts immediately rather than inheriting time spent in the navigation menu; an already active walk still resumes correctly after a pause. Progress interpolation is bounded so a future start time cannot move the camera backward. Software-rendered browser frame diagnostics are development measurements and do not certify physical iPhone performance.
 
-A composed-preview isolation check exercises the actual earlier production worker and fallback path, the preserved casework edition/save and the new edition’s separate save. The publisher asserts stable production files remain byte-identical except the already-established preview worker exclusion and its integrity metadata.
+A composed-preview isolation check exercises the stable production worker and fallback path, both current preview aliases and independent save keys. The publisher reads the stable main snapshot from Git into a temporary directory and asserts production files remain byte-identical except the established preview worker exclusion and its integrity metadata. Only the current edition is built from this branch; legacy runtime copies are absent.
 
 These are authored-solution and technical checks. They do not establish blind puzzle fairness, emotional impact, first-time completion duration, screen-reader usability or physical iPhone Safari performance. No several-hour playtime target is claimed. The character art is an initial original stylized implementation; broader art, performance and the remaining scene-led campaign are unfinished.
 
 ## Delivery
 
-All production is local/free. Three.js is vendored under MIT; the deployed runtime is precompiled and integrity-checked so the publisher needs no additional service or browser import map. Only the game, local assets and licence files ship. Blender sources, capture frames, voice models, private narrative staging, tests and development tooling do not ship. The new save and cache namespaces are separate from the previous editions.
+All production is local/free. Three.js is vendored under MIT; the deployed runtime is precompiled and integrity-checked so the publisher needs no additional service or browser import map. Only the game, local assets and licence files ship. Blender sources, capture frames, voice models, private narrative staging, tests and development tooling do not ship. The save and cache namespaces remain stable for this edition. Unrelated browser saves are not removed.

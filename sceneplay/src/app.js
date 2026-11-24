@@ -6,12 +6,6 @@ import { waveformMarkup, clockText, bindRecording } from "./recording.js";
 import { bindWalkControls } from "./controls.js";
 const ui = document.querySelector("#ui"),
   canvas = document.querySelector("#world");
-const previousEdition = new URL(
-  location.pathname.includes("/editions/")
-    ? "../casework-preview/"
-    : "../editions/casework-preview/",
-  location.href,
-).href;
 let inspectionToken = 0;
 let recordingDispose = null;
 let walkDispose = null;
@@ -124,7 +118,7 @@ async function boot() {
   } catch (error) {
     console.error(error);
     setMode("error");
-    ui.innerHTML = `<section class="loading"><h1>THE LAST ARCHIVE</h1><p>The 3D scene could not open.</p><p>This section needs WebGL 2 and its local scene assets. Your existing saves have not been changed.</p>${button("Try again", 'id="retry"')}<a href="${esc(previousEdition)}">Open the preserved previous edition</a></section>`;
+    ui.innerHTML = `<section class="loading"><h1>THE LAST ARCHIVE</h1><p>The 3D scene could not open.</p><p>This section needs WebGL 2 and its local scene assets. Your existing saves have not been changed.</p>${button("Try again", 'id="retry"')}</section>`;
     document.querySelector("#retry").onclick = () => location.reload();
   }
 }
@@ -917,7 +911,7 @@ function deduction(stage = 0) {
 function sectionEnd() {
   setMode("section-end");
   A.hush();
-  ui.innerHTML = `<section class="prologue-end"><small>THE ROOM LEFT BEHIND / FIRST SECTION COMPLETE</small><h1>Outside, the rain has stopped.</h1><p>The search request is specific now. There is a next place to go, and a reason to go there.</p><p>This scene-led development section ends here. The Aurelia visit and the remaining campaign are being rebuilt to follow this format. Your progress is saved; the previous full casework edition remains separate.</p>${button("Return to the apartment", 'id="return-room"')}${button("Save and return to title", 'id="return-title"')}</section>`;
+  ui.innerHTML = `<section class="prologue-end"><small>THE ROOM LEFT BEHIND / FIRST SECTION COMPLETE</small><h1>Outside, the rain has stopped.</h1><p>The search request is specific now. There is a next place to go, and a reason to go there.</p><p>This scene-led development section ends here. The Aurelia visit and the remaining campaign are being rebuilt to follow this format. Your progress is saved.</p>${button("Return to the apartment", 'id="return-room"')}${button("Save and return to title", 'id="return-title"')}</section>`;
   ui.querySelector("#return-room").onclick = () => go("room");
   ui.querySelector("#return-title").onclick = () => {
     S.save();
@@ -927,7 +921,7 @@ function sectionEnd() {
 function settings(fromTitle = false) {
   setMode("settings");
   A.stopVoice();
-  ui.innerHTML = `<section class="panel"><div class="content">${button("Return", 'class="close" id="close-settings"')}<h1>Pause</h1><p>The scene-led opening is in development. Earlier editions and saves remain separate.</p><label><input id="sound-enabled" type="checkbox" ${S.state.sound ? "checked" : ""}>Music, room ambience and voices</label><label><input id="reduced-motion" type="checkbox" ${S.state.reduced ? "checked" : ""}>Reduced motion during movement</label>${S.state.started ? button("Replay introduction", 'id="replay-intro"') : ""}${button("Download save backup", 'id="export-save"')}<label>Restore this edition’s backup <input type="file" id="import-save" accept="application/json"></label>${button("Return to title", 'id="pause-title"')}<p class="hint-quiet">Hold the lower-left arrows to walk. Drag the room with another finger to look while moving. Release an arrow to stop. On desktop, WASD walks and arrow keys look. Tap objects to inspect; pinch photographs for detail. Move provides optional guided navigation.</p><p><a href="${esc(previousEdition)}">Preserved previous casework edition</a></p><p id="save-feedback" role="status"></p></div></section>`;
+  ui.innerHTML = `<section class="panel"><div class="content">${button("Return", 'class="close" id="close-settings"')}<h1>Pause</h1><p>The opening section is in development. Progress is saved on this device.</p><label><input id="sound-enabled" type="checkbox" ${S.state.sound ? "checked" : ""}>Music, room ambience and voices</label><label><input id="reduced-motion" type="checkbox" ${S.state.reduced ? "checked" : ""}>Reduced motion during movement</label>${S.state.started ? button("Replay introduction", 'id="replay-intro"') : ""}${button("Download save backup", 'id="export-save"')}<label>Restore this edition’s backup <input type="file" id="import-save" accept="application/json"></label>${button("Return to title", 'id="pause-title"')}<p class="hint-quiet">Hold the lower-left arrows to walk. Drag the room with another finger to look while moving. Release an arrow to stop. On desktop, WASD walks and arrow keys look. Tap objects to inspect; pinch photographs for detail. Move provides optional guided navigation.</p><p id="save-feedback" role="status"></p></div></section>`;
   ui.querySelector("#close-settings").onclick = fromTitle ? title : hud;
   ui.querySelector("#sound-enabled").onchange = (ev) => {
     S.state.sound = ev.target.checked;

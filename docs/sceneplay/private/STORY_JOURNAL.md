@@ -22,7 +22,7 @@ The additional prose does not grant an observation, complete the finding, unlock
 
 ## Clinical contradiction contract for the later scene
 
-This is a staging contract for scene 7, not a claim that an autopsy section is implemented. Its factual anchor is the existing retained `clinical` source in `casework/src/content.js` and the fixed release chain. An examination cannot become a new menu of arbitrary body-part clicks merely to satisfy a feature list.
+This is a staging contract for scene 7, not a claim that an autopsy section is implemented. Its factual anchor is the existing retained `clinical` source in `CASE_FOUNDATION.md` (Retained later source wording) and the fixed release chain. An examination cannot become a new menu of arbitrary body-part clicks merely to satisfy a feature list.
 
 | Original finding or source | Supported reading | Tempting overclaim to reject | Necessary comparison |
 | --- | --- | --- | --- |

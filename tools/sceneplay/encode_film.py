@@ -1,6 +1,6 @@
 """Encode genuine animated 3D frames and locally produced original audio."""
 from pathlib import Path
-import argparse,json,hashlib,math,subprocess,wave,struct
+import argparse,json,hashlib,math,subprocess,wave,struct,os
 import numpy as np,soundfile as sf
 root=Path(__file__).resolve().parents[2];p=argparse.ArgumentParser();p.add_argument('--frames',default='/workspace/work/sceneplay-final-frames');a=p.parse_args();frames=Path(a.frames);out=root/'sceneplay/assets/films';out.mkdir(parents=True,exist_ok=True)
 count=44*24
@@ -33,11 +33,11 @@ score+=.012*np.exp(-((t%3.2)/.2)**2)*np.sin(2*np.pi*46*t)
 score+=.022*np.sin(2*np.pi*(90*t+2*np.sin(t*2)))*np.exp(-((t-15)/1.8)**2)
 score*=np.minimum(np.minimum(t/2,(length-t)/2),1)
 audio=np.stack([score+low*.01,score-low*.01],axis=1)
-manifest=json.loads((root/'sceneplay/assets/audio/manifest.json').read_text());starts=[3,15,25,31]
+masters=Path(os.environ.get('LAST_ARCHIVE_MASTERS','/workspace/work/sceneplay-masters'));manifest=json.loads((root/'sceneplay/assets/audio/manifest.json').read_text());starts=[3,15,25,31]
 for i,start in enumerate(starts):
- voice,rate=sf.read('/workspace/work/sceneplay-masters/intro-'+str(i)+'.wav');assert rate==sr
+ voice,rate=sf.read(masters/('intro-'+str(i)+'.wav'));assert rate==sr
  offset=round(start*sr);size=min(len(voice),len(audio)-offset);audio[offset:offset+size]+=(voice[:size]*.89)[:,None]
-audio*=.95/max(1,float(np.abs(audio).max()));master=Path('/workspace/work/sceneplay-masters/arrival-mix.wav');sf.write(master,audio,sr)
+audio*=.95/max(1,float(np.abs(audio).max()));master=masters/'arrival-mix.wav';sf.write(master,audio,sr)
 subprocess.run(['ffmpeg','-v','error','-y','-framerate','24','-i',str(frames/'frame-%05d.jpg'),'-i',str(master),'-c:v','libx264','-threads','4','-preset','slow','-crf','22','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart','-t','44',str(out/'arrival.mp4')],check=True)
 # Poster is an original rendered frame, not a replacement for the animation.
 import shutil

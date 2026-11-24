@@ -2,7 +2,7 @@
   "compiler": "esbuild 0.25.12",
   "target": "Safari 15.4 / Chrome 110",
   "sources": {
-    "src/app.js": "430dac369c88ac2f298994e034bb8467d68caa4322e30f2910949d6e58ed86a9",
+    "src/app.js": "7ef380e53a482baf0579b214d4992a472a8b4c01d8456e13c4411c3f22fc046b",
     "src/controls.js": "3f282115be3f356f860aa8b419428cbbb937f3c4d51d5d850d9d34fe0a13c8ab",
     "src/officer.js": "a9820f927d67d3f6fe69cc4293cd902c743448113d6eb86ad3a25cf8b97b5743",
     "src/recording.js": "a2f793d31c12c3d7f559eb78a6e886eaa5b51f664676a5d871e00ba10e6514dd",
@@ -14,5 +14,5 @@
     "vendor/three.module.js": "f7cee3c7533449a1505cc12cb5128b89e3d4fd3d7ea62b05f9f5464a217472ee",
     "vendor/utils/BufferGeometryUtils.js": "c25b7930e570e9ec56173cd3b866ec8d2e10016630db3937efb439daf1cedbf6"
   },
-  "bundleSha256": "27e0d22ee2a0267eb1fb123c0c4d7bc39108fe34143508c2334f8b77568b741f"
+  "bundleSha256": "2952921abdae457c2729e6a67626ccb506714de982e30fdd510cc6719c2cbf85"
 }
